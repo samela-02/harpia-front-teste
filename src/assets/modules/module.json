@@ -1,0 +1,76 @@
+[
+  {
+    "name": "Aplicações",
+    "label": "Aplicações",
+    "enabled": true,
+    "routerLink": "/aplicacoes",
+    "features": [
+      {
+        "label": "Dashboard",
+        "icon": "la la-icons",
+        "routerLink": "/inicio",
+        "enabled": true
+      },
+      {
+        "label": "Usuários",
+        "icon": "la la-user-friends",
+        "routerLink": "/users",
+        "enabled": true
+      }
+    ]
+  },
+  {
+    "name": "Gerenciamento",
+    "label": "Gerenciamento",
+    "enabled": true,
+    "routerLink": "/gerenciamento",
+    "features": [
+      {
+        "label": "Alertas",
+        "icon": "la la-exclamation-triangle",
+        "routerLink": "/alertas",
+        "enabled": true
+      },
+      {
+        "label": "Instituições",
+        "icon": "las la-industry",
+        "routerLink": "/instituicoes",
+        "enabled": true
+      },
+      {
+        "label": "Usuários",
+        "icon": "la la-user-friends",
+        "routerLink": "/users",
+        "enabled": true
+      }
+    ]
+  },
+  {
+    "name": "Configurações",
+    "label": "Configurações",
+    "enabled": true,
+    "routerLink": "/configuracoes",
+    "features": [
+      {
+        "id": "idConfigurações",
+        "label": "Configurações",
+        "icon": "la la-cog",
+        "enabled": true,
+        "children": [
+          {
+            "id": "idConfiguracoesPerfil",
+            "routerLink": "/settings/profile",
+            "label": "Perfil",
+            "enabled": true
+          },
+          {
+            "id": "idConfiguracoesSEguranca",
+            "routerLink": "/settings/security",
+            "label": "Segurança",
+            "enabled": true
+          }
+        ]
+      }
+    ]
+  }
+]
