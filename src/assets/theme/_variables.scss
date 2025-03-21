@@ -1,0 +1,96 @@
+@use "@angular/material" as mat;
+@include mat.core();
+
+$primary: (
+    50: #e1e0e5,
+    100: #b3b3bd,
+    200: #818092,
+    300: #4e4d66,
+    400: #282645,
+    500: #020024,
+    600: #020020,
+    700: #01001b,
+    800: #010016,
+    900: #01000d,
+    A100: #5151ff,
+    A200: #1e1eff,
+    A400: #0000ea,
+    A700: #0000d0,
+    contrast: (
+        50: #000000,
+        100: #000000,
+        200: #000000,
+        300: #ffffff,
+        400: #ffffff,
+        500: #ffffff,
+        600: #ffffff,
+        700: #ffffff,
+        800: #ffffff,
+        900: #ffffff,
+        A100: #ffffff,
+        A200: #ffffff,
+        A400: #ffffff,
+        A700: #ffffff,
+    ),
+);
+
+$accent: (
+    50: #e7f5fa,
+    100: #c2e6f4,
+    200: #9ad5ec,
+    300: #71c4e4,
+    400: #52b7df,
+    500: #34aad9,
+    600: #2fa3d5,
+    700: #2799cf,
+    800: #2190ca,
+    900: #157fc0,
+    A100: #f1f9ff,
+    A200: #bee5ff,
+    A400: #8bd0ff,
+    A700: #72c5ff,
+    contrast: (
+        50: #000000,
+        100: #000000,
+        200: #000000,
+        300: #000000,
+        400: #000000,
+        500: #000000,
+        600: #000000,
+        700: #ffffff,
+        800: #ffffff,
+        900: #ffffff,
+        A100: #000000,
+        A200: #000000,
+        A400: #000000,
+        A700: #000000,
+    ),
+);
+
+.dark {
+    $dark-theme: mat.m2-define-dark-theme(
+        (
+            color: (
+                primary: mat.m2-define-palette($accent),
+                accent: mat.m2-define-palette($accent),
+            ),
+        )
+    );
+
+    @include mat.core-theme($dark-theme);
+    @include mat.button-theme($dark-theme);
+    @include mat.all-component-colors($dark-theme);
+}
+
+$light-theme: mat.m2-define-light-theme(
+    (
+        color: (
+            primary: mat.m2-define-palette($primary),
+            accent: mat.m2-define-palette($accent),
+        ),
+    )
+);
+
+@include mat.core-color($light-theme);
+@include mat.button-color($light-theme);
+@include mat.all-component-themes($light-theme);

@@ -12,9 +12,9 @@
         "enabled": true
       },
       {
-        "label": "Usuários",
-        "icon": "la la-user-friends",
-        "routerLink": "/users",
+        "label": "Eventos de Detecções",
+        "icon": "la la-camera-retro",
+        "routerLink": "/eventos-deteccoes",
         "enabled": true
       }
     ]

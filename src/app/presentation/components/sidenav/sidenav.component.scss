@@ -2,8 +2,8 @@
   @apply h-screen w-screen;
 
   .sidenav {
-    @apply bg-white text-primary overflow-hidden border-none md:w-[80px] w-[0px];
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    @apply bg-gray-50 text-primary overflow-hidden border-none md:w-[80px] w-[0px];
+    box-shadow: rgba(204, 204, 204, 0.2) 0px 2px 5px 1px;
     transition: width 0.3s ease;
     overflow: hidden;
 
@@ -16,18 +16,16 @@
     }
 
     .modulo-label {
-      @apply text-[10px] text-slate-400 ml-5 tracking-wider font-medium py-2;
+      @apply text-[11px] text-slate-500 ml-5 tracking-wider font-medium py-2;
       position: relative;
 
     }
-
-
     span {
       @apply font-text text-[12px] font-normal;
     }
 
     .sidenav-header {
-      @apply flex justify-start py-1 px-2 overflow-hidden;
+      @apply flex justify-start py-1 px-2 pb-4 overflow-hidden;
       display: flex;
       height: 80px;
       align-items: center;
@@ -96,11 +94,11 @@
     transition: margin-left 0.3s ease;
 
     &.content-shifted {
-      margin-left: 200px !important;
+      @apply md:ml-[200px] #{!important};
     }
 
     &:not(.content-shifted) {
-      margin-left: 80px !important;
+      @apply ml-0 md:ml-[80px] #{!important};
     }
   }
 }
@@ -111,7 +109,8 @@
 }
 
 .app-header {
-  @apply flex justify-between items-center pr-6 pl-2 py-3 bg-body h-[64px];
+  background: linear-gradient(to right, #f5f3f3, #e8ecf5) !important;
+  @apply flex justify-between items-center pr-6 pl-2 py-3 h-[64px];
   position: relative;
   z-index: 2;
 
@@ -155,11 +154,13 @@
 }
 
 .content {
-  @apply flex flex-col flex-grow overflow-auto h-[calc(100vh-76px)] px-5 bg-body;
+  background: linear-gradient(to right, #f5f3f3, #e8ecf5) !important;
+  @apply flex flex-col flex-grow overflow-auto h-[calc(100vh-76px)] px-5;
   height: calc(100vh - 76px - 40px);
 }
 
 .footer {
+  background: linear-gradient(to right, #f5f3f3, #e8ecf5) !important;
   @apply left-0 bottom-0 w-full h-12 flex-none relative z-[999];
 
   &.show {
@@ -236,24 +237,6 @@
 ::ng-deep .mat-expansion-panel-body {
   padding: 0 !important;
   @apply flex flex-col;
-
-  .drawer-dropdown {
-    @apply flex flex-col gap-y-2;
-
-    span {
-      @apply font-text text-sm text-text dark:text-white/70 font-semibold transition-colors duration-300;
-    }
-
-    a {
-      height: 10px !important;
-    }
-
-    a:hover {
-      span {
-        @apply text-primary dark:text-white;
-      }
-    }
-  }
 }
 
 .title {

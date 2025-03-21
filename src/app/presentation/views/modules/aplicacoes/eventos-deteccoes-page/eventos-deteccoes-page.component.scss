@@ -1,0 +1,15 @@
+.page {
+  @apply w-full h-full flex flex-col gap-3
+}
+.header {
+  @apply w-full flex flex-row justify-end;
+  &-group-filter {
+    @apply flex flex-row gap-2 rounded-full p-2;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+  }
+}
+.icon {
+  @apply flex justify-start font-semibold text-primary mt-[2px];
+  font-size: 23px;
+
+}

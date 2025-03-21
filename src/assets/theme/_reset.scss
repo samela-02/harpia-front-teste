@@ -1,0 +1,130 @@
+::-webkit-scrollbar {
+  @apply w-[.4rem] h-[.4rem] rounded bg-gray-200;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply rounded bg-gray-300;
+}
+
+.mat-mdc-form-field {
+  margin-bottom: -1.25rem !important;
+
+  .mdc-notched-outline__notch {
+    border-right: 0px !important;
+  }
+}
+
+.mat-mdc-tooltip {
+  --mdc-plain-tooltip-supporting-text-font: "Nunito Sans", sans-serif !important;
+}
+
+.mdc-text-field--outlined.mdc-text-field--disabled .mdc-floating-label,
+.mdc-text-field--outlined.mdc-text-field--disabled .mdc-floating-label--float-above {
+  color: rgba(0, 0, 0, 0.38) !important;
+}
+
+.autocomplete {
+  .mat-mdc-form-field {
+    display: inline-block !important;
+  }
+
+  .icons {
+    button:disabled {
+      mat-icon {
+        color: rgba(0, 0, 0, 0.38) !important;
+      }
+    }
+  }
+}
+
+.mat-mdc-menu-item {
+  .mat-icon {
+    @apply w-4 h-5 leading-5 text-base mr-2 #{!important};
+  }
+}
+
+.archive {
+  @apply py-1 px-4 border flex items-center gap-4 border-zinc-500 rounded-full text-sm;
+}
+
+.mat-button-toggle-appearance-standard {
+  @apply text-xs font-semibold font-text #{!important};
+}
+
+.button-toggle {
+  .mat-button-toggle-appearance-standard {
+    .mat-button-toggle-label-content {
+      @apply leading-8 py-0 px-4 #{!important};
+    }
+  }
+
+  .mat-button-toggle .mat-pseudo-checkbox {
+    @apply mr-[6px] #{!important};
+  }
+
+  .mat-pseudo-checkbox-minimal.mat-pseudo-checkbox-checked::after {
+    @apply w-[10px] h-[5px] #{!important};
+  }
+}
+
+.mat-step-header {
+  .mat-step-icon-selected {
+    @apply bg-transparent border-2 border-accent;
+
+    mat-icon {
+      @apply bg-accent rounded-full;
+    }
+  }
+
+  .mat-step-icon-state-edit {
+    @apply bg-green-600;
+  }
+
+  .mat-step-icon-state-number {
+    @apply bg-[#c5dfea];
+  }
+}
+
+.td-badge {
+  @apply flex items-center justify-end;
+
+  mat-icon {
+    @apply text-sm w-4 h-4 leading-4 #{!important};
+  }
+
+  span,
+  p {
+    @apply font-bold font-text;
+  }
+}
+
+.apexcharts-text tspan,
+.apexcharts-text title {
+  @apply font-text text-text font-semibold dark:text-white/80 #{!important};
+}
+
+.apexcharts-gridline {
+  @apply stroke-border dark:stroke-dark-container #{!important};
+}
+
+.badge-table {
+  @apply flex items-center gap-x-2;
+
+  mat-icon {
+    @apply w-4 h-5 leading-5 text-sm lg:text-base #{!important};
+  }
+
+  span,
+  p {
+    @apply font-semibold leading-none #{!important};
+  }
+
+  span {
+    @apply pt-1.5;
+  }
+}
+
+.footer-row {
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  /* Cor da linha do título, mas mais fina */
+}

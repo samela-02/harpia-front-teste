@@ -18,7 +18,7 @@
       </a>
       } @else {
       @if(isExpanded){
-      <mat-expansion-panel class="mat-elevation-z0" [expanded]="selectedModule === feature">
+      <mat-expansion-panel class="mat-elevation-z0 p-3" [expanded]="selectedModule === feature">
         <mat-expansion-panel-header class="item-select" [ngClass]="{'expanded': isExpanded}">
           <i [class]="feature.icon" class="text-[20px] flex justify-center mr-2"></i>
           <span *ngIf="isExpanded">{{ feature.label }}</span>

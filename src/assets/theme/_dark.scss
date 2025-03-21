@@ -1,0 +1,81 @@
+.dark {
+    .modal,
+    .mdc-data-table__header-row {
+        @apply bg-dark-body #{!important};
+    }
+    .mat-drawer {
+        @apply bg-dark-container border-r-0 #{!important};
+    }
+    .mdc-text-field--outlined.mdc-text-field--disabled .mdc-floating-label,
+    .mdc-text-field--outlined.mdc-text-field--disabled .mdc-floating-label--float-above,
+    .mat-mdc-paginator-page-size-label,
+    .mat-mdc-paginator-range-label,
+    .mat-internal-form-field > label {
+        @apply text-dark-text #{!important};
+    }
+    .btn.link {
+        @apply text-white/80 hover:text-white hover:bg-white/10 #{!important};
+    }
+    .mat-stepper-horizontal {
+        @apply bg-transparent #{!important};
+    }
+    .chips span {
+        @apply text-dark-text #{!important};
+    }
+    .search-panel-title {
+        @apply text-white/80 bg-transparent #{!important};
+    }
+    .fc {
+        .fc-col-header-cell-cushion,
+        .fc-toolbar-title {
+            @apply text-white #{!important};
+        }
+        .fc-button-primary {
+            @apply text-white/80 bg-transparent #{!important};
+        }
+        .fc-theme-standard td,
+        .fc-theme-standard th,
+        .fc-theme-standard .fc-scrollgrid {
+            @apply border-dark-container #{!important};
+        }
+        .fc-daygrid-day.fc-day-today {
+            @apply bg-white/10 #{!important};
+        }
+        .fc-daygrid-day.fc-day-today .fc-daygrid-day-number {
+            @apply bg-accent #{!important};
+        }
+    }
+    .overlay-container {
+        @apply border-dark-container #{!important};
+    }
+    .skeleton-loader {
+        @apply bg-zinc-700/60 #{!important};
+    }
+    .dialog-warn-content h1 {
+        @apply font-medium text-white #{!important};
+    }
+    .upload-selected {
+        img {
+            @apply bg-transparent border border-dark-container overflow-hidden shadow-none #{!important};
+        }
+        button mat-icon {
+            @apply text-red-400 #{!important};
+        }
+    }
+    .upload-selected-container {
+        @apply bg-dark-container #{!important};
+    }
+    .dialog-warn-header mat-icon.primary {
+        @apply text-accent #{!important};
+    }
+    .panel-container {
+        .mat-expansion-panel {
+            @apply bg-dark-body #{!important};
+        }
+    }
+    .tvc-autocomplete {
+        input:disabled {
+            @apply text-dark-text/30 #{!important};
+        }
+    }
+}

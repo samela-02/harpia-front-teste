@@ -1,0 +1,11 @@
+  <div class="search-container flex flex-row" [class.expanded]="isSearchExpanded">
+    <button class="search-button" class="w-7 h-7 flex items-center justify-center" (click)="toggleSearch()">
+      <mat-icon class="text-primary transition-transform duration-500" [class.rotate-180]="isSearchExpanded">
+        {{isSearchExpanded ? 'arrow_back_ios' : 'search'}}
+      </mat-icon>
+    </button>
+    <mat-form-field appearance="outline" class="map-search-field">
+      <input matInput placeholder="Pesquisar" class="search-input">
+      <mat-icon class="text-primary/80" matSuffix>search</mat-icon>
+    </mat-form-field>
+  </div>

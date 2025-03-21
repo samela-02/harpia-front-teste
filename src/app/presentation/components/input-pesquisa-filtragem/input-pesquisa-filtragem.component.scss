@@ -1,0 +1,94 @@
+.search-container {
+  @apply relative flex items-center;
+  width: 40px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &.expanded {
+    width: 240px;
+
+    .search-button {
+      @apply bg-transparent;
+    }
+
+    .map-search-field {
+      width: 200px;
+      opacity: 1;
+      pointer-events: auto;
+      visibility: visible;
+      transform: translateX(40px);
+    }
+  }
+
+  .search-button {
+    @apply absolute left-0 z-10 flex items-center justify-center w-10 h-10 bg-white rounded-full shadow-md;
+    transition: background-color 0.3s ease;
+  }
+
+  .map-search-field {
+    width: 0;
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+    transform: translateX(0);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: absolute;
+    left: 0;
+  }
+}
+
+.search-container {
+  &.expanded {
+    .map-search-field {
+      opacity: 1;
+      pointer-events: auto;
+      width: 200px;
+    }
+  }
+}
+
+::ng-deep .map-search-field {
+  @apply z-[1001];
+
+  .mdc-text-field--outlined {
+
+    .mdc-notched-outline__leading,
+    .mdc-notched-outline__notch,
+    .mdc-notched-outline__trailing {
+      border-color: transparent !important;
+    }
+
+    &:hover .mdc-notched-outline__leading,
+    &:hover .mdc-notched-outline__notch,
+    &:hover .mdc-notched-outline__trailing {
+      border-color: transparent !important;
+    }
+
+    &.mdc-text-field--focused .mdc-notched-outline__leading,
+    &.mdc-text-field--focused .mdc-notched-outline__notch,
+    &.mdc-text-field--focused .mdc-notched-outline__trailing {
+      border-color: transparent !important;
+    }
+  }
+}
+
+.custom-autocomplete {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 999;
+}
+
+.custom-autocomplete-content {
+  overflow-y: auto;
+  max-height: 20em;
+  width: 100%;
+}
+
+.autocomplete-item {
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+  }
+}

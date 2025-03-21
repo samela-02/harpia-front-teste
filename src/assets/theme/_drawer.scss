@@ -1,0 +1,23 @@
+:host {
+    @apply bg-white dark:bg-dark-white w-full min-w-full min-h-screen p-0 flex flex-col;
+}
+
+.drawer {
+    @apply p-6 bg-body h-full;
+    h2 {
+        @apply border-b border-b-primary/5 font-text font-bold text-2xl pb-2;
+    }
+
+    &-container {
+        @apply flex flex-col gap-y-4 max-h-max h-[calc(100%-2rem)] overflow-y-auto;
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+    &-content {
+        @apply grid grid-cols-1 lg:grid-cols-3 gap-4 lg:h-full w-full pt-4;
+    }
+    &-card {
+        @apply h-full w-full bg-white rounded-md p-4 flex flex-col;
+    }
+}

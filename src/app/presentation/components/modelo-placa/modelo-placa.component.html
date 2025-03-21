@@ -1,0 +1,32 @@
+<div class="panel">
+    <div *ngIf="isFliped; else mercosulPlaca" class="box2">
+        <div class="cinza">
+            <div class="header">
+                <div class="cidade">
+                    <div class="dot"></div>
+                    UF-CIDADE
+                    <div class="dot"></div>
+                </div>
+            </div>
+            {{ nrPlaca }}
+            <div class="holes one"></div>
+            <div class="holes two"></div>
+        </div>
+    </div>
+
+    <ng-template #mercosulPlaca>
+        <div class="box1">
+            <div class="mercosul">
+                <div class="header">BRASIL</div>
+                <div class="bandeira">
+                    <div class="losango">
+                        <div class="item"></div>
+                    </div>
+                    <div class="circle"></div>
+                </div>
+                {{ nrPlaca }}
+                <div class="br">BR</div>
+            </div>
+        </div>
+    </ng-template>
+</div>

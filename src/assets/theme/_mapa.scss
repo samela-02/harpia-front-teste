@@ -1,0 +1,57 @@
+:host {
+    @apply w-full;
+
+    h3 {
+        @apply text-sm leading-none font-semibold text-primary;
+    }
+    h4 {
+        @apply text-xs leading-none font-semibold text-primary;
+    }
+    span {
+        @apply text-xs font-semibold text-primary/80 leading-none;
+    }
+
+    .map {
+        @apply flex items-center w-full;
+
+        &-container {
+            @apply w-full flex flex-col items-center;
+        }
+        &-header {
+            @apply w-full h-7 flex flex-col py-1 items-center;
+        }
+        &-content {
+            @apply relative w-full h-7 flex items-center justify-center p-1;
+        }
+        &-hours {
+            @apply w-[100px] flex-col items-center hidden xl:flex;
+        }
+        &-circle {
+            @apply absolute top-1 right-1 w-2 h-2 rounded-full;
+        }
+    }
+
+    .bg-weekend {
+        @apply bg-zinc-200;
+    }
+
+    .bg-weekday {
+        @apply bg-zinc-100;
+    }
+
+    .map-badge {
+        @apply absolute top-5 bg-white shadow p-2 w-max z-[999] rounded-md;
+
+        &::before {
+            @apply content-[""] absolute w-0 h-0 bottom-full border-[0.75rem] border-transparent border-t-0 border-b-white;
+        }
+    }
+
+    .map-border {
+        border-left: 1px solid #a1a1aa;
+    }
+
+    .map-unificado {
+        @apply h-[calc(1.75rem-2px)] w-full;
+    }
+}

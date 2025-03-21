@@ -1,0 +1,35 @@
+<div class="h-full max-h-full overflow-y-auto">
+  <table mat-table [dataSource]="dataSource.dados" class="table">
+    <ng-container matColumnDef="position">
+      <th mat-header-cell *matHeaderCellDef> No. </th>
+      <td mat-cell *matCellDef="let dados"> {{dados.position}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="nrPlaca">
+      <th mat-header-cell *matHeaderCellDef>PLACA</th>
+      <td mat-cell *matCellDef="let item" class="uppercase columns">
+        <div class="row-container">
+          <modelo-placa class="h-32 w-40" [nrPlaca]="item.nrPlaca" />
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="idEquipamento">
+      <th mat-header-cell *matHeaderCellDef> ID EQUIPAMENTO </th>
+      <td mat-cell *matCellDef="let dados"> {{dados.equipamento.idEquipamento}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="nmEquipamento">
+      <th mat-header-cell *matHeaderCellDef> NOME DO EQUIPAMENTO </th>
+      <td mat-cell *matCellDef="let dados"> {{dados.equipamento.nmEquipamento}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="dtEvento">
+      <th mat-header-cell *matHeaderCellDef> DATA DE EVENTO </th>
+      <td mat-cell *matCellDef="let dados"> {{dados.dtEvento}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

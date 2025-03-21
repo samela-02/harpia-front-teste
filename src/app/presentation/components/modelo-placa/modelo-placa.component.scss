@@ -1,0 +1,65 @@
+.panel {
+    @apply flex items-center h-full;
+}
+
+.box1,
+.box2 {
+    @apply w-full;
+    transition: all .25s ease-in-out;
+}
+
+.box1 .mercosul {
+    @apply h-[56px] w-full rounded-md border-2 border-gray-400 relative pt-4 font-bold text-black flex items-center justify-center text-2xl tracking-widest bg-white;
+
+    .header {
+        @apply absolute top-0 inset-x-0 h-[18px] bg-[#003399] text-center text-white text-[8px] leading-[18px];
+    }
+
+    .bandeira {
+        @apply w-5 h-3 rounded-sm bg-[#00923F] absolute top-0.5 right-[10px] flex items-center justify-center;
+
+        .losango {
+            transform: scaleX(1.75);
+
+            .item {
+                @apply w-1.5 h-1.5 rotate-45 bg-[#F8C400];
+            }
+        }
+
+        .circle {
+            @apply w-1.5 h-1.5 rounded-full bg-[#27186D] absolute z-50;
+        }
+    }
+
+    .br {
+        @apply absolute tracking-wider bottom-0 left-1 text-[8px] leading-normal;
+    }
+}
+
+.box2 .cinza {
+    @apply h-[56px] w-full rounded-md border-2 border-[#b0b4b8] relative pt-5 font-extrabold text-[#181919] flex items-center justify-center text-2xl tracking-wider bg-[#B6BFC5];
+
+    .header {
+        @apply absolute top-0 inset-x-0 h-5 bg-[#BEC8C8] text-center text-[#181919] text-[8px] font-bold;
+
+        .cidade {
+            @apply bg-[#C5CFD2] border border-[#000]/10 py-1 px-2 absolute top-1 inset-x-2 h-3.5 leading-[8px] flex justify-between items-center;
+
+            .dot {
+                @apply w-1.5 h-1.5 rounded-full bg-black/50 border-[0.4px] border-[#D9E0E4];
+            }
+        }
+    }
+
+    .holes {
+        @apply absolute w-2 h-0.5 bg-white rounded-sm;
+
+        &.one {
+            @apply top-0 left-11;
+        }
+
+        &.two {
+            @apply top-0 right-11;
+        }
+    }
+}

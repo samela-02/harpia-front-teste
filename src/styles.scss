@@ -3,3 +3,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import "assets/theme/variables";
+@import "assets/theme/reset";
+@import "assets/theme/panel";
+@import "assets/theme/calendar";
+@import "assets/theme/fieldset";
+@import "assets/theme/dark";
+@import "assets/theme/table";
+
+* {
+  @apply font-text border-border dark:border-dark-primary;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  @apply bg-body dark:bg-dark-body text-text dark:text-dark-text text-base #{!important};
+}
