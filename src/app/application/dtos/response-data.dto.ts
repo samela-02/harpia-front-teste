@@ -1,10 +1,10 @@
 export class ResponseData<T> {
-    dados: T;
-    messagem: string;
+    data: T;
+    message: string;
 
-    constructor(dados: T, messagem: string) {
-        this.dados = dados;
-        this.messagem = messagem;
+    constructor(data: T, message: string) {
+        this.data = data;
+        this.message = message;
     }
 }
 
