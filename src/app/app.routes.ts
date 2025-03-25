@@ -11,5 +11,9 @@ export const routes: Routes = [
     path: 'aplicacoes',
     loadChildren: () => import('./presentation/views/modules/aplicacoes/main.routes').then(m => m.mainRoutes),
     component: SidenavComponent,
+  },
+  {
+    path: 'login',
+    loadComponent: () => import('./presentation/views/modules/login/login-page/login-page.component').then(p => p.LoginPageComponent)
   }
 ];

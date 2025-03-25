@@ -4,12 +4,13 @@ import { MatTableModule } from '@angular/material/table';
 import deteccaoJson from './deteccao-json-teste.json'
 import { DeteccoesResponse } from '@/domain/dto/deteccaoResponse';
 import { ModeloPlacaComponent } from '@/presentation/components/modelo-placa/modelo-placa.component';
+import { BadgeComponent } from '@tivic-team/tivic-ui';
 
 
 @Component({
   selector: 'app-table-deteccoes',
   standalone: true,
-  imports: [...tableModule, ModeloPlacaComponent],
+  imports: [...tableModule, ModeloPlacaComponent, BadgeComponent],
   templateUrl: './table-deteccoes.component.html',
   styleUrl: './table-deteccoes.component.scss'
 })

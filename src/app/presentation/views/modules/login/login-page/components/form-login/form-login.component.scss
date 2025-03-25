@@ -1,0 +1,27 @@
+.box {
+  @apply flex flex-col gap-3
+}
+
+.box-logo {
+  @apply flex flex-col items-center justify-center gap-3;
+}
+
+::ng-deep .mat-mdc-text-field-wrapper {
+  @apply bg-slate-700 h-[40px] #{!important};
+}
+
+.form {
+  @apply flex-center flex-col gap-1 justify-center
+}
+
+::ng-deep .mat-mdc-form-field-infix {
+  @apply py-2 #{!important};
+}
+
+input::placeholder {
+  @apply text-slate-300 text-sm font-light #{!important}
+}
+
+input {
+  @apply caret-slate-300 #{!important};
+}
