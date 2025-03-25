@@ -1,0 +1,11 @@
+export enum Role {
+    ADMINISTRADOR = 1,
+    COORDENADOR_OPERACAO = 2,
+    OPERADOR_CENTRAL = 3
+}
+
+export const RoleLabel = new Map<Role, string>([
+    [Role.ADMINISTRADOR, "ADMINISTRADOR"],
+    [Role.COORDENADOR_OPERACAO, "COORDENADOR_OPERACAO"],
+    [Role.OPERADOR_CENTRAL, "OPERADOR_CENTRAL"]
+]);
