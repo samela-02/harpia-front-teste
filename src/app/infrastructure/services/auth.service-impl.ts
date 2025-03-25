@@ -23,7 +23,9 @@ export class AuthServiceImpl implements AuthService {
             this.setLocalStorage(auth)
             this._router.navigate(["/aplicacoes/inicio"]);
             resolve(auth);
-            this.buscarDadosDeUsuario.execute()
+            this.buscarDadosDeUsuario.execute().subscribe((response => {
+              console.log(response)
+            }))
           } else {
             this._router.navigate(["/login"]);
             reject('Authentication failed');
