@@ -35,7 +35,7 @@ const providers = [
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideRouter(routes, withComponentInputBinding(), withHashLocation()),
+    provideRouter(routes, withComponentInputBinding()),
     provideAnimations(),
     {
       provide: HTTP_INTERCEPTORS,

@@ -1,5 +1,7 @@
 export class AuthDTO {
-  cdUsuario: string;
-  accessToken: string;
-  expiresIn: number;
+  message: string;
+  data:{
+    accessToken: string;
+    expiresIn: number;
+  }
 }

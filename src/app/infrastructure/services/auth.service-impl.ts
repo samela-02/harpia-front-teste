@@ -8,7 +8,7 @@ import { Router } from "@angular/router";
 @Injectable({
     providedIn: "root"
 })
-export class AuthServiceImpl  implements AuthService{
+export class AuthServiceImpl implements AuthService{
 
   constructor(private logarUsuarioUseCase: LogarUsuarioUseCase) { }
     private _router = inject(Router);
@@ -18,10 +18,9 @@ export class AuthServiceImpl  implements AuthService{
         this.logarUsuarioUseCase.execute(login).subscribe({
           next: (auth: AuthDTO) => {
             if(auth) {
-              localStorage.setItem("cdUsuario", auth.cdUsuario);
-              localStorage.setItem("accessToken", auth.accessToken);
-              localStorage.setItem("expiresIn", auth.expiresIn.toString());
-              this._router.navigate(["/aplicacoes"]);
+              localStorage.setItem("accessToken", auth.data.accessToken);
+              localStorage.setItem("expiresIn", auth.data.expiresIn.toString());
+              this._router.navigate(["/aplicacoes/inicio"]);
               resolve(auth);
             } else {
               this._router.navigate(["/login"]);
@@ -38,7 +37,6 @@ export class AuthServiceImpl  implements AuthService{
 
     public deslogar(): void {
         localStorage.removeItem('accessToken');
-        localStorage.removeItem('cdUsuario');
         this._router.navigate(['/login']);
     }
 
