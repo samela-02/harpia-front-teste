@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApresentacaoHarpiaComponent } from './components/apresentacao-harpia/apresentacao-harpia.component';
 import { FormLoginComponent } from './components/form-login/form-login.component';
-
 @Component({
   selector: 'app-login-page',
   standalone: true,

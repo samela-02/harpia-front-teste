@@ -19,8 +19,9 @@ import { maskConfig } from '../assets/config/mask.config';
 import { provideAnimations } from "@angular/platform-browser/animations";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatDialogModule } from "@angular/material/dialog";
-import { provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
 import { infraProviders } from './infrastructure/providers';
+import { AuthInterceptor } from './infrastructure/interceptors/auth-config.interceptor';
 registerLocaleData(localePT);
 
 const providers = [
@@ -36,6 +37,11 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes, withComponentInputBinding(), withHashLocation()),
     provideAnimations(),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
     importProvidersFrom(
       MatSnackBarModule,
       MatDialogModule,
