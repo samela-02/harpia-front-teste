@@ -28,7 +28,10 @@
     </span>
   </div>
   <div class="button">
-    <button (click)="onSubmit()" mat-flat-button class="w-full bg-primary text-slate-300">
+    <button [disabled]="!formGroup.valid"
+            (click)="onSubmit()"
+            mat-flat-button
+            class="w-full bg-primary text-slate-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-gray-600">
       <mat-icon>login</mat-icon>
       Acessar
     </button>

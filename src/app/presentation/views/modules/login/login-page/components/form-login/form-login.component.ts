@@ -1,7 +1,7 @@
 import { LoginDto } from '@/domain/dto/login.dto';
 import { AuthServiceImpl } from '@/infrastructure/services/auth.service-impl';
-import { Component, inject } from '@angular/core';
-import { ControlContainer, FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { Component, HostListener} from '@angular/core';
+import { FormGroup, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
@@ -23,6 +23,11 @@ import { FormType } from '@tivic-team/tivic-ui';
   styleUrl: './form-login.component.scss'
 })
 export class FormLoginComponent {
+  @HostListener("document: keydown.enter", ["$event"]) onKeyEnter(event: KeyboardEvent) {
+    event.preventDefault();
+    this.onSubmit();
+  }
+
   formGroup: FormGroup;
 
   constructor(
@@ -30,13 +35,12 @@ export class FormLoginComponent {
     private formBuilder: FormBuilder
   ) {
     this.formGroup = this.formBuilder.group({
-      nmLogin: [''],
-      nmSenha: ['']
+      nmLogin: ['', [Validators.required]],
+      nmSenha: ['', [Validators.required]]
     });
   }
 
   onSubmit() {
-    console.log("teste")
     if (this.formGroup.valid) {
       const loginData = this.formGroup.value;
       this.authService.logar(loginData);

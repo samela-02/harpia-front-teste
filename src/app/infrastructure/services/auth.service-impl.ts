@@ -1,18 +1,20 @@
 import { ResponseData } from "@/application/dtos/response-data.dto";
-import { BuscarDadosDeUsuarioUseCase } from "@/application/usecase/buscar-dados-de-usuario.usecase";
-import { LogarUsuarioUseCase } from "@/application/usecase/logar-usuario.usecase";
+import { BuscarDadosDeUsuarioUseCase } from "@/application/usecase/usuario/buscar-dados-de-usuario.usecase";
+import { LogarUsuarioUseCase } from "@/application/usecase/login/logar-usuario.usecase";
 import { AuthDTO } from "@/domain/dto/auth.dto";
 import { LoginDto } from "@/domain/dto/login.dto";
 import { AuthService } from "@/domain/interface/auth-service.interface";
 import { Injectable, inject } from "@angular/core";
 import { Router } from "@angular/router";
+import { DeslogarUsuarioUseCase } from "@/application/usecase/login/deslogar-usuario.usecase";
+import { UsuarioLogadoResponse } from "@/domain/dto/usuarioLogadoResponse.dto";
 
 @Injectable({
   providedIn: "root"
 })
 export class AuthServiceImpl implements AuthService {
 
-  constructor(private logarUsuarioUseCase: LogarUsuarioUseCase, private buscarDadosDeUsuario: BuscarDadosDeUsuarioUseCase) { }
+  constructor(private logarUsuarioUseCase: LogarUsuarioUseCase, private buscarDadosDeUsuario: BuscarDadosDeUsuarioUseCase, private  deslogarUsuarioUseCase: DeslogarUsuarioUseCase) { }
   private _router = inject(Router);
 
   async logar(login: LoginDto): Promise<ResponseData<AuthDTO>> {
@@ -23,9 +25,7 @@ export class AuthServiceImpl implements AuthService {
             this.setLocalStorage(auth)
             this._router.navigate(["/aplicacoes/inicio"]);
             resolve(auth);
-            this.buscarDadosDeUsuario.execute().subscribe((response => {
-              console.log(response)
-            }))
+            this.getDataUser()
           } else {
             this._router.navigate(["/login"]);
             reject('Authentication failed');
@@ -44,9 +44,32 @@ export class AuthServiceImpl implements AuthService {
     localStorage.setItem("expiresIn", auth.data.expiresIn.toString());
   }
 
+  public getDataUser() {
+    this.buscarDadosDeUsuario.execute().subscribe((response => {
+      this.setDataUserLocalStorage(response)
+    }))
+  }
+
+  public setDataUserLocalStorage(usuario: ResponseData<UsuarioLogadoResponse>){
+    localStorage.setItem("nmUsuario", usuario.data.nmUsuario);
+  }
+
+  public getNomeUsuario() {
+    return localStorage.getItem('nmUsuario');
+  }
+
   public deslogar(): void {
-    localStorage.removeItem('accessToken');
-    this._router.navigate(['/login']);
+    this.deslogarUsuarioUseCase.execute().subscribe({
+      next: () => {
+        localStorage.removeItem('accessToken');
+        this._router.navigate(['/login']);
+      },
+      error: (error) => {
+        console.error('Erro ao deslogar:', error);
+        localStorage.removeItem('accessToken');
+        this._router.navigate(['/login']);
+      }
+    });
   }
 
   public isLoggedIn(): boolean {

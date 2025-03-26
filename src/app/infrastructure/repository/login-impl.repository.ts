@@ -13,4 +13,8 @@ export class LoginRepostoryImpl implements LoginRepository {
   logarUsuario(loginDto: LoginDto): Observable<ResponseData<AuthDTO>> {
     return this._client.post(this._api, loginDto)
   }
+
+  deslogarUsuario() {
+    return this._client.put(this._api,null) as any;
+  }
 }

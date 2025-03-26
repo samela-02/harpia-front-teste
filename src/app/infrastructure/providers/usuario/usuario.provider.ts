@@ -1,5 +1,5 @@
 import { UsuarioRepository } from "@/application/repositories/usuario.repository"
-import { BuscarDadosDeUsuarioUseCase } from "@/application/usecase/buscar-dados-de-usuario.usecase"
+import { BuscarDadosDeUsuarioUseCase } from "@/application/usecase/usuario/buscar-dados-de-usuario.usecase"
 import { UsuarioRepostoryImpl } from "@/infrastructure/repository/usuario-impl.repository"
 
 export const buscarDadosDeUsuarioProvider = {

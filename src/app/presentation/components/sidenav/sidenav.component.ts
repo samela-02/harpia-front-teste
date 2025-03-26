@@ -8,11 +8,13 @@ import { CommonModule } from "@angular/common";
 import { AngularLineawesomeModule } from 'angular-line-awesome';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { environment } from "@env/environment.development";
-import { TimerComponent } from "@tivic-team/tivic-ui";
+import { NameFormatterPipe, TimerComponent } from "@tivic-team/tivic-ui";
 import { filter } from 'rxjs/operators';
 import { RouteData } from "@/domain/interface/route-data.interface";
 import { Modules } from "@/domain/dto/modules.dto";
 import jsonModules from "../../../../assets/modules/module.json"
+import { DeslogarUsuarioUseCase } from "@/application/usecase/login/deslogar-usuario.usecase";
+import { AuthServiceImpl } from "@/infrastructure/services/auth.service-impl";
 
 @Component({
     selector: "app-sidenav",
@@ -22,6 +24,7 @@ import jsonModules from "../../../../assets/modules/module.json"
     imports: [
       MatSidenavModule,
       MatButtonModule,
+      NameFormatterPipe,
       TimerComponent,
       MatExpansionModule,
       AngularLineawesomeModule,
@@ -37,12 +40,17 @@ export class SidenavComponent {
   isExpanded = false;
   selectedModule: any = null;
   moduleName: string;
+  nomeUsuario: string;
 
   date = new Date();
   version = environment.version;
   currentRouteData: RouteData;
 
-  constructor(private cdr: ChangeDetectorRef, private router: Router) {
+  ngOnInit(): void {
+    this.buscaNomeUsuario()
+  }
+
+  constructor(private cdr: ChangeDetectorRef, private router: Router, private authService: AuthServiceImpl,) {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe(() => {
@@ -63,5 +71,14 @@ export class SidenavComponent {
     if (!this.isExpanded) {
       this.toggleSidenav();
     }
+  }
+
+  buscaNomeUsuario() {
+    this.nomeUsuario = this.authService.getNomeUsuario()
+    console.log(this.nomeUsuario)
+  }
+
+  deslogarUsuario() {
+    this.authService.deslogar()
   }
 }

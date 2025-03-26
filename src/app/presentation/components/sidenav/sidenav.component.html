@@ -73,12 +73,12 @@
               <div class="profile-content">
                 <img [src]="'./public/img/avatar.png'" alt="avatar" class="avatar">
                 <div>
-                  <!-- <h4>{{ (user()?.nmUsuario | nameFormatter) }}</h4>
-                  <span>{{ user()?.nmEmail }}</span> -->
+                  <h4>{{ nomeUsuario | nameFormatter }}</h4>
+                  <!-- <span>{{ user()?.nmEmail }}</span> -->
                 </div>
               </div>
               <div class="profile-action">
-                <button class="flex-center gap-2">
+                <button class="flex-center gap-2" (click)="deslogarUsuario()">
                   <mat-icon class="material-symbols-outlined">logout</mat-icon>
                   <span class="text-sm">Deslogar</span>
                 </button>
