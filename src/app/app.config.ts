@@ -1,5 +1,6 @@
 import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter, withComponentInputBinding, withHashLocation } from '@angular/router';
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 import {
   AuthLibModule,
   AuthModule,
@@ -17,7 +18,6 @@ import localePT from '@angular/common/locales/pt';
 import { provideNgxMask } from 'ngx-mask';
 import { maskConfig } from '../assets/config/mask.config';
 import { provideAnimations } from "@angular/platform-browser/animations";
-import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatDialogModule } from "@angular/material/dialog";
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
 import { infraProviders } from './infrastructure/providers';

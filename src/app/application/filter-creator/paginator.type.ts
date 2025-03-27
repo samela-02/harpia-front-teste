@@ -33,9 +33,9 @@ export namespace PaginatorType {
         }
     }
 
-    export class sort extends Filter<string> {
+    export class orderBy extends Filter<string> {
         constructor (value: string) {
-            super("sort", value);
+            super("orderBy", value);
         }
 
         validate (): boolean {

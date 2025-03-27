@@ -1,13 +1,13 @@
 import { ResponseData } from "@/application/dtos/response-data.dto";
 import { BuscarDadosDeUsuarioUseCase } from "@/application/usecase/usuario/buscar-dados-de-usuario.usecase";
 import { LogarUsuarioUseCase } from "@/application/usecase/login/logar-usuario.usecase";
-import { AuthDTO } from "@/domain/dto/auth.dto";
-import { LoginDto } from "@/domain/dto/login.dto";
-import { AuthService } from "@/domain/interface/auth-service.interface";
+import { AuthDTO } from "@/domain/dtos/auth.dto";
+import { LoginDto } from "@/domain/dtos/login.dto";
+import { AuthService } from "@/domain/interfaces/auth-service.interface";
 import { Injectable, inject } from "@angular/core";
 import { Router } from "@angular/router";
 import { DeslogarUsuarioUseCase } from "@/application/usecase/login/deslogar-usuario.usecase";
-import { UsuarioLogadoResponse } from "@/domain/dto/usuarioLogadoResponse.dto";
+import { UsuarioLogadoResponse } from "@/domain/dtos/usuarioLogadoResponse.dto";
 
 @Injectable({
   providedIn: "root"

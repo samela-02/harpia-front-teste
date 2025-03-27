@@ -1,6 +1,6 @@
 import { ResponseData } from "@/application/dtos/response-data.dto";
 import { UsuarioRepository } from "@/application/repositories/usuario.repository";
-import { UsuarioLogadoResponse } from "@/domain/dto/usuarioLogadoResponse.dto";
+import { UsuarioLogadoResponse } from "@/domain/dtos/usuarioLogadoResponse.dto";
 import { inject } from "@angular/core";
 import { Client } from "@tivic-team/tivic-ui";
 import { Observable } from "rxjs";

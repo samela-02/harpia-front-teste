@@ -1,5 +1,5 @@
-import { AuthDTO } from "@/domain/dto/auth.dto";
-import { LoginDto } from "@/domain/dto/login.dto";
+import { AuthDTO } from "@/domain/dtos/auth.dto";
+import { LoginDto } from "@/domain/dtos/login.dto";
 import { Observable } from "rxjs";
 import { ResponseData } from "../dtos/response-data.dto";
 

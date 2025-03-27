@@ -8,6 +8,9 @@
 .mat-mdc-row {
   @apply text-text font-medium text-[13px]  #{!important};
 }
+.mat-mdc-row{
+  @apply hover:bg-slate-50 #{!important}
+}
 
 .mat-mdc-cell {
   border-bottom-color: transparent !important;

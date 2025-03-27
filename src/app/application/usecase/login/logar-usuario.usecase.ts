@@ -1,7 +1,7 @@
-import { LoginDto } from "@/domain/dto/login.dto";
+import { LoginDto } from "@/domain/dtos/login.dto";
 import { LoginRepository } from "../../repositories/login.repository";
 import { Observable } from "rxjs";
-import { AuthDTO } from "@/domain/dto/auth.dto";
+import { AuthDTO } from "@/domain/dtos/auth.dto";
 import { ResponseData } from "../../dtos/response-data.dto";
 
 export class LogarUsuarioUseCase {

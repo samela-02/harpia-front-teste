@@ -1,4 +1,4 @@
-import { contentModule } from "../interface/content-modules.interface";
+import { contentModule } from "../interfaces/content-modules.interface";
 
 export class Modules {
   name: string;

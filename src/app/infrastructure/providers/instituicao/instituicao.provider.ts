@@ -1,5 +1,7 @@
 import { InstituicaoRepository } from "@/application/repositories/instituicao.repository";
+import { BuscarInstituicoesUseCase } from "@/application/usecase/instituicao/buscar-instituicoes.usecase";
 import { CriarInstituicaoUseCase } from "@/application/usecase/instituicao/criar-instituicao.usecase";
+import { BuscarDadosDeUsuarioUseCase } from "@/application/usecase/usuario/buscar-dados-de-usuario.usecase";
 import { InstituicaoRepositoryImpl } from "@/infrastructure/repository/instituicao-impl.repository";
 
 export const criarInstituicaoProvider = {
@@ -8,8 +10,15 @@ export const criarInstituicaoProvider = {
   deps:[InstituicaoRepository]
 }
 
+export const buscarInstituicoesProvider = {
+  provide: BuscarInstituicoesUseCase,
+  useFactory: (instituicaoRepository: InstituicaoRepository) => new BuscarInstituicoesUseCase(instituicaoRepository),
+  deps: [InstituicaoRepository]
+}
+
 export const instituicaoProviders = [
   criarInstituicaoProvider,
+  buscarInstituicoesProvider,
   {
     provide: InstituicaoRepository,
     useClass: InstituicaoRepositoryImpl

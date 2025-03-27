@@ -1,4 +1,4 @@
-import { LoginDto } from '@/domain/dto/login.dto';
+import { LoginDto } from '@/domain/dtos/login.dto';
 import { AuthServiceImpl } from '@/infrastructure/services/auth.service-impl';
 import { Component, HostListener} from '@angular/core';
 import { FormGroup, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';

@@ -11,6 +11,7 @@
 @import "assets/theme/fieldset";
 @import "assets/theme/dark";
 @import "assets/theme/table";
+// @import "assets/theme/modal";
 
 * {
   @apply font-text border-border dark:border-dark-primary;
@@ -23,4 +24,24 @@ body {
 
 body {
   @apply bg-body dark:bg-dark-body text-text dark:text-dark-text text-base #{!important};
+}
+
+::ng-deep .mat-mdc-snack-bar-container {
+  &.success-snackbar {
+    --mdc-snackbar-container-color: #4caf50;
+    --mat-mdc-snack-bar-button-color: white;
+    --mdc-snackbar-supporting-text-color: white;
+  }
+
+  &.error-snackbar {
+    --mdc-snackbar-container-color: #f44336;
+    --mat-mdc-snack-bar-button-color: white;
+    --mdc-snackbar-supporting-text-color: white;
+  }
+
+  &.info-snackbar {
+    --mdc-snackbar-container-color: #2196f3;
+    --mat-mdc-snack-bar-button-color: white;
+    --mdc-snackbar-supporting-text-color: white;
+  }
 }

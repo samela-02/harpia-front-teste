@@ -9,10 +9,19 @@ export const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'aplicacoes',
-    loadChildren: () => import('./presentation/views/modules/aplicacoes/main.routes').then(m => m.mainRoutes),
+    path: '',
     component: SidenavComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: 'aplicacoes',
+        loadChildren: () => import('./presentation/views/modules/aplicacoes/main.routes').then(m => m.mainRoutes),
+      },
+      {
+        path: 'gerenciamento',
+        loadChildren: () => import('./presentation/views/modules/gerenciamento/gerenciamento.routes').then(i => i.gerenciamentoRoutes),
+      }
+    ]
   },
   {
     path: 'login',

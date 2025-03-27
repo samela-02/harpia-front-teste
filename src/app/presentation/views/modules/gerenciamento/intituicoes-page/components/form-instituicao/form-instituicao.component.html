@@ -1,0 +1,20 @@
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="form h-full flex flex-col justify-between">
+  <div class="form-group">
+    <tvc-input class="w-full" id="nmInstituicao" formControlName="nmInstituicao" label="Tipo de imagem"
+      placeholder="Nome do tipo da imagem" inputNormalize="alfanum" required [maxlength]="40" [minlength]="3" />
+    <tvc-input class="w-full" id="idInstituicao" formControlName="idInstituicao" label="Tipo de imagem"
+      placeholder="Id da Instituição" inputNormalize="alfanum" required [maxlength]="40" [minlength]="3" />
+    <tvc-textarea class="w-full !min-h-28" id="txtObservacao" formControlName="txtObservacao" label="Observação"
+      placeholder="Observação"/>
+  </div>
+
+  <div class="w-full flex justify-end">
+    <button [disabled]="!formGroup.valid" mat-flat-button
+      class="bg-primary/10 text-primary disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-primary/50">
+      <i [class]="icon" class="text-lg"></i>
+      <span class="pt-1">
+        Cadastrar
+      </span>
+    </button>
+  </div>
+</form>

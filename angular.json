@@ -17,6 +17,12 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
+            "allowedCommonJsDependencies": [
+              "@tivic-team/sol-request-angular",
+              "dayjs",
+              "file-saver",
+              "@tivic-team/sol-tools-ts"
+            ],
             "outputPath": "dist/angular-base",
             "index": "src/index.html",
             "browser": "src/main.ts",
@@ -35,6 +41,7 @@
               }
             ],
             "styles": [
+              "node_modules/@tivic-team/tivic-ui/public/theme/style.scss",
               "node_modules/leaflet/dist/leaflet.css",
               "src/styles.scss"
             ],

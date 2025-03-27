@@ -10,10 +10,9 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { environment } from "@env/environment.development";
 import { NameFormatterPipe, TimerComponent } from "@tivic-team/tivic-ui";
 import { filter } from 'rxjs/operators';
-import { RouteData } from "@/domain/interface/route-data.interface";
-import { Modules } from "@/domain/dto/modules.dto";
+import { RouteData } from "@/domain/interfaces/route-data.interface";
+import { Modules } from "@/domain/dtos/modules.dto";
 import jsonModules from "../../../../assets/modules/module.json"
-import { DeslogarUsuarioUseCase } from "@/application/usecase/login/deslogar-usuario.usecase";
 import { AuthServiceImpl } from "@/infrastructure/services/auth.service-impl";
 
 @Component({

@@ -1,4 +1,4 @@
-import { AuthService } from '@/domain/interface/auth-service.interface';
+import { AuthService } from '@/domain/interfaces/auth-service.interface';
 import {
     HttpHandler,
     HttpInterceptor,

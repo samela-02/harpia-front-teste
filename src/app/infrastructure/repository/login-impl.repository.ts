@@ -1,7 +1,7 @@
 import { ResponseData } from "@/application/dtos/response-data.dto";
 import { LoginRepository } from "@/application/repositories/login.repository";
-import { AuthDTO } from "@/domain/dto/auth.dto";
-import { LoginDto } from "@/domain/dto/login.dto";
+import { AuthDTO } from "@/domain/dtos/auth.dto";
+import { LoginDto } from "@/domain/dtos/login.dto";
 import { inject } from "@angular/core";
 import { Client } from "@tivic-team/tivic-ui";
 import { first, map, Observable } from "rxjs";

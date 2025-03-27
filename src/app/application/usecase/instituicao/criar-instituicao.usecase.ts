@@ -1,4 +1,4 @@
-import { Instituicao } from "@/domain/model/instituicao";
+import { Instituicao } from "@/domain/models/instituicao";
 import { InstituicaoRepository } from "../../repositories/instituicao.repository";
 import { Observable } from "rxjs";
 import { ResponseData } from "../../dtos/response-data.dto";

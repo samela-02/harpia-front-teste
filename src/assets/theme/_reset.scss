@@ -1,9 +1,9 @@
 ::-webkit-scrollbar {
-  @apply w-[.4rem] h-[.4rem] rounded bg-gray-200;
+  @apply w-[.4rem] h-[.4rem] rounded bg-[#BDBDBD];
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply rounded bg-gray-300;
+  @apply rounded bg-[#2B2B2B];
 }
 
 .mat-mdc-form-field {
@@ -104,7 +104,7 @@
 }
 
 .apexcharts-gridline {
-  @apply stroke-border dark:stroke-dark-container #{!important};
+  @apply stroke-border dark:stroke-dark-border #{!important};
 }
 
 .badge-table {
