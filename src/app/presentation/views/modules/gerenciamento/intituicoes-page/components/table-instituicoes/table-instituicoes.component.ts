@@ -3,13 +3,16 @@ import { ResponsePaginacao } from '@/application/dtos/response-paginacao.dto';
 import { BuscarInstituicoesUseCase } from '@/application/usecase/instituicao/buscar-instituicoes.usecase';
 import { BuscarDadosDeUsuarioUseCase } from '@/application/usecase/usuario/buscar-dados-de-usuario.usecase';
 import { Instituicao } from '@/domain/models/instituicao';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { InstituicaoFilter, InstituicaoProps } from '@/domain/filters/instituicao.filter';
 import { tableModule } from '@/presentation/shared/table.module';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatSortModule } from '@angular/material/sort';
 import { CommonModule } from '@angular/common';
 import { PageEvent } from '@angular/material/paginator';
+// import { ModalService } from '@tivic-team/tivic-ui';
+import { ModalService } from '@tivic-team/tivic-ui';
+import { ModalFormInstituicaoUpdateComponent } from '../modal-form-update-instituicao/modal-form-update-instituicao.component';
 
 @Component({
   selector: 'app-table-instituicoes',
@@ -18,8 +21,12 @@ import { PageEvent } from '@angular/material/paginator';
   templateUrl: './table-instituicoes.component.html',
   styleUrl: './table-instituicoes.component.scss'
 })
+
 export class TableInstituicoesComponent {
-  constructor(private buscarInstituicoesUseCase: BuscarInstituicoesUseCase){}
+  private _modalService = inject(ModalService<ModalFormInstituicaoUpdateComponent>);
+  constructor(
+    private buscarInstituicoesUseCase: BuscarInstituicoesUseCase,
+  ){}
 
   dataSource!: ResponseData<ResponsePaginacao<Instituicao[]>>;
   dataLength = 0
@@ -50,6 +57,12 @@ export class TableInstituicoesComponent {
     this.pageSize = page.pageSize;
     this.pageIndex = page.pageIndex -1;
     this.load(this.pageIndex + 1);
+  }
+
+  rowChange(event: MouseEvent, cdInstituicao: number) {
+    event.stopPropagation();
+    event.preventDefault();
+    this._modalService.component(ModalFormInstituicaoUpdateComponent).open(cdInstituicao);
   }
 
   getSituacao = (lgAtivo: boolean) => lgAtivo ? "Ativo" : "Inativo";

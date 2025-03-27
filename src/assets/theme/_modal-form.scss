@@ -1,5 +1,5 @@
 .modal {
-  @apply lg:w-[500px] md:w-[700px] sm:w-[600px] w-screen p-2;
+  @apply sm:w-[500px] w-screen p-4;
 
   &-header {
     @apply flex items-center gap-x-4 mb-3

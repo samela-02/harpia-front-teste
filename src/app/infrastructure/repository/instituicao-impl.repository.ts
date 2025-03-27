@@ -11,8 +11,12 @@ export class InstituicaoRepositoryImpl implements InstituicaoRepository {
   private _client = inject(Client);
   private readonly _api = "instituicoes";
 
-  criarInstituicao(instituicao: Instituicao): Observable<ResponseData<Instituicao>> {
+  criarInstituicao( instituicao: Instituicao): Observable<ResponseData<Instituicao>> {
     return this._client.post(this._api, instituicao)
+  }
+
+  editarInstituicao(cdInstituicao: number, instituicao: Instituicao): Observable<void> {
+    return this._client.put(`${this._api}/${cdInstituicao}`, instituicao)
   }
 
   buscarInstituicoes(filter?: InstituicaoFilter): Observable<ResponseData<ResponsePaginacao<Instituicao[]>>> {

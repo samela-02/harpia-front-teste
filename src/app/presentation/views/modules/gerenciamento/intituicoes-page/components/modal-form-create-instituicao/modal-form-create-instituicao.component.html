@@ -1,0 +1,18 @@
+<div class="modal">
+  <div class="modal-container">
+    <div class="header">
+      <div class="modal-header">
+        <i [class]="icon" class="text-[27px] flex justify-center text-primary"></i>
+        <span class="flex-center text-lg font-semibold text-text">
+          Cadastrar Instituição
+        </span>
+      </div>
+      <div class="modal-close">
+        <tvc-button icon="close" color="link" class="opacity-50" (click)="fecharModal()" />
+      </div>
+    </div>
+    <div class="main">
+      <app-form-instituicao class="h-full" (cadastroSucesso)="fecharModal()" />
+    </div>
+  </div>
+</div>

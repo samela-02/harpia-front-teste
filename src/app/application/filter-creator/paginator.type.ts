@@ -18,7 +18,7 @@ export namespace PaginatorType {
         }
 
         validate (): boolean {
-            if (this.value <= 1 || this.value === undefined) return false;
+            if (this.value == 0 || this.value === undefined) return false;
             return true;
         }
     }

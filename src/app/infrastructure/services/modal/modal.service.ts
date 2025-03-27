@@ -2,7 +2,8 @@ import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal, ComponentType, PortalInjector } from '@angular/cdk/portal';
 import { Injectable, InjectionToken, Injector } from '@angular/core';
 import { Subject } from 'rxjs';
-export const MODAL_DATA = new InjectionToken<{}>('MODAL_DATA');
+
+export const MODAL_DATA = new InjectionToken<any>('MODAL_DATA');
 
 @Injectable({
     providedIn: 'root',
@@ -53,7 +54,7 @@ export class ModalService<T> {
 
     private _injectParams(data: any) {
         const injectorTokens = new WeakMap<any, any>([
-            [MODAL_DATA, data || {}],
+            [MODAL_DATA, data || null],
         ]);
         return new PortalInjector(this._injector, injectorTokens);
     }
