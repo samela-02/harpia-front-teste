@@ -59,10 +59,10 @@ export class TableInstituicoesComponent {
     this.load(this.pageIndex + 1);
   }
 
-  rowChange(event: MouseEvent, cdInstituicao: number) {
+  rowChange(event: MouseEvent, instituicao: Instituicao ){
     event.stopPropagation();
     event.preventDefault();
-    this._modalService.component(ModalFormInstituicaoUpdateComponent).open(cdInstituicao);
+    this._modalService.component(ModalFormInstituicaoUpdateComponent).open(instituicao);
   }
 
   getSituacao = (lgAtivo: boolean) => lgAtivo ? "Ativo" : "Inativo";

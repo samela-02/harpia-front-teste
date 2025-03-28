@@ -15,12 +15,12 @@ import { MODAL_DATA, ModalService } from "@tivic-team/tivic-ui";
 })
 export class ModalFormInstituicaoUpdateComponent {
   public icon: string = "la la-industry"
-  protected cdInstituicao = inject(MODAL_DATA, { optional: true }) || null;
+  protected instituicao = inject(MODAL_DATA) || null;
   public tituloModal: string;
   private _modalService = inject(ModalService<ModalFormInstituicaoUpdateComponent>);
 
   ngOnInit(): void {
-    console.log(this.cdInstituicao)
+    console.log(this.instituicao)
   }
 
   fecharModal() {

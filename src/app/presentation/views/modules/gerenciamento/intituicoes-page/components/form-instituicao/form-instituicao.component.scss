@@ -43,6 +43,10 @@ fieldset {
   @apply py-2 #{!important};
 }
 
+::ng-deep .mat-mdc-form-field-textarea-control {
+  @apply max-h-14 #{!important}
+}
+
 .mdc-button__label {
   @apply flex-center justify-center gap-1
 }

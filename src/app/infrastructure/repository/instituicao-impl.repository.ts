@@ -19,6 +19,10 @@ export class InstituicaoRepositoryImpl implements InstituicaoRepository {
     return this._client.put(`${this._api}/${cdInstituicao}`, instituicao)
   }
 
+  desativarInstituicao(cdInstituicao: number): Observable<void> {
+    return this._client.patch(`${ this._api }/${ cdInstituicao }`, null)
+  }
+
   buscarInstituicoes(filter?: InstituicaoFilter): Observable<ResponseData<ResponsePaginacao<Instituicao[]>>> {
     console.log(filter?.getFilters())
     return this._client.get(this._api, filter?.getFilters()) as Observable<ResponseData<ResponsePaginacao<Instituicao[]>>>

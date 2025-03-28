@@ -8,4 +8,5 @@ export abstract class InstituicaoRepository {
   public abstract criarInstituicao(instituicao: Instituicao): Observable<ResponseData<Instituicao>>;
   public abstract editarInstituicao(cdInstituicao: number, instituicao: Instituicao): Observable<void>;
   public abstract buscarInstituicoes(filter?: InstituicaoFilter): Observable<ResponseData<ResponsePaginacao<Instituicao[]>>>
+  public abstract desativarInstituicao(cdInstituicao: number): Observable<void>;
 }

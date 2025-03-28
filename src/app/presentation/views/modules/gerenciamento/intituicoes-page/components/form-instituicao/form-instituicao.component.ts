@@ -1,5 +1,6 @@
 import { BuscarInstituicoesUseCase } from '@/application/usecase/instituicao/buscar-instituicoes.usecase';
 import { CriarInstituicaoUseCase } from '@/application/usecase/instituicao/criar-instituicao.usecase';
+import { DesativarInstituicaoUseCase } from '@/application/usecase/instituicao/desativar-instituicao.usecase';
 import { EditarInstituicaoUseCase } from '@/application/usecase/instituicao/editar-instituicao.usecase';
 import { InstituicaoFilter, InstituicaoProps } from '@/domain/filters/instituicao.filter';
 import { Instituicao } from '@/domain/models/instituicao';
@@ -9,7 +10,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
-import { FormType, InputComponent, SnackbarService, TextareaComponent } from '@tivic-team/tivic-ui';
+import { CustomDialogService, FormType, InputComponent, makeDeleteCustomDialog, SnackbarService, TextareaComponent } from '@tivic-team/tivic-ui';
 
 @Component({
   selector: 'app-form-instituicao',
@@ -29,16 +30,18 @@ import { FormType, InputComponent, SnackbarService, TextareaComponent } from '@t
 export class FormInstituicaoComponent {
   private _snackbar = inject(SnackbarService);
   public formGroup!: FormGroup<FormType<Instituicao>>;
+  private _customDialog = inject(CustomDialogService);
   public icon = 'la la-save'
   public iconClose = 'la la-times-circle'
   public isEditable = false;
 
   @Output() cadastroSucesso = new EventEmitter<void>();
-  @Input() cdInstituicao: any = null;
+  @Input() instituicao: any = null;
 
   constructor(
     private criarInstituicaoUseCase: CriarInstituicaoUseCase,
     private editarInstituicaoUseCase: EditarInstituicaoUseCase,
+    private desativarInstituicaoUseCase: DesativarInstituicaoUseCase,
     private formBuilder: FormBuilder,
     private buscarInstituicoesUseCase: BuscarInstituicoesUseCase,
   ) {
@@ -55,7 +58,7 @@ export class FormInstituicaoComponent {
   }
 
   private updateFormState() {
-    if (this.cdInstituicao && !this.isEditable) {
+    if (this.instituicao && !this.isEditable) {
       this.formGroup.disable();
     } else {
       this.formGroup.enable();
@@ -68,12 +71,11 @@ export class FormInstituicaoComponent {
   }
 
   private updateForm() {
-    console.log(this.cdInstituicao)
-    if (this.cdInstituicao) {
+    if (this.instituicao) {
       const propsFilter: InstituicaoProps = {
         page: 0,
         size: 1,
-        cdInstituicao: this.cdInstituicao
+        cdInstituicao: this.instituicao.cdInstituicao
       };
       const filter = new InstituicaoFilter(propsFilter);
 
@@ -98,8 +100,8 @@ export class FormInstituicaoComponent {
   onSubmit() {
     if (this.formGroup.valid) {
       const formData = this.formGroup.value as Instituicao;
-      if (this.cdInstituicao) {
-        this.editarInstituicao(this.cdInstituicao,formData);
+      if (this.instituicao?.cdInstituicao) {
+        this.editarInstituicao(this.instituicao.cdInstituicao,formData);
       } else {
         this.criarInstituicao(formData);
       }
@@ -109,7 +111,7 @@ export class FormInstituicaoComponent {
 
 
   private editarInstituicao(cdInstituicao: number, formData: Instituicao) {
-    formData.cdInstituicao = this.cdInstituicao;
+    formData.cdInstituicao = this.instituicao.cdInstituicao;
     this.editarInstituicaoUseCase.execute(cdInstituicao, formData).subscribe({
       next: () => {
         this._snackbar.success('Instituição atualizada com sucesso!');
@@ -129,6 +131,31 @@ export class FormInstituicaoComponent {
       },
       error: (error) => {
         this._snackbar.error(error.message);
+      }
+    });
+  }
+
+  desativarInstituicao(instituicao: Instituicao) {
+    this.desativarInstituicaoUseCase.execute(instituicao.cdInstituicao).subscribe({
+      next: () => {
+        this._snackbar.success('Instituição desativada com sucesso!');
+        this.cadastroSucesso.emit();
+      },
+      error: (error) => {
+        this._snackbar.error(error.message)
+      }
+    })
+  }
+
+  confirmarDesativacaoDeInstituicao(instituicao: Instituicao) {
+    const dialog = this._customDialog.warn(makeDeleteCustomDialog({
+      title: "Desativar Instituição",
+      value:`a instituição ${instituicao.nmInstituicao.toLowerCase()}?`
+    }));
+    return this._customDialog.afterClosed(dialog).subscribe((confirm) => {
+      if (confirm) {
+        this.desativarInstituicao(instituicao)
+        this._snackbar.success("Instituição desativada com sucesso")
       }
     });
   }
