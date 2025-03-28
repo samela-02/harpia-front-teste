@@ -1,7 +1,5 @@
 import { ResponseData } from '@/application/dtos/response-data.dto';
 import { ResponsePaginacao } from '@/application/dtos/response-paginacao.dto';
-import { BuscarInstituicoesUseCase } from '@/application/usecase/instituicao/buscar-instituicoes.usecase';
-import { BuscarDadosDeUsuarioUseCase } from '@/application/usecase/usuario/buscar-dados-de-usuario.usecase';
 import { Instituicao } from '@/domain/models/instituicao';
 import { Component, inject } from '@angular/core';
 import { InstituicaoFilter, InstituicaoProps } from '@/domain/filters/instituicao.filter';
@@ -10,9 +8,11 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatSortModule } from '@angular/material/sort';
 import { CommonModule } from '@angular/common';
 import { PageEvent } from '@angular/material/paginator';
-// import { ModalService } from '@tivic-team/tivic-ui';
 import { ModalService } from '@tivic-team/tivic-ui';
 import { ModalFormInstituicaoUpdateComponent } from '../modal-form-update-instituicao/modal-form-update-instituicao.component';
+import { Store } from '@ngxs/store';
+import { BuscarInstituicoesAction } from '@/infrastructure/store/actions/instituicao.actions';
+import { InstituicaoSelectors } from '@/infrastructure/store/selectors/instituicao.selectors';
 
 @Component({
   selector: 'app-table-instituicoes',
@@ -23,12 +23,11 @@ import { ModalFormInstituicaoUpdateComponent } from '../modal-form-update-instit
 })
 
 export class TableInstituicoesComponent {
+  private _store = inject(Store);
   private _modalService = inject(ModalService<ModalFormInstituicaoUpdateComponent>);
-  constructor(
-    private buscarInstituicoesUseCase: BuscarInstituicoesUseCase,
-  ){}
+  private _instituicoes = this._store.selectSignal(InstituicaoSelectors.instituicao);
 
-  dataSource!: ResponseData<ResponsePaginacao<Instituicao[]>>;
+  public instituicoes = this._instituicoes;
   dataLength = 0
 
   pageSize: number = 10;
@@ -36,21 +35,18 @@ export class TableInstituicoesComponent {
 
   ngOnInit(): void {
     this.load()
-
   }
 
-  load(page: number = 0) {
+  public load(page: number = 0) {
     const paginationProps: InstituicaoProps = {
       page: page,
       size: this.pageSize,
     };
-    console.log(paginationProps)
     const filter = new InstituicaoFilter(paginationProps);
-    this.buscarInstituicoesUseCase.execute(filter).subscribe((response) => {
-      this.dataSource = response;
-      this.dataLength = this.dataSource.data.totalItens
-      this.pageSize = this.pageSize;
-    });
+
+    this._store.dispatch(new BuscarInstituicoesAction(filter)).subscribe(() => {
+      this.dataLength = this.instituicoes().data.totalItens;
+    })
   }
 
   protected onPageChange(page: PageEvent){

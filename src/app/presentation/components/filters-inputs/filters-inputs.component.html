@@ -1,0 +1,23 @@
+<div class="w-[240px]">
+  <div class="header-group-filter">
+    <div class="search-container flex flex-row">
+        <mat-icon class="text-primary">
+          search
+        </mat-icon>
+      <mat-form-field appearance="outline" class="map-search-field">
+        <input matInput placeholder="Pesquisar" class="search-input">
+      </mat-form-field>
+    </div>
+    <button (click)="isOpen = !isOpen" cdkOverlayOrigin >
+      <i class="las la-filter icon "></i>
+    </button>
+  </div>
+  <!-- <ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger" [cdkConnectedOverlayOpen]="isOpen"
+    (detach)="isOpen = false" [cdkConnectedOverlayOffsetY]="8" [cdkConnectedOverlayPositionStrategy]="positionStrategy">
+    <ul class="dialog">
+      <li>Item 1</li>
+      <li>Item 2</li>
+      <li>Item 3</li>
+    </ul>
+  </ng-template> -->
+</div>

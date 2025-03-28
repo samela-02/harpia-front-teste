@@ -20,8 +20,10 @@ import { maskConfig } from '../assets/config/mask.config';
 import { provideAnimations } from "@angular/platform-browser/animations";
 import { MatDialogModule } from "@angular/material/dialog";
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
-import { infraProviders } from './infrastructure/providers';
 import { AuthInterceptor } from './infrastructure/interceptors/auth-config.interceptor';
+import { provideStore } from '@ngxs/store';
+import { stateProviders } from './infrastructure/store/state.providers';
+import { infraProviders } from './infrastructure/store/infraProviders';
 registerLocaleData(localePT);
 
 const providers = [

@@ -1,5 +1,5 @@
 .table {
-  @apply p-4 w-full;
+  @apply p-4 w-full ;
 }
 
 .mat-mdc-cell {
@@ -34,14 +34,13 @@
   @apply h-full flex flex-col;
 
   .mat-mdc-table {
-    max-height: calc(100vh - 200px); // Ajuste este valor conforme necessário
-    overflow: auto;
+    max-height: calc(100vh - 200px);
 
     thead {
       position: sticky;
       top: 0;
       z-index: 1;
-      background: white; // Ou a cor de fundo que você preferir
+      background: white;
     }
   }
 
@@ -49,6 +48,6 @@
     position: sticky;
     bottom: 0;
     z-index: 1;
-    background: white; // Ou a cor de fundo que você preferir
+    background: white;
   }
 }

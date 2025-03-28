@@ -4,12 +4,14 @@ import { DesativarInstituicaoUseCase } from '@/application/usecase/instituicao/d
 import { EditarInstituicaoUseCase } from '@/application/usecase/instituicao/editar-instituicao.usecase';
 import { InstituicaoFilter, InstituicaoProps } from '@/domain/filters/instituicao.filter';
 import { Instituicao } from '@/domain/models/instituicao';
+import { BuscarInstituicoesAction } from '@/infrastructure/store/actions/instituicao.actions';
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
+import { Store } from '@ngxs/store';
 import { CustomDialogService, FormType, InputComponent, makeDeleteCustomDialog, SnackbarService, TextareaComponent } from '@tivic-team/tivic-ui';
 
 @Component({
@@ -31,6 +33,7 @@ export class FormInstituicaoComponent {
   private _snackbar = inject(SnackbarService);
   public formGroup!: FormGroup<FormType<Instituicao>>;
   private _customDialog = inject(CustomDialogService);
+  private _store = inject(Store);
   public icon = 'la la-save'
   public iconClose = 'la la-times-circle'
   public isEditable = false;
@@ -109,13 +112,13 @@ export class FormInstituicaoComponent {
 
   }
 
-
   private editarInstituicao(cdInstituicao: number, formData: Instituicao) {
     formData.cdInstituicao = this.instituicao.cdInstituicao;
     this.editarInstituicaoUseCase.execute(cdInstituicao, formData).subscribe({
       next: () => {
         this._snackbar.success('Instituição atualizada com sucesso!');
         this.cadastroSucesso.emit();
+        this.loadTableInstituicao()
       },
       error: (error) => {
         this._snackbar.error(error.message);
@@ -128,6 +131,7 @@ export class FormInstituicaoComponent {
       next: () => {
         this._snackbar.success('Instituição criada com sucesso!');
         this.cadastroSucesso.emit();
+        this.loadTableInstituicao()
       },
       error: (error) => {
         this._snackbar.error(error.message);
@@ -140,6 +144,7 @@ export class FormInstituicaoComponent {
       next: () => {
         this._snackbar.success('Instituição desativada com sucesso!');
         this.cadastroSucesso.emit();
+        this.loadTableInstituicao()
       },
       error: (error) => {
         this._snackbar.error(error.message)
@@ -156,8 +161,18 @@ export class FormInstituicaoComponent {
       if (confirm) {
         this.desativarInstituicao(instituicao)
         this._snackbar.success("Instituição desativada com sucesso")
+        this.loadTableInstituicao()
       }
     });
+  }
+
+  loadTableInstituicao() {
+    const paginationProps: InstituicaoProps = {
+      page: 0,
+    };
+    const filter = new InstituicaoFilter(paginationProps);
+    this._store.dispatch(new BuscarInstituicoesAction(filter)).subscribe(() => {
+    })
   }
 
 }

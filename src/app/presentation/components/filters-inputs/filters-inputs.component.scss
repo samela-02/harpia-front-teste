@@ -1,38 +1,31 @@
+.header-group-filter {
+  @apply flex flex-row rounded-full px-4 py-1;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+}
+
+.icon {
+  @apply flex justify-start font-semibold text-primary/75 mt-[2px];
+  font-size: 23px;
+
+}
+
+.dialog {
+  @apply bg-white shadow-md w-[240px];
+}
+
 .search-container {
   @apply relative flex items-center;
-  width: 40px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
-  &.expanded {
-    width: 240px;
-
-    .search-button {
-      @apply bg-transparent;
-    }
-
-    .map-search-field {
-      width: 200px;
-      opacity: 1;
-      pointer-events: auto;
-      visibility: visible;
-      transform: translateX(40px);
-    }
-  }
-
-  .search-button {
-    @apply absolute left-0 z-10 flex items-center justify-center w-10 h-10 bg-white rounded-full shadow-md;
-    transition: background-color 0.3s ease;
-  }
+  width: 240px;
 
   .map-search-field {
-    width: 0;
-    opacity: 0;
-    pointer-events: none;
-    visibility: hidden;
-    transform: translateX(0);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 200px;
+    opacity: 1;
+    pointer-events: auto;
+    visibility: visible;
+    transform: translateX(40px);
     position: absolute;
     left: 0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
 

@@ -1,5 +1,5 @@
 import { tableImports } from "@/presentation/shared/table-imports.module";
-import { Component, inject } from "@angular/core";
+import { Component, EventEmitter, inject, Output } from "@angular/core";
 import { FormInstituicaoComponent } from "../form-instituicao/form-instituicao.component";
 import { MODAL_DATA, ModalService } from "@tivic-team/tivic-ui";
 

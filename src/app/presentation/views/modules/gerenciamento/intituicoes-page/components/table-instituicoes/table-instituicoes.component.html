@@ -1,5 +1,5 @@
-<div class="table-container">
-  <table mat-table [dataSource]="dataSource?.data?.dados" class="table" [style.width]="'100%'" [style.table-layout]="'fixed'" style="min-width: 600px;">
+<div class="table-container max-h-[37em]">
+  <table mat-table [dataSource]="instituicoes().data.dados" class="table" [style.width]="'100%'" [style.table-layout]="'fixed'" style="min-width: 600px;">
 
     <ng-container matColumnDef="idInstituicao">
     <th mat-header-cell *matHeaderCellDef> ID </th>
