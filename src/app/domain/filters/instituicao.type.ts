@@ -8,6 +8,14 @@ export namespace InstituicaoType {
 
     validate = (): boolean => !!this.value;
   }
+
+  export class idInstituicao extends Filter<string> {
+    constructor(value: string) {
+      super("idInstituicao", value);
+    }
+
+    validate = (): boolean => !!this.value;
+  }
   export class cdInstituicao extends Filter<number> {
     constructor(value: number) {
       super("cdInstituicao", value);

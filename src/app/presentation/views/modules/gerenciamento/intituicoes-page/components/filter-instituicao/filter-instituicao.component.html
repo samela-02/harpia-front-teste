@@ -1,0 +1,13 @@
+<div class="flex flex-col gap-4" [formGroup]="formGroup">
+  <div class="flex flex-row gap-4">
+    <div class="flex flex-col gap-2">
+      <tvc-input id="idInstituicao" label="Id da Instituição" formControlName="idInstituicao" maxlength="50" />
+    </div>
+  </div>
+  <div class="flex justify-end">
+    <div class="flex items-center gap-2">
+      <tvc-button color="default" icon="cleaning_services" matTooltip="Limpar" (click)="limpar()" />
+      <tvc-button color="primary" icon="search" matTooltip="Pesquisar" (click)="pesquisar()"/>
+    </div>
+  </div>
+</div>

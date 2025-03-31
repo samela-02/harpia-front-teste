@@ -1,34 +1,38 @@
-import { Overlay, OverlayModule, PositionStrategy } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInputModule } from "@angular/material/input";
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-filters-inputs',
   standalone: true,
-  imports: [MatIcon, MatFormFieldModule, MatFormField, CommonModule, FormsModule, MatInputModule, MatButtonModule, OverlayModule],
+  imports: [MatIcon, MatFormFieldModule, MatFormField, CommonModule, FormsModule, ReactiveFormsModule, MatInputModule, MatButtonModule, RouterModule],
   templateUrl: './filters-inputs.component.html',
   styleUrl: './filters-inputs.component.scss'
 })
 export class FiltersInputsComponent {
-  isOpen = true;
-  positionStrategy: PositionStrategy;
+  @Input() formGroup: FormGroup;
+  @Input() searchField: string = '';
+  @Input() placeholder: string = 'Pesquisar';
+  @Output() search = new EventEmitter<string>();
 
-  constructor(private overlay: Overlay) {
-    // this.positionStrategy = this.overlay.position()
-    //   .flexibleConnectedTo(trigger)
-    //   .withPositions([
-    //     {
-    //       originX: 'end',
-    //       originY: 'bottom',
-    //       overlayX: 'end',
-    //       overlayY: 'top',
-    //       offsetY: 8
-    //     }
-    //   ]);
+  searchTerm: string = '';
+  isOpen = false;
+
+  onSearch(): void {
+    if (this.searchField && this.formGroup && this.formGroup.get(this.searchField)) {
+      this.formGroup.get(this.searchField).setValue(this.searchTerm);
+    }
+    this.search.emit(this.searchTerm);
+  }
+
+  onKeyUp(event: KeyboardEvent): void {
+    if (event.key === 'Enter') {
+      this.onSearch();
+    }
   }
 }

@@ -1,7 +1,7 @@
 import { ResponseData } from '@/application/dtos/response-data.dto';
 import { ResponsePaginacao } from '@/application/dtos/response-paginacao.dto';
 import { Instituicao } from '@/domain/models/instituicao';
-import { Component, inject } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { InstituicaoFilter, InstituicaoProps } from '@/domain/filters/instituicao.filter';
 import { tableModule } from '@/presentation/shared/table.module';
 import { MatChipsModule } from '@angular/material/chips';
@@ -13,6 +13,8 @@ import { ModalFormInstituicaoUpdateComponent } from '../modal-form-update-instit
 import { Store } from '@ngxs/store';
 import { BuscarInstituicoesAction } from '@/infrastructure/store/actions/instituicao.actions';
 import { InstituicaoSelectors } from '@/infrastructure/store/selectors/instituicao.selectors';
+import { FormGroup } from '@angular/forms';
+import { TablePageBase } from '@/infrastructure/configuration/table-config/table-page.config';
 
 @Component({
   selector: 'app-table-instituicoes',
@@ -22,37 +24,38 @@ import { InstituicaoSelectors } from '@/infrastructure/store/selectors/instituic
   styleUrl: './table-instituicoes.component.scss'
 })
 
-export class TableInstituicoesComponent {
+export class TableInstituicoesComponent extends TablePageBase{
+  @Input() formGroup: FormGroup = new FormGroup({});
   private _store = inject(Store);
   private _modalService = inject(ModalService<ModalFormInstituicaoUpdateComponent>);
   private _instituicoes = this._store.selectSignal(InstituicaoSelectors.instituicao);
+  override currentFilters?: InstituicaoProps;
 
   public instituicoes = this._instituicoes;
   dataLength = 0
 
-  pageSize: number = 10;
-  pageIndex: number = 0;
-
   ngOnInit(): void {
-    this.load()
+    if (!this.formGroup) {
+      this.formGroup = new FormGroup({});
+    }
+    this.load();
   }
 
-  public load(page: number = 0) {
+  public load(filters?: InstituicaoProps, page: number = 0) {
+    if (filters) {
+      this.currentFilters = { ...filters };
+    }
     const paginationProps: InstituicaoProps = {
       page: page,
       size: this.pageSize,
+      nmInstituicao: this.currentFilters?.nmInstituicao,
+      idInstituicao: this.currentFilters?.idInstituicao
     };
-    const filter = new InstituicaoFilter(paginationProps);
+    const filterProps = new InstituicaoFilter(paginationProps);
 
-    this._store.dispatch(new BuscarInstituicoesAction(filter)).subscribe(() => {
+    this._store.dispatch(new BuscarInstituicoesAction(filterProps)).subscribe(() => {
       this.dataLength = this.instituicoes().data.totalItens;
     })
-  }
-
-  protected onPageChange(page: PageEvent){
-    this.pageSize = page.pageSize;
-    this.pageIndex = page.pageIndex -1;
-    this.load(this.pageIndex + 1);
   }
 
   rowChange(event: MouseEvent, instituicao: Instituicao ){

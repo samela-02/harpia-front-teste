@@ -5,6 +5,7 @@ import { PaginatorType } from "@/application/filter-creator/paginator.type";
 
 export interface InstituicaoProps extends PropsFilter {
   cdInstituicao?: number;
+  idInstituicao?: string;
   nmInstituicao?: string;
   lgAtivo?: boolean
 }
@@ -20,6 +21,7 @@ export class InstituicaoFilter {
     const filterManager = new HttpFilter([]);
 
     filterManager.addFilter(new InstituicaoType.nmInstituicao(this.props.nmInstituicao));
+    filterManager.addFilter(new InstituicaoType.idInstituicao(this.props.idInstituicao));
     filterManager.addFilter(new InstituicaoType.cdInstituicao(this.props.cdInstituicao));
     filterManager.addFilter(new InstituicaoType.lgAtivo(this.props.lgAtivo));
     filterManager.addFilter(new PaginatorType.query(this.props.query));

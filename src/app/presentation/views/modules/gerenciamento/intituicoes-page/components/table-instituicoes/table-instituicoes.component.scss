@@ -15,7 +15,7 @@
 }
 
 .chip-danger {
-  @apply flex-center justify-center bg-red-100 text-red-700 p-0 w-[90px] #{!important}
+  @apply flex-center justify-center bg-gray-100 text-gray-400 p-0 w-[90px] #{!important}
 }
 
 .content-success {
@@ -23,7 +23,7 @@
 }
 
 .content-danger {
-  @apply text-red-500 #{!important}
+  @apply text-gray-400 #{!important}
 }
 
 // .row-container {
