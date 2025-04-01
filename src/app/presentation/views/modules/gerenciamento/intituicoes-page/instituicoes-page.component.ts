@@ -1,5 +1,5 @@
 import { CriarInstituicaoUseCase } from '@/application/usecase/instituicao/criar-instituicao.usecase';
-import { Instituicao } from '@/domain/models/instituicao';
+import { Instituicao } from '@/domain/models/command/instituicao';
 import { Component, inject, viewChild, ViewChild } from '@angular/core';
 import { TableInstituicoesComponent } from './components/table-instituicoes/table-instituicoes.component';
 import { MatButtonModule } from '@angular/material/button';
@@ -46,11 +46,6 @@ export class IntituicoesPageComponent {
   }
 
   cadastrar() {
-    this._modalService.component(ModalFormCreateInstituicaoComponent).open();
-    this._modalService.onDismiss().subscribe(() => {
-      if (this.tableInstituicoes) {
-        this.tableInstituicoes.load();
-      }
-    });
+    const modalRef = this._modalService.component(ModalFormCreateInstituicaoComponent).open();
   }
 }

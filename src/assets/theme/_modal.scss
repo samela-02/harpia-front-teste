@@ -1,12 +1,8 @@
 .modal {
-  @apply lg:w-[800px] md:w-[700px] sm:w-[600px] w-screen p-2;
+  @apply sm:w-[500px] min-h-[200px] w-full p-3 h-auto flex flex-col bg-white rounded-md;
 
   &-header {
     @apply flex items-center gap-x-4 mb-3
-  }
-
-  &-container {
-    @apply min-h-[400px] w-full p-3 h-auto flex flex-col bg-white dark:bg-dark-container rounded-md ;
   }
 
   &-close {
@@ -14,7 +10,7 @@
   }
 
   .main {
-    @apply flex flex-col gap-6 h-[390px] #{!important};
+    @apply flex flex-col gap-6 h-auto min-h-[280px] #{!important};
   }
 
   .button {
@@ -34,6 +30,6 @@
   }
 
   .header {
-    @apply flex flex-row justify-between  w-full
+    @apply flex flex-row justify-between w-full
   }
 }

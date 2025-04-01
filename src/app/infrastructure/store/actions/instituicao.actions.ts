@@ -1,4 +1,4 @@
-import { InstituicaoFilter } from "@/domain/filters/instituicao.filter";
+import { InstituicaoFilter } from "@/domain/filters/instituicao/instituicao.filter";
 
 const scope = "[Instituicao]";
 

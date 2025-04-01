@@ -2,8 +2,8 @@ import { BuscarInstituicoesUseCase } from '@/application/usecase/instituicao/bus
 import { CriarInstituicaoUseCase } from '@/application/usecase/instituicao/criar-instituicao.usecase';
 import { DesativarInstituicaoUseCase } from '@/application/usecase/instituicao/desativar-instituicao.usecase';
 import { EditarInstituicaoUseCase } from '@/application/usecase/instituicao/editar-instituicao.usecase';
-import { InstituicaoFilter, InstituicaoProps } from '@/domain/filters/instituicao.filter';
-import { Instituicao } from '@/domain/models/instituicao';
+import { InstituicaoFilter, InstituicaoProps } from '@/domain/filters/instituicao/instituicao.filter';
+import { Instituicao } from '@/domain/models/command/instituicao';
 import { BuscarInstituicoesAction } from '@/infrastructure/store/actions/instituicao.actions';
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';

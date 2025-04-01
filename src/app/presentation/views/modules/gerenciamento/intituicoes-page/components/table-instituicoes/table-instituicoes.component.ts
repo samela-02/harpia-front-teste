@@ -1,8 +1,8 @@
 import { ResponseData } from '@/application/dtos/response-data.dto';
 import { ResponsePaginacao } from '@/application/dtos/response-paginacao.dto';
-import { Instituicao } from '@/domain/models/instituicao';
+import { Instituicao } from '@/domain/models/command/instituicao';
 import { Component, inject, Input } from '@angular/core';
-import { InstituicaoFilter, InstituicaoProps } from '@/domain/filters/instituicao.filter';
+import { InstituicaoFilter, InstituicaoProps } from '@/domain/filters/instituicao/instituicao.filter';
 import { tableModule } from '@/presentation/shared/table.module';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatSortModule } from '@angular/material/sort';

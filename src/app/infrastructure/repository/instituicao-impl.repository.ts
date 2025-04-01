@@ -1,8 +1,8 @@
 import { ResponseData } from "@/application/dtos/response-data.dto";
 import { ResponsePaginacao } from "@/application/dtos/response-paginacao.dto";
 import { InstituicaoRepository } from "@/application/repositories/instituicao.repository";
-import { InstituicaoFilter } from "@/domain/filters/instituicao.filter";
-import { Instituicao } from "@/domain/models/instituicao";
+import { InstituicaoFilter } from "@/domain/filters/instituicao/instituicao.filter";
+import { Instituicao } from "@/domain/models/command/instituicao";
 import { inject } from "@angular/core";
 import { Client } from "@tivic-team/tivic-ui";
 import { Observable } from "rxjs";
@@ -23,9 +23,9 @@ export class InstituicaoRepositoryImpl implements InstituicaoRepository {
     return this._client.patch(`${ this._api }/${ cdInstituicao }`, null)
   }
 
-  buscarInstituicoes(filter?: InstituicaoFilter): Observable<ResponseData<ResponsePaginacao<Instituicao[]>>> {
+  buscarInstituicoes(filter?: InstituicaoFilter): Observable<ResponseData<ResponsePaginacao<Instituicao>>> {
     console.log(filter?.getFilters())
-    return this._client.get(this._api, filter?.getFilters()) as Observable<ResponseData<ResponsePaginacao<Instituicao[]>>>
+    return this._client.get(this._api, filter?.getFilters()) as Observable<ResponseData<ResponsePaginacao<Instituicao>>>
   }
 
 }

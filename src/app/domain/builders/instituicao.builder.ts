@@ -1,4 +1,4 @@
-import { Instituicao } from "../models/instituicao";
+import { Instituicao } from "../models/command/instituicao";
 
 export class InstituicaoBuilder {
   private cdInstituicao?: number | null = null;

@@ -1,12 +1,8 @@
 .modal {
-  @apply sm:w-[500px] w-screen p-4;
+  @apply sm:w-[500px] min-h-[200px] w-full p-5 h-auto flex flex-col bg-white rounded-3xl;
 
   &-header {
-    @apply flex items-center gap-x-4 mb-3
-  }
-
-  &-container {
-    @apply min-h-[200px] w-full p-3 h-auto flex flex-col bg-white dark:bg-dark-container rounded-md;
+    @apply flex items-center gap-x-4 mb-5
   }
 
   &-close {
@@ -14,7 +10,7 @@
   }
 
   .main {
-    @apply flex flex-col gap-6 h-[280px] #{!important};
+    @apply flex flex-col justify-between h-auto  #{!important};
   }
 
   .button {

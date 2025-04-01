@@ -40,7 +40,7 @@
       {
         "label": "Usuários",
         "icon": "la la-user-friends",
-        "routerLink": "/users",
+        "routerLink": "/usuarios",
         "enabled": true
       }
     ]

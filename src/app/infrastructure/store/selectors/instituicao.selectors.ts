@@ -6,4 +6,9 @@ export class InstituicaoSelectors {
   static instituicao(state: InstituicaoStateModel) {
     return state.instituicoes
   }
+
+  @Selector([InstituicaoState])
+  static instituicaoSelect(state: InstituicaoStateModel) {
+    return state.instituicoes.data.dados
+  }
 }

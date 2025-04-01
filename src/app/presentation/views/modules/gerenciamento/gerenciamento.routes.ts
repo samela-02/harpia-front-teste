@@ -8,6 +8,18 @@ export const gerenciamentoRoutes: Routes = [
   },
   {
     path: "instituicoes",
-    loadChildren: () => import('./intituicoes-page/instituicoes.routes').then(m => m.instituicoesRoutes)
+    loadComponent: () => import('./intituicoes-page/instituicoes-page.component').then(m => m.IntituicoesPageComponent),
+    data: {
+      title: 'Instituições',
+      icon: 'la la-industry'
+    }
+  },
+  {
+    path: "usuarios",
+    loadComponent: () => import('./usuarios-page/usuarios-page.component').then(m => m.UsuariosPageComponent),
+    data: {
+      title: 'Usuários',
+      icon: 'la la-user-friends'
+    }
   }
 ]

@@ -1,0 +1,53 @@
+<form [formGroup]="formGroup" class="form h-full flex flex-col justify-between gap-3">
+  <div class="form-group grid grid-cols-2 gap-x-4 gap-y-2">
+
+    <tvc-input class="w-full" id="nmUsuario" formControlName="nmUsuario" label="Nome" placeholder="Nome do usuário"
+      inputNormalize="alfanum" required [maxlength]="40" [minlength]="3" />
+
+    <tvc-input class="w-full" id="nmCargo" formControlName="nmCargo" label="Cargo" placeholder="Cargo do usuário" />
+
+    <tvc-input class="w-full" id="nmEmail" formControlName="nmEmail" label="Email" placeholder="Email do usuário"
+      inputNormalize="alfanum" required [maxlength]="100" [minlength]="3" />
+
+    <tvc-dropdown class="w-full" id="cdInstituicao" formControlName="cdInstituicao" useLabel="nmInstituicao"
+      useValue="cdInstituicao" label="Instituição" placeholder="Instituição" required [providers]="instituicoes" />
+
+    <tvc-dropdown id="role" label="Nível de usuário" formControlName="role" [options]="enumRole" maxlength="50" />
+
+    <tvc-input class="w-full" id="nmLogin" formControlName="nmLogin" label="Login" placeholder="Login do usuário"
+      inputNormalize="alfanum" required [maxlength]="40" [minlength]="3" />
+
+    <tvc-input-password class="w-full" id="nmSenha" formControlName="nmSenha" label="Senha"
+      placeholder="Senha do usuário" [maxlength]="40"  />
+
+    <tvc-input-password class="w-full" id="nmConfirmacaoSenha" formControlName="nmConfirmacaoSenha"
+      label="Confirmação de senha" placeholder="Digite a senha novamente" [maxlength]="40"  />
+  </div>
+
+  <div class="w-full flex justify-end gap-2">
+    <button *ngIf="usuario && !isEditable" (click)="toggleEdit()" mat-flat-button
+      class="bg-accent/10 text-primary disabled:cursor-not-allowed disabled:text-accent/50">
+      <i [class]="icon" class="text-lg"></i>
+      <span class="pt-1">
+        Editar
+      </span>
+    </button>
+
+    <button *ngIf="(isEditable && usuario)" (click)="confirmarDesativacaoDeUsuario(usuario)"
+      [disabled]="!formGroup.valid" mat-flat-button class="bg-red-700/10 text-red-700 disabled:cursor-not-allowed">
+      <i [class]="iconClose" class="text-lg"></i>
+      <span class="pt-1">
+        Desativar
+      </span>
+    </button>
+
+    <button *ngIf="(isEditable && usuario) || (!usuario)" (click)="onSubmit()" [disabled]="!formGroup.valid"
+      mat-flat-button
+      class="bg-primary/10 text-primary disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-primary/50">
+      <i [class]="icon" class="text-lg"></i>
+      <span class="pt-1">
+        Salvar
+      </span>
+    </button>
+  </div>
+</form>

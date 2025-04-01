@@ -1,7 +1,7 @@
 import { PropsFilter } from "@/application/filter-creator/props.filter";
 import { FilterManager, HttpFilter } from "@tivic-team/tivic-ui";
-import { InstituicaoType } from "./instituicao.type";
 import { PaginatorType } from "@/application/filter-creator/paginator.type";
+import { InstituicaoType } from "./instituicao.type";
 
 export interface InstituicaoProps extends PropsFilter {
   cdInstituicao?: number;

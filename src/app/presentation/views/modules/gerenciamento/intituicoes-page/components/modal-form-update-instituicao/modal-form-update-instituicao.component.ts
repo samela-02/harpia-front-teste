@@ -4,7 +4,7 @@ import { FormInstituicaoComponent } from "../form-instituicao/form-instituicao.c
 import { MODAL_DATA, ModalService } from "@tivic-team/tivic-ui";
 import { Store } from "@ngxs/store";
 import { BuscarInstituicoesAction } from "@/infrastructure/store/actions/instituicao.actions";
-import { InstituicaoFilter, InstituicaoProps } from "@/domain/filters/instituicao.filter";
+import { InstituicaoFilter, InstituicaoProps } from "@/domain/filters/instituicao/instituicao.filter";
 
 @Component({
   selector: "modal-form-grupo-equipamento",
