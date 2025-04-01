@@ -32,6 +32,12 @@
         "enabled": true
       },
       {
+        "label": "Fontes",
+        "icon": "la la-folder-open",
+        "routerLink": "/fontes",
+        "enabled": true
+      },
+      {
         "label": "Instituições",
         "icon": "las la-industry",
         "routerLink": "/instituicoes",

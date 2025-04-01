@@ -12,7 +12,7 @@
     }
 
     .item-select {
-      @apply text-primary h-10;
+      @apply text-primary font-bold h-10;
     }
 
     .modulo-label {
@@ -25,7 +25,7 @@
     }
 
     .sidenav-header {
-      @apply flex justify-start py-1 px-2 pb-4 overflow-hidden;
+      @apply flex justify-start py-1 px-2 pb-4 mb-4 mt-2 overflow-hidden border-b border-gray-200;
       display: flex;
       height: 80px;
       align-items: center;
@@ -204,7 +204,7 @@
     @apply flex items-center gap-x-4 pb-2 border-b border-b-border;
 
     h4 {
-      @apply text-base leading-5 text-primary dark:text-white font-semibold;
+      @apply text-base leading-5 text-primary  dark:text-white font-semibold;
     }
 
     span {

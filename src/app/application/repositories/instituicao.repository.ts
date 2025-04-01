@@ -1,7 +1,7 @@
+import { InstituicaoFilter } from "@/domain/filters/instituicao/instituicao.filter";
+import { Instituicao } from "@/domain/models/command/instituicao";
 import { Observable } from "rxjs";
 import { ResponseData } from "../dtos/response-data.dto";
-import { Instituicao } from "@/domain/models/command/instituicao";
-import { InstituicaoFilter } from "@/domain/filters/instituicao/instituicao.filter";
 import { ResponsePaginacao } from "../dtos/response-paginacao.dto";
 
 export abstract class InstituicaoRepository {

@@ -21,5 +21,13 @@ export const gerenciamentoRoutes: Routes = [
       title: 'Usuários',
       icon: 'la la-user-friends'
     }
+  },
+  {
+    path: "fontes",
+    loadComponent: () => import('./fontes-page/fontes-page.component').then(m => m.FontesPageComponent),
+    data: {
+      title: 'fontes',
+      icon: 'la la-folder-open'
+    }
   }
 ]
