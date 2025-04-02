@@ -57,7 +57,7 @@
         transition: all 0.5s ease;
 
         &.active {
-          @apply bg-primary/10 rounded-md;
+          @apply bg-primary/5 rounded-md;
           transition: all 0.5s ease;
         }
 
@@ -233,7 +233,7 @@
   }
 
   &.active {
-    @apply bg-primary/10 rounded-md;
+    @apply bg-primary/5 rounded-md;
   }
 }
 
