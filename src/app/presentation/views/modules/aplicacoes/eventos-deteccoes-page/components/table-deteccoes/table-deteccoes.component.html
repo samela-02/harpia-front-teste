@@ -1,8 +1,16 @@
 <div class="h-full max-h-full overflow-y-auto">
   <table mat-table [dataSource]="dataSource.dados" class="table">
-    <ng-container matColumnDef="position">
-      <th mat-header-cell *matHeaderCellDef> No. </th>
-      <td mat-cell *matCellDef="let dados"> {{dados.position}} </td>
+
+    <ng-container matColumnDef="imgOriginal">
+      <th mat-header-cell *matHeaderCellDef>PLACA</th>
+      <td mat-cell *matCellDef="let item" class="uppercase columns">
+        <div class="h-[10vh] min-w-[20vh]">
+          <div *ngIf="item?.imgOriginal" class="img-container">
+            <div [className]="setColorType(item.tipo)" class="w-2/12"></div>
+            <img *ngIf="item?.imgOriginal" [src]="item?.imgOriginal" alt="Imagem do evento" class="img-captura w-10/12">
+          </div>
+        </div>
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="nrPlaca">
@@ -27,7 +35,7 @@
     <ng-container matColumnDef="dtEvento">
       <th mat-header-cell *matHeaderCellDef> DATA DE EVENTO </th>
       <td mat-cell *matCellDef="let dados">
-        <tvc-badge color="primary" size="small">
+        <tvc-badge color="default" size="normal">
           {{dados.dtEvento}}
         </tvc-badge>
       </td>

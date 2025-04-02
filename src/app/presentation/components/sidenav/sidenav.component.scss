@@ -54,13 +54,16 @@
 
       a {
         @apply m-2 pl-[22px];
+        transition: all 0.5s ease;
 
         &.active {
           @apply bg-primary/10 rounded-md;
+          transition: all 0.5s ease;
         }
 
         &:hover {
-          @apply bg-primary/5 rounded-md transition-all;
+          @apply bg-primary/5 rounded-md;
+          transition: all 0.5s ease;
         }
       }
 
@@ -237,6 +240,10 @@
 ::ng-deep .mat-expansion-panel-body {
   padding: 0 !important;
   @apply flex flex-col;
+}
+
+::ng-deep .breadcrumb-list {
+  @apply mt-0 #{!important}
 }
 
 .title {

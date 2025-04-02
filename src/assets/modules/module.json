@@ -26,15 +26,9 @@
     "routerLink": "/gerenciamento",
     "features": [
       {
-        "label": "Alertas",
-        "icon": "la la-exclamation-triangle",
-        "routerLink": "/alertas",
-        "enabled": true
-      },
-      {
-        "label": "Fontes",
+        "label": "Pasta de Alertas",
         "icon": "la la-folder-open",
-        "routerLink": "/fontes",
+        "routerLink": "/pastas-alertas",
         "enabled": true
       },
       {

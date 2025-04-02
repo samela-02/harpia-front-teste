@@ -19,7 +19,7 @@ export const routes: Routes = [
       },
       {
         path: 'gerenciamento',
-        loadChildren: () => import('./presentation/views/modules/gerenciamento/gerenciamento.routes').then(i => i.gerenciamentoRoutes),
+        loadChildren: () => import('./presentation/views/modules/gerenciamento/gerenciamento.routes').then(i => i.gerenciamentoRoutes)
       }
     ]
   },

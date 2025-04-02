@@ -14,6 +14,7 @@ import { RouteData } from "@/domain/interfaces/route-data.interface";
 import { Modules } from "@/domain/dtos/modules.dto";
 import jsonModules from "../../../../assets/modules/module.json"
 import { AuthServiceImpl } from "@/infrastructure/services/auth.service-impl";
+import { BreadcrumbComponent } from "../breadcrumb/breadcrumb.component";
 
 @Component({
     selector: "app-sidenav",
@@ -21,17 +22,18 @@ import { AuthServiceImpl } from "@/infrastructure/services/auth.service-impl";
     styleUrls: ["./sidenav.component.scss"],
     standalone: true,
     imports: [
-      MatSidenavModule,
-      MatButtonModule,
-      NameFormatterPipe,
-      TimerComponent,
-      MatExpansionModule,
-      AngularLineawesomeModule,
-      RouterModule,
-      MatListModule,
-      MatIconModule,
-      CommonModule
-    ]
+    MatSidenavModule,
+    BreadcrumbComponent,
+    MatButtonModule,
+    NameFormatterPipe,
+    TimerComponent,
+    MatExpansionModule,
+    AngularLineawesomeModule,
+    RouterModule,
+    MatListModule,
+    MatIconModule,
+    CommonModule,
+]
 })
 export class SidenavComponent {
   @ViewChild('sidenav') sidenav!: MatSidenav;
@@ -58,6 +60,7 @@ export class SidenavComponent {
         route = route.firstChild;
       }
       this.currentRouteData = route.snapshot.data as RouteData;
+      console.log(this.currentRouteData)
     });
   }
 

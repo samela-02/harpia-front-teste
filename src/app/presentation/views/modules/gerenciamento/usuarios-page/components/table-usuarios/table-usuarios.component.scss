@@ -2,6 +2,14 @@
   @apply p-4 w-full ;
 }
 
+.mat-column-lgAtivo, .mat-column-role{
+  text-align: center;
+}
+
+::ng-deep .mdc-evolution-chip-set__chips {
+  @apply flex justify-center #{!important}
+}
+
 .mat-mdc-cell {
   height: 20px;
 }

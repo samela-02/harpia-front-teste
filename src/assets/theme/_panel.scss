@@ -22,7 +22,7 @@
 }
 
 .panel {
-  @apply flex items-center justify-between  border-zinc-200 dark:border-dark-container pb-4;
+  @apply flex items-center justify-between  border-zinc-200 dark:border-dark-container;
 
   &-header {
     @apply flex items-center gap-x-2;

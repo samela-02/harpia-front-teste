@@ -1,9 +1,9 @@
 ::-webkit-scrollbar {
-  @apply w-[.4rem] h-[.4rem] rounded bg-[#BDBDBD];
+  @apply w-[.4rem] h-[.4rem] rounded bg-primary/5;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply rounded bg-[#2B2B2B];
+  @apply rounded bg-primary/20;
 }
 
 .mat-mdc-form-field {

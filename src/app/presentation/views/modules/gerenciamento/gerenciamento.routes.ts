@@ -11,7 +11,8 @@ export const gerenciamentoRoutes: Routes = [
     loadComponent: () => import('./intituicoes-page/instituicoes-page.component').then(m => m.IntituicoesPageComponent),
     data: {
       title: 'Instituições',
-      icon: 'la la-industry'
+      icon: 'la la-industry',
+      breadcrumb: 'Instituições'
     }
   },
   {
@@ -19,15 +20,17 @@ export const gerenciamentoRoutes: Routes = [
     loadComponent: () => import('./usuarios-page/usuarios-page.component').then(m => m.UsuariosPageComponent),
     data: {
       title: 'Usuários',
-      icon: 'la la-user-friends'
+      icon: 'la la-user-friends',
+      breadcrumb: 'Usuários'
     }
   },
   {
-    path: "fontes",
-    loadComponent: () => import('./fontes-page/fontes-page.component').then(m => m.FontesPageComponent),
+    path: "pastas-alertas",
+    loadChildren: () => import('./pastas-alertas-page/pasta-alertas.routes').then(p => p.pastaAlertasRoutes),
     data: {
-      title: 'fontes',
-      icon: 'la la-folder-open'
+      title: 'Pastas de Alertas',
+      icon: 'la la-folder-open',
+      breadcrumb: 'Pastas de Alertas'
     }
   }
 ]

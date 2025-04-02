@@ -1,0 +1,11 @@
+.rota {
+  @apply flex items-end gap-2;
+  @apply text-primary/80;
+  transition: all 0.5s ease;
+
+  &:last-child {
+    @apply text-primary transition-3s;
+    @apply font-semibold;
+    transition: all 0.5s ease;
+  }
+}

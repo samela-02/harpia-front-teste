@@ -1,0 +1,12 @@
+<div class="flex flex-row items-center text-primary gap-1 text-[17px]">
+  <ng-container *ngFor="let breadcrumb of breadcrumbService.breadcrumbs$ | async; let last = last; let first = first">
+    <a [routerLink]="breadcrumb.path" class="rota">
+      <i [class]="breadcrumb.icon" *ngIf="breadcrumb.icon && first" class="text-[27px]"></i>
+      <label>
+        {{ breadcrumb.label }}
+      </label>
+    </a>
+    <i class="la la-angle-right" style="color: rgb(2 83 115 / 0.6) !important; font-size: small;
+"  *ngIf="!last"></i>
+  </ng-container>
+</div>
