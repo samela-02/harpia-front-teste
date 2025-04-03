@@ -5,13 +5,12 @@ import { TableTiposEquipamentosComponent } from './components/table-tipos-equipa
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { FiltersInputsComponent } from '@/presentation/components/filters-inputs/filters-inputs.component';
-import { FilterTiposEquipamentosComponent } from './components/filter-tipos-equipamentos/filter-tipos-equipamentos.component';
 import { sharedModule } from '@/presentation/shared/shared';
 
 @Component({
   selector: 'app-tipos-equipamentos',
   standalone: true,
-  imports: [TableTiposEquipamentosComponent, MatButtonModule, FiltersInputsComponent, FilterTiposEquipamentosComponent, ...sharedModule],
+  imports: [TableTiposEquipamentosComponent, MatButtonModule, FiltersInputsComponent, ...sharedModule],
   templateUrl: './tipos-equipamentos.component.html',
   styleUrl: './tipos-equipamentos.component.scss'
 })

@@ -18,6 +18,7 @@ export class FiltersInputsComponent {
   @Input() formGroup: FormGroup;
   @Input() searchField: string = '';
   @Input() placeholder: string = 'Pesquisar';
+  @Input() openFilters: boolean = true
   @Output() search = new EventEmitter<string>();
 
   searchTerm: string = '';

@@ -11,11 +11,13 @@
                (blur)="onSearch()">
       </mat-form-field>
     </div>
-    <button (click)="isOpen = !isOpen">
-      <i class="las la-filter icon "></i>
-    </button>
+    @if(openFilters){
+      <button  (click)="isOpen = !isOpen">
+        <i class="las la-filter icon "></i>
+      </button>
+    }
   </div>
-  @if (isOpen) {
+  @if (isOpen && openFilters) {
     <div class="filters-overlay" [formGroup]="formGroup">
       <div class="filters-content">
         <ng-content></ng-content>
