@@ -32,5 +32,9 @@ export const gerenciamentoRoutes: Routes = [
       icon: 'la la-folder-open',
       breadcrumb: 'Pastas de Alertas'
     }
+  },
+  {
+    path: "equipamentos",
+    loadChildren: () => import('./equipamentos/equipamentos.routes').then(e => e.EquipamentosRoutes),
   }
 ]

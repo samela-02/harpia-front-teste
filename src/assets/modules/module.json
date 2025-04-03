@@ -38,6 +38,28 @@
         "enabled": true
       },
       {
+        "id": "idEquipamentos",
+        "label": "Equipamentos",
+        "icon": "las la-camera-retro",
+        "enabled": true,
+        "children":[
+          {
+            "id": "idTiposEquipamentos",
+            "label": "Lista de Equipamentos",
+            "icon": "las la-camera-retro",
+            "routerLink": "/equipamentos/lista-equipamentos",
+            "enabled": true
+          },
+          {
+            "id": "idEquipamentos",
+            "label": "Tipos de Equipamentos",
+            "icon": "las la-stream",
+            "routerLink": "/equipamentos/tipos-equipamentos",
+            "enabled": true
+          }
+        ]
+      },
+      {
         "label": "Usuários",
         "icon": "la la-user-friends",
         "routerLink": "/usuarios",

@@ -1,0 +1,33 @@
+<form [formGroup]="formGroup" class="form h-full flex flex-col justify-between gap-3">
+  <div class="form-group">
+    <tvc-input class="w-full" id="nmTipoEquipamento" formControlName="nmTipoEquipamento" label="Tipo de Equipamento"
+      placeholder="Tipo de Equipamento" inputNormalize="alfanum" required [maxlength]="40" [minlength]="3" />
+  </div>
+
+  <div class="w-full flex justify-end gap-2">
+    <button *ngIf="tiposEquipamentos && !isEditable && tiposEquipamentos.lgAtivo" (click)="toggleEdit()" mat-flat-button
+      class="bg-accent/10 text-primary disabled:cursor-not-allowed disabled:text-accent/50">
+      <i [class]="icon" class="text-lg"></i>
+      <span class="pt-1">
+        Editar
+      </span>
+    </button>
+
+    <button *ngIf="(isEditable && tiposEquipamentos)" (click)="confirmarDesativacaoDeTipoEquipamento(tiposEquipamentos)"
+      [disabled]="!formGroup.valid" mat-flat-button class="bg-red-700/10 text-red-700 disabled:cursor-not-allowed">
+      <i [class]="iconClose" class="text-lg"></i>
+      <span class="pt-1">
+        Desativar
+      </span>
+    </button>
+
+    <button *ngIf="(isEditable && tiposEquipamentos) || (!tiposEquipamentos)" (click)="onSubmit()" [disabled]="!formGroup.valid"
+      mat-flat-button
+      class="bg-primary/10 text-primary disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-primary/50">
+      <i [class]="icon" class="text-lg"></i>
+      <span class="pt-1">
+        Salvar
+      </span>
+    </button>
+  </div>
+</form>

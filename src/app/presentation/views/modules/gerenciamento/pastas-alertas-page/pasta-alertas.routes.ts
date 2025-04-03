@@ -1,8 +1,5 @@
-import { BreadcrumbSelectors } from "@/infrastructure/store/selectors/breadcrumb.selectors";
 import { breadcrumbResolver } from "@/presentation/components/resolvers/breadcrumb.resolver";
-import { inject, runInInjectionContext, ApplicationRef } from "@angular/core";
 import { Routes } from "@angular/router";
-import { Store } from "@ngxs/store";
 
 export const pastaAlertasRoutes: Routes = [
   {

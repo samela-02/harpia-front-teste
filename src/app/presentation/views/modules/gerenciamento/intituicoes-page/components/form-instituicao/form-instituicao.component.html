@@ -9,7 +9,7 @@
   </div>
 
   <div class="w-full flex justify-end gap-2">
-    <button *ngIf="instituicao && !isEditable" (click)="toggleEdit()" mat-flat-button
+    <button *ngIf="instituicao && !isEditable && instituicao.lgAtivo" (click)="toggleEdit()" mat-flat-button
       class="bg-accent/10 text-primary disabled:cursor-not-allowed disabled:text-accent/50">
       <i [class]="icon" class="text-lg"></i>
       <span class="pt-1">

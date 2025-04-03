@@ -7,7 +7,7 @@ import { UsuarioFilter, UsuarioProps } from "@/domain/filters/usuario/usuario.fi
 import { BuscarUsuariosAction } from "@/infrastructure/store/actions/usuario.actions";
 
 @Component({
-  selector: "modal-form-grupo-equipamento",
+  selector: "modal-form-update-usuario",
   standalone: true,
   imports: [
     ...tableImports,

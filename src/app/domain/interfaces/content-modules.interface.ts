@@ -1,5 +1,6 @@
 interface children {
   id: string,
+  icon?: string;
   routerLink: string,
   label: string,
   enabled: boolean

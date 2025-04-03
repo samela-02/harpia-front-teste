@@ -18,15 +18,20 @@
       </a>
       } @else {
       @if(isExpanded){
-      <mat-expansion-panel class="mat-elevation-z0 p-3" [expanded]="selectedModule === feature">
+      <mat-expansion-panel class="mat-elevation-z0 my-2 px-3" [expanded]="selectedModule === feature">
         <mat-expansion-panel-header class="item-select" [ngClass]="{'expanded': isExpanded}">
           <i [class]="feature.icon" class="text-[20px] flex justify-center mr-2"></i>
           <span *ngIf="isExpanded">{{ feature.label }}</span>
         </mat-expansion-panel-header>
         @for (child of feature.children; track child.routerLink) {
-        <a [routerLink]="feature.routerLink ? [item.routerLink + feature.routerLink] : null"
+        <a [routerLink]="child.routerLink ? [item.routerLink + child.routerLink] : null"
           [ngClass]="{'expanded': isExpanded}" routerLinkActive="active" class="child-item h-4" style="padding: 0;">
-          <span>{{ child.label }}</span>
+          <span class="!left-3 flex-center">
+          <div class="text-lg mr-3">
+            ○
+          </div>
+            {{ child.label }}
+          </span>
         </a>
         }
       </mat-expansion-panel>

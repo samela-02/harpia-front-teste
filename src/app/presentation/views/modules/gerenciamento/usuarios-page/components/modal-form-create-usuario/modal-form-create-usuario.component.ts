@@ -4,7 +4,7 @@ import { MODAL_DATA, ModalService } from "@tivic-team/tivic-ui";
 import { FormUsuarioComponent } from "../form-usuario/form-usuario.component";
 
 @Component({
-  selector: "modal-form-create-grupo-equipamento",
+  selector: "modal-form-create-usuario",
   standalone: true,
   imports: [
     ...tableImports,

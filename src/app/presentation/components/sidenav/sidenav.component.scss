@@ -1,3 +1,4 @@
+
 .sidenav-container {
   @apply h-screen w-screen;
 
@@ -8,7 +9,7 @@
     overflow: hidden;
 
     &.expanded {
-      width: 200px;
+      width: 220px;
     }
 
     .item-select {
@@ -97,7 +98,7 @@
     transition: margin-left 0.3s ease;
 
     &.content-shifted {
-      @apply md:ml-[200px] #{!important};
+      @apply md:ml-[220px] #{!important};
     }
 
     &:not(.content-shifted) {
@@ -122,7 +123,7 @@
   }
 
   .nav {
-    @apply flex gap-2;
+    @apply flex ;
 
     button {
       mat-icon {
@@ -225,7 +226,7 @@
 }
 
 .child-item {
-  @apply text-xs text-primary/75 dark:text-white/75;
+  @apply text-xs text-primary/90 dark:text-white/75;
   height: 30px !important;
 
   &:hover {

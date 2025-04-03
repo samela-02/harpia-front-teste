@@ -5,12 +5,15 @@ import { withNgxsLoggerPlugin } from "@ngxs/logger-plugin";
 import { withNgxsStoragePlugin } from "@ngxs/storage-plugin";
 import { UsuarioState } from "./states/usuario.state";
 import { BreadcrumbState } from "./states/breadcrumb.state";
+import { TipoEquipamentoState } from "./states/tipo-equipamento.state";
 
 export const stateProviders = [
   provideStore(
     [
       InstituicaoState,
-      UsuarioState,BreadcrumbState
+      UsuarioState,
+      BreadcrumbState,
+      TipoEquipamentoState
     ],
     withNgxsStoragePlugin({ keys: "*" }),
     withNgxsLoggerPlugin(),

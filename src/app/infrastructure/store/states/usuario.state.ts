@@ -1,16 +1,12 @@
 import { ResponseData } from "@/application/dtos/response-data.dto";
 import { ResponsePaginacao } from "@/application/dtos/response-paginacao.dto";
-import { BuscarInstituicoesUseCase } from "@/application/usecase/instituicao/buscar-instituicoes.usecase";
-import { Instituicao } from "@/domain/models/command/instituicao";
+import { BuscarUsuariosUseCase } from "@/application/usecase/usuario/buscar-usuarios.usecase";
+import { RoleLabel, UsuarioRole } from "@/domain/enums/usuario-role.enum";
+import { UsuarioQueryResponse } from "@/domain/models/query/usuarioQueryResponse";
 import { Injectable } from "@angular/core";
 import { Action, State, StateContext } from "@ngxs/store";
-import { BuscarInstituicoesAction } from "../actions/instituicao.actions";
 import { Observable, tap } from "rxjs";
-import { Usuario } from "@/domain/models/command/usuario";
-import { BuscarUsuariosUseCase } from "@/application/usecase/usuario/buscar-usuarios.usecase";
 import { BuscarUsuariosAction } from "../actions/usuario.actions";
-import { UsuarioQueryResponse } from "@/domain/models/query/usuarioQueryResponse";
-import { RoleLabel, UsuarioRole } from "@/domain/enums/usuario-role.enum";
 
 export class UsuarioStateModel {
    usuarios: ResponseData<ResponsePaginacao<UsuarioQueryResponse>> | null;

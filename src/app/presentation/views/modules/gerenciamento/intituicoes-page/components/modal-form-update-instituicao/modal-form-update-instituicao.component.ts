@@ -7,7 +7,7 @@ import { BuscarInstituicoesAction } from "@/infrastructure/store/actions/institu
 import { InstituicaoFilter, InstituicaoProps } from "@/domain/filters/instituicao/instituicao.filter";
 
 @Component({
-  selector: "modal-form-grupo-equipamento",
+  selector: "modal-form-update-instituicao",
   standalone: true,
   imports: [
     ...tableImports,

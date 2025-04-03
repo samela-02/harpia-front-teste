@@ -4,7 +4,7 @@ import { FormInstituicaoComponent } from "../form-instituicao/form-instituicao.c
 import { MODAL_DATA, ModalService } from "@tivic-team/tivic-ui";
 
 @Component({
-  selector: "modal-form-create-grupo-equipamento",
+  selector: "modal-form-create-instituicao",
   standalone: true,
   imports: [
     ...tableImports,
