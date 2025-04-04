@@ -1,17 +1,27 @@
 export class Equipamento {
-  cdTipoEquipamento?: number | null;
-  nmTipoEquipamento: string;
+  cdEquipamento?: number | null;
+  cdInstituicao: number;
+  nmEquipamento: string;
+  idEquipamento: string;
+  dtAlocacao: Date;
+  nrSerie: string;
   lgAtivo?: number;
 
   constructor(
-    nmTipoEquipamento: string,
-    nmInstituicao: string,
-    txtObservacao: string,
-    cdTipoEquipamento?: number | null,
+    cdInstituicao: number,
+    nmEquipamento: string,
+    idEquipamento: string,
+    dtAlocacao: Date,
+    nrSerie: string,
+    cdEquipamento?: number | null,
     lgAtivo?: number
   ) {
-    this.cdTipoEquipamento = cdTipoEquipamento;
-    this.nmTipoEquipamento = nmTipoEquipamento;
-    this.lgAtivo = lgAtivo;
+    this.cdInstituicao = cdInstituicao,
+    this.nmEquipamento = nmEquipamento,
+    this.idEquipamento = idEquipamento,
+    this.dtAlocacao =  dtAlocacao,
+    this.nrSerie = nrSerie
+    this.cdEquipamento = cdEquipamento,
+    this.lgAtivo = lgAtivo
   }
 }

@@ -1,7 +1,7 @@
 import { ResponseData } from "@/application/dtos/response-data.dto";
 import { ResponsePaginacao } from "@/application/dtos/response-paginacao.dto";
 import { BuscarTiposEquipamentosUseCase } from "@/application/usecase/tipo-equipamento/buscar-tipos-equipamentos.usecase";
-import { TipoEquipamento } from "@/domain/models/tipo-equipamento";
+import { TipoEquipamento } from "@/domain/models/command/tipo-equipamento";
 import { Injectable } from "@angular/core";
 import { Action, State, StateContext } from "@ngxs/store";
 import { Observable, tap } from "rxjs";

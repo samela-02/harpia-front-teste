@@ -1,5 +1,5 @@
 import { TipoEquipamentosFilter, TipoEquipamentosProps } from '@/domain/filters/lista-equipamento/tipo-equipamento.filter';
-import { TipoEquipamento } from '@/domain/models/tipo-equipamento';
+import { TipoEquipamento } from '@/domain/models/command/tipo-equipamento';
 import { TablePageBase } from '@/infrastructure/configuration/table-config/table-page.config';
 import { BuscarTiposEquipamentosAction } from '@/infrastructure/store/actions/tipo-equipamento.actions';
 import { TipoEquipamentoSelectors } from '@/infrastructure/store/selectors/tipo-equipamento.selectors';
