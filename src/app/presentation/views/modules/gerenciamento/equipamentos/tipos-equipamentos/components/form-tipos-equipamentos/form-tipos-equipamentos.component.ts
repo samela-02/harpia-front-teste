@@ -3,7 +3,7 @@ import { CriarTipoEquipamentoUseCase } from '@/application/usecase/tipo-equipame
 import { DesativarTipoEquipamentoUseCase } from '@/application/usecase/tipo-equipamento/desativar-tipo-equipamento..usecase';
 import { EditarTipoEquipamentoUseCase } from '@/application/usecase/tipo-equipamento/editar-tipo-equipamento.usecase';
 import { TipoEquipamentosFilter, TipoEquipamentosProps } from '@/domain/filters/lista-equipamento/tipo-equipamento.filter';
-import { TipoEquipamento } from '@/domain/models/tipo-equipamento';
+import { TipoEquipamento } from '@/domain/models/command/tipo-equipamento';
 import { BuscarTiposEquipamentosAction } from '@/infrastructure/store/actions/tipo-equipamento.actions';
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';

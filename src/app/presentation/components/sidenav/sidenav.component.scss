@@ -26,11 +26,8 @@
     }
 
     .sidenav-header {
-      @apply flex justify-start py-1 px-2 pb-4 mb-4 mt-2 overflow-hidden border-b border-gray-200;
-      display: flex;
+      @apply flex-center relative justify-start py-1 px-2 pb-4 mb-4 mt-2 overflow-hidden border-b border-gray-200;
       height: 80px;
-      align-items: center;
-      position: relative;
 
       .logo-img {
         @apply ml-2 absolute left-2;
@@ -259,3 +256,5 @@
 .main-content {
   @apply bg-white dark:bg-dark-body p-4 rounded-lg h-full;
 }
+
+

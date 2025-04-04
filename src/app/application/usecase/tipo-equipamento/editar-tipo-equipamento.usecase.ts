@@ -1,5 +1,5 @@
 import { TipoEquipamentoRepository } from "@/application/repositories/tipo-equipamento.repository";
-import { TipoEquipamento } from "@/domain/models/tipo-equipamento";
+import { TipoEquipamento } from "@/domain/models/command/tipo-equipamento";
 import { Observable } from "rxjs";
 
 export class EditarTipoEquipamentoUseCase {
