@@ -121,7 +121,6 @@ export class FormUsuarioComponent {
     if (this.formGroup.valid) {
       const formData = this.formGroup.value as Usuario;
       if (this.usuario?.cdUsuario) {
-        console.log('teste',this.usuario.cdUsuario)
         this.editarUsuario(this.usuario.cdUsuario, formData);
       } else {
         this.criarUsuario(formData);
@@ -198,11 +197,9 @@ export class FormUsuarioComponent {
     const confirmacaoSenhaControl = this.formGroup.get('nmConfirmacaoSenha');
 
     if (this.usuario?.cdUsuario) {
-      console.log('aqui 1')
       senhaControl?.clearValidators();
       confirmacaoSenhaControl?.clearValidators();
     } else {
-      console.log('aqui 2')
       senhaControl?.setValidators([Validators.required]);
       confirmacaoSenhaControl?.setValidators([Validators.required]);
     }
@@ -214,7 +211,6 @@ export class FormUsuarioComponent {
     const senha = control.get('nmSenha');
     const confirmacaoSenha = control.get('nmConfirmacaoSenha');
     if (!senha || !confirmacaoSenha && this.usuario?.cdUsuario) {
-      console.log('teste')
       return null;
     }
     if (senha.value || confirmacaoSenha.value) {

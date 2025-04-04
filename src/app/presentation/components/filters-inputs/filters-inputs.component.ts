@@ -21,8 +21,19 @@ export class FiltersInputsComponent {
   @Input() openFilters: boolean = true
   @Output() search = new EventEmitter<string>();
 
+  isOpenBox = false;
+  showFiltersOverlay = false;
   searchTerm: string = '';
-  isOpen = false;
+
+  toggleFilters(): void {
+    if (this.isOpenBox) {
+      this.isOpenBox = false;
+        this.showFiltersOverlay = false;
+    } else {
+      this.isOpenBox = true;
+      this.showFiltersOverlay = true;
+    }
+  }
 
   onSearch(): void {
     if (this.searchField && this.formGroup && this.formGroup.get(this.searchField)) {

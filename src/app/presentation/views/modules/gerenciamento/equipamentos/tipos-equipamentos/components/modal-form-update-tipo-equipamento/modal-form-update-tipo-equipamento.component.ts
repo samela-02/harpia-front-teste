@@ -23,10 +23,6 @@ export class ModalFormTipoEquipamentoUpdateComponent {
   public tituloModal: string;
   private _modalService = inject(ModalService<ModalFormTipoEquipamentoUpdateComponent>);
 
-  ngOnInit(): void {
-    console.log(this.tipoEquipamento)
-  }
-
   fecharModal() {
     this._modalService.dismiss();
   }

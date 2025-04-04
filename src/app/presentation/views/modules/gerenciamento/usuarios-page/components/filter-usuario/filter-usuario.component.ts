@@ -41,9 +41,6 @@ export class FilterUsuarioComponent implements OnInit {
 
   limpar(): void {
     this.formGroup.reset();
-    if (this.table) {
-      this.table.load();
-    }
   }
 
   @HostListener("document:click", ["$event"])

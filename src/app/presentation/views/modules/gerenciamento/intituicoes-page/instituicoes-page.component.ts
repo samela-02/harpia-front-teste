@@ -40,12 +40,7 @@ export class IntituicoesPageComponent {
     this.table().load(filters);
   }
 
-  clear() {
-    this.formGroup.reset();
-    this.table().load();
-  }
-
   cadastrar() {
-    const modalRef = this._modalService.component(ModalFormCreateInstituicaoComponent).open();
+    this._modalService.component(ModalFormCreateInstituicaoComponent).open();
   }
 }

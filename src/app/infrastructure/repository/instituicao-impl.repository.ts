@@ -24,7 +24,6 @@ export class InstituicaoRepositoryImpl implements InstituicaoRepository {
   }
 
   buscarInstituicoes(filter?: InstituicaoFilter): Observable<ResponseData<ResponsePaginacao<Instituicao>>> {
-    console.log(filter?.getFilters())
     return this._client.get(this._api, filter?.getFilters()) as Observable<ResponseData<ResponsePaginacao<Instituicao>>>
   }
 

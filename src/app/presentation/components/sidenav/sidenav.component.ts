@@ -60,7 +60,6 @@ export class SidenavComponent {
         route = route.firstChild;
       }
       this.currentRouteData = route.snapshot.data as RouteData;
-      console.log(this.currentRouteData)
     });
   }
 
@@ -77,7 +76,6 @@ export class SidenavComponent {
 
   buscaNomeUsuario() {
     this.nomeUsuario = this.authService.getNomeUsuario()
-    console.log(this.nomeUsuario)
   }
 
   deslogarUsuario() {

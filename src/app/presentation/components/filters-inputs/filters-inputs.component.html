@@ -1,27 +1,26 @@
 <div class="w-[240px] md:w-[300px] relative">
-  <div class="header-group-filter">
+  <div class="header-group-filter" [class.header-overlay-opening]="isOpenBox"
+    [class.header-overlay-closing]="!isOpenBox">
     <div class="search-container flex flex-row">
-        <mat-icon class="text-primary">
-          search
-        </mat-icon>
+      <mat-icon class="text-primary">
+        search
+      </mat-icon>
       <mat-form-field appearance="outline" class="map-search-field">
-        <input matInput [placeholder]="placeholder" class="search-input"
-               [(ngModel)]="searchTerm"
-               (keyup)="onKeyUp($event)"
-               (blur)="onSearch()">
+        <input matInput [placeholder]="placeholder" class="search-input" [(ngModel)]="searchTerm"
+          (keyup)="onKeyUp($event)" (blur)="onSearch()">
       </mat-form-field>
     </div>
     @if(openFilters){
-      <button  (click)="isOpen = !isOpen">
-        <i class="las la-filter icon "></i>
-      </button>
+    <button (click)="toggleFilters()">
+      <i class="las la-filter icon "></i>
+    </button>
     }
   </div>
-  @if (isOpen && openFilters) {
-    <div class="filters-overlay" [formGroup]="formGroup">
-      <div class="filters-content">
-        <ng-content></ng-content>
-      </div>
+  <div class="filters-overlay" [class.filters-overlay-opening]="isOpenBox"
+    [class.filters-overlay-closing]="!isOpenBox && showFiltersOverlay" [formGroup]="formGroup"
+    *ngIf="showFiltersOverlay">
+    <div class="filters-content">
+      <ng-content></ng-content>
     </div>
-  }
+  </div>
 </div>

@@ -37,18 +37,7 @@ export class UsuariosPageComponent {
     this.table().load(filters);
   }
 
-  clear() {
-    this.formGroup.reset();
-    this.table().load();
-  }
-
   cadastrar() {
     this._modalService.component(ModalFormCreateUsuarioComponent).open();
-    // this._modalService.onDismiss().subscribe(() => {
-    //   if (this.tableUsuarios) {
-    //     this.tableUsuarios.load();
-    //   }
-    // });
   }
-
 }

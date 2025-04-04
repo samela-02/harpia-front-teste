@@ -6,6 +6,7 @@ import { withNgxsStoragePlugin } from "@ngxs/storage-plugin";
 import { UsuarioState } from "./states/usuario.state";
 import { BreadcrumbState } from "./states/breadcrumb.state";
 import { TipoEquipamentoState } from "./states/tipo-equipamento.state";
+import { EquipamentoState } from "./states/equipamento.state";
 
 export const stateProviders = [
   provideStore(
@@ -13,6 +14,7 @@ export const stateProviders = [
       InstituicaoState,
       UsuarioState,
       BreadcrumbState,
+      EquipamentoState,
       TipoEquipamentoState
     ],
     withNgxsStoragePlugin({ keys: "*" }),

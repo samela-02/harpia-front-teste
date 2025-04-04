@@ -12,13 +12,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { Store } from '@ngxs/store';
-import { CustomDialogService, FormType, InputComponent, makeDeleteCustomDialog, SnackbarService, TextareaComponent } from '@tivic-team/tivic-ui';
+import { CustomDialogService, FormType, InputComponent, makeDeleteCustomDialog, SnackbarService } from '@tivic-team/tivic-ui';
 
 @Component({
   selector: 'app-form-tipos-equipamentos',
   standalone: true,
   imports: [
-    TextareaComponent,
     InputComponent,
     MatButtonModule,
     MatDividerModule,
@@ -72,7 +71,6 @@ export class FormTipoEquipamentoComponent {
   }
 
   private updateForm() {
-    console.log('aquii', this.tiposEquipamentos)
     if (this.tiposEquipamentos) {
       const propsFilter: TipoEquipamentosProps = {
         page: 0,
@@ -84,7 +82,6 @@ export class FormTipoEquipamentoComponent {
       this.buscarTiposEquipamentosUseCase.execute(filter).subscribe({
         next: (response: any) => {
           if (response.data.dados[0]) {
-            console.log('tetsto',response.data.dados[0])
             this.formGroup.patchValue({
               nmTipoEquipamento: response.data.dados[0].nmTipoEquipamento,
             });

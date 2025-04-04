@@ -1,6 +1,19 @@
 .header-group-filter {
-  @apply flex flex-row rounded-full px-4 py-1;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+  @apply flex flex-row  px-4 py-1;
+  transition: border-radius 0.05s ease-in-out;
+  -webkit-box-shadow: 0px -2px 4px 1px rgba(0, 0, 0, 0.04);
+    -moz-box-shadow: 0px -2px 4px 1px rgba(0, 0, 0, 0.04);
+    box-shadow: 0px -2px 4px 1px rgba(0, 0, 0, 0.04);
+}
+
+.header-overlay-opening {
+  @apply rounded-t-2xl;
+  box-shadow: rgba(99, 99, 99, 0.123) 0px 2px 3px 0px;
+}
+
+.header-overlay-closing {
+  @apply rounded-full;
+  box-shadow: rgba(99, 99, 99, 0.123) 0px 2px 3px 0px;
 }
 
 .icon {
@@ -17,7 +30,7 @@
   @apply relative flex items-center w-full md:w-[300px];
 
   .map-search-field {
-    @apply w-[150px] md:w-[200px] ;
+    @apply w-[150px] md:w-[200px];
     opacity: 1;
     pointer-events: auto;
     visibility: visible;
@@ -86,10 +99,40 @@
 }
 
 .filters-overlay {
-  @apply absolute z-[10] w-full left-0 mt-1 top-[100%] p-1 bg-slate-50 rounded-lg;
+  @apply absolute z-[10] w-full left-0 top-[100%] p-1 bg-slate-50 rounded-b-lg;
   z-index: 10;
   background-color: white;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transform-origin: top center;
+  overflow: hidden;
+}
+
+.filters-overlay-opening {
+  animation: growDown 0.3s ease-in-out forwards;
+}
+
+@keyframes growDown {
+  0% {
+    transform: scaleY(0);
+    max-height: 0;
+  }
+
+  100% {
+    transform: scaleY(1);
+    max-height: 500px;
+  }
+}
+
+@keyframes shrinkUp {
+  0% {
+    transform: scaleY(1);
+    max-height: 500px;
+  }
+
+  100% {
+    transform: scaleY(0);
+    max-height: 0;
+  }
 }
 
 .filters-content {

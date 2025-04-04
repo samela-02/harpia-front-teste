@@ -35,12 +35,7 @@ export class TiposEquipamentosComponent {
     this.table().load(filters);
   }
 
-  clear() {
-    this.formGroup.reset();
-    this.table().load();
-  }
-
   cadastrar() {
-    const modalRef = this._modalService.component(ModalFormCreateTipoEquipamentoComponent).open();
+    this._modalService.component(ModalFormCreateTipoEquipamentoComponent).open();
   }
 }
