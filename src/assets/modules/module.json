@@ -60,6 +60,28 @@
         ]
       },
       {
+        "id": "idComponentes",
+        "label": "Componentes",
+        "icon": "las la-camera-retro",
+        "enabled": true,
+        "children": [
+          {
+            "id": "idTiposComponentes",
+            "label": "Lista de Componentes",
+            "icon": "las la-camera-retro",
+            "routerLink": "/componentes/lista-componentes",
+            "enabled": true
+          },
+          {
+            "id": "idComponentes",
+            "label": "Tipos de Componentes",
+            "icon": "las la-stream",
+            "routerLink": "/componentes/tipos-componentes",
+            "enabled": true
+          }
+        ]
+      },
+      {
         "label": "Usuários",
         "icon": "la la-user-friends",
         "routerLink": "/usuarios",

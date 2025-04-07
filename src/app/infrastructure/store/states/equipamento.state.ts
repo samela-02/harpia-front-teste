@@ -6,9 +6,10 @@ import { Injectable } from "@angular/core";
 import { Action, State, StateContext } from "@ngxs/store";
 import { Observable, tap } from "rxjs";
 import { BuscarEquipamentosAction } from "../actions/equipamento.actions";
+import { EquipamentoQuery } from "@/domain/models/query/equipamento";
 
 export class EquipamentoStateModel {
-   equipamentos: ResponseData<ResponsePaginacao<Equipamento>> | null;
+  equipamentos: ResponseData<ResponsePaginacao<EquipamentoQuery>> | null;
 }
 
 @State<EquipamentoStateModel>({
@@ -24,9 +25,9 @@ export class EquipamentoState {
 
   @Action(BuscarEquipamentosAction)
   buscarsEquipamentos({ getState, setState }: StateContext<EquipamentoStateModel>,
-    { payload }: BuscarEquipamentosAction): Observable<ResponseData<ResponsePaginacao<Equipamento>>> {
+    { payload }: BuscarEquipamentosAction): Observable<ResponseData<ResponsePaginacao<EquipamentoQuery>>> {
     return this.buscarEquipamentosUseCase.execute(payload).pipe(
-      tap((response: ResponseData<ResponsePaginacao<Equipamento>>) => {
+      tap((response: ResponseData<ResponsePaginacao<EquipamentoQuery>>) => {
         const state = getState();
         setState({
           ...state,
