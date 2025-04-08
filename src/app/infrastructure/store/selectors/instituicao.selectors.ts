@@ -9,6 +9,6 @@ export class InstituicaoSelectors {
 
   @Selector([InstituicaoState])
   static instituicaoSelect(state: InstituicaoStateModel) {
-    return state.instituicoes.data.dados
+    return state.instituicoes?.data?.dados
   }
 }

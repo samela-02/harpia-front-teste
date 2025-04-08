@@ -1,10 +1,10 @@
 import { breadcrumbResolver } from "@/presentation/components/resolvers/breadcrumb.resolver";
 import { Routes } from "@angular/router";
 
-export const pastaAlertasRoutes: Routes = [
+export const listaAlertasRoutes: Routes = [
   {
     path: "",
-    loadComponent: () => import('./pastas-alertas-page.component').then(m => m.PastasAlertasPageComponent),
+    loadComponent: () => import('./lista-alertas-page.component').then(m => m.ListaAlertasPageComponent),
     data: {
       title: 'Alertas',
     }

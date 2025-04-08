@@ -29,7 +29,7 @@ export const buscarListaAlertasProvider = {
   deps: [ListaAlertaRepository]
 }
 
-export const instituicaoProviders = [
+export const listaAlertaProviders = [
   criarListaAlertaProvider,
   buscarListaAlertasProvider,
   editarListaAlertaProvider,

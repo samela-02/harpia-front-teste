@@ -1,5 +1,6 @@
 export class Componente {
   cdComponente?: number | null;
+  idEquipamento?: string | null;
   cdTipoComponente: number;
   cdEquipamento: number;
   idComponente: string;
@@ -12,6 +13,7 @@ export class Componente {
     nmComponente: string,
     idComponente: string,
     cdTipoComponente: number,
+    idEquipamento?: string,
     dtDelecao?: Date,
     cdComponente?: number | null,
     lgAtivo?: number
@@ -19,6 +21,7 @@ export class Componente {
     this.cdEquipamento = cdEquipamento,
       this.nmComponente = nmComponente,
       this.idComponente = idComponente,
+      this.idEquipamento = idEquipamento,
       this.dtDelecao = dtDelecao,
       this.cdComponente = cdComponente,
       this.cdTipoComponente = cdTipoComponente,

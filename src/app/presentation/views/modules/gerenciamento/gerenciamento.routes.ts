@@ -25,12 +25,12 @@ export const gerenciamentoRoutes: Routes = [
     }
   },
   {
-    path: "pastas-alertas",
-    loadChildren: () => import('./pastas-alertas-page/pasta-alertas.routes').then(p => p.pastaAlertasRoutes),
+    path: "lista-alertas",
+    loadChildren: () => import('./lista-alertas-page/lista-alertas.routes').then(p => p.listaAlertasRoutes),
     data: {
-      title: 'Pastas de Alertas',
+      title: 'Lista de Alertas',
       icon: 'la la-folder-open',
-      breadcrumb: 'Pastas de Alertas'
+      breadcrumb: 'Lista de Alertas'
     }
   },
   {

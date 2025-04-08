@@ -26,9 +26,9 @@
     "routerLink": "/gerenciamento",
     "features": [
       {
-        "label": "Pasta de Alertas",
+        "label": "Lista de Alertas",
         "icon": "la la-folder-open",
-        "routerLink": "/pastas-alertas",
+        "routerLink": "/lista-alertas",
         "enabled": true
       },
       {

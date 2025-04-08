@@ -1,0 +1,26 @@
+<!-- <div>
+
+  <p>fontes-page works!</p>
+  <tvc-button color="default" icon="arrow_back" matTooltip="Voltar" routerLink="dddw">
+    owkvpek
+  </tvc-button>
+</div>
+.pjipojpoopjopj -->
+
+<div class="page h-full flex flex-col gap-2">
+  <div class="w-full flex flex-row justify-end">
+    <div class="flex-center gap-3">
+      <app-filters-inputs [formGroup]="formGroup" searchField="nmInstituicao" placeholder="Pesquisar instituição"
+        (search)="onSearch()">
+        <app-filter-lista-alerta [formGroup]="formGroup" [table]="table()" />
+      </app-filters-inputs>
+      <button mat-flat-button (click)="cadastrar()" class="font-semibold bg-primary/10 text-primary">
+        <i [class]="icon" class="text-lg"></i>
+        <label class="md:flex hidden">
+          Cadastrar Lista de Alertas
+        </label>
+      </button>
+    </div>
+  </div>
+  <app-table-lista-alertas [formGroup]="formGroup" class="overflow-x-auto overflow-y-hidden"></app-table-lista-alertas>
+</div>

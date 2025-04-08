@@ -19,6 +19,15 @@
       </td>
     </ng-container>
 
+    <ng-container matColumnDef="idEquipamento">
+      <th mat-header-cell *matHeaderCellDef> Equipamento vinculado </th>
+      <td mat-cell *matCellDef="let dados">
+        <span class="font-bold">
+          {{dados?.idEquipamento}}
+        </span>
+      </td>
+    </ng-container>
+
     <ng-container matColumnDef="dtDelecao">
       <th mat-header-cell *matHeaderCellDef> Data de Deleção </th>
       <td mat-cell *matCellDef="let dados">

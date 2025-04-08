@@ -9,12 +9,14 @@ import { TipoEquipamentoState } from "./states/tipo-equipamento.state";
 import { EquipamentoState } from "./states/equipamento.state";
 import { TipoComponenteState } from "./states/tipo-componente.state";
 import { ComponenteState } from "./states/componente.state";
+import { ListaAlertaState } from "./states/lista-alerta.state";
 
 export const stateProviders = [
   provideStore(
     [
       InstituicaoState,
       TipoComponenteState,
+      ListaAlertaState,
       ComponenteState,
       UsuarioState,
       BreadcrumbState,

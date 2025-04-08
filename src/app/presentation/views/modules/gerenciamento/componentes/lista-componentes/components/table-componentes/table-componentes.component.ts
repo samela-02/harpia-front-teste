@@ -66,5 +66,5 @@ export class TableComponentesComponent extends TablePageBase{
 
   getSituacao = (lgAtivo: boolean) => lgAtivo ? "Ativo" : "Inativo";
 
-  displayedColumns: string[] = ['nmComponente', 'idComponente', 'dtDelecao', 'lgAtivo',];
+  displayedColumns: string[] = ['nmComponente', 'idComponente', 'idEquipamento', 'dtDelecao', 'lgAtivo',];
 }
