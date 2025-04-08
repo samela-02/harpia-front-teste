@@ -109,8 +109,7 @@ export class FormEquipamentoComponent {
             });
           }
         },
-        error: (error) => {
-          console.error('Error fetching institution:', error);
+        error: () => {
           this._snackbar.error('Erro ao buscar dados do equipamento');
         }
       });

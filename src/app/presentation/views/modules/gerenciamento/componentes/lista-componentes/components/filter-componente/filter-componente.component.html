@@ -1,0 +1,22 @@
+<div class="flex flex-col gap-3">
+  <div class="flex flex-col gap-4" [formGroup]="formGroup">
+    <div class="flex flex-row gap-4">
+      <div class="flex flex-col gap-2 w-full">
+        <tvc-input class="w-full" id="idComponente" formControlName="idComponente" label="Id do Componente"
+          placeholder="Id do Componente" inputNormalize="alfanum" />
+
+        <tvc-dropdown class="w-full" id="cdEquipamento" formControlName="cdEquipamento" useLabel="idEquipamento"
+          useValue="cdEquipamento" label="Equipamento" placeholder="Equipamento" [providers]="equipamentos" />
+
+        <tvc-dropdown class="w-full" id="cdTipoComponente" formControlName="cdTipoComponente" useLabel="nmTipoComponente"
+          useValue="cdTipoComponente" label="TipoComponente" placeholder="TipoComponente" [providers]="tiposComponentes" />
+      </div>
+    </div>
+  </div>
+  <div class="flex justify-end">
+    <div class="flex items-center gap-2">
+      <tvc-button color="default" icon="cleaning_services" matTooltip="Limpar" (click)="limpar()" />
+      <tvc-button color="primary" icon="search" matTooltip="Pesquisar" (click)="pesquisar()" />
+    </div>
+  </div>
+</div>

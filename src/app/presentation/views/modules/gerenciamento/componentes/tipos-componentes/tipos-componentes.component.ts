@@ -1,9 +1,11 @@
 import { FiltersInputsComponent } from '@/presentation/components/filters-inputs/filters-inputs.component';
 import { sharedModule } from '@/presentation/shared/shared';
-import { Component, viewChild, ViewChild } from '@angular/core';
+import { Component, inject, viewChild, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { TableTiposComponentesComponent } from './components/table-tipos-equipamentos/table-tipos-componentes.component';
+import { TableTiposComponentesComponent } from './components/table-tipos-componentes/table-tipos-componentes.component';
 import { FormControl, FormGroup } from '@angular/forms';
+import { ModalFormCreateTipoComponenteComponent } from './components/modal-form-create-tipo-componente/modal-form-create-tipo-componente.component';
+import { ModalService } from '@tivic-team/tivic-ui';
 
 @Component({
   selector: 'app-tipos-componentes',
@@ -13,7 +15,7 @@ import { FormControl, FormGroup } from '@angular/forms';
   styleUrl: './tipos-componentes.component.scss'
 })
 export class TiposComponentesComponent {
-  // private _modalService = inject(ModalService<ModalFormCreateTipoComponenteComponent>);
+  private _modalService = inject(ModalService<ModalFormCreateTipoComponenteComponent>);
   @ViewChild(TableTiposComponentesComponent) tableTiposComponentes!: TableTiposComponentesComponent;
   constructor(
   ) { }
@@ -34,6 +36,6 @@ export class TiposComponentesComponent {
   }
 
   cadastrar() {
-    // this._modalService.component(ModalFormCreateTipoComponenteComponent).open();
+    this._modalService.component(ModalFormCreateTipoComponenteComponent).open();
   }
 }

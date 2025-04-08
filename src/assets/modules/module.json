@@ -62,7 +62,7 @@
       {
         "id": "idComponentes",
         "label": "Componentes",
-        "icon": "las la-camera-retro",
+        "icon": "las la-microchip",
         "enabled": true,
         "children": [
           {

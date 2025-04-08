@@ -11,6 +11,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatSortModule } from '@angular/material/sort';
 import { Store } from '@ngxs/store';
 import { ModalService } from '@tivic-team/tivic-ui';
+import { ModalFormTipoComponenteUpdateComponent } from '../modal-form-update-tipo-componente/modal-form-update-tipo-componente.component';
 
 @Component({
   selector: 'app-table-tipos-componentes',
@@ -23,7 +24,7 @@ import { ModalService } from '@tivic-team/tivic-ui';
 export class TableTiposComponentesComponent extends TablePageBase{
   @Input() formGroup: FormGroup = new FormGroup({});
   private _store = inject(Store);
-  // private _modalService = inject(ModalService<ModalFormTipoComponenteUpdateComponent>);
+  private _modalService = inject(ModalService<ModalFormTipoComponenteUpdateComponent>);
   private _tipoComponente = this._store.selectSignal(TipoComponenteSelectors.tiposComponentes);
   override currentFilters?: TiposComponentesProps;
 
@@ -56,7 +57,7 @@ export class TableTiposComponentesComponent extends TablePageBase{
   rowChange(event: MouseEvent, tipoComponente: TipoComponente ){
     event.stopPropagation();
     event.preventDefault();
-    // this._modalService.component(ModalFormTipoComponenteUpdateComponent).open(tipoComponente);
+    this._modalService.component(ModalFormTipoComponenteUpdateComponent).open(tipoComponente);
   }
 
   getSituacao = (lgAtivo: boolean) => lgAtivo ? "Ativo" : "Inativo";

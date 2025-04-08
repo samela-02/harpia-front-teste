@@ -1,4 +1,5 @@
 import { clientProviders } from "./client.provider";
+import { compoenenteProviders } from "./componente/componente.provider";
 import { equipamentoProviders } from "./equipamento/equipamento.provider";
 import { instituicaoProviders } from "./instituicao/instituicao.provider";
 import { loginProviders } from "./login/login.provider";
@@ -12,6 +13,7 @@ export const providers = [
   tipoComponenteProviders,
   tipoEquipamentoProviders,
   equipamentoProviders,
+  compoenenteProviders,
   usuarioProviders,
   loginProviders
 ];

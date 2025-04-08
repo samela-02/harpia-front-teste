@@ -1,9 +1,9 @@
-import { Componentes } from "../command/componentes";
+import { ComponentesEquipamentos } from "./componentes-equipamentos";
 
 export class EquipamentoQuery {
   cdEquipamento?: number | null;
   cdTipoEquipamento: number;
-  componentes?: Componentes[]
+  componentes?: ComponentesEquipamentos[]
   cdInstituicao: number;
   nmEquipamento: string;
   idEquipamento: string;
@@ -18,7 +18,7 @@ export class EquipamentoQuery {
     nrSerie: string,
     cdTipoEquipamento: number,
     dtAlocacao?: Date,
-    componentes?: Componentes[],
+    componentes?: ComponentesEquipamentos[],
     cdEquipamento?: number | null,
     lgAtivo?: number
   ) {

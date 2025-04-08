@@ -6,5 +6,10 @@ export class EquipamentoSelectors {
   static equipamentos(state: EquipamentoStateModel) {
     return state.equipamentos
   }
+
+  @Selector([EquipamentoState])
+  static equipamentosSelect(state: EquipamentoStateModel) {
+    return state.equipamentos.data.dados
+  }
 }
 

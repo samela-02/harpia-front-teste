@@ -1,55 +1,21 @@
 <div class="table-container max-h-[37em]">
-  <table mat-table [dataSource]="equipamento().data.dados" class="table" [style.width]="'100%'" [style.table-layout]="'fixed'" style="min-width: 900px;">
+  <table mat-table [dataSource]="componente().data.dados" class="table" [style.width]="'100%'" [style.table-layout]="'fixed'" style="min-width: 900px;">
 
-    <ng-container matColumnDef="nmEquipamento">
-    <th mat-header-cell *matHeaderCellDef> Equipamento </th>
+    <ng-container matColumnDef="nmComponente">
+    <th mat-header-cell *matHeaderCellDef> Componente </th>
     <td mat-cell *matCellDef="let dados">
       <span class="font-bold">
-        {{dados?.nmEquipamento}}
+        {{dados?.nmComponente}}
       </span>
      </td>
     </ng-container>
 
-    <ng-container matColumnDef="idEquipamento">
-      <th mat-header-cell *matHeaderCellDef> Id do Equipamento </th>
+    <ng-container matColumnDef="idComponente">
+      <th mat-header-cell *matHeaderCellDef> Id do Componente </th>
       <td mat-cell *matCellDef="let dados">
         <span class="font-bold">
-          {{dados?.idEquipamento}}
+          {{dados?.idComponente}}
         </span>
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="nrSerie">
-      <th mat-header-cell *matHeaderCellDef> Série do Equipamento </th>
-      <td mat-cell *matCellDef="let dados">
-        <span class="font-bold">
-          {{dados?.nrSerie}}
-        </span>
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="componentes">
-      <th mat-header-cell *matHeaderCellDef> Quantidade de Componentes </th>
-      <td mat-cell *matCellDef="let dados">
-        <span class="font-bold">
-          <i class="la la-microchip" style="font-size: medium;"></i>
-          {{dados?.componentes.length}}
-        </span>
-      </td>
-    </ng-container>
-
-
-    <ng-container matColumnDef="dtAlocacao">
-      <th mat-header-cell *matHeaderCellDef> Data de Alocação </th>
-      <td mat-cell *matCellDef="let dados">
-        <mat-chip-set *ngIf="dados.dtAlocacao">
-          <mat-chip [class.chip-delecao]="dados.dtAlocacao">
-            <span [class.content-delecao]="dados.dtAlocacao" class="date-time-display">
-              {{dados.dtAlocacao | date: 'dd/MM/yyyy'}}<br class="date-break">{{dados.dtAlocacao | date: 'HH:mm:ss'}}
-            </span>
-          </mat-chip>
-        </mat-chip-set>
-        <span *ngIf="!dados.dtAlocacao">-</span>
       </td>
     </ng-container>
 

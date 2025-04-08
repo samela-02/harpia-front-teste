@@ -9,6 +9,7 @@ export class TipoComponenteSelectors {
 
   @Selector([TipoComponenteState])
   static tiposComponentesSelect(state: TipoComponenteStateModel) {
+    console.log(state.tipoComponentes.data.dados)
     return state.tipoComponentes.data.dados
   }
 }

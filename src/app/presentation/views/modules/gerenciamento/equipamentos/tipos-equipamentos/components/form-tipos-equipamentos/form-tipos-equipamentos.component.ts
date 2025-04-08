@@ -87,8 +87,7 @@ export class FormTipoEquipamentoComponent {
             });
           }
         },
-        error: (error) => {
-          console.error('Error fetching institution:', error);
+        error: () => {
           this._snackbar.error('Erro ao buscar dados da instituição');
         }
       });
