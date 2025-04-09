@@ -1,0 +1,9 @@
+@if (!dataSource() || dataSource().length === 0) {
+  @defer (on viewport) {
+    <tvc-no-search />
+  } @placeholder (minimum 5000ms) {
+    <div class="pt-4">
+      <ngx-skeleton-loader [count]="count()" [appearance]="'line'" animation="pulse" [theme]="{height: '24px'}" />
+        </div>
+    }
+}

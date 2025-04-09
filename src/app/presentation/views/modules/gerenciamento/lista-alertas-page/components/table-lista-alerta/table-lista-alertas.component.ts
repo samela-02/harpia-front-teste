@@ -1,22 +1,19 @@
-import { InstituicaoFilter, InstituicaoProps } from '@/domain/filters/instituicao/instituicao.filter';
-import { Instituicao } from '@/domain/models/command/instituicao';
+import { ListaAlertaFilter, ListaAlertaProps } from '@/domain/filters/lista-alerta/lista-alerta.filter';
+import { ListaAlerta } from '@/domain/models/command/lista-alerta';
 import { TablePageBase } from '@/infrastructure/configuration/table-config/table-page.config';
-import { InstituicaoSelectors } from '@/infrastructure/store/selectors/instituicao.selectors';
+import { SetarBreadcrumbAction } from '@/infrastructure/store/actions/breadcrumb.action';
+import { BuscarListaAlertaAction } from '@/infrastructure/store/actions/lista-alerta.actions';
+import { ListaAlertaSelectors } from '@/infrastructure/store/selectors/lista-alerta.selectors';
 import { tableModule } from '@/presentation/shared/table.module';
 import { CommonModule } from '@angular/common';
 import { Component, inject, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatSortModule } from '@angular/material/sort';
+import { Route, Router } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { ModalService } from '@tivic-team/tivic-ui';
 import { ModalFormListaAlertaUpdateComponent } from '../modal-form-update-lista-alerta/modal-form-update-lista-alerta.component';
-import { BuscarListaAlertaAction } from '@/infrastructure/store/actions/lista-alerta.actions';
-import { ListaAlertaSelectors } from '@/infrastructure/store/selectors/lista-alerta.selectors';
-import { ListaAlertaFilter, ListaAlertaProps } from '@/domain/filters/lista-alerta/lista-alerta.filter';
-import { ListaAlerta } from '@/domain/models/command/lista-alerta';
-import { SetarBreadcrumbAction } from '@/infrastructure/store/actions/breadcrumb.action';
-import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-table-lista-alertas',

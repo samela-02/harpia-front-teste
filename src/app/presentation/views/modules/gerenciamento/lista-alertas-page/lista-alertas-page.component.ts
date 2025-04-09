@@ -25,16 +25,15 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class ListaAlertasPageComponent {
   private _modalService = inject(ModalService<ModalFormCreateListaAlertaComponent>);
+
   @ViewChild(TableListaAlertasComponent) TableListaAlertasComponent!: TableListaAlertasComponent;
-  constructor(
-  ) { }
+  table = viewChild<TableListaAlertasComponent>(TableListaAlertasComponent);
+
   icon = "la la-plus-circle"
 
   formGroup: FormGroup = new FormGroup({
     idInstituicao: new FormControl<string>("", { nonNullable: true }),
   });
-
-  table = viewChild<TableListaAlertasComponent>(TableListaAlertasComponent);
 
   onSearch() {
     if (!this.table()) return;

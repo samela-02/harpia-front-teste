@@ -1,16 +1,7 @@
-<!-- <div>
-
-  <p>fontes-page works!</p>
-  <tvc-button color="default" icon="arrow_back" matTooltip="Voltar" routerLink="dddw">
-    owkvpek
-  </tvc-button>
-</div>
-.pjipojpoopjopj -->
-
 <div class="page h-full flex flex-col gap-2">
   <div class="w-full flex flex-row justify-end">
     <div class="flex-center gap-3">
-      <app-filters-inputs [formGroup]="formGroup" searchField="nmInstituicao" placeholder="Pesquisar instituição"
+      <app-filters-inputs [formGroup]="formGroup" searchField="nmInstituicao" placeholder="Pesquisar lista"
         (search)="onSearch()">
         <app-filter-lista-alerta [formGroup]="formGroup" [table]="table()" />
       </app-filters-inputs>
