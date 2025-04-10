@@ -254,7 +254,7 @@
 }
 
 .main-content {
-  @apply bg-white dark:bg-dark-body p-4 rounded-lg h-full;
+  @apply bg-white dark:bg-dark-body p-4 rounded-lg h-[100%] overflow-auto;
 }
 
 

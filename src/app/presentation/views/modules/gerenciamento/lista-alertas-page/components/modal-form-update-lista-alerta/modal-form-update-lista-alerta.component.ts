@@ -24,6 +24,7 @@ export class ModalFormListaAlertaUpdateComponent {
   private _modalService = inject(ModalService<ModalFormListaAlertaUpdateComponent>);
 
   ngOnInit(): void {
+    console.log(this.listaAlerta)
   }
 
   fecharModal() {

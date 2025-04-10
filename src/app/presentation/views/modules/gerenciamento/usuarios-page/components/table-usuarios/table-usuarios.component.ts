@@ -12,11 +12,12 @@ import { MatSortModule } from '@angular/material/sort';
 import { Store } from '@ngxs/store';
 import { ModalService } from '@tivic-team/tivic-ui';
 import { ModalFormUsuarioUpdateComponent } from '../modal-form-update-usuario/modal-form-update-usuario.component';
+import { NoTableComponent } from '@/presentation/components/no-table/no-table.component';
 
 @Component({
   selector: 'app-table-usuarios',
   standalone: true,
-  imports: [...tableModule, MatChipsModule, MatSortModule, CommonModule],
+  imports: [...tableModule, MatChipsModule, MatSortModule, CommonModule, NoTableComponent],
   templateUrl: './table-usuarios.component.html',
   styleUrl: './table-usuarios.component.scss'
 })

@@ -14,11 +14,13 @@ import { Route, Router } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { ModalService } from '@tivic-team/tivic-ui';
 import { ModalFormListaAlertaUpdateComponent } from '../modal-form-update-lista-alerta/modal-form-update-lista-alerta.component';
+import { NoTableComponent } from '@/presentation/components/no-table/no-table.component';
+import { ModalOptionsComponent } from '../modal-options/modal-options.component';
 
 @Component({
   selector: 'app-table-lista-alertas',
   standalone: true,
-  imports: [...tableModule, MatChipsModule, MatSortModule, CommonModule],
+  imports: [...tableModule, MatChipsModule, MatSortModule, CommonModule, NoTableComponent],
   templateUrl: './table-lista-alertas.component.html',
   styleUrl: './table-lista-alertas.component.scss'
 })
@@ -27,7 +29,7 @@ export class TableListaAlertasComponent extends TablePageBase{
   @Input() formGroup: FormGroup = new FormGroup({});
   private route: Route
   private _store = inject(Store);
-  private _modalService = inject(ModalService<ModalFormListaAlertaUpdateComponent>);
+  private _modalService = inject(ModalService<ModalOptionsComponent>);
   private _router = inject(Router);
   listaAlertas = this._store.selectSignal(ListaAlertaSelectors.listaAlerta);
   override currentFilters?: ListaAlertaProps;
@@ -63,8 +65,9 @@ export class TableListaAlertasComponent extends TablePageBase{
   rowChange(event: MouseEvent, listaAlerta: ListaAlerta ){
     event.stopPropagation();
     event.preventDefault();
-    this.setarBreadcrumb(listaAlerta);
-    this._router.navigate(['/gerenciamento/lista-alertas', listaAlerta.cdListaAlerta]);
+    this._modalService.component(ModalOptionsComponent).open(listaAlerta)
+    // this.setarBreadcrumb(listaAlerta);
+    // this._router.navigate(['/gerenciamento/lista-alertas', listaAlerta.cdListaAlerta]);
   }
 
   displayedColumns: string[] = ['nmListaAlerta', 'dsListaAlerta', 'idInstituicao'];

@@ -1,10 +1,12 @@
 import { BuscarInstituicoesUseCase } from '@/application/usecase/instituicao/buscar-instituicoes.usecase';
+import { BuscarListaAlertaUseCase } from '@/application/usecase/lista-alerta/buscar-lista-alertas.usecase';
 import { CriarListaAlertaUseCase } from '@/application/usecase/lista-alerta/criar-lista-alerta.usecase';
 import { DesativarListaAlertaUseCase } from '@/application/usecase/lista-alerta/desativar-lista-alerta.usecase';
 import { EditarListaAlertaUseCase } from '@/application/usecase/lista-alerta/editar-lista-alerta.usecase';
 import { ListaAlertaFilter, ListaAlertaProps } from '@/domain/filters/lista-alerta/lista-alerta.filter';
 import { ListaAlerta } from '@/domain/models/command/lista-alerta';
 import { BuscarInstituicoesAction } from '@/infrastructure/store/actions/instituicao.actions';
+import { BuscarListaAlertaAction } from '@/infrastructure/store/actions/lista-alerta.actions';
 import { InstituicaoSelectors } from '@/infrastructure/store/selectors/instituicao.selectors';
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
@@ -49,7 +51,7 @@ export class FormListaAlertaComponent {
     private editarListaAlertaUseCase: EditarListaAlertaUseCase,
     private desativarListaAlertaUseCase: DesativarListaAlertaUseCase,
     private formBuilder: FormBuilder,
-    private buscarInstituicoesUseCase: BuscarInstituicoesUseCase,
+    private buscarListaAlertaUseCase: BuscarListaAlertaUseCase,
   ) {
     this.formGroup = this.formBuilder.group({
       nmListaAlerta: ['', [Validators.required]],
@@ -77,6 +79,7 @@ export class FormListaAlertaComponent {
   }
 
   private updateForm() {
+    console.log(this.listaAlerta)
     if (this.listaAlerta) {
       const propsFilter: ListaAlertaProps = {
         page: 0,
@@ -85,7 +88,7 @@ export class FormListaAlertaComponent {
       };
       const filter = new ListaAlertaFilter(propsFilter);
 
-      this.buscarInstituicoesUseCase.execute(filter).subscribe({
+      this.buscarListaAlertaUseCase.execute(filter).subscribe({
         next: (response: any) => {
           if (response.data.dados[0]) {
             this.formGroup.patchValue({
@@ -173,7 +176,7 @@ export class FormListaAlertaComponent {
       page: 0,
     };
     const filter = new ListaAlertaFilter(paginationProps);
-    this._store.dispatch(new BuscarInstituicoesAction(filter)).subscribe(() => {
+    this._store.dispatch(new BuscarListaAlertaAction(filter)).subscribe(() => {
     })
   }
 

@@ -6,6 +6,7 @@ import { nvAlertaMap } from '@/domain/enums/tipo-alerta/nv-alerta.enum';
 import { TipoAlertaFilter, TipoAlertaProps } from '@/domain/filters/tipo-alerta/tipo-alerta.filter';
 import { TipoAlerta } from '@/domain/models/command/tipo-alerta';
 import { BuscarTiposAlertasAction } from '@/infrastructure/store/actions/tipo-alerta.actions';
+import { ListaAlertaSelectors } from '@/infrastructure/store/selectors/lista-alerta.selectors';
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -37,12 +38,16 @@ export class FormTipoAlertaComponent {
   public formGroup!: FormGroup<FormType<TipoAlerta>>;
   private _customDialog = inject(CustomDialogService);
   private _store = inject(Store);
+  public cdListaAlerta = this._store.selectSignal(ListaAlertaSelectors.cdListaAlerta);
+
   protected nvAlertaMap = nvAlertaMap
 
   public icon = 'la la-save'
   public iconClose = 'la la-times-circle'
   public isEditable = false;
   public route = inject(ActivatedRoute)
+
+
 
   @Output() cadastroSucesso = new EventEmitter<void>();
   @Input() tipoAlerta: any = null;
@@ -55,12 +60,11 @@ export class FormTipoAlertaComponent {
     private buscarTipoAlertaPorCdUseCase: BuscarTipoAlertaPeloCdUseCase,
   ) {
     this.formGroup = this.formBuilder.group({
-      cdListaAlerta: [this.tipoAlerta?.cdListaAlerta],
+      cdListaAlerta: [this.cdListaAlerta()],
       nmTipoAlerta: ['', [Validators.required]],
       nvAlerta: [0, [Validators.required]],
       dsTipoAlerta: ['', [Validators.required]]
     });
-    // console.log(this.getIdFromUrl())
   }
 
   ngOnInit(): void {
@@ -161,9 +165,8 @@ export class FormTipoAlertaComponent {
   loadTableTipoAlerta() {
     const paginationProps: TipoAlertaProps = {
       page: 0,
-      cdListaAlerta: this.tipoAlerta?.cdListaAlerta
+      cdListaAlerta: this.cdListaAlerta()
     };
-    console.log('testeee', this.tipoAlerta?.cdListaAlerta)
     const filter = new TipoAlertaFilter(paginationProps);
     this._store.dispatch(new BuscarTiposAlertasAction(filter)).subscribe(() => {
     })

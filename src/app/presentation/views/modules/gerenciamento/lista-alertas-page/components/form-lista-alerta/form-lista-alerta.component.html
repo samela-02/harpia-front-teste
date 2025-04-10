@@ -3,7 +3,7 @@
     <tvc-input class="w-full" id="nmListaAlerta" formControlName="nmListaAlerta" label="Nome da Lista de Alerta"
       placeholder="Nome da Lista de Alerta" inputNormalize="alfanum" required [maxlength]="40" [minlength]="3" />
 
-    <tvc-dropdown class="w-full" id="idInstituicao" formControlName="idInstituicao" useLabel="nmInstituicao"
+    <tvc-dropdown *ngIf="!listaAlerta" class="w-full" id="idInstituicao" formControlName="idInstituicao" useLabel="nmInstituicao"
     useValue="idInstituicao" label="Instituição" placeholder="Instituição" [providers]="instituicoes"
     />
 

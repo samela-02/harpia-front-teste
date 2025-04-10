@@ -1,3 +1,4 @@
+import { alertaProviders } from "./alerta/alerta.provider";
 import { clientProviders } from "./client.provider";
 import { compoenenteProviders } from "./componente/componente.provider";
 import { equipamentoProviders } from "./equipamento/equipamento.provider";
@@ -16,6 +17,7 @@ export const providers = [
   listaAlertaProviders,
   tipoEquipamentoProviders,
   tipoAlertaProviders,
+  alertaProviders,
   equipamentoProviders,
   compoenenteProviders,
   usuarioProviders,

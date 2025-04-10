@@ -1,17 +1,18 @@
-import { TipoAlertaProps } from '@/domain/filters/tipo-alerta/tipo-alerta.filter';
-import { SetarBreadcrumbAction } from '@/infrastructure/store/actions/breadcrumb.action';
-import { BuscarTiposAlertasAction } from '@/infrastructure/store/actions/tipo-alerta.actions';
-import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute, Route } from '@angular/router';
-import { Store } from '@ngxs/store';
-import { TableTipoAlertasComponent } from './components/table-tipo-alertas/table-tipo-alertas.component';
-import { ButtonComponent } from '@tivic-team/tivic-ui';
+import { SetarCdListaAlertaAction } from '@/infrastructure/store/actions/lista-alerta.actions';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngxs/store';
+import { ModalService } from '@tivic-team/tivic-ui';
+import { ModalFormCreateTipoAlertaComponent } from './components/tipo-alerta/modal-form-create-tipo-alerta/modal-form-create-tipo-alerta.component';
+import { TableTipoAlertasComponent } from './components/tipo-alerta/table-tipo-alertas/table-tipo-alertas.component';
+import { TableAlertasComponent } from './components/alerta/table-alertas/table-alertas.component';
+import { MatDivider } from '@angular/material/divider';
 
 @Component({
   selector: 'app-alertas-page',
   standalone: true,
-  imports: [TableTipoAlertasComponent, MatButtonModule],
+  imports: [TableTipoAlertasComponent, TableAlertasComponent, MatButtonModule, MatDivider],
   templateUrl: './alertas-page.component.html',
   styleUrl: './alertas-page.component.scss'
 })
@@ -19,8 +20,14 @@ export class AlertasPageComponent {
   private _store = inject(Store);
   private _cdr = inject(ChangeDetectorRef);
   private _route = inject(ActivatedRoute);
+  private cdListaAlerta: number | null = null;
 
-  // private _modalService = inject(ModalService<ModalFormCreateListaAlertaComponent>);
+  constructor(){
+    this.getIdFromUrl()
+    this.setarCdListaAlerta(this.cdListaAlerta)
+  }
+
+  private _modalService = inject(ModalService<ModalFormCreateTipoAlertaComponent>);
 
   // @ViewChild(TableListaAlertasComponent) TableListaAlertasComponent!: TableListaAlertasComponent;
   // table = viewChild<TableListaAlertasComponent>(TableListaAlertasComponent);
@@ -40,6 +47,16 @@ export class AlertasPageComponent {
   // }
 
   cadastrar() {
-    // this._modalService.component(ModalFormCreateListaAlertaComponent).open();
+    this._modalService.component(ModalFormCreateTipoAlertaComponent).open();
+  }
+
+  private getIdFromUrl(): void {
+    this._route.paramMap.subscribe(params => {
+      this.cdListaAlerta = Number(params.get('cdAlerta'))
+    });
+  }
+
+  public setarCdListaAlerta(cdLista: number) {
+    this._store.dispatch(new SetarCdListaAlertaAction(cdLista)).subscribe()
   }
 }

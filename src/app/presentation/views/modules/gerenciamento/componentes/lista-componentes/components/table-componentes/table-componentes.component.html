@@ -63,7 +63,10 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="rowChange($event, row)"></tr>
   </table>
 
+  <no-table [dataSource]="componente()?.data?.dados" />
+
   <mat-paginator
+    *ngIf="componente()?.data?.dados.length == pageSize || pageIndex != 0"
     [length]="dataLength"
     [pageSizeOptions]="[5, 10]"
     [pageSize]="pageSize"

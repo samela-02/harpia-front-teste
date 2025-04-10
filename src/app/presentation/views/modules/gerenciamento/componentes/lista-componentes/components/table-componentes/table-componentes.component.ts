@@ -12,11 +12,12 @@ import { MatSortModule } from '@angular/material/sort';
 import { Store } from '@ngxs/store';
 import { ModalService } from '@tivic-team/tivic-ui';
 import { ModalFormComponenteUpdateComponent } from '../modal-form-update-componente/modal-form-update-componente.component';
+import { NoTableComponent } from '@/presentation/components/no-table/no-table.component';
 
 @Component({
   selector: 'app-table-componentes',
   standalone: true,
-  imports: [...tableModule, MatChipsModule, MatSortModule, CommonModule, DatePipe],
+  imports: [...tableModule, MatChipsModule, MatSortModule, CommonModule, DatePipe, NoTableComponent],
   templateUrl: './table-componentes.component.html',
   styleUrl: './table-componentes.component.scss'
 })

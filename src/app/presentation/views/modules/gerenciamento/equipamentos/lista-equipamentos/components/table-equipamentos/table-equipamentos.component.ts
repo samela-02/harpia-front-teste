@@ -12,11 +12,12 @@ import { EquipamentoSelectors } from '@/infrastructure/store/selectors/equipamen
 import { EquipamentosFilter, EquipamentosProps } from '@/domain/filters/equipamento/equipamento.filter';
 import { BuscarEquipamentosAction } from '@/infrastructure/store/actions/equipamento.actions';
 import { Equipamento } from '@/domain/models/command/equipamento';
+import { NoTableComponent } from '@/presentation/components/no-table/no-table.component';
 
 @Component({
   selector: 'app-table-equipamentos',
   standalone: true,
-  imports: [...tableModule, MatChipsModule, MatSortModule, CommonModule, DatePipe],
+  imports: [...tableModule, MatChipsModule, MatSortModule, CommonModule, DatePipe, NoTableComponent],
   templateUrl: './table-equipamentos.component.html',
   styleUrl: './table-equipamentos.component.scss'
 })
@@ -56,7 +57,7 @@ export class TableEquipamentosComponent extends TablePageBase{
     const filterProps = new EquipamentosFilter(paginationProps);
 
     this._store.dispatch(new BuscarEquipamentosAction(filterProps)).subscribe(() => {
-      this.dataLength = this.equipamento().data.totalItens;
+      this.dataLength = this.equipamento()?.data?.totalItens;
     })
   }
 

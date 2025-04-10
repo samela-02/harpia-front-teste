@@ -12,11 +12,12 @@ import { MatSortModule } from '@angular/material/sort';
 import { Store } from '@ngxs/store';
 import { ModalService } from '@tivic-team/tivic-ui';
 import { ModalFormTipoEquipamentoUpdateComponent } from '../modal-form-update-tipo-equipamento/modal-form-update-tipo-equipamento.component';
+import { NoTableComponent } from '@/presentation/components/no-table/no-table.component';
 
 @Component({
   selector: 'app-table-tipos-equipamentos',
   standalone: true,
-  imports: [...tableModule, MatChipsModule, MatSortModule, CommonModule, DatePipe],
+  imports: [...tableModule, MatChipsModule, MatSortModule, CommonModule, DatePipe, NoTableComponent],
   templateUrl: './table-tipos-equipamentos.component.html',
   styleUrl: './table-tipos-equipamentos.component.scss'
 })

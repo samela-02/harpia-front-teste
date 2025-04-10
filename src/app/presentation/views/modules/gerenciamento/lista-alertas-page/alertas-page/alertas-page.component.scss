@@ -1,3 +1,7 @@
 ::ng-deep .mdc-button__label {
   @apply flex-center justify-center gap-2
 }
+
+::ng-deep .main-content {
+  @apply p-0 #{!important}
+}

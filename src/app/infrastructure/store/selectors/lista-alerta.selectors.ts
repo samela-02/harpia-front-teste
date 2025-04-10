@@ -11,4 +11,9 @@ export class ListaAlertaSelectors {
   static listaAlertaSelect(state: ListaAlertaStateModel) {
     return state.listaAlerta.data.dados
   }
+
+  @Selector([ListaAlertaState])
+  static cdListaAlerta(state: ListaAlertaStateModel) {
+    return state.cdListaAlerta
+  }
 }

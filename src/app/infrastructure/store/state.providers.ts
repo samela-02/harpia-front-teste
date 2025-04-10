@@ -11,6 +11,7 @@ import { TipoComponenteState } from "./states/tipo-componente.state";
 import { ComponenteState } from "./states/componente.state";
 import { ListaAlertaState } from "./states/lista-alerta.state";
 import { TipoAlertaState } from "./states/tipo-alerta.state";
+import { AlertaState } from "./states/alerta.state";
 
 export const stateProviders = [
   provideStore(
@@ -19,6 +20,7 @@ export const stateProviders = [
       TipoComponenteState,
       ListaAlertaState,
       TipoAlertaState,
+      AlertaState,
       ComponenteState,
       UsuarioState,
       BreadcrumbState,

@@ -1,13 +1,20 @@
 .table {
-  @apply p-4 w-full ;
+  @apply p-4 w-full;
 }
 
-.mat-column-lgAtivo, .mat-column-nvAlerta {
+.mat-column-lgAtivo,
+.mat-column-idInstituicao{
   text-align: center;
   font-weight: bold;
 }
 
-::ng-deep .mdc-evolution-chip-set__chips{
+.mat-column-acao {
+  @apply w-20;
+  text-align: center;
+  font-weight: bold;
+}
+
+::ng-deep .mdc-evolution-chip-set__chips {
   @apply flex justify-center #{!important}
 }
 
@@ -20,7 +27,7 @@
 }
 
 .chip-success {
-  @apply flex-center justify-center bg-green-100  text-green-700 p-0 w-[90px] #{!important}
+  @apply flex-center justify-center bg-green-100 text-green-700 p-0 w-[90px] #{!important}
 }
 
 .chip-danger {
