@@ -1,7 +1,7 @@
 import { EnderecoVeiculoQueryResponse } from "./endereco-query-response";
 import { ProprietarioVeiculoQueryResponse } from "./proprietario-veiculo-query-response";
 
-export class VeiculoQueryResponse {
+export class VeiculoDeteccaoQueryResponse {
   cdVeiculo: number;
   nrPlaca: string;
   nrRenavam: string;

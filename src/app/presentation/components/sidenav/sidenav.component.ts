@@ -4,7 +4,7 @@ import { MatListModule } from "@angular/material/list";
 import { MatButtonModule } from "@angular/material/button";
 import { MatSidenav, MatSidenavModule } from "@angular/material/sidenav";
 import { RouterModule, Router, NavigationEnd, ActivatedRoute } from "@angular/router";
-import { CommonModule } from "@angular/common";
+import { CommonModule, DatePipe } from "@angular/common";
 import { AngularLineawesomeModule } from 'angular-line-awesome';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { environment } from "@env/environment.development";
@@ -24,6 +24,7 @@ import { BreadcrumbComponent } from "../breadcrumb/breadcrumb.component";
     imports: [
     MatSidenavModule,
     BreadcrumbComponent,
+    DatePipe,
     MatButtonModule,
     NameFormatterPipe,
     TimerComponent,
@@ -42,13 +43,16 @@ export class SidenavComponent {
   selectedModule: any = null;
   moduleName: string;
   nomeUsuario: string;
+  expiresIn: number;
+  timerInterval: any;
 
   date = new Date();
   version = environment.version;
   currentRouteData: RouteData;
 
   ngOnInit(): void {
-    this.buscaNomeUsuario()
+    this.buscaNomeUsuario();
+    this.iniciarContadorExpiracao();
   }
 
   constructor(private cdr: ChangeDetectorRef, private router: Router, private authService: AuthServiceImpl,) {
@@ -78,7 +82,47 @@ export class SidenavComponent {
     this.nomeUsuario = this.authService.getNomeUsuario()
   }
 
+  iniciarContadorExpiracao() {
+    if (this.timerInterval) {
+      clearInterval(this.timerInterval);
+    }
+
+    const expiresInSeconds = Number(this.authService.getExpiresIn());
+    if (!expiresInSeconds) {
+      return;
+    }
+
+    this.atualizarTempoRestante();
+
+    this.timerInterval = setInterval(() => {
+      this.atualizarTempoRestante();
+    }, 1000);
+  }
+
+  atualizarTempoRestante() {
+    const tokenTime = Number(this.authService.getExpiresIn());
+    if (!tokenTime) {
+      this.expiresIn = 0;
+      return;
+    }
+
+    const agora = Date.now();
+    this.expiresIn = Math.max(0, tokenTime - agora);
+
+    if (this.expiresIn <= 0) {
+      clearInterval(this.timerInterval);
+      this.deslogarUsuario();
+    }
+  }
+
   deslogarUsuario() {
-    this.authService.deslogar()
+    clearInterval(this.timerInterval);
+    this.authService.deslogar();
+  }
+
+  ngOnDestroy() {
+    if (this.timerInterval) {
+      clearInterval(this.timerInterval);
+    }
   }
 }

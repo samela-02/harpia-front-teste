@@ -1,15 +1,16 @@
 export class Alerta {
+  cdAlerta?: number
   cdListaAlerta: number;
   cdTipoAlerta: number;
   cdVeiculo: number;
-  dtAlerta: Date;
+  dtAlerta: string;
   dsAlerta: string;
 
   constructor(
     cdListaAlerta: number,
     cdTipoAlerta: number,
     cdVeiculo: number,
-    dtAlerta: Date,
+    dtAlerta: string,
     dsAlerta: string
   ) {
     this.cdListaAlerta = cdListaAlerta;

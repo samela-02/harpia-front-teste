@@ -11,4 +11,9 @@ export class AlertaSelectors {
   static alertasSelect(state: AlertaStateModel) {
     return state.alertas.data.dados
   }
+
+  @Selector([AlertaState])
+  static veiculo(state: AlertaStateModel) {
+    return state.veiculoDeteccao
+  }
 }

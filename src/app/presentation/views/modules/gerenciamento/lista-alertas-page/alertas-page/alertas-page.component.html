@@ -1,45 +1,35 @@
-<div class="page h-full flex flex-col gap-2">
-  <!-- <div class="w-full flex flex-row justify-end">
-
-    <div class="flex-center gap-3">
-      <app-filters-inputs [formGroup]="formGroup" searchField="nmInstituicao" placeholder="Pesquisar lista"
-        (search)="onSearch()">
-        <app-filter-lista-alerta [formGroup]="formGroup" [table]="table()" />
-      </app-filters-inputs>
-    </div>
-  </div> -->
-  <div class="w-full h-full grid grid-cols-12 gap-3">
-    <div class="lg:col-span-9 col-span-12 flex flex-col gap-2 p-4">
-      <div class="w-full flex justify-between items-center px-1">
-        <span class="text-primary text-base">
+<div class="page">
+  <div class="grid-container">
+    <div class="main-content-area">
+      <div class="header-section">
+        <span class="header-title">
           <i class="la la-exclamation-triangle"></i>
           Alertas
         </span>
-        <button mat-flat-button (click)="cadastrar()" class="font-semibold bg-primary/10 text-primary">
-          <i [class]="icon" class="text-lg"></i>
-          <label class="md:flex hidden">
+        <button mat-flat-button (click)="cadastrarAlerta()" class="cadastrar-button">
+          <i [class]="icon" class="icon"></i>
+          <label class="button-label">
             Cadastrar alerta
           </label>
         </button>
       </div>
-      <app-table-alertas class="overflow-x-auto overflow-y-hidden"></app-table-alertas>
+      <app-table-alertas class="table-alertas"></app-table-alertas>
     </div>
-    <div class="lg:col-span-3 col-span-12 flex flex-row gap-2 pr-4 py-4 h-full bg-gray-50/80">
-      <mat-divider vertical="true"  class="h-full hidden lg:flex text-primary/40 mr-2"></mat-divider>
-      <div class="col-span-4 flex flex-col gap-2 h-full">
-        <div class="w-full flex justify-between items-center px-1">
-          <span class="text-primary text-base">
+    <div class="sidebar-area">
+      <div class="sidebar-content">
+        <div class="header-section">
+          <span class="header-title">
             <i class="la la-stream"></i>
             Tipos de Alertas
           </span>
-          <button mat-flat-button (click)="cadastrar()" class="font-semibold bg-primary/10 text-primary">
-            <i [class]="icon" class="text-lg"></i>
-            <label class="md:flex hidden">
+          <button mat-flat-button (click)="cadastrarTipoAlerta()" class="cadastrar-button">
+            <i [class]="icon" class="icon"></i>
+            <label class="button-label">
               Cadastrar tipo
             </label>
           </button>
         </div>
-        <app-table-tipo-alertas class="overflow-x-auto overflow-y-hidden">
+        <app-table-tipo-alertas class="table-tipo-alertas">
         </app-table-tipo-alertas>
       </div>
     </div>

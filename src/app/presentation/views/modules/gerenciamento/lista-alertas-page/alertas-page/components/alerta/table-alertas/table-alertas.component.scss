@@ -7,8 +7,6 @@
   font-weight: bold;
 }
 
-
-
 .mat-column-nvCor {
   @apply text-center font-bold w-14;
 }
@@ -46,7 +44,7 @@
 // }
 
 .table-container {
-  @apply h-full flex flex-col;
+  @apply h-full flex flex-col overflow-x-auto min-w-[600px];
 
   .mat-mdc-table {
     max-height: calc(100vh - 200px);

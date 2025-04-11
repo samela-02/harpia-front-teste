@@ -69,7 +69,8 @@
             </div>
           </button>
           <tvc-timer>
-            {{ "00:00" }}
+            {{expiresIn | date: 'HH:mm:ss'}}
+            <!-- {{ "00:00" }} -->
           </tvc-timer>
 
           <div class="profile">

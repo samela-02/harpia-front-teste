@@ -1,5 +1,5 @@
 import { TipoAlertaQueryResponse } from "./tipo-alerta-query-response";
-import { VeiculoQueryResponse } from "./veiculo-query-response";
+import { VeiculoDeteccaoQueryResponse } from "./veiculo-deteccao-query-response";
 
 export class AlertaQueryResponse {
   cdAlerta: number
@@ -9,5 +9,5 @@ export class AlertaQueryResponse {
   dtAlerta: Date;
   dsAlerta: string;
   tipoAlertaQueryResponse: TipoAlertaQueryResponse
-  veiculoQueryResponse: VeiculoQueryResponse
+  veiculoQueryResponse: VeiculoDeteccaoQueryResponse
 }
