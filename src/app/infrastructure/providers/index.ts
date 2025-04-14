@@ -1,4 +1,5 @@
 import { alertaProviders } from "./alerta/alerta.provider";
+import { cidadeProviders } from "./cidade/cidade.provider";
 import { clientProviders } from "./client.provider";
 import { compoenenteProviders } from "./componente/componente.provider";
 import { equipamentoProviders } from "./equipamento/equipamento.provider";
@@ -21,5 +22,6 @@ export const providers = [
   equipamentoProviders,
   compoenenteProviders,
   usuarioProviders,
-  loginProviders
+  loginProviders,
+  cidadeProviders
 ];

@@ -12,7 +12,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { Store } from '@ngxs/store';
-import { CustomDialogService, FormType, InputComponent, makeDeleteCustomDialog, SnackbarService, TextareaComponent } from '@tivic-team/tivic-ui';
+import { CustomDialogService, FormType, InputComponent, makeDeleteCustomDialog, SnackbarService, TextareaComponent, DropdownComponent } from '@tivic-team/tivic-ui';
+import { CidadeProps } from '@/domain/filters/cidade/cidade.props';
+import { CidadeFilter } from '@/domain/filters/cidade/cidade.filter';
+import { FindCidadesAction } from '@/infrastructure/store/actions/cidade.actions';
+import { CidadeSelectors } from '@/infrastructure/store/selectors/cidade.selector';
 
 @Component({
   selector: 'app-form-instituicao',
@@ -24,7 +28,8 @@ import { CustomDialogService, FormType, InputComponent, makeDeleteCustomDialog, 
     MatDividerModule,
     CommonModule,
     MatIconModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DropdownComponent
   ],
   templateUrl: './form-instituicao.component.html',
   styleUrl: './form-instituicao.component.scss'
@@ -40,6 +45,7 @@ export class FormInstituicaoComponent {
 
   @Output() cadastroSucesso = new EventEmitter<void>();
   @Input() instituicao: any = null;
+  public cidades = () => this._store.select(CidadeSelectors.findCidades)
 
   constructor(
     private criarInstituicaoUseCase: CriarInstituicaoUseCase,
@@ -51,13 +57,15 @@ export class FormInstituicaoComponent {
     this.formGroup = this.formBuilder.group({
       nmInstituicao: ['', [Validators.required]],
       idInstituicao: ['', [Validators.required]],
-      txtObservacao: ['']
+      txtObservacao: [''],
+      cdCidade: [0, [Validators.required]],
     });
   }
 
   ngOnInit(): void {
     this.updateForm();
     this.updateFormState();
+    this.loadCidades();
   }
 
   private updateFormState() {
@@ -85,10 +93,12 @@ export class FormInstituicaoComponent {
       this.buscarInstituicoesUseCase.execute(filter).subscribe({
         next: (response: any) => {
           if (response.data.dados[0]) {
+            console.log(response.data.dados[0])
             this.formGroup.patchValue({
               nmInstituicao: response.data.dados[0].nmInstituicao,
               idInstituicao: response.data.dados[0].idInstituicao,
-              txtObservacao: response.data.dados[0].txtObservacao
+              txtObservacao: response.data.dados[0].txtObservacao,
+              cdCidade: response.data.dados[0].cdCidade
             });
           }
         },
@@ -174,4 +184,12 @@ export class FormInstituicaoComponent {
     })
   }
 
+  private loadCidades() {
+    const paginationProps: CidadeProps = {
+      page: 0,
+      size: 5000
+    };
+    const cidadeFilter = new CidadeFilter(paginationProps);
+    this._store.dispatch(new FindCidadesAction(cidadeFilter)).subscribe();
+  }
 }
