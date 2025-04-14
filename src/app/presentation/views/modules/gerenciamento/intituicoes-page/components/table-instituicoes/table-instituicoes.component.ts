@@ -64,5 +64,5 @@ export class TableInstituicoesComponent extends TablePageBase{
 
   getSituacao = (lgAtivo: boolean) => lgAtivo ? "Ativo" : "Inativo";
 
-  displayedColumns: string[] = ['idInstituicao', 'nmInstituicao', 'txtObservacao', 'lgAtivo'];
+  displayedColumns: string[] = ['idInstituicao', 'nmInstituicao', 'txtObservacao', 'nmCidade', 'lgAtivo'];
 }

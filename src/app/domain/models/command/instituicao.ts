@@ -4,11 +4,15 @@ export class Instituicao {
   nmInstituicao: string;
   txtObservacao: string;
   lgAtivo?: number;
+  cdCidade: number;
+  nmCidade?: string;
 
   constructor(
     idInstituicao: string,
     nmInstituicao: string,
     txtObservacao: string,
+    cdCidade: number,
+    nmCidade: string,
     cdInstituicao?: number | null,
     lgAtivo?: number
   ) {
@@ -17,5 +21,7 @@ export class Instituicao {
     this.nmInstituicao = nmInstituicao;
     this.txtObservacao = txtObservacao;
     this.lgAtivo = lgAtivo;
+    this.cdCidade = cdCidade;
+    this.nmCidade = nmCidade;
   }
 }
