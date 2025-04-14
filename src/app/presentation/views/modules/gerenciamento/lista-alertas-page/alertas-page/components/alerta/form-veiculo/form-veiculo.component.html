@@ -1,0 +1,12 @@
+<form [formGroup]="formGroup" class="form h-full flex flex-col justify-between gap-3">
+  <div class="form-group">
+    <tvc-input class="w-full" id="nrPlaca" formControlName="nrPlaca" label="Id da Instituição"
+      placeholder="Placa do Veículo" inputNormalize="alfanum" required [maxlength]="40" [minlength]="3" />
+
+    <div class="w-full flex-center flex-row gap-2">
+      <button class="bg-primary/60 h-8 w-9 rounded-full shadow-sm">
+       <i [class]="'la la-plus'" class="text-white font-bold"></i>
+      </button>
+    </div>
+  </div>
+</form>

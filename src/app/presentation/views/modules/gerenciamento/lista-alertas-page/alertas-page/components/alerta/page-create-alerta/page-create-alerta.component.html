@@ -1,0 +1,39 @@
+<div class="modal">
+    <div class="header">
+      <div class="modal-header">
+        <i [class]="'la la-exclamation-triangle'" class="text-[27px] flex justify-center text-primary"></i>
+        <span class="flex-center text-lg font-semibold text-text">
+          Cadastrar Alerta
+        </span>
+      </div>
+      <div class="modal-close">
+        <!-- <tvc-button icon="close" color="link" class="opacity-50" (click)="fecharModal()" /> -->
+      </div>
+    </div>
+    <div class="main">
+      <mat-stepper linear="true" labelPosition="bottom" #stepper>
+        <mat-step [stepControl]="formGroupAlerta">
+          <ng-template matStepLabel>
+            <span class="font-bold text-xs text-primary/70">
+              Descrição do Alerta
+            </span>
+          </ng-template>
+          <app-form-alerta [formGroup]="formGroupAlerta" class="h-full" />
+          <div class="w-full flex justify-end mt-2">
+            <button [disabled]="!formGroupAlerta.valid" mat-button matStepperNext class="bg-primary/10 text-primary">Avançar</button>
+          </div>
+        </mat-step>
+        <mat-step [stepControl]="formGroupVeiculo">
+          <ng-template matStepLabel>
+            <span class="font-bold text-xs text-primary/70">
+              Descrição do Veículo
+            </span>
+          </ng-template>
+          <app-form-veiculo [formGroup]="formGroupVeiculo" class="h-full"/>
+          <div class="w-full flex justify-end mt-2">
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </mat-step>
+      </mat-stepper>
+    </div>
+</div>

@@ -15,10 +15,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngxs/store';
-import { DatetimeComponent, DropdownComponent, FormType, SnackbarService, TextareaComponent } from '@tivic-team/tivic-ui';
+import { DatetimeComponent, DropdownComponent, FormType, InputComponent, SnackbarService, TextareaComponent } from '@tivic-team/tivic-ui';
 
 @Component({
-  selector: 'app-form-alerta',
+  selector: 'app-form-veiculo',
   standalone: true,
   imports: [
     TextareaComponent,
@@ -26,6 +26,7 @@ import { DatetimeComponent, DropdownComponent, FormType, SnackbarService, Textar
     DatetimeComponent,
     DropdownComponent,
     MatDividerModule,
+    InputComponent,
     MatFormFieldModule,
     MatInputModule,
     MatAutocompleteModule,
@@ -34,10 +35,10 @@ import { DatetimeComponent, DropdownComponent, FormType, SnackbarService, Textar
     ReactiveFormsModule,
     FormsModule
   ],
-  templateUrl: './form-alerta.component.html',
-  styleUrl: './form-alerta.component.scss'
+  templateUrl: './form-veiculo.component.html',
+  styleUrl: './form-veiculo.component.scss'
 })
-export class FormAlertaComponent {
+export class FormVeiculoComponent {
   private _snackbar = inject(SnackbarService);
   private _store = inject(Store);
 
@@ -49,39 +50,13 @@ export class FormAlertaComponent {
 
   public tiposAlertasDrop = () => this._store.select(TipoAlertaSelectors.tiposAlertasSelect)
 
-  @Input() formGroup!: FormGroup<FormType<Alerta>>;
+  @Input() formGroup!: FormGroup<FormType<Veiculo>>;
   public icon = 'la la-save'
   public iconClose = 'la la-times-circle'
   public route = inject(ActivatedRoute)
 
-  onPlacaInput() {
-    this.veiculoNaoEncontrado = false;
-    if (this.placaVeiculo && this.placaVeiculo.length === 7) {
-      this.veiculosFiltrados = []
-      this.loadVeiculo(this.placaVeiculo);
-    }
+  ngOnInit(): void {
+    console.log(this.formGroup.controls)
   }
 
-  onVeiculoSelected(event: MatAutocompleteSelectedEvent) {
-    const veiculo = event.option.value;
-    this.formGroup.get('cdVeiculo')?.setValue(veiculo.cdVeiculo);
-  }
-
-  loadVeiculo(nrPlaca: string) {
-    this._store.dispatch(new BuscarVeiculoPorPlacaAction(nrPlaca)).subscribe(() => {
-      const veiculo = this.veiculos()?.data;
-      console.log(this.veiculos())
-      if (veiculo) {
-        const existeVeiculo = this.veiculosFiltrados.some(v => v.cdVeiculo === veiculo.cdVeiculo);
-        if (!existeVeiculo) {
-          this.veiculosFiltrados = [...this.veiculosFiltrados, veiculo];
-          console.log(this.veiculosFiltrados)
-        }
-        this.veiculoNaoEncontrado = false;
-      } else {
-        this.veiculoNaoEncontrado = true;
-        this._snackbar.error('Veículo não encontrado. É necessário cadastrá-lo.');
-      }
-    });
-  }
 }

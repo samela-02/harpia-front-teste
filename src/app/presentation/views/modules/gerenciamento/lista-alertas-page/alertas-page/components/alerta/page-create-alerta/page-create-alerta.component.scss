@@ -1,0 +1,30 @@
+@import "../../../../../../../../../../assets/theme/modal-form";
+
+::ng-deep .mat-step-label{
+  @apply p-0 #{!important}
+}
+
+::ng-deep {
+  .mat-step-header {
+    .mat-step-icon {
+      @apply bg-primary/20 text-primary/50;
+    }
+
+    .mat-step-icon-selected,
+    .mat-step-icon-state-edit {
+      @apply bg-transparent text-primary/70 border-primary/70
+    }
+  }
+
+  .mat-step-header {
+    @apply p-2 #{!important};
+  }
+
+  .mat-horizontal-stepper-header-container {
+    @apply px-4
+  }
+
+  .mat-horizontal-content-container {
+    @apply p-0 #{!important}
+  }
+}

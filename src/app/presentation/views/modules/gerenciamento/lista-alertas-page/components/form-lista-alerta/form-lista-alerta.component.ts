@@ -3,6 +3,7 @@ import { BuscarListaAlertaUseCase } from '@/application/usecase/lista-alerta/bus
 import { CriarListaAlertaUseCase } from '@/application/usecase/lista-alerta/criar-lista-alerta.usecase';
 import { DesativarListaAlertaUseCase } from '@/application/usecase/lista-alerta/desativar-lista-alerta.usecase';
 import { EditarListaAlertaUseCase } from '@/application/usecase/lista-alerta/editar-lista-alerta.usecase';
+import { InstituicaoFilter, InstituicaoProps } from '@/domain/filters/instituicao/instituicao.filter';
 import { ListaAlertaFilter, ListaAlertaProps } from '@/domain/filters/lista-alerta/lista-alerta.filter';
 import { ListaAlerta } from '@/domain/models/command/lista-alerta';
 import { BuscarInstituicoesAction } from '@/infrastructure/store/actions/instituicao.actions';
@@ -63,6 +64,7 @@ export class FormListaAlertaComponent {
   ngOnInit(): void {
     this.updateForm();
     this.updateFormState();
+    this.loadInstituicoes()
   }
 
   private updateFormState() {
@@ -177,6 +179,16 @@ export class FormListaAlertaComponent {
     };
     const filter = new ListaAlertaFilter(paginationProps);
     this._store.dispatch(new BuscarListaAlertaAction(filter)).subscribe(() => {
+    })
+  }
+
+  loadInstituicoes() {
+    const paginationProps: InstituicaoProps = {
+      page: 0,
+      size: 5000
+    };
+    const filter = new InstituicaoFilter(paginationProps);
+    this._store.dispatch(new BuscarInstituicoesAction(filter)).subscribe(() => {
     })
   }
 

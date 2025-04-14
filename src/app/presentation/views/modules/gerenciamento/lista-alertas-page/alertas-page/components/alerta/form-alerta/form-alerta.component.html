@@ -1,49 +1,40 @@
-<form [formGroup]="formGroup" class="form h-full flex flex-col justify-between gap-3">
+<form [formGroup]="formGroup" class="form h-full mt-4 flex flex-col justify-between gap-3">
   <div class="form-group">
     <tvc-dropdown class="w-full" id="cdTipoAlerta" formControlName="cdTipoAlerta" label="Tipo de alerta"
       placeholder="Tipo de alerta" [providers]="tiposAlertasDrop" required useLabel="nmTipoAlerta" useValue="cdTipoAlerta" />
-
+<!--
     <div class="w-full flex-center flex-row gap-2">
       <button class="bg-primary/60 h-8 w-9 rounded-full shadow-sm">
        <i [class]="'la la-plus'" class="text-white font-bold"></i>
       </button>
-
       <mat-form-field appearance="outline">
-        <mat-label>Placa do Veículo</mat-label>
+        <mat-label>
+          Pesquisar Placa do Veículo
+          <i [class]="'la la-search'" class="font-bold text-[1em]"></i>
+        </mat-label>
         <input type="text"
                placeholder="Placa do Veículo"
                matInput
-               [formControl]="placaInput"
+               [(ngModel)]="placaVeiculo"
+               [ngModelOptions]="{standalone: true}"
+               (input)="onPlacaInput()"
+               [minLength]="7"
+               [maxLength]="7"
                [matAutocomplete]="auto">
-        <mat-autocomplete #auto="matAutocomplete"
-                          [displayWith]="exibirVeiculo.bind(this)"
-                          (optionSelected)="selecionarVeiculo($event.option.value)">
+        <mat-error *ngIf="veiculoNaoEncontrado">
+          Veículo não encontrado. É necessário cadastrá-lo.
+        </mat-error>
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onVeiculoSelected($event)">
           @for (veiculo of veiculosFiltrados; track veiculo.cdVeiculo) {
-            <mat-option [value]="veiculo">{{veiculo.nrPlaca}} - {{veiculo.nmModelo}}</mat-option>
+            <mat-option [value]="veiculo.nrPlaca">{{veiculo.nrPlaca}} - {{veiculo.nmModelo.toUpperCase()}}</mat-option>
           }
         </mat-autocomplete>
       </mat-form-field>
-
-      <!-- <tvc-dropdown id="cdVeiculo" formControlName="cdVeiculo" label="Veículo Detectado" class="w-full"
-      placeholder="Veículo Detectado"  required useLabel="nmModelo"
-      useValue="cdVeiculo" /> -->
-    </div>
+    </div> -->
 
     <tvc-datetime class="w-full" id="dtAlerta" formControlName="dtAlerta" label="Dt. do alerta" type="datetime-local" [max]="'9999-12-31T23:59'" />
 
     <tvc-textarea class="w-full max-h-28" id="dsAlerta" formControlName="dsAlerta" label="Descrição"
       placeholder="Descrição" />
-  </div>
-
-  <div class="w-full flex justify-end gap-2">
-
-    <button (click)="onSubmit()" [disabled]="!formGroup.valid"
-      mat-flat-button
-      class="bg-primary/10 text-primary disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-primary/50">
-      <i [class]="icon" class="text-lg"></i>
-      <span class="pt-1">
-        Salvar
-      </span>
-    </button>
   </div>
 </form>

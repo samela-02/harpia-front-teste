@@ -8,7 +8,7 @@ import { ModalFormCreateTipoAlertaComponent } from './components/tipo-alerta/mod
 import { TableTipoAlertasComponent } from './components/tipo-alerta/table-tipo-alertas/table-tipo-alertas.component';
 import { TableAlertasComponent } from './components/alerta/table-alertas/table-alertas.component';
 import { MatDivider } from '@angular/material/divider';
-import { ModalFormCreateAlertaComponent } from './components/alerta/modal-form-create-alerta/modal-form-create-alerta.component';
+import { ModalFormCreateAlertaComponent } from './components/alerta/page-create-alerta/page-create-alerta.component';
 
 @Component({
   selector: 'app-alertas-page',
