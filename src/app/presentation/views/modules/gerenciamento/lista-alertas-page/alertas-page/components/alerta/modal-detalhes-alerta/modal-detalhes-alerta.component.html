@@ -10,12 +10,30 @@
       <tvc-button icon="close" color="link" class="opacity-50" (click)="fecharModal()" />
     </div>
   </div>
-  <div class="main">
+  <div class="main gap-4">
     <app-card-details>
       <div class="grid grid-cols-2 text-primary text-sm">
-        <app-info-line [descricao]="alerta.dsAlerta" [icone]="'la la-file-invoice'" titulo="Descrição" class="col-span-2"></app-info-line>
-        <app-info-line [descricao]="alerta.dsAlerta" [icone]="'la la-file-invoice'" titulo="Descrição"
-          class="col-span-2"></app-info-line>
+        <app-info-line [descricao]="alerta.dsAlerta || '-'" [icone]="'la la-file-invoice'" titulo="Descrição" class="col-span-2"></app-info-line>
+
+        <app-info-line [descricao]="(alerta.dtAlerta | date:'dd/MM/yyy HH:mm:ss') || '-'" [icone]="'la la-calendar'" titulo="Data"></app-info-line>
+
+        <span class="flex items-start gap-1">
+          <i [class]="'la la-star-half-alt'" class="mt-[2px]"></i>
+          <span>
+            <strong>
+              Nível:
+            </strong>
+            <span [style.background-color]="getColorByNivel(alerta?.tipoAlertaQueryResponse.nvTipoAlerta)"
+              style="display: inline-block; width: 10px; height: 10px; border-radius: 50%;">
+            </span>
+            {{alerta?.tipoAlertaQueryResponse.nmTipoAlerta}}
+          </span>
+        </span>
+      </div>
+    </app-card-details>
+    <app-card-details titulo="Veículo" icone="la la-car-alt">
+      <div class="grid grid-cols-2 text-primary text-sm">
+        <app-info-line [descricao]="veiculo?.nrPlaca || '-'" [icone]="'la la-tag'" titulo="Placa"></app-info-line>
       </div>
     </app-card-details>
   </div>

@@ -81,28 +81,11 @@ export class FormListaAlertaComponent {
   }
 
   private updateForm() {
-    console.log(this.listaAlerta)
     if (this.listaAlerta) {
-      const propsFilter: ListaAlertaProps = {
-        page: 0,
-        size: 1,
+      this.formGroup.patchValue({
+        nmListaAlerta: this.listaAlerta.nmListaAlerta,
+        dsListaAlerta: this.listaAlerta.dsListaAlerta,
         idInstituicao: this.listaAlerta.idInstituicao
-      };
-      const filter = new ListaAlertaFilter(propsFilter);
-
-      this.buscarListaAlertaUseCase.execute(filter).subscribe({
-        next: (response: any) => {
-          if (response.data.dados[0]) {
-            this.formGroup.patchValue({
-              nmListaAlerta: response.data.dados[0].nmListaAlerta,
-              dsListaAlerta: response.data.dados[0].dsListaAlerta,
-              idInstituicao: response.data.dados[0].idInstituicao
-            });
-          }
-        },
-        error: () => {
-          this._snackbar.error('Erro ao buscar dados da lista de alertas');
-        }
       });
     }
   }
