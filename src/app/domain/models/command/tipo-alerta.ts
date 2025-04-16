@@ -2,17 +2,17 @@ export class TipoAlerta {
   cdListaAlerta: number | null;
   nmTipoAlerta: string;
   dsTipoAlerta: string;
-  nvAlerta: number;
+  nvTipoAlerta: number;
 
   constructor(
     cdListaAlerta: number,
     nmTipoAlerta: string,
     dsTipoAlerta: string,
-    nvAlerta: number,
+    nvTipoAlerta: number,
   ) {
     this.cdListaAlerta = cdListaAlerta,
     this.dsTipoAlerta = dsTipoAlerta,
     this.nmTipoAlerta = nmTipoAlerta,
-    this.nvAlerta = nvAlerta
+    this.nvTipoAlerta = nvTipoAlerta
   }
 }

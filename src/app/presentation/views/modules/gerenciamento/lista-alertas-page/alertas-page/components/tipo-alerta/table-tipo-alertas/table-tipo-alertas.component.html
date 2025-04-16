@@ -5,7 +5,7 @@
     <ng-container matColumnDef="nvCor">
       <th mat-header-cell *matHeaderCellDef> Cor </th>
       <td mat-cell *matCellDef="let dados">
-        <span [style.background-color]="getColorByNivel(dados?.nvAlerta)"
+        <span [style.background-color]="getColorByNivel(dados?.nvTipoAlerta)"
           style="display: inline-block; width: 20px; height: 20px; border-radius: 50%;">
         </span>
       </td>
@@ -27,11 +27,11 @@
         {{dados?.dsTipoAlerta}}
       </td>
     </ng-container>
-    <ng-container matColumnDef="nvAlerta">
+    <ng-container matColumnDef="nvTipoAlerta">
       <th mat-header-cell *matHeaderCellDef> Nível </th>
       <td mat-cell *matCellDef="let dados">
         <tvc-badge color="default">
-          {{dados?.nvAlerta}}
+          {{dados?.nvTipoAlerta}}
         </tvc-badge>
       </td>
     </ng-container>

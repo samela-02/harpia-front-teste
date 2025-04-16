@@ -2,12 +2,12 @@
   @apply p-4 w-full ;
 }
 
-.mat-column-lgAtivo, .mat-column-nvAlerta {
+.mat-column-lgAtivo, .mat-column-nvTipoAlerta {
   text-align: center;
   font-weight: bold;
 }
 
-.mat-column-nvAlerta {
+.mat-column-nvTipoAlerta {
   @apply w-20
 }
 

@@ -67,5 +67,5 @@ export class TableTipoAlertasComponent extends TablePageBase{
     return SetColorByNivel.setColor(nivel);
   }
 
-  displayedColumns: string[] = ['nvCor','nmTipoAlerta', 'nvAlerta'];
+  displayedColumns: string[] = ['nvCor','nmTipoAlerta', 'nvTipoAlerta'];
 }

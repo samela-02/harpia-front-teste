@@ -4,6 +4,7 @@ import { JsonPipe } from '@angular/common';
 import { Component, inject, Input } from '@angular/core';
 import { ButtonComponent, MODAL_DATA, ModalService } from '@tivic-team/tivic-ui';
 import { InfoLineComponent } from './components/info-line/info-line.component';
+import { AlertaQueryResponse } from '@/domain/models/query/alerta-query-response';
 
 @Component({
   selector: 'app-modal-detalhes-alerta',
@@ -15,7 +16,7 @@ import { InfoLineComponent } from './components/info-line/info-line.component';
 export class ModalDetalhesAlertaComponent {
   public icon: string = "la la-camera-retro"
   public tituloModal: string;
-  protected alerta = inject(MODAL_DATA) as Alerta;
+  protected alerta = inject(MODAL_DATA) as AlertaQueryResponse;
   private _modalService = inject(ModalService<ModalDetalhesAlertaComponent>);
 
   fecharModal() {

@@ -62,7 +62,7 @@ export class FormTipoAlertaComponent {
     this.formGroup = this.formBuilder.group({
       cdListaAlerta: [this.cdListaAlerta()],
       nmTipoAlerta: ['', [Validators.required]],
-      nvAlerta: [0, [Validators.required]],
+      nvTipoAlerta: [0, [Validators.required]],
       dsTipoAlerta: ['', [Validators.required]]
     });
   }
@@ -91,7 +91,7 @@ export class FormTipoAlertaComponent {
       this.formGroup.patchValue({
         nmTipoAlerta: this.tipoAlerta.nmTipoAlerta,
         dsTipoAlerta: this.tipoAlerta.dsTipoAlerta,
-        nvAlerta: this.tipoAlerta.nvAlerta
+        nvTipoAlerta: this.tipoAlerta.nvTipoAlerta
       });
     }
   }
