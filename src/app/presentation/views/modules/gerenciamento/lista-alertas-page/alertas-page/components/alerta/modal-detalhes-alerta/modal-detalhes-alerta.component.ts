@@ -41,8 +41,10 @@ export class ModalDetalhesAlertaComponent {
   }
 
   loadVeiculo(nrPlaca: string) {
+    console.log(nrPlaca)
     this._store.dispatch(new BuscarVeiculoPorPlacaAction(nrPlaca)).subscribe(() => {
       this.veiculo = this.veiculoState().data
+      console.log(this.veiculoState().data)
     });
   }
 }

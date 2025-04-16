@@ -16,11 +16,12 @@ import { AlertaFilter, AlertaProps } from '@/domain/filters/alerta/alerta.filter
 import { BuscarAlertaAction } from '@/infrastructure/store/actions/alerta.actions';
 import { Alerta } from '@/domain/models/command/alerta';
 import { ModalDetalhesAlertaComponent } from '../modal-detalhes-alerta/modal-detalhes-alerta.component';
+import { TruncatePipe } from '@/infrastructure/pipe/truncate.pipe';
 
 @Component({
   selector: 'app-table-alertas',
   standalone: true,
-  imports: [...tableModule, MatChipsModule, MatSortModule, CommonModule, BadgeComponent, NoTableComponent, DatePipe],
+  imports: [...tableModule, MatChipsModule, MatSortModule, CommonModule, BadgeComponent, NoTableComponent, DatePipe, TruncatePipe],
   templateUrl: './table-alertas.component.html',
   styleUrl: './table-alertas.component.scss'
 })
@@ -70,5 +71,5 @@ export class TableAlertasComponent extends TablePageBase{
     return SetColorByNivel.setColor(nivel);
   }
 
-  displayedColumns: string[] = ['nvCor', 'nrPlaca', 'nmModelo', 'nmTipoAlerta', 'dsAlerta', 'dtAlerta'];
+  displayedColumns: string[] = ['nvCor', 'nrPlaca', 'nmTipoAlerta', 'dsAlerta', 'dtAlerta'];
 }

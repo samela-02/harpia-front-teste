@@ -33,7 +33,7 @@ export class VeiculoStateModel {
 
 @Injectable()
 export class AlertaState {
-  constructor(private buscarAlertaUseCase: BuscarAlertasUseCase, private buscarVeiculoPorPlacaUseCase: BuscarVeiculoPorPlacaUseCase) { }
+  constructor(private buscarAlertaUseCase: BuscarAlertasUseCase) { }
 
   @Action(BuscarAlertaAction)
   buscarAlertas({ getState, setState }: StateContext<AlertaStateModel>,
@@ -50,16 +50,19 @@ export class AlertaState {
     );
   }
 
-  @Action(BuscarVeiculoPorPlacaAction)
-  buscarVeiculoPorVeiculo({ getState, setState }: StateContext<VeiculoStateModel>,
-    { payload }: BuscarVeiculoPorPlacaAction): Observable<ResponseData<VeiculoDeteccaoQueryResponse>> {
-    return this.buscarVeiculoPorPlacaUseCase.execute(payload).pipe(
-      tap((response: ResponseData<VeiculoDeteccaoQueryResponse>) => {
-        setState({
-          veiculoDeteccao: response ? response : null
-        });
-      }),
-    )
-  }
-
+}
+@Injectable()
+export class VeiculoState {
+  constructor(private buscarVeiculoPorPlacaUseCase: BuscarVeiculoPorPlacaUseCase) { }
+    @Action(BuscarVeiculoPorPlacaAction)
+    buscarVeiculoPorVeiculo({ getState, setState }: StateContext<VeiculoStateModel>,
+      { payload }: BuscarVeiculoPorPlacaAction): Observable<ResponseData<VeiculoDeteccaoQueryResponse>> {
+      return this.buscarVeiculoPorPlacaUseCase.execute(payload).pipe(
+        tap((response: ResponseData<VeiculoDeteccaoQueryResponse>) => {
+          setState({
+            veiculoDeteccao: response ? response : null
+          });
+        }),
+      )
+    }
 }

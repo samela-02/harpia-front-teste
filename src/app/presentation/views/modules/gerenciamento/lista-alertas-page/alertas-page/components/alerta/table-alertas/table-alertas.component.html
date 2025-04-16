@@ -21,13 +21,6 @@
       </td>
     </ng-container>
 
-    <ng-container matColumnDef="nmModelo">
-      <th mat-header-cell *matHeaderCellDef> Modelo </th>
-      <td mat-cell *matCellDef="let dados">
-          {{dados?.veiculoQueryResponse.nmModelo ? dados.veiculoQueryResponse.nmModelo : '-'}}
-      </td>
-    </ng-container>
-
     <ng-container matColumnDef="nmTipoAlerta">
       <th mat-header-cell *matHeaderCellDef> Tipo de Alerta </th>
       <td mat-cell *matCellDef="let dados">
@@ -39,7 +32,9 @@
     <ng-container matColumnDef="dsAlerta">
       <th mat-header-cell *matHeaderCellDef> Descrição </th>
       <td mat-cell *matCellDef="let dados">
-          {{dados?.dsAlerta}}
+          <div [title]="dados?.dsAlerta">
+              {{ dados?.dsAlerta | truncate: 55 }}
+          </div>
       </td>
     </ng-container>
 

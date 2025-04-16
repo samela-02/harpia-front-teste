@@ -1,5 +1,5 @@
 import { Selector } from "@ngxs/store";
-import { AlertaState, AlertaStateModel, VeiculoStateModel } from "../states/alerta.state";
+import { AlertaState, AlertaStateModel, VeiculoState, VeiculoStateModel } from "../states/alerta.state";
 
 export class AlertaSelectors {
   @Selector([AlertaState])
@@ -12,7 +12,7 @@ export class AlertaSelectors {
     return state.alertas.data.dados
   }
 
-  @Selector([AlertaState])
+  @Selector([VeiculoState])
   static veiculo(state: VeiculoStateModel) {
     return state.veiculoDeteccao
   }

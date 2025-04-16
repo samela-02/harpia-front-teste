@@ -13,9 +13,9 @@
   <div class="main gap-4">
     <app-card-details>
       <div class="grid grid-cols-2 text-primary text-sm">
-        <app-info-line [descricao]="alerta.dsAlerta || '-'" [icone]="'la la-file-invoice'" titulo="Descrição" class="col-span-2"></app-info-line>
+        <app-info-line [descricao]="alerta.dsAlerta ? alerta.dsAlerta : 'N/A'" [icone]="'la la-file-invoice'" titulo="Descrição" class="col-span-2"></app-info-line>
 
-        <app-info-line [descricao]="(alerta.dtAlerta | date:'dd/MM/yyy HH:mm:ss') || '-'" [icone]="'la la-calendar'" titulo="Data"></app-info-line>
+        <app-info-line [descricao]="(alerta.dtAlerta | date:'dd/MM/yyy HH:mm:ss') || 'N/A'" [icone]="'la la-calendar'" titulo="Data"></app-info-line>
 
         <span class="flex items-start gap-1">
           <i [class]="'la la-star-half-alt'" class="mt-[2px]"></i>
@@ -33,7 +33,29 @@
     </app-card-details>
     <app-card-details titulo="Veículo" icone="la la-car-alt">
       <div class="grid grid-cols-2 text-primary text-sm">
-        <app-info-line [descricao]="veiculo?.nrPlaca || '-'" [icone]="'la la-tag'" titulo="Placa"></app-info-line>
+        <app-info-line [descricao]="veiculo?.nrPlaca ? veiculo?.nrPlaca : 'N/A'" [icone]="'la la-tag'" titulo="Placa"></app-info-line>
+        <app-info-line [descricao]="veiculo?.nmModelo ? veiculo?.nmModelo : 'N/A'" [icone]="'la la-truck-pickup'" titulo="Modelo"></app-info-line>
+        <app-info-line [descricao]="veiculo?.nmCor ? veiculo?.nmCor : 'N/A'" [icone]="'la la-brush'" titulo="Cor"></app-info-line>
+        <app-info-line [descricao]="veiculo?.nmMarca ? veiculo?.nmMarca : 'N/A'" [icone]="'la la-plus-square'"
+          titulo="Marca"></app-info-line>
+        <app-info-line [descricao]="veiculo?.nrAno ? veiculo?.nrAno?.toString() : 'N/A'" [icone]="'la la-sort-numeric-up-alt'"
+          titulo="Ano"></app-info-line>
+        <app-info-line [descricao]="veiculo?.nrChassi ? veiculo?.nrChassi : 'N/A'"
+          [icone]="'la la-x-ray'" titulo="Chassi"></app-info-line>
+        <app-info-line [descricao]="veiculo?.nrRenavam ? veiculo?.nrRenavam : 'N/A'" [icone]="'la la-file-contract'"
+          titulo="Renavam"></app-info-line>
+        <app-info-line [descricao]="veiculo?.endereco.nmCidade ? veiculo?.endereco.nmCidade : 'N/A'" [icone]="'la la-city'"
+          titulo="Cidade"></app-info-line>
+        <app-info-line [descricao]="veiculo?.endereco.nmEstado ? veiculo?.endereco.nmEstado : 'N/A'" [icone]="'la la-map-marked'"
+          titulo="Estado"></app-info-line>
+        </div>
+      </app-card-details>
+      <app-card-details titulo="Proprietário" icone="la la-user-tag">
+        <div class="grid grid-cols-2 text-primary text-sm">
+          <app-info-line [descricao]="veiculo?.proprietarios[0] ? veiculo?.proprietarios[0].nmProprietario : 'N/A'" [icone]="'la la-id-card-alt'"
+            titulo="Nome"></app-info-line>
+          <app-info-line [descricao]="veiculo?.proprietarios[0] ? veiculo?.proprietarios[0].nrDocumento : 'N/A'"
+            [icone]="'la la-id-card'" titulo="Documento"></app-info-line>
       </div>
     </app-card-details>
   </div>
