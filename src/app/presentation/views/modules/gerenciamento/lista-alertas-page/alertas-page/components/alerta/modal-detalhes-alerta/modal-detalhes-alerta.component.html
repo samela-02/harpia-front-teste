@@ -1,0 +1,20 @@
+<div class="modal">
+  <div class="header">
+    <div class="modal-header">
+      <i [class]="'la la-exclamation-triangle'" class="text-[27px] flex justify-center text-primary"></i>
+      <span class="flex-center text-lg font-semibold text-text">
+        Detalhes do Alerta
+      </span>
+    </div>
+    <div class="modal-close">
+      <tvc-button icon="close" color="link" class="opacity-50" (click)="fecharModal()" />
+    </div>
+  </div>
+  <div class="main">
+    <app-card-details icone="la la-bell" titulo="Alerta">
+      <div class="grid grid-cols-2 text-primary text-sm">
+        <app-info-line [descricao]="alerta.dsAlerta" [icone]="'la la-file-invoice'" titulo="Descrição" class="col-span-2"></app-info-line>
+      </div>
+    </app-card-details>
+  </div>
+</div>

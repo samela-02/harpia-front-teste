@@ -1,6 +1,5 @@
-
 .form-group {
-  @apply flex flex-col gap-4 items-center
+  @apply flex flex-row gap-4 items-center
 }
 
 ::ng-deep .mat-mdc-autocomplete-panel {
@@ -57,4 +56,10 @@ fieldset {
 
 input::placeholder {
   @apply text-sm font-light #{!important}
+}
+
+.color-square {
+  @apply inline-block w-4 h-4 mr-2;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  vertical-align: middle;
 }

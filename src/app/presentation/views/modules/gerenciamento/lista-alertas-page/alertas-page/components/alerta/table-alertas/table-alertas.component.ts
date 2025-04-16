@@ -1,4 +1,4 @@
-import { SetColorByNivel } from '@/presentation/helpers/set-color-by-nivel.helper';
+import { SetColorByNivel } from '@/presentation/shared/helpers/set-color-by-nivel.helper';
 import { CommonModule, DatePipe } from '@angular/common';
 import { Component, inject, Input, signal } from '@angular/core';
 import { FormGroup } from '@angular/forms';
@@ -8,13 +8,14 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { BadgeComponent, ModalService } from '@tivic-team/tivic-ui';
 import { tableModule } from '@/presentation/shared/table.module';
-import { NoTableComponent } from '@/presentation/components/no-table/no-table.component';
+import { NoTableComponent } from '@/presentation/shared/components/no-table/no-table.component';
 import { ListaAlertaSelectors } from '@/infrastructure/store/selectors/lista-alerta.selectors';
 import { TablePageBase } from '@/infrastructure/configuration/table-config/table-page.config';
 import { AlertaSelectors } from '@/infrastructure/store/selectors/alerta.selectors';
 import { AlertaFilter, AlertaProps } from '@/domain/filters/alerta/alerta.filter';
 import { BuscarAlertaAction } from '@/infrastructure/store/actions/alerta.actions';
 import { Alerta } from '@/domain/models/command/alerta';
+import { ModalDetalhesAlertaComponent } from '../modal-detalhes-alerta/modal-detalhes-alerta.component';
 
 @Component({
   selector: 'app-table-alertas',
@@ -28,7 +29,7 @@ export class TableAlertasComponent extends TablePageBase{
   @Input() formGroup: FormGroup = new FormGroup({});
   private _store = inject(Store);
   private _route = inject(ActivatedRoute);
-  // private _modalService = inject(ModalService<ModalFormAlertaUpdateComponent>);
+  private _modalService = inject(ModalService<ModalDetalhesAlertaComponent>);
 
   public cdListaAlerta = this._store.selectSignal(ListaAlertaSelectors.cdListaAlerta);
   public alertas = this._store.selectSignal(AlertaSelectors.alertas);
@@ -62,7 +63,7 @@ export class TableAlertasComponent extends TablePageBase{
   rowChange(event: MouseEvent, alerta: Alerta ){
     event.stopPropagation();
     event.preventDefault();
-    // this._modalService.component(ModalFormAlertaUpdateComponent).open(alerta);
+    this._modalService.component(ModalDetalhesAlertaComponent).open(alerta);
   }
 
   public getColorByNivel(nivel: number): string {

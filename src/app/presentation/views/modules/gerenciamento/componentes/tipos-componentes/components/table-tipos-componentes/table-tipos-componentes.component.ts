@@ -12,7 +12,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { Store } from '@ngxs/store';
 import { ModalService } from '@tivic-team/tivic-ui';
 import { ModalFormTipoComponenteUpdateComponent } from '../modal-form-update-tipo-componente/modal-form-update-tipo-componente.component';
-import { NoTableComponent } from '@/presentation/components/no-table/no-table.component';
+import { NoTableComponent } from '@/presentation/shared/components/no-table/no-table.component';
 
 @Component({
   selector: 'app-table-tipos-componentes',

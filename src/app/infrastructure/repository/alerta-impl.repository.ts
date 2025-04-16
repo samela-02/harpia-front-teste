@@ -15,7 +15,7 @@ export class AlertaRepositoryImpl implements AlertaRepository {
   private _client = inject(Client);
   private readonly _api = "alertas";
 
-  criarAlerta(lista: Alerta): Observable<void> {
+  criarAlerta(lista: Alerta): Observable<any> {
     return this._client.post(this._api, lista)
   }
 

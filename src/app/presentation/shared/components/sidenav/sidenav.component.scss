@@ -1,4 +1,12 @@
 
+.mat-expansion-panel {
+  @apply bg-gray-50 dark:bg-transparent #{!important};
+}
+
+.mat-expansion-panel-header {
+  @apply px-4 bg-gray-50 dark:bg-transparent #{!important};
+}
+
 .sidenav-container {
   @apply h-screen w-screen;
 

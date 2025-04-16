@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import deteccaoJson from './deteccao-json-teste.json'
 import { DeteccoesResponse } from '@/domain/dtos/deteccaoResponse';
-import { ModeloPlacaComponent } from '@/presentation/components/modelo-placa/modelo-placa.component';
+import { ModeloPlacaComponent } from '@/presentation/shared/components/modelo-placa/modelo-placa.component';
 import { BadgeComponent } from '@tivic-team/tivic-ui';
 import { CommonModule } from '@angular/common';
 

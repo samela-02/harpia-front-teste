@@ -25,13 +25,10 @@ export class TipoAlertaState {
   @Action(BuscarTiposAlertasAction)
   buscarTiposAlertas({ setState }: StateContext<TipoAlertaStateModel>,
     { payload }: BuscarTiposAlertasAction): Observable<ResponseData<ResponsePaginacao<TipoAlertaQueryResponse>>> {
-    setState({
-      tiposAlertas: null
-    });
     return this.buscarTiposAlertasUseCase.execute(payload).pipe(
       tap((response: ResponseData<ResponsePaginacao<TipoAlertaQueryResponse>>) => {
         setState({
-          tiposAlertas: response,
+          tiposAlertas: response ? response : null,
         });
       }),
     );

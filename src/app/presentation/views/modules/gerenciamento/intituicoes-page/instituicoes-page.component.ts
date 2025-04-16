@@ -5,7 +5,7 @@ import { TableInstituicoesComponent } from './components/table-instituicoes/tabl
 import { MatButtonModule } from '@angular/material/button';
 import { InputSearchComponent, ModalService } from '@tivic-team/tivic-ui';
 import { ModalFormCreateInstituicaoComponent } from './components/modal-form-create-instituicao/modal-form-create-instituicao.component';
-import { FiltersInputsComponent } from '@/presentation/components/filters-inputs/filters-inputs.component';
+import { FiltersInputsComponent } from '@/presentation/shared/components/filters-inputs/filters-inputs.component';
 import { FilterInstituicaoComponent } from './components/filter-instituicao/filter-instituicao.component';
 import { FormControl, FormGroup } from '@angular/forms';
 import { sharedModule } from '@/presentation/shared/shared';

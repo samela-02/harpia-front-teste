@@ -1,4 +1,4 @@
-import { FiltersInputsComponent } from '@/presentation/components/filters-inputs/filters-inputs.component';
+import { FiltersInputsComponent } from '@/presentation/shared/components/filters-inputs/filters-inputs.component';
 import { Component } from '@angular/core';
 import { TableDeteccoesComponent } from "./components/table-deteccoes/table-deteccoes.component";
 import { InputSearchComponent } from '@tivic-team/tivic-ui';

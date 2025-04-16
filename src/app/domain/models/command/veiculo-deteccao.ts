@@ -11,5 +11,6 @@ export class Veiculo {
   nrChassi?: string;
   nrRenavam?: string;
   endereco?: EnderecoVeiculo;
-  proprietarios?: ProprietarioVeiculo[]
+  dsMotivoAtualizacao?: string;
+  proprietario?: ProprietarioVeiculo
 }

@@ -9,7 +9,7 @@ export class TipoAlertaSelectors {
 
   @Selector([TipoAlertaState])
   static tiposAlertasSelect(state: TipoAlertaStateModel) {
-    console.log(state.tiposAlertas.data.dados)
+    console.log(state)
     return state.tiposAlertas.data.dados
   }
 }

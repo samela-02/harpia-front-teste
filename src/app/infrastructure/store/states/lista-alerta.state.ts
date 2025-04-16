@@ -30,11 +30,9 @@ export class ListaAlertaState {
       return this.buscarListaAlertaUseCase.execute(payload).pipe(
         tap((response: ResponseData<ResponsePaginacao<ListaAlertaResponse>>) => {
           const state = getState();
-          const dados = response.data.dados.length
-          console.log(dados)
         setState({
           ...state,
-          listaAlerta: dados ? response : null,
+          listaAlerta: response ? response : null,
         });
       }),
     );

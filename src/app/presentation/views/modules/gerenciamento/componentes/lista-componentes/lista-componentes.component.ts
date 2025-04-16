@@ -1,4 +1,4 @@
-import { FiltersInputsComponent } from '@/presentation/components/filters-inputs/filters-inputs.component';
+import { FiltersInputsComponent } from '@/presentation/shared/components/filters-inputs/filters-inputs.component';
 import { sharedModule } from '@/presentation/shared/shared';
 import { Component, inject, viewChild, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';

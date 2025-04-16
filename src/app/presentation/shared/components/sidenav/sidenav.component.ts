@@ -12,7 +12,7 @@ import { NameFormatterPipe, TimerComponent } from "@tivic-team/tivic-ui";
 import { filter } from 'rxjs/operators';
 import { RouteData } from "@/domain/interfaces/route-data.interface";
 import { Modules } from "@/domain/dtos/modules.dto";
-import jsonModules from "../../../../assets/modules/module.json"
+import jsonModules from "../../../../../assets/modules/module.json"
 import { AuthServiceImpl } from "@/infrastructure/services/auth.service-impl";
 import { BreadcrumbComponent } from "../breadcrumb/breadcrumb.component";
 

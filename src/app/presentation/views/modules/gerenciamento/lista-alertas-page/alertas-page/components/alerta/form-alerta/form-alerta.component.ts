@@ -1,5 +1,6 @@
 import { Alerta } from '@/domain/models/command/alerta';
 import { Veiculo } from '@/domain/models/command/veiculo-deteccao';
+import { VeiculoDeteccaoQueryResponse } from '@/domain/models/query/veiculo-deteccao-query-response';
 import { BuscarVeiculoPorPlacaAction } from '@/infrastructure/store/actions/alerta.actions';
 import { AlertaSelectors } from '@/infrastructure/store/selectors/alerta.selectors';
 import { ListaAlertaSelectors } from '@/infrastructure/store/selectors/lista-alerta.selectors';
@@ -43,7 +44,7 @@ export class FormAlertaComponent {
 
   public cdListaAlerta = this._store.selectSignal(ListaAlertaSelectors.cdListaAlerta);
   public veiculos = this._store.selectSignal(AlertaSelectors.veiculo);
-  public veiculosFiltrados: Veiculo[] = [];
+  public veiculosFiltrados: VeiculoDeteccaoQueryResponse[] = [];
   public placaVeiculo: string = '';
   public veiculoNaoEncontrado: boolean = false;
 

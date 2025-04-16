@@ -1,6 +1,6 @@
 
 .form-group {
-  @apply flex flex-col gap-4 items-center
+  @apply grid grid-cols-12 gap-4 items-center
 }
 
 ::ng-deep .mat-mdc-autocomplete-panel {

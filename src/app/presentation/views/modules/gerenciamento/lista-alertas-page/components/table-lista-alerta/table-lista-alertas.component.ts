@@ -14,7 +14,7 @@ import { Route, Router } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { ModalService } from '@tivic-team/tivic-ui';
 import { ModalFormListaAlertaUpdateComponent } from '../modal-form-update-lista-alerta/modal-form-update-lista-alerta.component';
-import { NoTableComponent } from '@/presentation/components/no-table/no-table.component';
+import { NoTableComponent } from '@/presentation/shared/components/no-table/no-table.component';
 import { ModalOptionsComponent } from '../modal-options/modal-options.component';
 
 @Component({

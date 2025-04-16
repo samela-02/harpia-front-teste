@@ -3,7 +3,7 @@ import { TipoAlerta } from '@/domain/models/command/tipo-alerta';
 import { TablePageBase } from '@/infrastructure/configuration/table-config/table-page.config';
 import { BuscarTiposAlertasAction } from '@/infrastructure/store/actions/tipo-alerta.actions';
 import { TipoAlertaSelectors } from '@/infrastructure/store/selectors/tipo-alerta.selectors';
-import { SetColorByNivel } from '@/presentation/helpers/set-color-by-nivel.helper';
+import { SetColorByNivel } from '@/presentation/shared/helpers/set-color-by-nivel.helper';
 import { CommonModule } from '@angular/common';
 import { Component, inject, Input, signal } from '@angular/core';
 import { FormGroup } from '@angular/forms';
@@ -14,7 +14,7 @@ import { Store } from '@ngxs/store';
 import { BadgeComponent, ModalService } from '@tivic-team/tivic-ui';
 import { ModalFormTipoAlertaUpdateComponent } from '../modal-form-update-tipo-alerta/modal-form-update-tipo-alerta.component';
 import { tableModule } from '@/presentation/shared/table.module';
-import { NoTableComponent } from '@/presentation/components/no-table/no-table.component';
+import { NoTableComponent } from '@/presentation/shared/components/no-table/no-table.component';
 import { ListaAlertaSelectors } from '@/infrastructure/store/selectors/lista-alerta.selectors';
 
 @Component({
@@ -49,7 +49,6 @@ export class TableTipoAlertasComponent extends TablePageBase{
     const paginationProps: TipoAlertaProps = {
       page: page,
       size: this.pageSize,
-      cdListaAlerta: this.cdListaAlerta()
     };
     const filterProps = new TipoAlertaFilter(paginationProps);
 

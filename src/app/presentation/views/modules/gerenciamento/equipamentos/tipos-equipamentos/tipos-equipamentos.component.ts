@@ -4,7 +4,7 @@ import { ModalFormCreateTipoEquipamentoComponent } from './components/modal-form
 import { TableTiposEquipamentosComponent } from './components/table-tipos-equipamentos/table-tipos-equipamentos.component';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { FiltersInputsComponent } from '@/presentation/components/filters-inputs/filters-inputs.component';
+import { FiltersInputsComponent } from '@/presentation/shared/components/filters-inputs/filters-inputs.component';
 import { sharedModule } from '@/presentation/shared/shared';
 
 @Component({

@@ -22,6 +22,17 @@ body {
   height: 100%;
 }
 
+.isValid {
+  @apply absolute inline-block whitespace-nowrap -top-1 left-0 text-[10px]
+}
+
+.mat-mdc-form-field-error-wrapper {
+  @apply text-[10px];
+  display: inline-block !important;
+  bottom: 5px !important;
+  top: auto !important;
+}
+
 body {
   @apply bg-body dark:bg-dark-body text-text dark:text-dark-text text-base #{!important};
 }

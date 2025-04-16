@@ -5,7 +5,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { ModalFormCreateListaAlertaComponent } from './components/modal-form-create-lista-alerta/modal-form-create-lista-alerta.component';
 import { TableListaAlertasComponent } from './components/table-lista-alerta/table-lista-alertas.component';
 import { FormControl, FormGroup } from '@angular/forms';
-import { FiltersInputsComponent } from '@/presentation/components/filters-inputs/filters-inputs.component';
+import { FiltersInputsComponent } from '@/presentation/shared/components/filters-inputs/filters-inputs.component';
 import { FilterListaAlertaComponent } from './components/filter-lista-alerta/filter-lista-alerta.component';
 import { MatButtonModule } from '@angular/material/button';
 

@@ -12,7 +12,7 @@ export abstract class AlertaRepository {
   public abstract buscarAlertas(filter: AlertaFilter): Observable<ResponseData<ResponsePaginacao<AlertaQueryResponse>>>
   public abstract desativarAlerta(cdAlerta: number): Observable<void>;
 
-  public abstract criarVeiculo(veiculo: Veiculo): Observable<void>;
+  public abstract criarVeiculo(veiculo: Veiculo): Observable<any>;
   public abstract editarVeiculo(cdVeiculo: number, veiculo: Veiculo): Observable<void>;
   public abstract buscarVeiculoPorPlaca(nrPlaca?: string): Observable<ResponseData<VeiculoDeteccaoQueryResponse>>
 }

@@ -95,10 +95,8 @@ export class FormEquipamentoComponent {
       };
       const filter = new EquipamentosFilter(propsFilter);
       console.log(filter)
-
       this.buscarEquipamentosUseCase.execute(filter).subscribe({
         next: (response: any) => {
-          console.log('testet',response)
           if (response.data.dados[0]) {
             this.formGroup.patchValue({
               nmEquipamento: response?.data?.dados[0]?.nmEquipamento,
@@ -115,6 +113,7 @@ export class FormEquipamentoComponent {
       });
     }
   }
+
 
   onSubmit() {
     if (this.formGroup.valid) {

@@ -1,9 +1,11 @@
+
 fieldset {
   @apply block mx-1 pt-4 pb-3 px-4 border border-gray-200 dark:border-dark-border rounded max-w-full w-full min-w-0;
 
   >legend {
     @apply text-sm font-bold px-2 m-0 py-0 #{!important};
   }
+
 
   >div {
     max-width: 100%;

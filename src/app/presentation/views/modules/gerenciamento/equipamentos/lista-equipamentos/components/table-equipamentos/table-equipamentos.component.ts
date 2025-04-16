@@ -12,7 +12,7 @@ import { EquipamentoSelectors } from '@/infrastructure/store/selectors/equipamen
 import { EquipamentosFilter, EquipamentosProps } from '@/domain/filters/equipamento/equipamento.filter';
 import { BuscarEquipamentosAction } from '@/infrastructure/store/actions/equipamento.actions';
 import { Equipamento } from '@/domain/models/command/equipamento';
-import { NoTableComponent } from '@/presentation/components/no-table/no-table.component';
+import { NoTableComponent } from '@/presentation/shared/components/no-table/no-table.component';
 
 @Component({
   selector: 'app-table-equipamentos',
