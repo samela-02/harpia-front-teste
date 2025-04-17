@@ -8,34 +8,40 @@ import { FindCidadesAction } from "../actions/cidade.actions";
 import { Observable, tap } from "rxjs";
 
 export class CidadeStateModel {
-    cidades: ResponsePaginacao<CidadeQueryResponse> | null;
+  cidades: ResponsePaginacao<CidadeQueryResponse> | null;
 }
 
 @State<CidadeStateModel>({
-    name: "cidade",
-    defaults: {
-        cidades: null
-    }
+  name: "cidade",
+  defaults: {
+    cidades: null
+  }
 })
 
 @Injectable()
 export class CidadeState {
-    constructor(private findCidadesUseCase: FindCidadesUseCase) { }
+  constructor(private findCidadesUseCase: FindCidadesUseCase) { }
 
-    @Action(FindCidadesAction)
-    public findCidades({ getState, setState }: StateContext<CidadeStateModel>, { filter }: FindCidadesAction):
-        Observable<ResponsePaginacao<CidadeQueryResponse>> {
-        return this.findCidadesUseCase
-            .execute(filter)
-            .pipe(
-                tap((response: ResponsePaginacao<CidadeQueryResponse>) => {
-                    const state = getState();
-                    const dados = response.dados.length;
-                    setState({
-                        ...state,
-                        cidades: dados ? response : null
-                    })
-                })
-            );
-    }
+  @Action(FindCidadesAction)
+  public findCidades({ getState, setState }: StateContext<CidadeStateModel>, { filter }: FindCidadesAction):
+    Observable<ResponsePaginacao<CidadeQueryResponse>> {
+    return this.findCidadesUseCase
+      .execute(filter)
+      .pipe(
+        tap({
+          next: (response: ResponsePaginacao<CidadeQueryResponse>) => {
+            const state = getState();
+            const dados = response.dados.length;
+            setState({
+              ...state,
+              cidades: dados ? response : null
+            })
+          }, error: () => {
+            setState({
+              cidades: null
+            })
+          }
+        })
+      );
+  }
 }

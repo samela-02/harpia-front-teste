@@ -58,5 +58,13 @@
             [icone]="'la la-id-card'" titulo="Documento"></app-info-line>
       </div>
     </app-card-details>
+    <div class="w-full flex justify-end">
+      <button  (click)="confirmarDesativacaoDeAlerta(alerta)" mat-flat-button class="bg-red-700/10 text-red-700 disabled:cursor-not-allowed">
+        <i [class]="'la la-times-circle'" class="text-lg"></i>
+        <span class="pt-1">
+          Desativar
+        </span>
+      </button>
+    </div>
   </div>
 </div>

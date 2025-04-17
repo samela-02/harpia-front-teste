@@ -8,7 +8,7 @@ import { Observable, tap } from "rxjs";
 import { BuscarTiposAlertasAction } from "../actions/tipo-alerta.actions";
 
 export class TipoAlertaStateModel {
-   tiposAlertas: ResponseData<ResponsePaginacao<TipoAlertaQueryResponse>> | null;
+  tiposAlertas: ResponseData<ResponsePaginacao<TipoAlertaQueryResponse>> | null;
 }
 
 @State<TipoAlertaStateModel>({
@@ -20,16 +20,22 @@ export class TipoAlertaStateModel {
 
 @Injectable()
 export class TipoAlertaState {
-  constructor(private buscarTiposAlertasUseCase: BuscarTiposAlertasUseCase) {}
+  constructor(private buscarTiposAlertasUseCase: BuscarTiposAlertasUseCase) { }
 
   @Action(BuscarTiposAlertasAction)
   buscarTiposAlertas({ setState }: StateContext<TipoAlertaStateModel>,
     { payload }: BuscarTiposAlertasAction): Observable<ResponseData<ResponsePaginacao<TipoAlertaQueryResponse>>> {
     return this.buscarTiposAlertasUseCase.execute(payload).pipe(
-      tap((response: ResponseData<ResponsePaginacao<TipoAlertaQueryResponse>>) => {
-        setState({
-          tiposAlertas: response ? response : null,
-        });
+      tap({
+        next: (response: ResponseData<ResponsePaginacao<TipoAlertaQueryResponse>>) => {
+          setState({
+            tiposAlertas: response ? response : null,
+          });
+        }, error: () => {
+          setState({
+            tiposAlertas: null
+          })
+        }
       }),
     );
   }

@@ -26,13 +26,19 @@ export class TipoComponenteState {
   buscarTiposComponentes({ getState, setState }: StateContext<TipoComponenteStateModel>,
     { payload }: BuscarTiposComponentesAction): Observable<ResponseData<ResponsePaginacao<TipoComponente>>> {
     return this.buscarTiposComponentesUseCase.execute(payload).pipe(
-      tap((response: ResponseData<ResponsePaginacao<TipoComponente>>) => {
+      tap({
+        next:(response: ResponseData<ResponsePaginacao<TipoComponente>>) => {
         const state = getState();
         setState({
           ...state,
           tipoComponentes: response,
         });
-      }),
+      }, error: () => {
+        setState({
+          tipoComponentes: null
+        })
+      }
+    }),
     );
   }
 }

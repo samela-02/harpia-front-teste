@@ -8,7 +8,7 @@ import { BuscarInstituicoesAction } from "../actions/instituicao.actions";
 import { Observable, tap } from "rxjs";
 
 export class InstituicaoStateModel {
-   instituicoes: ResponseData<ResponsePaginacao<Instituicao>> | null;
+  instituicoes: ResponseData<ResponsePaginacao<Instituicao>> | null;
 }
 
 @State<InstituicaoStateModel>({
@@ -20,18 +20,24 @@ export class InstituicaoStateModel {
 
 @Injectable()
 export class InstituicaoState {
-  constructor(private buscarInstituicoesUseCase: BuscarInstituicoesUseCase) {}
+  constructor(private buscarInstituicoesUseCase: BuscarInstituicoesUseCase) { }
 
   @Action(BuscarInstituicoesAction)
   buscarInstituicoes({ getState, setState }: StateContext<InstituicaoStateModel>,
     { payload }: BuscarInstituicoesAction): Observable<ResponseData<ResponsePaginacao<Instituicao>>> {
     return this.buscarInstituicoesUseCase.execute(payload).pipe(
-      tap((response: ResponseData<ResponsePaginacao<Instituicao>>) => {
-        const state = getState();
-        setState({
-          ...state,
-          instituicoes: response,
-        });
+      tap({
+        next: (response: ResponseData<ResponsePaginacao<Instituicao>>) => {
+          const state = getState();
+          setState({
+            ...state,
+            instituicoes: response,
+          });
+        }, error: () => {
+          setState({
+            instituicoes: null
+          })
+        }
       }),
     );
   }

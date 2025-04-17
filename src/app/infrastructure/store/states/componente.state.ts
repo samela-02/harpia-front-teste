@@ -21,19 +21,26 @@ export class ComponenteStateModel {
 
 @Injectable()
 export class ComponenteState {
-  constructor(private buscarComponentesUseCase: BuscarComponentesUseCase) {}
+  constructor(private buscarComponentesUseCase: BuscarComponentesUseCase) { }
 
   @Action(BuscarComponentesAction)
   buscarsComponentes({ getState, setState }: StateContext<ComponenteStateModel>,
     { payload }: BuscarComponentesAction): Observable<ResponseData<ResponsePaginacao<Componente>>> {
     return this.buscarComponentesUseCase.execute(payload).pipe(
-      tap((response: ResponseData<ResponsePaginacao<Componente>>) => {
-        const state = getState();
-        setState({
-          ...state,
-          componentes: response,
-        });
-      }),
+      tap({
+        next: (response: ResponseData<ResponsePaginacao<Componente>>) => {
+          const state = getState();
+          setState({
+            ...state,
+            componentes: response,
+          });
+        }, error: () => {
+          setState({
+            componentes: null
+          })
+        }
+      }
+      ),
     );
   }
 }

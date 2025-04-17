@@ -54,7 +54,7 @@ export class TableAlertasComponent extends TablePageBase{
       nrPlaca: this.currentFilters?.nrPlaca
     };
     const filterProps = new AlertaFilter(paginationProps);
-    console.log('testee')
+    console.log(paginationProps)
 
     this._store.dispatch(new BuscarAlertaAction(filterProps)).subscribe(() => {
       this.dataLength = this.alertas()?.data?.totalItens || 0;
@@ -72,4 +72,8 @@ export class TableAlertasComponent extends TablePageBase{
   }
 
   displayedColumns: string[] = ['nvCor', 'nrPlaca', 'nmTipoAlerta', 'dsAlerta', 'dtAlerta'];
+
+  fecharModal() {
+    this._modalService.dismiss();
+  }
 }

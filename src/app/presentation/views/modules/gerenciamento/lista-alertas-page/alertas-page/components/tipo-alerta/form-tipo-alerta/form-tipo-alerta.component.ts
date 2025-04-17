@@ -57,7 +57,6 @@ export class FormTipoAlertaComponent {
     private editarTipoAlertaUseCase: EditarTipoAlertaUseCase,
     private desativarTipoAlertaUseCase: DesativarTipoAlertaUseCase,
     private formBuilder: FormBuilder,
-    private buscarTipoAlertaPorCdUseCase: BuscarTipoAlertaPeloCdUseCase,
   ) {
     this.formGroup = this.formBuilder.group({
       cdListaAlerta: [this.cdListaAlerta()],

@@ -8,8 +8,8 @@ import { BuscarListaAlertaUseCase } from "@/application/usecase/lista-alerta/bus
 import { BuscarListaAlertaAction, SetarCdListaAlertaAction } from "../actions/lista-alerta.actions";
 
 export class ListaAlertaStateModel {
-   listaAlerta: ResponseData<ResponsePaginacao<ListaAlertaResponse>> | null;
-   cdListaAlerta: number | null
+   listaAlerta?: ResponseData<ResponsePaginacao<ListaAlertaResponse>> | null;
+   cdListaAlerta?: number | null
 }
 
 @State<ListaAlertaStateModel>({
@@ -28,13 +28,19 @@ export class ListaAlertaState {
   buscarListaAlertas({ getState, setState }: StateContext<ListaAlertaStateModel>,
     { payload }: BuscarListaAlertaAction): Observable<ResponseData<ResponsePaginacao<ListaAlertaResponse>>> {
       return this.buscarListaAlertaUseCase.execute(payload).pipe(
-        tap((response: ResponseData<ResponsePaginacao<ListaAlertaResponse>>) => {
+        tap({
+          next:(response: ResponseData<ResponsePaginacao<ListaAlertaResponse>>) => {
           const state = getState();
         setState({
           ...state,
           listaAlerta: response ? response : null,
         });
-      }),
+      }, error: () => {
+        setState({
+          listaAlerta: null
+        })
+      }
+    }),
     );
   }
 

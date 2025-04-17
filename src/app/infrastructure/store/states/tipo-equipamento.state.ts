@@ -8,7 +8,7 @@ import { Observable, tap } from "rxjs";
 import { BuscarTiposEquipamentosAction } from "../actions/tipo-equipamento.actions";
 
 export class TipoEquipamentoStateModel {
-   tipoEquipamentos: ResponseData<ResponsePaginacao<TipoEquipamento>> | null;
+  tipoEquipamentos: ResponseData<ResponsePaginacao<TipoEquipamento>> | null;
 }
 
 @State<TipoEquipamentoStateModel>({
@@ -20,18 +20,24 @@ export class TipoEquipamentoStateModel {
 
 @Injectable()
 export class TipoEquipamentoState {
-  constructor(private buscarTiposEquipamentosUseCase: BuscarTiposEquipamentosUseCase) {}
+  constructor(private buscarTiposEquipamentosUseCase: BuscarTiposEquipamentosUseCase) { }
 
   @Action(BuscarTiposEquipamentosAction)
   buscarTiposEquipamentos({ getState, setState }: StateContext<TipoEquipamentoStateModel>,
     { payload }: BuscarTiposEquipamentosAction): Observable<ResponseData<ResponsePaginacao<TipoEquipamento>>> {
     return this.buscarTiposEquipamentosUseCase.execute(payload).pipe(
-      tap((response: ResponseData<ResponsePaginacao<TipoEquipamento>>) => {
-        const state = getState();
-        setState({
-          ...state,
-          tipoEquipamentos: response,
-        });
+      tap({
+        next: (response: ResponseData<ResponsePaginacao<TipoEquipamento>>) => {
+          const state = getState();
+          setState({
+            ...state,
+            tipoEquipamentos: response,
+          });
+        }, error: () => {
+          setState({
+            tipoEquipamentos: null
+          })
+        }
       }),
     );
   }

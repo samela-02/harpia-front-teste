@@ -19,6 +19,8 @@ export class FiltersInputsComponent {
   @Input() searchField: string = '';
   @Input() placeholder: string = 'Pesquisar';
   @Input() openFilters: boolean = true
+  @Input() maxLeght: number = 40;
+  @Input() minLenght: number = 0;
   @Output() search = new EventEmitter<string>();
 
   isOpenBox = false;

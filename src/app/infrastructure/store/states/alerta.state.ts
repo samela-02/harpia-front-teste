@@ -8,15 +8,12 @@ import { Injectable } from "@angular/core";
 import { Action, State, StateContext } from "@ngxs/store";
 import { Observable, tap } from "rxjs";
 import { BuscarAlertaAction, BuscarVeiculoPorPlacaAction } from "../actions/alerta.actions";
-
 export class AlertaStateModel {
   alertas: ResponseData<ResponsePaginacao<AlertaQueryResponse>> | null;
 }
-
 export class VeiculoStateModel {
   veiculoDeteccao: ResponseData<VeiculoDeteccaoQueryResponse> | null;
 }
-
 @State<AlertaStateModel>({
   name: "alerta",
   defaults: {
@@ -39,30 +36,39 @@ export class AlertaState {
   buscarAlertas({ getState, setState }: StateContext<AlertaStateModel>,
     { payload }: BuscarAlertaAction): Observable<ResponseData<ResponsePaginacao<AlertaQueryResponse>>> {
     return this.buscarAlertaUseCase.execute(payload).pipe(
-      tap((response: ResponseData<ResponsePaginacao<AlertaQueryResponse>>) => {
-        const state = getState();
-        const dados = response.data.dados.length
-        setState({
-          ...state,
-          alertas: dados ? response : null,
-        });
-      }),
-    );
+      tap({
+        next: (response: ResponseData<ResponsePaginacao<AlertaQueryResponse>>) => {
+          setState({
+            alertas: response
+          })
+        }, error: () => {
+          setState({
+            alertas: null
+          })
+        }
+      })
+    )
   }
 
 }
 @Injectable()
 export class VeiculoState {
   constructor(private buscarVeiculoPorPlacaUseCase: BuscarVeiculoPorPlacaUseCase) { }
-    @Action(BuscarVeiculoPorPlacaAction)
-    buscarVeiculoPorVeiculo({ getState, setState }: StateContext<VeiculoStateModel>,
-      { payload }: BuscarVeiculoPorPlacaAction): Observable<ResponseData<VeiculoDeteccaoQueryResponse>> {
-      return this.buscarVeiculoPorPlacaUseCase.execute(payload).pipe(
-        tap((response: ResponseData<VeiculoDeteccaoQueryResponse>) => {
+  @Action(BuscarVeiculoPorPlacaAction)
+  buscarVeiculoPorVeiculo({ getState, setState }: StateContext<VeiculoStateModel>,
+    { payload }: BuscarVeiculoPorPlacaAction): Observable<ResponseData<VeiculoDeteccaoQueryResponse>> {
+    return this.buscarVeiculoPorPlacaUseCase.execute(payload).pipe(
+      tap({
+        next: (response: ResponseData<VeiculoDeteccaoQueryResponse>) => {
           setState({
             veiculoDeteccao: response ? response : null
           });
-        }),
-      )
-    }
+        }, error: () => {
+          setState({
+            veiculoDeteccao: null
+          })
+        }
+      }),
+    )
+  }
 }

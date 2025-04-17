@@ -21,18 +21,24 @@ export class EquipamentoStateModel {
 
 @Injectable()
 export class EquipamentoState {
-  constructor(private buscarEquipamentosUseCase: BuscarEquipamentosUseCase) {}
+  constructor(private buscarEquipamentosUseCase: BuscarEquipamentosUseCase) { }
 
   @Action(BuscarEquipamentosAction)
   buscarsEquipamentos({ getState, setState }: StateContext<EquipamentoStateModel>,
     { payload }: BuscarEquipamentosAction): Observable<ResponseData<ResponsePaginacao<EquipamentoQuery>>> {
     return this.buscarEquipamentosUseCase.execute(payload).pipe(
-      tap((response: ResponseData<ResponsePaginacao<EquipamentoQuery>>) => {
-        const state = getState();
-        setState({
-          ...state,
-          equipamentos: response,
-        });
+      tap({
+        next: (response: ResponseData<ResponsePaginacao<EquipamentoQuery>>) => {
+          const state = getState();
+          setState({
+            ...state,
+            equipamentos: response,
+          });
+        }, error: () => {
+          setState({
+            equipamentos: null
+          })
+        }
       }),
     );
   }
