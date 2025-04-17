@@ -85,7 +85,8 @@ export class ModalFormCreateAlertaComponent {
   onSubmit() {
     if (this.formGroupAlerta.valid && this.formGroupVeiculo) {
       const formDataAlerta = this.formGroupAlerta.value as Alerta;
-      const formDataVeiculo = this.formGroupVeiculo.value as Veiculo;
+
+      const formDataVeiculo = this.formGroupVeiculo.getRawValue() as Veiculo;
 
       if (formDataVeiculo.cdVeiculo) {
         formDataAlerta.cdVeiculo = formDataVeiculo.cdVeiculo;

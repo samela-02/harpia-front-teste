@@ -57,6 +57,7 @@ export class FormVeiculoComponent {
   onPlacaInput() {
     this.veiculoNaoEncontrado = false;
     const placa = this.formGroup.get('nrPlaca')?.value;
+    this.formGroup.enable()
 
     this.formGroup.patchValue({
       cdVeiculo: null
@@ -67,12 +68,20 @@ export class FormVeiculoComponent {
       this.loadVeiculo(placa);
     } else {
       this.veiculosFiltrados = [];
+      this.resetForm();
     }
   }
 
   onVeiculoSelected(event: MatAutocompleteSelectedEvent) {
     const veiculoSelecionado: VeiculoDeteccaoQueryResponse = event.option.value;
-    this.formGroup.patchValue(veiculoSelecionado)
+    this.formGroup.patchValue(veiculoSelecionado);
+
+    Object.keys(this.formGroup.controls).forEach(controlName => {
+      if (controlName !== 'nrPlaca') {
+        this.formGroup.get(controlName)?.disable();
+      }
+    });
+
     this.veiculosFiltrados = [];
     this.veiculoNaoEncontrado = false;
   }
@@ -86,28 +95,31 @@ export class FormVeiculoComponent {
       } else {
         this.veiculosFiltrados = [];
         this.veiculoNaoEncontrado = true;
+        this.resetForm()
+      }
+    });
+  }
 
-        this.formGroup.patchValue({
-          cdVeiculo: null,
-          nmModelo: '',
-          nmCor: '',
-          nmMarca: '',
-          nrAno: null,
-          nrChassi: '',
-          nrRenavam: '',
-          endereco: {
-            dsLogradouro: '',
-            nrEndereco: '',
-            dsComplemento: '',
-            nmBairro: '',
-            nmEstado: '',
-            nmCidade: '',
-          },
-          proprietario: {
-            nmProprietario: '',
-            nrDocumento: '',
-          }
-        });
+  resetForm() {
+    this.formGroup.patchValue({
+      cdVeiculo: null,
+      nmModelo: '',
+      nmCor: '',
+      nmMarca: '',
+      nrAno: null,
+      nrChassi: '',
+      nrRenavam: '',
+      endereco: {
+        dsLogradouro: '',
+        nrEndereco: '',
+        dsComplemento: '',
+        nmBairro: '',
+        nmEstado: '',
+        nmCidade: '',
+      },
+      proprietario: {
+        nmProprietario: '',
+        nrDocumento: '',
       }
     });
   }

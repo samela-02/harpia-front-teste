@@ -2,35 +2,6 @@
   <div class="form-group">
     <tvc-dropdown class="col-span-6" id="cdTipoAlerta" formControlName="cdTipoAlerta" label="Tipo de alerta"
       placeholder="Tipo de alerta" [providers]="tiposAlertasDrop" required useLabel="nmTipoAlerta" useValue="cdTipoAlerta" />
-<!--
-    <div class="w-full flex-center flex-row gap-2">
-      <button class="bg-primary/60 h-8 w-9 rounded-full shadow-sm">
-       <i [class]="'la la-plus'" class="text-white font-bold"></i>
-      </button>
-      <mat-form-field appearance="outline">
-        <mat-label>
-          Pesquisar Placa do Veículo
-          <i [class]="'la la-search'" class="font-bold text-[1em]"></i>
-        </mat-label>
-        <input type="text"
-               placeholder="Placa do Veículo"
-               matInput
-               [(ngModel)]="placaVeiculo"
-               [ngModelOptions]="{standalone: true}"
-               (input)="onPlacaInput()"
-               [minLength]="7"
-               [maxLength]="7"
-               [matAutocomplete]="auto">
-        <mat-error *ngIf="veiculoNaoEncontrado">
-          Veículo não encontrado. É necessário cadastrá-lo.
-        </mat-error>
-        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onVeiculoSelected($event)">
-          @for (veiculo of veiculosFiltrados; track veiculo.cdVeiculo) {
-            <mat-option [value]="veiculo.nrPlaca">{{veiculo.nrPlaca}} - {{veiculo.nmModelo.toUpperCase()}}</mat-option>
-          }
-        </mat-autocomplete>
-      </mat-form-field>
-    </div> -->
 
     <tvc-datetime class="col-span-6" id="dtAlerta" formControlName="dtAlerta" label="Dt. do alerta" type="datetime-local" [max]="'9999-12-31T23:59'" />
 
