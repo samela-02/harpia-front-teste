@@ -9,6 +9,14 @@
       </div>
     </div>
     <div class="main">
-      <app-form-lista-alerta [listaAlerta]="listaAlerta" class="h-full" (cadastroSucesso)="fecharModal()" />
+      <mat-tab-group>
+        <mat-tab label="Formulário">
+          <app-form-lista-alerta [listaAlerta]="listaAlerta" (cadastroSucesso)="fecharModal()" />
+        </mat-tab>
+        <mat-tab label="Instituições Vinculadas">
+          <app-table-instituicoes-vinculadas
+            [instituicoesVinculadas]="listaAlerta?.instituicoesComAcesso" [cdListaAlerta]="listaAlerta.cdListaAlerta"></app-table-instituicoes-vinculadas>
+        </mat-tab>
+      </mat-tab-group>
     </div>
 </div>

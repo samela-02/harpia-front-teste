@@ -17,6 +17,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { Store } from '@ngxs/store';
 import { CustomDialogService, DropdownComponent, FormType, InputComponent, makeDeleteCustomDialog, SnackbarService, TextareaComponent } from '@tivic-team/tivic-ui';
+import { TableInstituicoesVinculadasComponent } from '../modal-form-update-lista-alerta/components/table-instituicoes-vinculadas/table-instituicoes-vinculadas.component';
 
 @Component({
   selector: 'app-form-lista-alerta',
@@ -52,7 +53,6 @@ export class FormListaAlertaComponent {
     private editarListaAlertaUseCase: EditarListaAlertaUseCase,
     private desativarListaAlertaUseCase: DesativarListaAlertaUseCase,
     private formBuilder: FormBuilder,
-    private buscarListaAlertaUseCase: BuscarListaAlertaUseCase,
   ) {
     this.formGroup = this.formBuilder.group({
       nmListaAlerta: ['', [Validators.required]],
@@ -65,6 +65,7 @@ export class FormListaAlertaComponent {
     this.updateForm();
     this.updateFormState();
     this.loadInstituicoes()
+    console.log(this.listaAlerta)
   }
 
   private updateFormState() {

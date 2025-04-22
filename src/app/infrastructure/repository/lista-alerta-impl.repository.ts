@@ -15,15 +15,26 @@ export class ListaAlertaRepositoryImpl implements ListaAlertaRepository {
 
   criarListaAlerta(lista: ListaAlerta): Observable<void> {
     return this._client.post(this._api, lista)
-   }
+  }
+
   editarListaAlerta(cdListaAlerta: number, listaAlerta: ListaAlerta): Observable<void> {
     return this._client.put(`${this._api}/${cdListaAlerta}`, listaAlerta)
-   }
+  }
+
   buscarListaAlertas(filter?: ListaAlertaFilter): Observable<ResponseData<ResponsePaginacao<ListaAlertaResponse>>> {
     return this._client.get(this._api, filter?.getFilters()) as Observable<ResponseData<ResponsePaginacao<ListaAlertaResponse>>>
-   }
+  }
+
   desativarListaAlerta(cdListaAlerta: number): Observable<void> {
     return this._client.patch(`${this._api}/${cdListaAlerta}`, null)
-   }
+  }
 
+  vincularInstituicao(cdListaAlerta: number, idInstituicao: string): Observable<void> {
+    console.log('josjos')
+    return this._client.post(`${this._api}/${cdListaAlerta}/instituicoes/${idInstituicao}`, null)
+  }
+
+  desvincularInstituicao(cdListaAlerta: number, idInstituicao: string): Observable<void> {
+    return this._client.delete(`${this._api}/${cdListaAlerta}/instituicoes/${idInstituicao}`, null)
+  }
 }

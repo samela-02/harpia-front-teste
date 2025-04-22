@@ -1,4 +1,4 @@
-class ListaAlertaAcessoQueryResponse {
+export class ListaAlertaAcessoQueryResponse {
   idInstituicao: string;
   isOwner: boolean
 }

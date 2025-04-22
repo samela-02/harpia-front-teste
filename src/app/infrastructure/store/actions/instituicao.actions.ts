@@ -5,3 +5,9 @@ export class BuscarInstituicoesAction {
   static readonly type = `${scope} Buscar`;
   constructor(public payload?: InstituicaoFilter) { }
 }
+export class BuscarInstituicoesVinculadasAction {
+  static readonly type = `${scope} Buscar`;
+  constructor(public payload?: InstituicaoFilter) { }
+}
+
+

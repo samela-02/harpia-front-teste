@@ -10,4 +10,6 @@ export abstract class ListaAlertaRepository {
   public abstract editarListaAlerta(cdListaAlerta: number, ListaAlerta: ListaAlerta): Observable<void>;
   public abstract buscarListaAlertas(filter: ListaAlertaFilter): Observable<ResponseData<ResponsePaginacao<ListaAlertaResponse>>>
   public abstract desativarListaAlerta(cdListaAlerta: number): Observable<void>;
+  public abstract vincularInstituicao(cdListaAlerta: number, idInstituicao: string): Observable<void>;
+  public abstract desvincularInstituicao(cdListaAlerta: number, idInstituicao: string): Observable<void>;
 }

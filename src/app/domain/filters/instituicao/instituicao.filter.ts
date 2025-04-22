@@ -7,7 +7,7 @@ export interface InstituicaoProps extends PropsFilter {
   cdInstituicao?: number;
   idInstituicao?: string;
   nmInstituicao?: string;
-  lgAtivo?: boolean
+  lgAtivo?: 1
 }
 
 export class InstituicaoFilter {

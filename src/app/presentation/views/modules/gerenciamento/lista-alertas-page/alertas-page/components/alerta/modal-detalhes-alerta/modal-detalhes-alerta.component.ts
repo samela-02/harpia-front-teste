@@ -35,8 +35,6 @@ export class ModalDetalhesAlertaComponent {
   public veiculo: VeiculoDeteccaoQueryResponse;
   protected alerta = inject(MODAL_DATA) as AlertaQueryResponse;
 
-  @Output() cadastroSucesso = new EventEmitter<void>();
-
   constructor(private desativarAlertaUseCase: DesativarAlertaUseCase){
     this.loadVeiculo(this.alerta.veiculoQueryResponse.nrPlaca)
   }
@@ -61,7 +59,7 @@ export class ModalDetalhesAlertaComponent {
     this.desativarAlertaUseCase.execute(alerta.cdAlerta).subscribe({
       next: () => {
         this._snackbar.success('Alerta desativado com sucesso!');
-        this.cadastroSucesso.emit();
+        this._modalService.dismiss()
         this.loadTabelaAlerta()
       },
       error: (error) => {

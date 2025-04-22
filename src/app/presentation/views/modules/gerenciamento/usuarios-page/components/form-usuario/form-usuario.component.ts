@@ -186,7 +186,7 @@ export class FormUsuarioComponent {
   }
 
   loadTableUsuário() {
-    const paginationProps: InstituicaoProps = {
+    const paginationProps: UsuarioProps = {
       page: 0,
     };
     const filter = new UsuarioFilter(paginationProps);
