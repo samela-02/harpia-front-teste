@@ -3,7 +3,6 @@ import { CardDetailsComponent } from '@/presentation/shared/components/card-deta
 import { CommonModule, DatePipe, JsonPipe } from '@angular/common';
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { ButtonComponent, CustomDialogService, makeDeleteCustomDialog, MODAL_DATA, ModalService, SnackbarService } from '@tivic-team/tivic-ui';
-import { InfoLineComponent } from './components/info-line/info-line.component';
 import { AlertaQueryResponse } from '@/domain/models/query/alerta-query-response';
 import { SetColorByNivel } from '@/presentation/shared/helpers/set-color-by-nivel.helper';
 import { Store } from '@ngxs/store';
@@ -14,6 +13,7 @@ import { DesativarAlertaUseCase } from '@/application/usecase/alerta/desativar-a
 import { AlertaFilter, AlertaProps } from '@/domain/filters/alerta/alerta.filter';
 import { ListaAlertaSelectors } from '@/infrastructure/store/selectors/lista-alerta.selectors';
 import { MatButtonModule } from '@angular/material/button';
+import { InfoLineComponent } from '@/presentation/shared/components/info-line/info-line.component';
 
 @Component({
   selector: 'app-modal-detalhes-alerta',

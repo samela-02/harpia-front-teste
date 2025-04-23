@@ -9,8 +9,8 @@ import { SetColorByNivel } from '@/presentation/shared/helpers/set-color-by-nive
 import { tableModule } from '@/presentation/shared/table.module';
 import { CommonModule, DatePipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { BadgeComponent } from '@tivic-team/tivic-ui';
-
+import { BadgeComponent, ModalService } from '@tivic-team/tivic-ui';
+import { ModalDeteccaoDetalhesComponent } from '../modal-deteccao-detalhes/modal-deteccao-detalhes.component';
 
 @Component({
   selector: 'app-table-deteccoes',
@@ -26,15 +26,13 @@ export class TableDeteccoesComponent extends TablePageBase{
   protected override pageSize: number = 5;
   public displayedColumns: string[] = ['imgOriginal', 'nmPlaca', 'idEquipamento', 'dtDeteccao'];
 
+  private _modalService = inject(ModalService<ModalDeteccaoDetalhesComponent>);
+
   constructor(private buscarDeteccoesUseCase: BuscarDeteccoesUseCase){
     super()
   }
 
-
   ngOnInit(): void {
-    // if (!this.formGroup) {
-    //   this.formGroup = new FormGroup({});
-    // }
     this.load();
   }
 
@@ -64,6 +62,12 @@ export class TableDeteccoesComponent extends TablePageBase{
       this.dataLength = response.data.totalItens
       console.log(this.deteccoes.dados.length)
     })
+  }
+
+  rowChange(event: MouseEvent, deteccao: DeteccaoQueryResponse) {
+    event.stopPropagation();
+    event.preventDefault();
+    this._modalService.component(ModalDeteccaoDetalhesComponent).open(deteccao);
   }
 
   public getColorByNivel(nivel: number): string {
