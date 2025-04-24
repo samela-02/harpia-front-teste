@@ -24,4 +24,13 @@ export const mainRoutes: Routes = [
       breadcrumb: 'Detecções'
     }
   },
+  {
+    path: "mapa-veiculos",
+    loadComponent: () => import("./mapa-veiculos-page/mapa-veiculos-page.component").then(m => m.MapaVeiculosPageComponent),
+    data: {
+      title: 'Mapa de Veículos',
+      icon: 'la la-map-marked',
+      breadcrumb: 'Mapa de Veículos'
+    }
+  },
 ];

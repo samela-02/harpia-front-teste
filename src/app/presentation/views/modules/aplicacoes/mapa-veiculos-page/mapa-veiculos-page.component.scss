@@ -1,0 +1,17 @@
+.page {
+  @apply w-full h-full flex flex-col gap-2
+}
+
+.header {
+  @apply w-full flex flex-row justify-end;
+
+  &-group-filter {
+    @apply flex flex-row gap-2 rounded-full p-2;
+  }
+}
+
+.icon {
+  @apply flex justify-start font-semibold text-primary mt-[2px];
+  font-size: 23px;
+
+}

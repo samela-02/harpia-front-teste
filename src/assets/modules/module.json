@@ -14,7 +14,7 @@
       {
         "label": "Mapa de Veículos",
         "icon": "la la-map-marked",
-        "routerLink": "/inicio",
+        "routerLink": "/mapa-veiculos",
         "enabled": true
       },
       {
