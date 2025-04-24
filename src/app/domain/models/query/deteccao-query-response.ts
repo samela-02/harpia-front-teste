@@ -11,7 +11,7 @@ export class DeteccaoQueryResponse {
    vlConfidenceAlpr: number;
    dtDeteccao: Date;
    nmPiv: string;
-   nmPlaca: string;
+   nrPlaca: string;
    vlConfidencePiv: number;
    vlLatitude: number;
    vlLongitude: number;

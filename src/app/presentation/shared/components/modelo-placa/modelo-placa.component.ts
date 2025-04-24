@@ -9,17 +9,17 @@ import { Component, Input } from '@angular/core';
     styleUrls: ['./modelo-placa.component.scss']
 })
 export class ModeloPlacaComponent {
-    @Input() nmPlaca: string;
+    @Input() nrPlaca: string;
     isFliped: boolean;
 
     ngOnInit() {
-        this.handlePlacaValue(this.nmPlaca);
+        this.handlePlacaValue(this.nrPlaca);
     }
 
-    handlePlacaValue(nmPlaca: string) {
-        this.nmPlaca = nmPlaca && nmPlaca !== "" ? nmPlaca : null;
-        if (this.nmPlaca && this.nmPlaca.length > 4) {
-            const quintoCaractere: string = nmPlaca.charAt(4);
+    handlePlacaValue(nrPlaca: string) {
+        this.nrPlaca = nrPlaca && nrPlaca !== "" ? nrPlaca : null;
+        if (this.nrPlaca && this.nrPlaca.length > 4) {
+            const quintoCaractere: string = nrPlaca.charAt(4);
             if (!isNaN(Number(quintoCaractere))) {
                 this.isFliped = true;
                 return;

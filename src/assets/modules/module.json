@@ -12,6 +12,12 @@
         "enabled": true
       },
       {
+        "label": "Mapa de Veículos",
+        "icon": "la la-map-marked",
+        "routerLink": "/inicio",
+        "enabled": true
+      },
+      {
         "label": "Eventos de Detecções",
         "icon": "la la-camera-retro",
         "routerLink": "/eventos-deteccoes",

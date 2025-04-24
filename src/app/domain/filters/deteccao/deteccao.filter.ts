@@ -11,7 +11,7 @@ export interface DeteccaoProps extends PropsFilter {
   dtDeteccaoInferior?: Date;
   dtDeteccaoSuperior?: Date;
   nmPiv?: string;
-  nmPlaca?: string;
+  nrPlaca?: string;
   vlConfidencePivInferior?: number;
   vlConfidencePivSuperior?: number;
   lgAtivo?: number;
@@ -35,7 +35,7 @@ export class DeteccaoFilter {
     filterManager.addFilter(new DeteccaoType.dtDeteccaoInferior(this.props.dtDeteccaoInferior));
     filterManager.addFilter(new DeteccaoType.dtDeteccaoSuperior(this.props.dtDeteccaoSuperior));
     filterManager.addFilter(new DeteccaoType.nmPiv(this.props.nmPiv));
-    filterManager.addFilter(new DeteccaoType.nmPlaca(this.props.nmPlaca));
+    filterManager.addFilter(new DeteccaoType.nrPlaca(this.props.nrPlaca));
     filterManager.addFilter(new DeteccaoType.vlConfidencePivInferior(this.props.vlConfidencePivInferior));
     filterManager.addFilter(new DeteccaoType.vlConfidencePivSuperior(this.props.vlConfidencePivSuperior));
     filterManager.addFilter(new DeteccaoType.lgAtivo(this.props.lgAtivo));

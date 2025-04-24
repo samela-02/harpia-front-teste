@@ -26,6 +26,7 @@
     "@ngxs/store": "^18.0.0",
     "@tivic-team/tivic-ui": "0.8.2",
     "angular-line-awesome": "^19.0.0",
+    "html-to-image": "^1.11.13",
     "leaflet": "^1.9.4",
     "ngx-mask": "^17.1.8",
     "ngx-skeleton-loader": "9.0.0",

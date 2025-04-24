@@ -24,7 +24,7 @@ export class TableDeteccoesComponent extends TablePageBase{
   public deteccoes!: ResponsePaginacao<DeteccaoQueryResponse>;
   public dataLength!: number;
   protected override pageSize: number = 5;
-  public displayedColumns: string[] = ['imgOriginal', 'nmPlaca', 'idEquipamento', 'dtDeteccao'];
+  public displayedColumns: string[] = ['imgOriginal', 'nrPlaca', 'idEquipamento', 'dtDeteccao'];
 
   private _modalService = inject(ModalService<ModalDeteccaoDetalhesComponent>);
 
@@ -50,7 +50,7 @@ export class TableDeteccoesComponent extends TablePageBase{
       dtDeteccaoInferior: this.currentFilters?.dtDeteccaoInferior,
       dtDeteccaoSuperior: this.currentFilters?.dtDeteccaoSuperior,
       nmPiv: this.currentFilters?.nmPiv,
-      nmPlaca: this.currentFilters?.nmPlaca,
+      nrPlaca: this.currentFilters?.nrPlaca,
       vlConfidencePivInferior: this.currentFilters?.vlConfidencePivInferior,
       vlConfidencePivSuperior: this.currentFilters?.vlConfidencePivSuperior,
       lgAtivo: this.currentFilters?.lgAtivo,

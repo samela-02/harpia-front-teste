@@ -50,9 +50,9 @@ export namespace DeteccaoType {
     validate = (): boolean => !!this.value;
   }
 
-  export class nmPlaca extends Filter<string> {
+  export class nrPlaca extends Filter<string> {
     constructor(value: string) {
-      super("nmPlaca", value);
+      super("nrPlaca", value);
     }
     validate = (): boolean => !!this.value;
   }

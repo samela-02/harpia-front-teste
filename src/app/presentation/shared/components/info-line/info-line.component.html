@@ -3,6 +3,11 @@
   <span>
     <strong>
       {{titulo}}:
-    </strong> {{descricao}}
+    </strong>
+    <span #tooltip="matTooltip"
+          [matTooltip]="descricao"
+          [matTooltipDisabled]="descricao?.length <= truncate">
+      {{descricao | truncate: truncate}}
+    </span>
   </span>
 </span>

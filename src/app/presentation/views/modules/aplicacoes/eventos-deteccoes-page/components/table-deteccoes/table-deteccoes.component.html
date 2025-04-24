@@ -6,7 +6,7 @@
       <td mat-cell *matCellDef="let item" class="uppercase columns">
         <div class="h-[11vh] min-w-[20vh] my-1">
           <div *ngIf="item?.imgOriginal" class="img-container">
-            <div [style.background-color]="getColorByNivel(5)" class="w-1/12 h-full rounded-l-sm"></div>
+            <div [style.background-color]="getColorByNivel(5)" class="w-1/12 h-full rounded-l-md"></div>
             <img *ngIf="item?.imgOriginal" [src]="'data:image/' + item.imgEncoding + ';base64,' + item.imgOriginal"
               alt="Imagem do evento" class="img-captura w-11/12">
           </div>
@@ -14,11 +14,11 @@
       </td>
     </ng-container>
 
-    <ng-container matColumnDef="nmPlaca">
+    <ng-container matColumnDef="nrPlaca">
       <th mat-header-cell *matHeaderCellDef>PLACA</th>
       <td mat-cell *matCellDef="let item" class="uppercase columns">
         <div class="row-container">
-          <modelo-placa class="w-40 scale-75 lg:scale-100" [nmPlaca]="item.nmPlaca" />
+          <modelo-placa class="w-40 scale-75 lg:scale-100" [nrPlaca]="item.nrPlaca" />
         </div>
       </td>
     </ng-container>
