@@ -10,8 +10,23 @@
   }
 }
 
+
 .icon {
   @apply flex justify-start font-semibold text-primary mt-[2px];
   font-size: 23px;
 
+}
+.content {
+  @apply w-full h-full grid grid-cols-12 gap-2;
+}
+.card-right {
+  @apply col-span-2 bg-slate-50 h-full rounded-md p-4;
+
+  &-header {
+    @apply mb-4 text-base flex-center gap-2 text-primary font-semibold;
+  }
+}
+
+.card-info {
+@apply flex-center gap-4 p-3 bg-white rounded-lg shadow-md
 }
