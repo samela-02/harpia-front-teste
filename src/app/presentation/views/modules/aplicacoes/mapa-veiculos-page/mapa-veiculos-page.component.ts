@@ -1,3 +1,4 @@
+import { buscarDadosGpsUseCase } from '@/application/usecase/gps-tracker/buscar-dados-gps.usecase';
 import { FiltersInputsComponent } from '@/presentation/shared/components/filters-inputs/filters-inputs.component';
 import { MapMarkersComponent } from '@/presentation/shared/components/map-markers/map-markers.component';
 import { Component } from '@angular/core';
@@ -10,5 +11,8 @@ import { Component } from '@angular/core';
   styleUrl: './mapa-veiculos-page.component.scss'
 })
 export class MapaVeiculosPageComponent {
+  constructor(private buscarDadosGpsUseCase: buscarDadosGpsUseCase){
+    this.buscarDadosGpsUseCase.execute('TIVIC_PDI').subscribe()
+  }
 
 }

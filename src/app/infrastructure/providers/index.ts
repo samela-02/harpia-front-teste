@@ -4,6 +4,7 @@ import { clientProviders } from "./client.provider";
 import { compoenenteProviders } from "./componente/componente.provider";
 import { deteccaoProviders } from "./deteccao/deteccao.provider";
 import { equipamentoProviders } from "./equipamento/equipamento.provider";
+import { gpsTrackerProviders } from "./gps-tracker/gps-tracker-provider";
 import { instituicaoProviders } from "./instituicao/instituicao.provider";
 import { listaAlertaProviders } from "./lista-alerta/lista-alerta.provider";
 import { loginProviders } from "./login/login.provider";
@@ -17,6 +18,7 @@ export const providers = [
   instituicaoProviders,
   tipoComponenteProviders,
   deteccaoProviders,
+  gpsTrackerProviders,
   listaAlertaProviders,
   tipoEquipamentoProviders,
   tipoAlertaProviders,
