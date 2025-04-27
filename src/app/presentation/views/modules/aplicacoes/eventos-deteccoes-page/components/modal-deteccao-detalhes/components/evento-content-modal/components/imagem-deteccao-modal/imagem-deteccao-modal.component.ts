@@ -1,4 +1,5 @@
 import { MODAL_DATA, ModalService } from '@/infrastructure/services/modal/modal.service';
+import { DatePipe } from '@angular/common';
 import { Component, ElementRef, ViewChild, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';

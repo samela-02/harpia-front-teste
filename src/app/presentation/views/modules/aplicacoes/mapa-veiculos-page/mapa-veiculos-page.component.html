@@ -5,24 +5,32 @@
     </div>
   </div>
   <div class="content">
-      <map-markers class="w-full h-full shadow-md col-span-10"></map-markers>
+      <map-markers class="w-full min-h-[300px] h-full shadow-md col-span-12 xl:col-span-10"></map-markers>
       <div class="card-right">
         <div class="card-right-header">
           <i [class]="'la la-satellite-dish'" class="text-xl"></i>
           <span>Status dos Equipamentos</span>
         </div>
-        <div class="card-info">
-          <div class="w-3 h-3 rounded-[50%] bg-red-600"></div>
-          <div class="flex flex-col leading-none">
-            <span class="text-slate-600/80 font-semibold leading-none">
-              Harpia 1236788
-            </span>
-            <div class="leading-none">
-              <span class="text-[11px] text-slate-600/70 leading-none">
-                Última atualização:
-              </span>
+        <div class="grid grid-cols-1 p-1 md:grid-cols-2 gap-2 w-full overflow-y-auto lg:max-h-[40em] max-h-[20em]">
+          @for (equipment of getEquipmentStatusList(); track equipment.idEquipamento) {
+            <div class="card-info">
+              <div class="card-status" [ngClass]="equipment.statusColor"></div>
+              <div class="card-text">
+                <span class="text-slate-600/80 font-semibold leading-none">
+                  {{ equipment.nome || equipment.idEquipamento }}
+                  </span>
+                  <div class="leading-none">
+                  <span class="card-update">
+                    <i [class]="'la la-history'" class="text-xs"></i> {{ equipment.lastCommunicationTime | date:'dd/MM/yyyy HH:mm:ss' }}
+                  </span>
+                </div>
+              </div>
             </div>
-          </div>
+            } @empty {
+            <div class="col-span-1 md:col-span-2 text-center text-slate-500 p-4">
+              Nenhum equipamento comunicando.
+            </div>
+            }
         </div>
       </div>
   </div>
