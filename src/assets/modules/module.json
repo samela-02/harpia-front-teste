@@ -88,6 +88,28 @@
         ]
       },
       {
+        "id": "idVeiculos",
+        "label": "Veículos",
+        "icon": "las la-car-side",
+        "enabled": true,
+        "children": [
+          {
+            "id": "idVeiculosCCO",
+            "label": "Veículos CCO",
+            "icon": "las la-car-alt",
+            "routerLink": "/componentes/lista-componentes",
+            "enabled": true
+          },
+          {
+            "id": "idVeiculosDeteccao",
+            "label": "Veículos Detecção",
+            "icon": "las la-car",
+            "routerLink": "/componentes/tipos-componentes",
+            "enabled": true
+          }
+        ]
+      },
+      {
         "label": "Usuários",
         "icon": "la la-user-friends",
         "routerLink": "/usuarios",
