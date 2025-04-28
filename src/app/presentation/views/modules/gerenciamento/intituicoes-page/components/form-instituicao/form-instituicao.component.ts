@@ -93,7 +93,6 @@ export class FormInstituicaoComponent {
       this.buscarInstituicoesUseCase.execute(filter).subscribe({
         next: (response: any) => {
           if (response.data.dados[0]) {
-            console.log(response.data.dados[0])
             this.formGroup.patchValue({
               nmInstituicao: response.data.dados[0].nmInstituicao,
               idInstituicao: response.data.dados[0].idInstituicao,

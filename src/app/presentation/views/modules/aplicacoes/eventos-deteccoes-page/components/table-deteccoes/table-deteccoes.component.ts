@@ -60,7 +60,6 @@ export class TableDeteccoesComponent extends TablePageBase{
     this.buscarDeteccoesUseCase.execute(filterProps).subscribe((response) => {
       this.deteccoes = response.data
       this.dataLength = response.data.totalItens
-      console.log(this.deteccoes.dados.length)
     })
   }
 

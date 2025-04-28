@@ -65,7 +65,6 @@ export class FormListaAlertaComponent {
     this.updateForm();
     this.updateFormState();
     this.loadInstituicoes()
-    console.log(this.listaAlerta)
   }
 
   private updateFormState() {

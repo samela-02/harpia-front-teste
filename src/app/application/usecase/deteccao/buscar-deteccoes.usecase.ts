@@ -9,7 +9,6 @@ export class BuscarDeteccoesUseCase {
   constructor(private deteccaoRepository: DeteccaoRepository){}
 
   public execute(filter?: DeteccaoFilter): Observable<ResponseData<ResponsePaginacao<DeteccaoQueryResponse>>> {
-    console.log(filter)
     return this.deteccaoRepository.buscarDeteccoes(filter)
   }
 }

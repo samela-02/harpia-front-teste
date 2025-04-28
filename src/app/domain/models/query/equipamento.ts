@@ -1,9 +1,11 @@
+import { AlocacaoQueryResponse } from "./alocacao-query-response";
 import { ComponentesEquipamentos } from "./componentes-equipamentos";
 
 export class EquipamentoQuery {
   cdEquipamento?: number | null;
   cdTipoEquipamento: number;
   componentes?: ComponentesEquipamentos[]
+  alocacao?: AlocacaoQueryResponse
   cdInstituicao: number;
   nmEquipamento: string;
   idEquipamento: string;

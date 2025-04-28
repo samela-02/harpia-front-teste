@@ -71,12 +71,10 @@ export class FormAlertaComponent {
   loadVeiculo(nrPlaca: string) {
     this._store.dispatch(new BuscarVeiculoPorPlacaAction(nrPlaca)).subscribe(() => {
       const veiculo = this.veiculos()?.data;
-      console.log(this.veiculos())
       if (veiculo) {
         const existeVeiculo = this.veiculosFiltrados.some(v => v.cdVeiculo === veiculo.cdVeiculo);
         if (!existeVeiculo) {
           this.veiculosFiltrados = [...this.veiculosFiltrados, veiculo];
-          console.log(this.veiculosFiltrados)
         }
         this.veiculoNaoEncontrado = false;
       } else {

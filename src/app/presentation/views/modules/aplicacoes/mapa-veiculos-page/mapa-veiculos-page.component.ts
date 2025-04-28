@@ -46,7 +46,6 @@ export class MapaVeiculosPageComponent implements OnInit, OnDestroy {
     this.eventSourceSubscription = this.buscarDadosGpsUseCase.execute('TIVIC_PDI').subscribe((response) => {
       try {
         const equipamentoData: GpsTrackerQueryResponse = JSON.parse(response.data);
-        console.log(equipamentoData.sensores[0].dtEvento)
         this.updateEquipmentStatus(equipamentoData.idEquipamento, new Date(equipamentoData.sensores[0].dtEvento))
 
         if (equipamentoData.sensores[0]?.vlLatitude && equipamentoData.sensores[0]?.vlLongitude && equipamentoData.idEquipamento) {
@@ -86,10 +85,7 @@ export class MapaVeiculosPageComponent implements OnInit, OnDestroy {
 
   private calculateStatusColor(lastCommunicationTime: Date): 'green' | 'yellow' | 'red' {
     const now = new Date();
-    console.log(now.getTime(), lastCommunicationTime.getTime())
     const diffMinutes = (now.getTime() - lastCommunicationTime.getTime()) / (1000 * 60);
-
-    console.log(diffMinutes.toFixed(0))
 
     if (diffMinutes < 10) {
       return 'green';

@@ -101,7 +101,6 @@ export class FormVeiculoCCOComponent {
       this.buscarVeiculosCCOUseCase.execute(filter).subscribe({
         next: (response: any) => {
           if (response.data) {
-            console.log(response.data)
             this.formGroup.patchValue({
               idVeiculo: response.data.dados[0].idVeiculo,
               nrPlaca: response.data.dados[0].nrPlaca,

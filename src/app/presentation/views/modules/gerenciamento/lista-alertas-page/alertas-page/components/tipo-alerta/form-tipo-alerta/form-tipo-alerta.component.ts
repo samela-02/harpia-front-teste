@@ -69,7 +69,6 @@ export class FormTipoAlertaComponent {
   ngOnInit(): void {
     this.updateForm();
     this.updateFormState();
-    console.log(this.tipoAlerta)
   }
 
   private updateFormState() {

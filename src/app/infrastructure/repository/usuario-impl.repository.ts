@@ -24,9 +24,11 @@ export class UsuarioRepostoryImpl implements UsuarioRepository {
   criarUsuario(usuario: Usuario): Observable<void> {
     return this._client.post(this._api, usuario)
   }
+
   editarUsuario(cdUsuario: number, usuario: Usuario): Observable<void> {
     return this._client.put(`${this._api}/${cdUsuario}`, usuario)
   }
+
   desativarUsuario(cdUsuario: number): Observable<void> {
     return this._client.patch(`${this._api}/${cdUsuario}`, null)
   }

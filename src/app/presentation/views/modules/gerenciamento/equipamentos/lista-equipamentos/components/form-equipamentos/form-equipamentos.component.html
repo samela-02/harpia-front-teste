@@ -17,13 +17,33 @@
     <tvc-dropdown class="w-full col-span-2" id="cdInstituicao" formControlName="cdInstituicao" useLabel="nmInstituicao"
       useValue="cdInstituicao" label="Instituição" placeholder="Instituição" required [providers]="instituicoes" />
   </div>
+</form>
+<div class="mt-3">
+  <app-card-details class="text-primary" icone="la la-car" titulo="Alocação de Veículo">
+    <form [formGroup]="formGroupAlocacao" class="form h-full flex flex-col justify-between gap-3">
+      <div class="form-group grid grid-cols-1">
+        <tvc-dropdown class="w-full" id="cdVeiculo" formControlName="cdVeiculo" useLabel="nmModelo"
+          useValue="cdVeiculo" label="Veículo" placeholder="Veículo" [providers]="veiculosCCO" />
+      </div>
+    </form>
+  </app-card-details>
+</div>
 
-  <div class="w-full flex justify-end gap-2">
+
+  <div class="w-full flex justify-end gap-2 mt-3">
     <button *ngIf="equipamentos && !isEditable && equipamentos.lgAtivo" (click)="toggleEdit()" mat-flat-button
       class="bg-accent/10 text-primary disabled:cursor-not-allowed disabled:text-accent/50">
       <i [class]="icon" class="text-lg"></i>
       <span class="pt-1">
         Editar
+      </span>
+    </button>
+
+    <button *ngIf="(isEditable && equipamentos.alocacao?.veiculo?.cdVeiculo)" (click)="desalocarEquipamento(equipamentos.cdEquipamento)"
+      [disabled]="!formGroup.valid" mat-flat-button class="bg-amber-700/10 text-amber-700 disabled:cursor-not-allowed">
+      <i [class]="'la la-unlink'" class="text-lg"></i>
+      <span class="pt-1">
+        Desalocar Veículo
       </span>
     </button>
 
@@ -44,4 +64,3 @@
       </span>
     </button>
   </div>
-</form>

@@ -94,7 +94,6 @@ export class FormComponenteComponent {
         cdComponente: this.componentes?.cdComponente
       };
       const filter = new ComponentesFilter(propsFilter);
-      console.log(filter)
 
       this.buscarComponentesUseCase.execute(filter).subscribe({
         next: (response: any) => {

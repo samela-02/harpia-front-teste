@@ -44,7 +44,6 @@ export class AlertasPageComponent {
     const filters = {
       nrPlaca: this.formGroup.get('nrPlaca')?.value,
     };
-    console.log(filters)
     this.table().load(filters);
   }
 

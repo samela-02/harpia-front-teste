@@ -44,7 +44,6 @@ export class TableEquipamentosComponent extends TablePageBase{
       this.currentFilters = { ...filters };
     }
 
-    console.log('teste', this.currentFilters)
     const paginationProps: EquipamentosProps = {
       page: page,
       size: this.pageSize,

@@ -15,18 +15,25 @@ export class EquipamentoRepositoryImpl implements EquipamentoRepository {
 
   criarEquipamento(lista: Equipamento): Observable<void> {
     return this._client.post(this._api, lista)
-   }
+  }
 
   editarEquipamento(cdEquipamento: number, tipoEquipamento: Equipamento): Observable<void> {
     return this._client.put(`${this._api}/${cdEquipamento}`, tipoEquipamento)
-   }
+  }
 
   buscarEquipamentos(filter?: EquipamentosFilter): Observable<ResponseData<ResponsePaginacao<EquipamentoQuery>>> {
     return this._client.get(this._api, filter.getFilters()) as Observable<ResponseData<ResponsePaginacao<EquipamentoQuery>>>
-   }
+  }
 
   desativarEquipamento(cdEquipamento: number): Observable<void> {
     return this._client.patch(`${this._api}/${cdEquipamento}`, null)
-   }
+  }
+
+  alocarEquipamento(cdEquipamento: number, cdVeiculo: number): Observable<void> {
+    return this._client.post(`${this._api}/${cdEquipamento}/alocacoes?cdVeiculo=${cdVeiculo}`, null)
+  }
+  desalocarEquipamento(cdEquipamento: number): Observable<void> {
+    return this._client.patch(`${this._api}/${cdEquipamento}/alocacoes`, null)
+  }
 
 }

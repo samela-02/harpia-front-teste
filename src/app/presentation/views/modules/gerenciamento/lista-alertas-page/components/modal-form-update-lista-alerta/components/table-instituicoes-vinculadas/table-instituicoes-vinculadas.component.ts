@@ -49,7 +49,6 @@ export class TableInstituicoesVinculadasComponent extends TablePageBase {
   ngOnInit(): void {
     this.load();
     this.loadVinculadasIds();
-    console.log(this.cdListaAlerta)
   }
 
   private loadVinculadasIds() {

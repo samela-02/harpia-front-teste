@@ -10,4 +10,6 @@ export abstract class EquipamentoRepository {
   public abstract editarEquipamento(cdEquipamento: number, equipamento: Equipamento): Observable<void>;
   public abstract buscarEquipamentos(filter: EquipamentosFilter): Observable<ResponseData<ResponsePaginacao<EquipamentoQuery>>>
   public abstract desativarEquipamento(cdEquipamento: number): Observable<void>;
+  public abstract alocarEquipamento(cdEquipamento: number, cdVeiculo: number): Observable<void>
+  public abstract desalocarEquipamento(cdEquipamento: number): Observable<void>
 }

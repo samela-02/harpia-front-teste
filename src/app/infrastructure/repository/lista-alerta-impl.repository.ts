@@ -30,7 +30,6 @@ export class ListaAlertaRepositoryImpl implements ListaAlertaRepository {
   }
 
   vincularInstituicao(cdListaAlerta: number, idInstituicao: string): Observable<void> {
-    console.log('josjos')
     return this._client.post(`${this._api}/${cdListaAlerta}/instituicoes/${idInstituicao}`, null)
   }
 
