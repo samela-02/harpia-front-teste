@@ -1,27 +1,22 @@
+import { BuscarVeiculosCCOUseCase } from '@/application/usecase/veiculo-cco/buscar-veiculos-cco.usecase';
+import { CriarVeiculoCCOUseCase } from '@/application/usecase/veiculo-cco/criar-veiculo-cco.usecase';
+import { DesativarVeiculoCCOUseCase } from '@/application/usecase/veiculo-cco/desativar-veiculo-cco..usecase';
+import { EditarVeiculoCCOUseCase } from '@/application/usecase/veiculo-cco/editar-veiculo-cco.usecase';
+import { optionsCoresVeiculos } from '@/domain/enums/cores-veiculo.enum';
+import { VeiculoCCOFilter, VeiculoCCOProps } from '@/domain/filters/veiculoCCO/veiculoCCO.filter';
+import { VeiculoCCO } from '@/domain/models/command/veiculo-cco';
+import { BUscarVeiculosCCOAction } from '@/infrastructure/store/actions/veiculo-cco.actions';
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatIconModule } from '@angular/material/icon';
-import { Store } from '@ngxs/store';
-import { CustomDialogService, FormType, InputComponent, makeDeleteCustomDialog, SnackbarService, TextareaComponent, DropdownComponent } from '@tivic-team/tivic-ui';
-import { CidadeProps } from '@/domain/filters/cidade/cidade.props';
-import { CidadeFilter } from '@/domain/filters/cidade/cidade.filter';
-import { FindCidadesAction } from '@/infrastructure/store/actions/cidade.actions';
-import { CidadeSelectors } from '@/infrastructure/store/selectors/cidade.selector';
-import { optionsCoresVeiculos } from '@/domain/enums/cores-veiculo.enum';
-import { VeiculoCCO } from '@/domain/models/command/veiculo-cco';
-import { CriarVeiculoCCOUseCase } from '@/application/usecase/veiculo-cco/criar-veiculo-cco.usecase';
-import { EditarVeiculoCCOUseCase } from '@/application/usecase/veiculo-cco/editar-veiculo-cco.usecase';
-import { DesativarVeiculoCCOUseCase } from '@/application/usecase/veiculo-cco/desativar-veiculo-cco..usecase';
-import { BuscarVeiculosCCOUseCase } from '@/application/usecase/veiculo-cco/buscar-veiculos-cco.usecase';
-import { CoresVeiculosEnum } from '@/domain/enums/cores-veiculo.enum';
-import { VeiculoCCOFilter, VeiculoCCOProps } from '@/domain/filters/veiculoCCO/veiculoCCO.filter';
-import { BUscarVeiculosCCOAction } from '@/infrastructure/store/actions/veiculo-cco.actions';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatOptionModule } from '@angular/material/core';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
+import { Store } from '@ngxs/store';
+import { CustomDialogService, FormType, InputComponent, makeDeleteCustomDialog, SnackbarService } from '@tivic-team/tivic-ui';
 
 @Component({
   selector: 'app-form-veiculo-cco',
