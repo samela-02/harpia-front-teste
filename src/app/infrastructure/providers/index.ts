@@ -12,6 +12,7 @@ import { tipoAlertaProviders } from "./tipo-alerta/tipo-alerta.provider";
 import { tipoComponenteProviders } from "./tipo-componente/tipo-component.provider";
 import { tipoEquipamentoProviders } from "./tipo-equipamento/tipo-equipamento.provider";
 import { usuarioProviders } from "./usuario/usuario.provider";
+import { veiculoCCOProviders } from "./veiculo-cco/veiculo-cco.provider";
 
 export const providers = [
   clientProviders,
@@ -19,6 +20,7 @@ export const providers = [
   tipoComponenteProviders,
   deteccaoProviders,
   gpsTrackerProviders,
+  veiculoCCOProviders,
   listaAlertaProviders,
   tipoEquipamentoProviders,
   tipoAlertaProviders,

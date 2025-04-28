@@ -21,3 +21,22 @@ export const optionsCoresVeiculos: ColorOption[] = [
   { nome: 'VERMELHA', cor: '#FF0000' },
   { nome: 'FANTASIA', cor: '#FF69B4' },
 ];
+
+export enum CoresVeiculosEnum {
+  Amarela = 'AMARELA',
+  Azul = 'AZUL',
+  Bege = 'BEGE',
+  Branca = 'BRANCA',
+  Cinza = 'CINZA',
+  Dourada = 'DOURADA',
+  Grena = 'GRENA',
+  Laranja = 'LARANJA',
+  Marrom = 'MARROM',
+  Prata = 'PRATA',
+  Preto = 'PRETO',
+  Rosa = 'ROSA',
+  Roxa = 'ROXA',
+  Verde = 'VERDE',
+  Vermelha = 'VERMELHA',
+  Fantasia = 'FANTASIA',
+}

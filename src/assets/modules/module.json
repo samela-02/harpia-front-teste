@@ -97,14 +97,14 @@
             "id": "idVeiculosCCO",
             "label": "Veículos CCO",
             "icon": "las la-car-alt",
-            "routerLink": "/componentes/lista-componentes",
+            "routerLink": "/veiculos/veiculos-cco",
             "enabled": true
           },
           {
             "id": "idVeiculosDeteccao",
             "label": "Veículos Detecção",
             "icon": "las la-car",
-            "routerLink": "/componentes/tipos-componentes",
+            "routerLink": "/veiculos/veiculos-deteccao",
             "enabled": true
           }
         ]

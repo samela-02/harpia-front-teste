@@ -38,6 +38,10 @@ export const gerenciamentoRoutes: Routes = [
     loadChildren: () => import('./equipamentos/equipamentos.routes').then(e => e.EquipamentosRoutes),
   },
   {
+    path: "veiculos",
+    loadChildren: () => import('./veiculos/veiculos.routes').then(v => v.VeiculosRoutes)
+  },
+  {
     path: "componentes",
     loadChildren: () => import('./componentes/componentes.routes').then(e => e.ComponentesRoutes),
   }

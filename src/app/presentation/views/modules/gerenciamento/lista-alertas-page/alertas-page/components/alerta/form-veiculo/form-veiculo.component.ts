@@ -1,4 +1,4 @@
-import { optionsCoresVeiculos } from '@/domain/enums/alerta/cores-veiculo.enum';
+import { optionsCoresVeiculos } from '@/domain/enums/cores-veiculo.enum';
 import { Veiculo } from '@/domain/models/command/veiculo-deteccao';
 import { VeiculoDeteccaoQueryResponse } from '@/domain/models/query/veiculo-deteccao-query-response';
 import { BuscarVeiculoPorPlacaAction } from '@/infrastructure/store/actions/alerta.actions';

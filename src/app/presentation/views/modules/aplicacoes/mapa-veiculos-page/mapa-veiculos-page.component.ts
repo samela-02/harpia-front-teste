@@ -30,7 +30,6 @@ export class MapaVeiculosPageComponent implements OnInit, OnDestroy {
   private movingMarkers: Map<string, L.Marker> = new Map();
 
   public equipmentStatusMap: Map<string, EquipmentStatus> = new Map();
-
   public markerCount: number = 0;
 
   constructor(
@@ -47,8 +46,8 @@ export class MapaVeiculosPageComponent implements OnInit, OnDestroy {
     this.eventSourceSubscription = this.buscarDadosGpsUseCase.execute('TIVIC_PDI').subscribe((response) => {
       try {
         const equipamentoData: GpsTrackerQueryResponse = JSON.parse(response.data);
-        const now = new Date();
-        this.updateEquipmentStatus(equipamentoData.idEquipamento, now);
+        console.log(equipamentoData.sensores[0].dtEvento)
+        this.updateEquipmentStatus(equipamentoData.idEquipamento, new Date(equipamentoData.sensores[0].dtEvento))
 
         if (equipamentoData.sensores[0]?.vlLatitude && equipamentoData.sensores[0]?.vlLongitude && equipamentoData.idEquipamento) {
           const novaCoordenada: [number, number] = [equipamentoData.sensores[0].vlLatitude, equipamentoData.sensores[0].vlLongitude];
