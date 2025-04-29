@@ -6,5 +6,10 @@ export class TipoEquipamentoSelectors {
   static tiposEquipamentos(state: TipoEquipamentoStateModel) {
     return state.tipoEquipamentos
   }
+
+  @Selector([TipoEquipamentoState])
+  static tiposEquipamentosSelect(state: TipoEquipamentoStateModel) {
+    return state.tipoEquipamentos.data.dados
+  }
 }
 

@@ -1,0 +1,29 @@
+<div class="w-auto flex flex-col gap-2">
+    <mat-expansion-panel expanded="true" class="mat-elevation-z0 px-4 pb-4 shadow-sm">
+      <mat-expansion-panel-header>
+        <mat-panel-title class="!text-base">
+          <app-header-etapa class="w-full" [etapa]="1" titulo="Descrição do Alerta"></app-header-etapa>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <app-form-alerta [formGroup]="formGroupAlerta" class="h-full" />
+    </mat-expansion-panel>
+    <mat-expansion-panel expanded="true" class="px-4 pb-4 mat-elevation-z0 shadow-sm">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <app-header-etapa class="w-full" [etapa]="2" titulo="Descrição do Veículo"></app-header-etapa>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <app-form-veiculo [formGroup]="formGroupVeiculo" class="h-full" />
+    </mat-expansion-panel>
+
+    <div class="w-full flex justify-end mt-2 px-4">
+      <button (click)="onSubmit()" [disabled]="!formGroupAlerta.valid && !formGroupVeiculo.valid" mat-flat-button
+        class="bg-primary/10 text-primary disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-primary/50">
+        <i [class]="'la la-plus-circle'" class="text-lg"></i>
+        <span class="pt-1">
+          Salvar
+        </span>
+      </button>
+    </div>
+
+</div>

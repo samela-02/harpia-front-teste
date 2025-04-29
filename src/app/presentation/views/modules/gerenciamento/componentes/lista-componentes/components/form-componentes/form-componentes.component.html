@@ -1,0 +1,46 @@
+<form [formGroup]="formGroup" class="form h-full flex flex-col justify-between gap-3">
+  <div class="form-group grid grid-cols-2 gap-x-4 gap-y-2">
+
+    <tvc-input class="w-full" id="nmComponente" formControlName="nmComponente" label="Nome do Componente"
+    placeholder="Nome de Componente" inputNormalize="alfanum" required [maxlength]="40" [minlength]="3" />
+
+
+    <tvc-input class="w-full" id="idComponente" formControlName="idComponente" label="Id do Componente"
+    placeholder="Id do Componente" inputNormalize="alfanum" required [maxlength]="40" />
+
+    <tvc-dropdown class="w-full" id="cdTipoComponente" formControlName="cdTipoComponente" useLabel="nmTipoComponente"
+    useValue="cdTipoComponente" label="Tipo do Componente" placeholder="Tipo do Componente" required
+    [providers]="tiposComponente" />
+
+    <tvc-dropdown class="w-full col-span-2" id="cdEquipamento" formControlName="cdEquipamento" useLabel="idEquipamento"
+      useValue="cdEquipamento" label="Equipamento" placeholder="Equipamento" required [providers]="equipamentos" />
+
+  </div>
+
+  <div class="w-full flex justify-end gap-2">
+    <button *ngIf="componentes && !isEditable && componentes.lgAtivo" (click)="toggleEdit()" mat-flat-button
+      class="bg-accent/10 text-primary disabled:cursor-not-allowed disabled:text-accent/50">
+      <i [class]="icon" class="text-lg"></i>
+      <span class="pt-1">
+        Editar
+      </span>
+    </button>
+
+    <button *ngIf="(isEditable && componentes)" (click)="confirmarDesativacaoDeComponente(componentes)"
+      [disabled]="!formGroup.valid" mat-flat-button class="bg-red-700/10 text-red-700 disabled:cursor-not-allowed">
+      <i [class]="iconClose" class="text-lg"></i>
+      <span class="pt-1">
+        Desativar
+      </span>
+    </button>
+
+    <button *ngIf="(isEditable && componentes) || (!componentes)" (click)="onSubmit()" [disabled]="!formGroup.valid"
+      mat-flat-button
+      class="bg-primary/10 text-primary disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-primary/50">
+      <i [class]="icon" class="text-lg"></i>
+      <span class="pt-1">
+        Salvar
+      </span>
+    </button>
+  </div>
+</form>

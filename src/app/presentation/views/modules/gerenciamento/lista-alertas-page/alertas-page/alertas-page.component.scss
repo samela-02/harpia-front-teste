@@ -1,0 +1,56 @@
+::ng-deep .mdc-button__label {
+  @apply flex-center justify-center gap-2;
+}
+
+::ng-deep .main-content {
+  @apply p-0 #{!important};
+}
+
+.page {
+  @apply h-full flex flex-col gap-2;
+}
+
+.grid-container {
+  @apply w-full h-full grid grid-cols-12 gap-3;
+}
+
+.main-content-area {
+  @apply xl:col-span-9 lg:col-span-7 col-span-12 flex flex-col gap-2 p-4;
+}
+
+.header-section {
+  @apply w-full flex justify-between items-center px-1;
+}
+
+.header-title {
+  @apply text-primary text-base;
+}
+
+.cadastrar-button {
+  @apply font-semibold bg-primary/10 text-primary #{!important};
+
+  .icon {
+    @apply text-lg;
+  }
+
+  .button-label {
+    @apply md:flex hidden;
+  }
+}
+
+.table-alertas {
+  @apply overflow-y-hidden;
+}
+
+.sidebar-area {
+  @apply xl:col-span-3 lg:col-span-5 col-span-12 flex flex-row gap-2 p-4 h-full bg-gray-50/80 overflow-auto;
+}
+
+.sidebar-content {
+   @apply col-span-4 flex flex-col gap-2 h-full;
+}
+
+
+.table-tipo-alertas {
+  @apply overflow-y-hidden;
+}

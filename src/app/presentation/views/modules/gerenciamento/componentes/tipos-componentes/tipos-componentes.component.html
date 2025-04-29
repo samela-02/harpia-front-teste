@@ -1,0 +1,17 @@
+<div class="page h-full flex flex-col gap-2">
+  <div class="w-full flex flex-row justify-end">
+    <div class="flex-center gap-3">
+      <app-filters-inputs [formGroup]="formGroup" searchField="nmTipoComponente" placeholder="Pesquisar Tipo"
+        (search)="onSearch()" [openFilters]="false">
+      </app-filters-inputs>
+      <button mat-flat-button (click)="cadastrar()" class="font-semibold bg-primary/10 text-primary">
+        <i [class]="icon" class="text-lg"></i>
+        <label class="md:flex hidden">
+          Cadastrar Tipo
+        </label>
+      </button>
+    </div>
+  </div>
+  <app-table-tipos-componentes [formGroup]="formGroup"
+    class="overflow-x-auto overflow-y-hidden"></app-table-tipos-componentes>
+</div>

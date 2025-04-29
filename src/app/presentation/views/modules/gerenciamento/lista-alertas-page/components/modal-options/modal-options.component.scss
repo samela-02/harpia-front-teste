@@ -1,0 +1,35 @@
+.modal {
+  @apply sm:min-w-[400px] min-h-[100px] w-full p-5 h-auto flex flex-col bg-white rounded-3xl;
+
+  &-header {
+    @apply flex items-end gap-x-4 min-w-0 max-w-[70%];
+  }
+
+  &-close {
+    @apply flex items-center justify-end;
+  }
+
+  .main {
+    @apply flex flex-col gap-2 justify-between h-auto #{!important};
+  }
+
+  .button {
+    @apply w-5 flex justify-center items-center text-white h-5 cursor-pointer rounded-md;
+  }
+
+  .export-button-wrapper {
+    @apply relative;
+  }
+
+  .page-header-content {
+    @apply bg-white dark:bg-dark-container rounded-t-lg p-4 flex justify-between;
+  }
+
+  .icon {
+    @apply text-accent text-[80px] leading-[80px] h-[80px] w-[80px] #{!important};
+  }
+
+  .header {
+    @apply flex flex-row items-center w-full gap-x-4 mb-5;
+  }
+}

@@ -10,3 +10,5 @@ export const environment: Environment = {
   context: "api",
   version: packageInfo.version,
 };
+
+export const environmentHarpiaMs = "http://localhost:8081/api/v1"

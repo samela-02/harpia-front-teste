@@ -1,0 +1,26 @@
+<div class="w-[240px] md:w-[300px] relative">
+  <div class="header-group-filter" [class.header-overlay-opening]="isOpenBox"
+    [class.header-overlay-closing]="!isOpenBox">
+    <div class="search-container flex flex-row">
+      <mat-icon class="text-primary">
+        search
+      </mat-icon>
+      <mat-form-field appearance="outline" class="map-search-field">
+        <input [maxlength]="maxLeght" [minlength]="minLenght" matInput [placeholder]="placeholder" class="search-input" [(ngModel)]="searchTerm"
+          (keyup)="onKeyUp($event)">
+      </mat-form-field>
+    </div>
+    @if(openFilters){
+    <button (click)="toggleFilters()">
+      <i class="las la-filter icon "></i>
+    </button>
+    }
+  </div>
+  <div class="filters-overlay" [class.filters-overlay-opening]="isOpenBox"
+    [class.filters-overlay-closing]="!isOpenBox && showFiltersOverlay" [formGroup]="formGroup"
+    *ngIf="showFiltersOverlay">
+    <div class="filters-content">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>

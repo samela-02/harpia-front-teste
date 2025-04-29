@@ -1,4 +1,4 @@
-import { FiltersInputsComponent } from '@/presentation/components/filters-inputs/filters-inputs.component';
+import { FiltersInputsComponent } from '@/presentation/shared/components/filters-inputs/filters-inputs.component';
 import { Component, inject, viewChild, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { TableUsuariosComponent } from './components/table-usuarios/table-usuarios.component';
@@ -37,18 +37,7 @@ export class UsuariosPageComponent {
     this.table().load(filters);
   }
 
-  clear() {
-    this.formGroup.reset();
-    this.table().load();
-  }
-
   cadastrar() {
     this._modalService.component(ModalFormCreateUsuarioComponent).open();
-    // this._modalService.onDismiss().subscribe(() => {
-    //   if (this.tableUsuarios) {
-    //     this.tableUsuarios.load();
-    //   }
-    // });
   }
-
 }

@@ -1,28 +1,23 @@
-import { ResponseData } from '@/application/dtos/response-data.dto';
-import { ResponsePaginacao } from '@/application/dtos/response-paginacao.dto';
-import { Instituicao } from '@/domain/models/command/instituicao';
-import { Component, inject, Input } from '@angular/core';
-import { InstituicaoFilter, InstituicaoProps } from '@/domain/filters/instituicao/instituicao.filter';
-import { tableModule } from '@/presentation/shared/table.module';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatSortModule } from '@angular/material/sort';
-import { CommonModule } from '@angular/common';
-import { PageEvent } from '@angular/material/paginator';
-import { ModalService } from '@tivic-team/tivic-ui';
-import { Store } from '@ngxs/store';
-import { FormGroup } from '@angular/forms';
-import { TablePageBase } from '@/infrastructure/configuration/table-config/table-page.config';
 import { UsuarioFilter, UsuarioProps } from '@/domain/filters/usuario/usuario.filter';
+import { Instituicao } from '@/domain/models/command/instituicao';
+import { TablePageBase } from '@/infrastructure/configuration/table-config/table-page.config';
 import { BuscarUsuariosAction } from '@/infrastructure/store/actions/usuario.actions';
 import { UsuarioSelectors } from '@/infrastructure/store/selectors/usuario.selectors';
+import { tableModule } from '@/presentation/shared/table.module';
+import { CommonModule } from '@angular/common';
+import { Component, inject, Input } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatSortModule } from '@angular/material/sort';
+import { Store } from '@ngxs/store';
+import { ModalService } from '@tivic-team/tivic-ui';
 import { ModalFormUsuarioUpdateComponent } from '../modal-form-update-usuario/modal-form-update-usuario.component';
-import { RoleLabel, UsuarioRole } from '@/domain/enums/usuario-role.enum';
-import { UsuarioQueryResponse } from '@/domain/models/query/usuarioQueryResponse';
+import { NoTableComponent } from '@/presentation/shared/components/no-table/no-table.component';
 
 @Component({
   selector: 'app-table-usuarios',
   standalone: true,
-  imports: [...tableModule, MatChipsModule, MatSortModule, CommonModule],
+  imports: [...tableModule, MatChipsModule, MatSortModule, CommonModule, NoTableComponent],
   templateUrl: './table-usuarios.component.html',
   styleUrl: './table-usuarios.component.scss'
 })

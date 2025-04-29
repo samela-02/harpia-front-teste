@@ -25,16 +25,24 @@ export const gerenciamentoRoutes: Routes = [
     }
   },
   {
-    path: "pastas-alertas",
-    loadChildren: () => import('./pastas-alertas-page/pasta-alertas.routes').then(p => p.pastaAlertasRoutes),
+    path: "lista-alertas",
+    loadChildren: () => import('./lista-alertas-page/lista-alertas.routes').then(p => p.listaAlertasRoutes),
     data: {
-      title: 'Pastas de Alertas',
+      title: 'Lista de Alertas',
       icon: 'la la-folder-open',
-      breadcrumb: 'Pastas de Alertas'
+      breadcrumb: 'Lista de Alertas'
     }
   },
   {
     path: "equipamentos",
     loadChildren: () => import('./equipamentos/equipamentos.routes').then(e => e.EquipamentosRoutes),
+  },
+  {
+    path: "veiculos",
+    loadChildren: () => import('./veiculos/veiculos.routes').then(v => v.VeiculosRoutes)
+  },
+  {
+    path: "componentes",
+    loadChildren: () => import('./componentes/componentes.routes').then(e => e.ComponentesRoutes),
   }
 ]

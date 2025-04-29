@@ -1,0 +1,23 @@
+<div class="modal">
+  <div class="header">
+    <div class="modal-header">
+      <i [class]="'la la-camera-retro'" class="text-[27px] flex justify-center text-primary"></i>
+      <span class="flex-center text-lg font-semibold text-text">
+       Detecção
+      </span>
+    </div>
+    <div class="modal-close">
+      <tvc-button icon="close" color="link" class="opacity-50" (click)="fecharModal()" />
+    </div>
+  </div>
+  <div class="main">
+        <mat-tab-group>
+          <mat-tab label="Evento">
+            <app-evento-content-modal [deteccao]="deteccao"/>
+          </mat-tab>
+          <mat-tab label="Mais detalhes">
+            <app-mais-detalhes-content-modal [deteccao]="deteccao"/>
+          </mat-tab>
+        </mat-tab-group>
+  </div>
+</div>-

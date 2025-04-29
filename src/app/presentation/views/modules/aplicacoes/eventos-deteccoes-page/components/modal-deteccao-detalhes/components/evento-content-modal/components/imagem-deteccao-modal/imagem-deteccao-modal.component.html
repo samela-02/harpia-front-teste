@@ -1,0 +1,49 @@
+<div class="modal">
+  <div  #imageContainer class="image-container">
+    <div class="flex flex-row gap-2 absolute top-3 right-3 bg-slate-50" [class]="{'rounded-3xl': !openConfig, 'rounded-t-[20px]': openConfig}">
+      <button mat-mini-fab class="bg-transparent shadow-none" #tooltip="matTooltip" matTooltip="Configurações"
+        (click)="openConfig = !openConfig">
+        <i [class]="'la la-cog'" class="text-primary"></i>
+      </button>
+      <button mat-mini-fab class="button-download bg-transparent shadow-none"
+        (click)="downloadImage()" #tooltip="matTooltip" matTooltip="Baixar Imagem">
+        <i [class]="'la la-save'" class="text-primary"></i>
+      </button>
+      <button mat-mini-fab class="button-close bg-transparent shadow-none" (click)="fecharModal()" #tooltip="matTooltip"
+        matTooltip="Fechar modal">
+        <i [class]="'la la-times'" class="text-primary"></i>
+      </button>
+    </div>
+    @if (openConfig) {
+    <div class="w-[8.5em] min-h-12 h-auto bg-slate-50 absolute top-12 right-3 rounded-b-[20px] p-2">
+      <div class="flex justify-center">
+        <mat-slide-toggle labelPosition="before" [checked]="exibeBoundBox" (change)="onToggleChange($event)">
+          <span class=" text-primary text-sm mr-1">
+            Marcação
+          </span>
+        </mat-slide-toggle>
+      </div>
+    </div>
+    }
+    <img [src]="'data:image/' + deteccao?.imgEncoding + ';base64,' + deteccao?.imgOriginal" alt="Imagem do evento"
+      class="img-captura">
+    @if (exibeBoundBox && deteccao?.bBoxQueryResponse) {
+    <div
+      class="bounding-box"
+      [style.left.%]="deteccao.bBoxQueryResponse.x1ImgBbox * 100"
+      [style.top.%]="deteccao.bBoxQueryResponse.y1ImgBbox * 100"
+      [style.width.%]="(deteccao.bBoxQueryResponse.x2ImgBbox - deteccao.bBoxQueryResponse.x1ImgBbox) * 100"
+      [style.height.%]="(deteccao.bBoxQueryResponse.y2ImgBbox - deteccao.bBoxQueryResponse.y1ImgBbox) * 100"
+    >
+  </div>
+    <div
+      class="placa-box"
+      [style.left.%]="deteccao.bBoxQueryResponse.x1ImgBbox * 100"
+      [style.top.%]="deteccao.bBoxQueryResponse.y2ImgBbox * 100"
+      [style.width.%]="(deteccao.bBoxQueryResponse.x2ImgBbox - deteccao.bBoxQueryResponse.x1ImgBbox) * 100"
+    >
+        <span class="placa-text">{{ deteccao.nrPlaca }}</span>
+    </div>
+    }
+  </div>
+</div>

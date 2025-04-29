@@ -1,0 +1,56 @@
+<form [formGroup]="formGroup" class="form h-full flex flex-col justify-between gap-3">
+  <div class="form-group">
+    <tvc-input class="w-full" id="idVeiculo" formControlName="idVeiculo" label="Id do Veículo"
+      placeholder="Id do Veículo" inputNormalize="alfanum" required [maxlength]="40" [minlength]="3" />
+
+    <tvc-input class="w-full" id="nrPlaca" formControlName="nrPlaca" label="Placa"
+      placeholder="Placa" inputNormalize="alfanum" required [maxlength]="7" [minlength]="7" />
+
+    <tvc-input class="w-full" id="nmMarca" formControlName="nmMarca" label="Marca" placeholder="Marca"
+      inputNormalize="alfanum" required [maxlength]="40" />
+
+    <tvc-input class="w-full" id="nmModelo" formControlName="nmModelo" label="Modelo" placeholder="Modelo"
+      inputNormalize="alfanum" required [maxlength]="40" />
+
+    <mat-form-field appearance="outline" class="!w-full">
+      <mat-label>Cor</mat-label>
+      <mat-select formControlName="corVeiculo" class="!w-full">
+        @for (cor of optionsCoresVeiculos; track cor.cor) {
+        <mat-option [value]="cor.nome">
+          <div class="flex flex-row flex-center">
+            <span class="color-square" [style.background-color]="cor.cor"></span>
+            {{ cor.nome }}
+          </div>
+        </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="w-full flex justify-end gap-2">
+    <button *ngIf="veiculo && !isEditable && veiculo.lgAtivo" (click)="toggleEdit()" mat-flat-button
+      class="bg-accent/10 text-primary disabled:cursor-not-allowed disabled:text-accent/50">
+      <i [class]="icon" class="text-lg"></i>
+      <span class="pt-1">
+        Editar
+      </span>
+    </button>
+
+    <button *ngIf="(isEditable && veiculo)" (click)="confirmarDesativacaoDeVeiculoCCO(veiculo)"
+      [disabled]="!formGroup.valid" mat-flat-button class="bg-red-700/10 text-red-700 disabled:cursor-not-allowed">
+      <i [class]="iconClose" class="text-lg"></i>
+      <span class="pt-1">
+        Desativar
+      </span>
+    </button>
+
+    <button *ngIf="(isEditable && veiculo) || (!veiculo)" (click)="onSubmit()" [disabled]="!formGroup.valid"
+      mat-flat-button
+      class="bg-primary/10 text-primary disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-primary/50">
+      <i [class]="icon" class="text-lg"></i>
+      <span class="pt-1">
+        Salvar
+      </span>
+    </button>
+  </div>
+</form>

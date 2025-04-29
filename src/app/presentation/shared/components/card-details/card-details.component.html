@@ -1,0 +1,11 @@
+<div class="p-4 border border-primary/20 relative rounded-md">
+  <div class="absolute -top-[14px] px-1 bg-white" *ngIf="titulo ||icone">
+    <span class="text-sm text-primary font-bold">
+      <i [class]="icone"></i>
+      {{titulo}}
+    </span>
+  </div>
+  <div class="content">
+    <ng-content></ng-content>
+  </div>
+</div>

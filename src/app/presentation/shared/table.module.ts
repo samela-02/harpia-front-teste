@@ -8,11 +8,13 @@ import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatSortModule } from "@angular/material/sort";
 import { MatTableModule } from "@angular/material/table";
 import { BadgeComponent, ButtonComponent, ChipsComponent, NoSearchComponent } from "@tivic-team/tivic-ui";
+import { NgxSkeletonLoaderModule } from "ngx-skeleton-loader";
 
 export const tableModule = [
     MatTableModule,
     MatPaginatorModule,
     MatCheckboxModule,
+    NgxSkeletonLoaderModule,
     DatePipe,
     CurrencyPipe,
     MatIconButton,

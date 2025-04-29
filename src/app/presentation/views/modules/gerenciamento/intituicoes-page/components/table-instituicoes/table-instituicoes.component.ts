@@ -12,11 +12,12 @@ import { MatSortModule } from '@angular/material/sort';
 import { Store } from '@ngxs/store';
 import { ModalService } from '@tivic-team/tivic-ui';
 import { ModalFormInstituicaoUpdateComponent } from '../modal-form-update-instituicao/modal-form-update-instituicao.component';
+import { NoTableComponent } from '@/presentation/shared/components/no-table/no-table.component';
 
 @Component({
   selector: 'app-table-instituicoes',
   standalone: true,
-  imports: [...tableModule, MatChipsModule, MatSortModule, CommonModule],
+  imports: [...tableModule, MatChipsModule, MatSortModule, CommonModule, NoTableComponent],
   templateUrl: './table-instituicoes.component.html',
   styleUrl: './table-instituicoes.component.scss'
 })
@@ -63,5 +64,5 @@ export class TableInstituicoesComponent extends TablePageBase{
 
   getSituacao = (lgAtivo: boolean) => lgAtivo ? "Ativo" : "Inativo";
 
-  displayedColumns: string[] = ['idInstituicao', 'nmInstituicao', 'txtObservacao', 'lgAtivo'];
+  displayedColumns: string[] = ['idInstituicao', 'nmInstituicao', 'txtObservacao', 'nmCidade', 'lgAtivo'];
 }

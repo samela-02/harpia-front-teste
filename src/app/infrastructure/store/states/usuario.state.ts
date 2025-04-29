@@ -27,7 +27,8 @@ export class UsuarioState {
   buscarUsuarios({ getState, setState }: StateContext<UsuarioStateModel>,
     { payload }: BuscarUsuariosAction): Observable<ResponseData<ResponsePaginacao<UsuarioQueryResponse>>> {
     return this.buscarUsuariosUseCase.execute(payload).pipe(
-      tap((response: ResponseData<ResponsePaginacao<UsuarioQueryResponse>>) => {
+      tap({
+        next:(response: ResponseData<ResponsePaginacao<UsuarioQueryResponse>>) => {
         response.data.dados.forEach((usuario) => {
           usuario.role = RoleLabel.get(usuario.role) as UsuarioRole
         });
@@ -36,7 +37,12 @@ export class UsuarioState {
           ...state,
           usuarios: response,
         });
-      }),
+      }, error: () => {
+        setState({
+          usuarios: null
+        })
+      }
+    }),
     );
   }
 }

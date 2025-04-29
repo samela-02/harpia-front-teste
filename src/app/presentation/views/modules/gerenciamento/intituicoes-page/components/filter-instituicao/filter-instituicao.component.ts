@@ -12,16 +12,13 @@ import { TableInstituicoesComponent } from '../table-instituicoes/table-institui
   templateUrl: './filter-instituicao.component.html',
   styleUrl: './filter-instituicao.component.scss'
 })
-export class FilterInstituicaoComponent implements OnInit {
+export class FilterInstituicaoComponent {
   private _elementRef = inject(ElementRef);
 
   @Input() formGroup!: FormGroup;
   @Input() table?: TableInstituicoesComponent;
 
   public show = signal<boolean>(false);
-
-  ngOnInit() {
-  }
 
   get value() {
     return this.formGroup.get("idInstituicao")?.value;
@@ -39,9 +36,6 @@ export class FilterInstituicaoComponent implements OnInit {
 
   limpar(): void {
     this.formGroup.reset();
-    if (this.table) {
-      this.table.load();
-    }
   }
 
   @HostListener("document:click", ["$event"])

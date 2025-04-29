@@ -30,6 +30,7 @@ export class EquipamentosFilter {
     filterManager.addFilter(new EquipamentoType.nmEquipamento(this.props.nmEquipamento));
     filterManager.addFilter(new EquipamentoType.cdEquipamento(this.props.cdEquipamento));
     filterManager.addFilter(new EquipamentoType.cdInstituicao(this.props.cdInstituicao));
+    filterManager.addFilter(new EquipamentoType.idEquipamento(this.props.idEquipamento));
     filterManager.addFilter(new EquipamentoType.lgAtivo(this.props.lgAtivo));
     filterManager.addFilter(new EquipamentoType.dtDelecaoInferior(this.props.dtDelecaoInferior));
     filterManager.addFilter(new EquipamentoType.dtDelecaoSuperior(this.props.dtDelecaoSuperior));

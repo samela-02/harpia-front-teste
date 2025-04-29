@@ -1,0 +1,28 @@
+.modal {
+  @apply lg:w-[80em] bg-transparent flex-center justify-center relative rounded-xl h-auto p-0 #{!important};
+}
+
+.img-captura {
+  @apply h-full w-full rounded-xl block;
+    background: no-repeat center;
+    background-size: cover;
+}
+
+.image-container {
+  @apply relative w-full h-full;
+}
+
+.bounding-box {
+  @apply absolute border-2 border-red-500;
+  box-sizing: border-box;
+}
+
+.placa-box {
+  @apply absolute bg-red-500 text-white flex items-center justify-center p-1;
+  box-sizing: border-box;
+  height: auto;
+}
+
+.placa-text {
+  @apply text-[10px] font-bold whitespace-nowrap leading-none;
+}

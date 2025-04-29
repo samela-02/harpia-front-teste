@@ -80,4 +80,8 @@ export class AuthServiceImpl implements AuthService {
     return localStorage.getItem('accessToken');
   }
 
+  public getExpiresIn(): string | null {
+   return localStorage.getItem('expiresIn');
+}
+
 }

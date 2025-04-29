@@ -1,0 +1,9 @@
+@import "../../../../../../../../assets/theme/modal-form";
+
+::ng-deep .mat-mdc-tab-body-wrapper {
+  @apply h-[20em]
+}
+
+::ng-deep .mat-mdc-tab-body-content {
+  @apply overflow-hidden #{!important}
+}

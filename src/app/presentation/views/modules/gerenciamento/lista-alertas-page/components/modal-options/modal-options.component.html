@@ -1,0 +1,26 @@
+<div class="modal">
+  <div class="header">
+    <div class="modal-header">
+      <i [class]="'la la-pencil-ruler'" class="text-[27px] flex justify-center text-primary flex-shrink-0"></i>
+      <span class="text-lg font-semibold text-text leading-tight">
+        {{listaAlerta?.nmListaAlerta}}
+      </span>
+    </div>
+    <div class="modal-close flex-shrink-0">
+      <tvc-button icon="close" color="link" class="opacity-50" (click)="fecharModal()" />
+    </div>
+  </div>
+  <div class="main">
+    <button mat-flat-button class="font-semibold bg-primary text-blue-50" (click)="openModalUpdate()">
+      <i [class]="'la la-edit'" class="text-lg"></i>
+      <label class="md:flex hidden">
+        Editar Lista de Alerta
+      </label>
+    </button>
+    <button (click)="redirectPageAlerts()" mat-flat-button class="font-semibold bg-primary/10 text-primary">
+      <label class="md:flex hidden">
+        Visualizar Alertas
+      </label>
+      <i [class]="'la la-exclamation-triangle'" class="text-lg"></i>
+    </button>
+</div>

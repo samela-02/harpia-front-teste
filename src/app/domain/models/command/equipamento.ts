@@ -1,9 +1,10 @@
 export class Equipamento {
   cdEquipamento?: number | null;
+  cdTipoEquipamento: number;
   cdInstituicao: number;
   nmEquipamento: string;
   idEquipamento: string;
-  dtAlocacao: Date;
+  dtAlocacao?: Date;
   nrSerie: string;
   lgAtivo?: number;
 
@@ -11,17 +12,19 @@ export class Equipamento {
     cdInstituicao: number,
     nmEquipamento: string,
     idEquipamento: string,
-    dtAlocacao: Date,
     nrSerie: string,
+    cdTipoEquipamento: number,
+    dtAlocacao?: Date,
     cdEquipamento?: number | null,
     lgAtivo?: number
   ) {
     this.cdInstituicao = cdInstituicao,
     this.nmEquipamento = nmEquipamento,
     this.idEquipamento = idEquipamento,
-    this.dtAlocacao =  dtAlocacao,
     this.nrSerie = nrSerie
+    this.dtAlocacao =  dtAlocacao,
     this.cdEquipamento = cdEquipamento,
+    this.cdTipoEquipamento = cdTipoEquipamento,
     this.lgAtivo = lgAtivo
   }
 }

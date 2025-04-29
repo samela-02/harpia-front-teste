@@ -2,7 +2,9 @@ import { ListaAlertaRepository } from "@/application/repositories/lista-alerta.r
 import { BuscarListaAlertaUseCase } from "@/application/usecase/lista-alerta/buscar-lista-alertas.usecase";
 import { CriarListaAlertaUseCase } from "@/application/usecase/lista-alerta/criar-lista-alerta.usecase";
 import { DesativarListaAlertaUseCase } from "@/application/usecase/lista-alerta/desativar-lista-alerta.usecase";
+import { DesvincularInstituicaoUseCase } from "@/application/usecase/lista-alerta/desvincular-instituicao.usecase";
 import { EditarListaAlertaUseCase } from "@/application/usecase/lista-alerta/editar-lista-alerta.usecase";
+import { VincularInstituicaoUseCase } from "@/application/usecase/lista-alerta/vincular-instituicao.usecase";
 import { ListaAlertaRepositoryImpl } from "@/infrastructure/repository/lista-alerta-impl.repository";
 
 export const criarListaAlertaProvider = {
@@ -29,11 +31,25 @@ export const buscarListaAlertasProvider = {
   deps: [ListaAlertaRepository]
 }
 
-export const instituicaoProviders = [
+export const vincularInstituicaoProvider = {
+  provide: VincularInstituicaoUseCase,
+  useFactory: (listaAlertaRepository: ListaAlertaRepository) => new VincularInstituicaoUseCase(listaAlertaRepository),
+  deps: [ListaAlertaRepository]
+}
+
+export const desvincularInstituicaoProvider = {
+  provide: DesvincularInstituicaoUseCase,
+  useFactory: (listaAlertaRepository: ListaAlertaRepository) => new DesvincularInstituicaoUseCase(listaAlertaRepository),
+  deps: [ListaAlertaRepository]
+}
+
+export const listaAlertaProviders = [
   criarListaAlertaProvider,
   buscarListaAlertasProvider,
   editarListaAlertaProvider,
   desativarListaAlertaProvider,
+  vincularInstituicaoProvider,
+  desvincularInstituicaoProvider,
   {
     provide: ListaAlertaRepository,
     useClass: ListaAlertaRepositoryImpl

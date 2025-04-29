@@ -3,9 +3,10 @@ import { CriarUsuarioUseCase } from '@/application/usecase/usuario/criar-usuario
 import { DesativarUsuarioUseCase } from '@/application/usecase/usuario/desativar-usuario.usecase';
 import { EditarUsuarioUseCase } from '@/application/usecase/usuario/editar-usuario.usecase';
 import { RoleLabel, UsuarioRole } from '@/domain/enums/usuario-role.enum';
-import { InstituicaoProps } from '@/domain/filters/instituicao/instituicao.filter';
+import { InstituicaoFilter, InstituicaoProps } from '@/domain/filters/instituicao/instituicao.filter';
 import { UsuarioFilter, UsuarioProps } from '@/domain/filters/usuario/usuario.filter';
 import { Usuario } from '@/domain/models/command/usuario';
+import { BuscarInstituicoesAction } from '@/infrastructure/store/actions/instituicao.actions';
 import { BuscarUsuariosAction } from '@/infrastructure/store/actions/usuario.actions';
 import { InstituicaoSelectors } from '@/infrastructure/store/selectors/instituicao.selectors';
 import { CommonModule } from '@angular/common';
@@ -72,6 +73,7 @@ export class FormUsuarioComponent {
     this.updateForm();
     this.updateFormState();
     this.updatePasswordValidators();
+    this.loadInstituicoes()
   }
 
   private updateFormState() {
@@ -121,7 +123,6 @@ export class FormUsuarioComponent {
     if (this.formGroup.valid) {
       const formData = this.formGroup.value as Usuario;
       if (this.usuario?.cdUsuario) {
-        console.log('teste',this.usuario.cdUsuario)
         this.editarUsuario(this.usuario.cdUsuario, formData);
       } else {
         this.criarUsuario(formData);
@@ -185,7 +186,7 @@ export class FormUsuarioComponent {
   }
 
   loadTableUsuário() {
-    const paginationProps: InstituicaoProps = {
+    const paginationProps: UsuarioProps = {
       page: 0,
     };
     const filter = new UsuarioFilter(paginationProps);
@@ -193,16 +194,24 @@ export class FormUsuarioComponent {
     })
   }
 
+  loadInstituicoes(page: number = 0) {
+    const paginationProps: InstituicaoProps = {
+      page: page,
+      size: 5000,
+    };
+    const filterProps = new InstituicaoFilter(paginationProps);
+    this._store.dispatch(new BuscarInstituicoesAction(filterProps)).subscribe()
+  }
+
+
   private updatePasswordValidators() {
     const senhaControl = this.formGroup.get('nmSenha');
     const confirmacaoSenhaControl = this.formGroup.get('nmConfirmacaoSenha');
 
     if (this.usuario?.cdUsuario) {
-      console.log('aqui 1')
       senhaControl?.clearValidators();
       confirmacaoSenhaControl?.clearValidators();
     } else {
-      console.log('aqui 2')
       senhaControl?.setValidators([Validators.required]);
       confirmacaoSenhaControl?.setValidators([Validators.required]);
     }
@@ -214,7 +223,6 @@ export class FormUsuarioComponent {
     const senha = control.get('nmSenha');
     const confirmacaoSenha = control.get('nmConfirmacaoSenha');
     if (!senha || !confirmacaoSenha && this.usuario?.cdUsuario) {
-      console.log('teste')
       return null;
     }
     if (senha.value || confirmacaoSenha.value) {

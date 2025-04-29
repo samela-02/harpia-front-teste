@@ -1,0 +1,47 @@
+<div class="flex flex-col gap-4 mt-4 h-full min-h-[26em]">
+  <app-card-details titulo="Detecção" icone="la la-camera-retro">
+    <div class="h-full w-full flex-col flex text-primary text-sm">
+      <span class="flex items-start gap-1">
+        <i [class]="'la la-star-half-alt'" class="mt-[2px]"></i>
+        <span>
+          <strong>
+            Nível:
+          </strong>
+          <span [style.background-color]="getColorByNivel(5)"
+            style="display: inline-block; width: 10px; height: 10px; border-radius: 50%;">
+          </span>
+          Furto/Roubo
+        </span>
+      </span>
+
+      <app-info-line [descricao]="(deteccao.dtDeteccao | date:'dd/MM/yyy HH:mm:ss') || 'N/A'" [icone]="'la la-calendar'"
+        titulo="Data"></app-info-line>
+      <app-info-line titulo="Equipamento" icone="la la-camera-retro" [descricao]="deteccao.idEquipamento" />
+    </div>
+  </app-card-details>
+  <app-card-details titulo="Veículo" icone="la la-car-alt">
+    <div class="h-full w-full grid grid-cols-2 text-primary text-sm">
+      <app-info-line titulo="Placa" icone="la la-tag" [descricao]="deteccao?.nrPlaca ? deteccao?.nrPlaca : 'N/A'" />
+      <app-info-line titulo="Modelo" icone="la la-truck-pickup" descricao="Polo Sedan" />
+      <app-info-line titulo="Marca" icone="la la-plus-square" descricao="Volkswagen" />
+      <app-info-line titulo="Cor" icone="la la-brush" descricao="Azul" />
+      <app-info-line titulo="Ano" icone="la la-sort-numeric-up-alt" descricao="1925" />
+      <app-info-line [descricao]="'GREIGHIOH3R3'" [icone]="'la la-x-ray'" titulo="Chassi"></app-info-line>
+      <app-info-line [descricao]="'RTHTOHOTR34'" [icone]="'la la-file-contract'" titulo="Renavam"></app-info-line>
+      <app-info-line [descricao]="'Rua São Geraldo'" [icone]="'la la-map-marked'" titulo="Logradouro" [truncate]="25"></app-info-line>
+      <app-info-line [descricao]="'578'" [icone]="'la la-map-marked'" titulo="Número do Endereço"></app-info-line>
+      <app-info-line [descricao]="'Próximo ao Supermercado Central'" [icone]="'la la-map-marked'" titulo="Complemento" [truncate]="22"></app-info-line>
+      <app-info-line [descricao]="'Centro'" [icone]="'la la-map-marked'" titulo="Bairro" [truncate]="25"></app-info-line>
+      <app-info-line [descricao]="'Vitória da Conquista'" [icone]="'la la-city'" titulo="Cidade"></app-info-line>
+      <app-info-line [descricao]="'Bahia'" [icone]="'la la-map-marked'" titulo="Estado"></app-info-line>
+    </div>
+  </app-card-details>
+  <app-card-details titulo="Proprietário" icone="la la-user-tag">
+    <div class="grid grid-cols-1 text-primary text-sm">
+      <app-info-line [descricao]="'Proprietário'"
+        [icone]="'la la-id-card-alt'" titulo="Nome"></app-info-line>
+      <app-info-line [descricao]="'5484818181818787'"
+        [icone]="'la la-id-card'" titulo="Documento"></app-info-line>
+    </div>
+  </app-card-details>
+</div>

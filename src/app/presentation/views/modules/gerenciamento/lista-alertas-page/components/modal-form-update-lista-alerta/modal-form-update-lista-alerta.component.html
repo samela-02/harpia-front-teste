@@ -1,0 +1,22 @@
+<div class="modal">
+    <div class="header">
+      <div class="modal-header">
+        <i [class]="icon" class="text-[27px] flex justify-center text-primary"></i>
+        <span class="flex-center text-lg font-semibold text-text">Editar Lista de Alerta</span>
+      </div>
+      <div class="modal-close">
+        <tvc-button icon="close" color="link" class="opacity-50" (click)="fecharModal()" />
+      </div>
+    </div>
+    <div class="main">
+      <mat-tab-group>
+        <mat-tab label="Formulário">
+          <app-form-lista-alerta [listaAlerta]="listaAlerta" (cadastroSucesso)="fecharModal()" />
+        </mat-tab>
+        <mat-tab label="Instituições Vinculadas">
+          <app-table-instituicoes-vinculadas
+            [instituicoesVinculadas]="listaAlerta?.instituicoesComAcesso" [cdListaAlerta]="listaAlerta.cdListaAlerta"></app-table-instituicoes-vinculadas>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+</div>

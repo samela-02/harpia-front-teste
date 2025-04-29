@@ -12,12 +12,17 @@
 
     <ng-container matColumnDef="nmInstituicao">
       <th mat-header-cell *matHeaderCellDef> NOME </th>
-      <td mat-cell *matCellDef="let dados"> {{dados?.nmInstituicao}} </td>
+      <td mat-cell *matCellDef="let dados"> {{dados?.nmInstituicao ? dados?.nmInstituicao : '-'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="txtObservacao">
       <th mat-header-cell *matHeaderCellDef> OBSERVAÇÃO </th>
-      <td mat-cell *matCellDef="let dados"> {{dados?.txtObservacao}} </td>
+      <td mat-cell *matCellDef="let dados"> {{dados?.txtObservacao ? dados?.txtObservacao : 'N/A'}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="nmCidade">
+      <th mat-header-cell *matHeaderCellDef> CIDADE </th>
+      <td mat-cell *matCellDef="let dados"> {{dados?.nmCidade}} </td>
     </ng-container>
 
     <ng-container matColumnDef="lgAtivo">
@@ -41,7 +46,10 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="rowChange($event, row)"></tr>
   </table>
 
+  <no-table [dataSource]="instituicoes()?.data?.dados" />
+
   <mat-paginator
+    *ngIf="instituicoes()?.data?.dados.length == pageSize || pageIndex != 0"
     [length]="dataLength"
     [pageSizeOptions]="[5, 10]"
     [pageSize]="pageSize"

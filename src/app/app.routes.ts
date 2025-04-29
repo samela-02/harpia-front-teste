@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { SidenavComponent } from './presentation/components/sidenav/sidenav.component';
+import { SidenavComponent } from './presentation/shared/components/sidenav/sidenav.component';
 import { AuthGuard } from './infrastructure/guard/auth.guards';
 
 export const routes: Routes = [

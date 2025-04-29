@@ -1,5 +1,5 @@
 import { Selector } from "@ngxs/store";
-import { InstituicaoState, InstituicaoStateModel } from "../states/instituicao.state";
+import { InstituicaoState, InstituicaoStateModel, InstituicaoVinculadaStateModel } from "../states/instituicao.state";
 
 export class InstituicaoSelectors {
   @Selector([InstituicaoState])
@@ -8,7 +8,12 @@ export class InstituicaoSelectors {
   }
 
   @Selector([InstituicaoState])
+  static instituicaoVinculadas(state: InstituicaoVinculadaStateModel) {
+    return state.instituicoesVinculadas
+  }
+
+  @Selector([InstituicaoState])
   static instituicaoSelect(state: InstituicaoStateModel) {
-    return state.instituicoes.data.dados
+    return state.instituicoes?.data?.dados
   }
 }

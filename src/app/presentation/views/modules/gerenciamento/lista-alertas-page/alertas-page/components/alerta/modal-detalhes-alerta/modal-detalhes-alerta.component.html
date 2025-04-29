@@ -1,0 +1,70 @@
+<div class="modal">
+  <div class="header">
+    <div class="modal-header">
+      <i [class]="'la la-exclamation-triangle'" class="text-[27px] flex justify-center text-primary"></i>
+      <span class="flex-center text-lg font-semibold text-text">
+        Detalhes do Alerta
+      </span>
+    </div>
+    <div class="modal-close">
+      <tvc-button icon="close" color="link" class="opacity-50" (click)="fecharModal()" />
+    </div>
+  </div>
+  <div class="main gap-4">
+    <app-card-details>
+      <div class="grid grid-cols-2 text-primary text-sm">
+        <app-info-line [descricao]="alerta.dsAlerta ? alerta.dsAlerta : 'N/A'" [icone]="'la la-file-invoice'" titulo="Descrição" class="col-span-2"></app-info-line>
+
+        <app-info-line [descricao]="(alerta.dtAlerta | date:'dd/MM/yyy HH:mm:ss') || 'N/A'" [icone]="'la la-calendar'" titulo="Data"></app-info-line>
+
+        <span class="flex items-start gap-1">
+          <i [class]="'la la-star-half-alt'" class="mt-[2px]"></i>
+          <span>
+            <strong>
+              Nível:
+            </strong>
+            <span [style.background-color]="getColorByNivel(alerta?.tipoAlertaQueryResponse.nvTipoAlerta)"
+              style="display: inline-block; width: 10px; height: 10px; border-radius: 50%;">
+            </span>
+            {{alerta?.tipoAlertaQueryResponse.nmTipoAlerta}}
+          </span>
+        </span>
+      </div>
+    </app-card-details>
+    <app-card-details titulo="Veículo" icone="la la-car-alt">
+      <div class="grid grid-cols-2 text-primary text-sm">
+        <app-info-line [descricao]="veiculo?.nrPlaca ? veiculo?.nrPlaca : 'N/A'" [icone]="'la la-tag'" titulo="Placa"></app-info-line>
+        <app-info-line [descricao]="veiculo?.nmModelo ? veiculo?.nmModelo : 'N/A'" [icone]="'la la-truck-pickup'" titulo="Modelo"></app-info-line>
+        <app-info-line [descricao]="veiculo?.nmCor ? veiculo?.nmCor : 'N/A'" [icone]="'la la-brush'" titulo="Cor"></app-info-line>
+        <app-info-line [descricao]="veiculo?.nmMarca ? veiculo?.nmMarca : 'N/A'" [icone]="'la la-plus-square'"
+          titulo="Marca"></app-info-line>
+        <app-info-line [descricao]="veiculo?.nrAno ? veiculo?.nrAno?.toString() : 'N/A'" [icone]="'la la-sort-numeric-up-alt'"
+          titulo="Ano"></app-info-line>
+        <app-info-line [descricao]="veiculo?.nrChassi ? veiculo?.nrChassi : 'N/A'"
+          [icone]="'la la-x-ray'" titulo="Chassi"></app-info-line>
+        <app-info-line [descricao]="veiculo?.nrRenavam ? veiculo?.nrRenavam : 'N/A'" [icone]="'la la-file-contract'"
+          titulo="Renavam"></app-info-line>
+        <app-info-line [descricao]="veiculo?.endereco.nmCidade ? veiculo?.endereco.nmCidade : 'N/A'" [icone]="'la la-city'"
+          titulo="Cidade"></app-info-line>
+        <app-info-line [descricao]="veiculo?.endereco.nmEstado ? veiculo?.endereco.nmEstado : 'N/A'" [icone]="'la la-map-marked'"
+          titulo="Estado"></app-info-line>
+        </div>
+      </app-card-details>
+      <app-card-details titulo="Proprietário" icone="la la-user-tag">
+        <div class="grid grid-cols-2 text-primary text-sm">
+          <app-info-line [descricao]="veiculo?.proprietarios[0] ? veiculo?.proprietarios[0].nmProprietario : 'N/A'" [icone]="'la la-id-card-alt'"
+            titulo="Nome"></app-info-line>
+          <app-info-line [descricao]="veiculo?.proprietarios[0] ? veiculo?.proprietarios[0].nrDocumento : 'N/A'"
+            [icone]="'la la-id-card'" titulo="Documento"></app-info-line>
+      </div>
+    </app-card-details>
+    <div class="w-full flex justify-end">
+      <button  (click)="confirmarDesativacaoDeAlerta(alerta)" mat-flat-button class="bg-red-700/10 text-red-700 disabled:cursor-not-allowed">
+        <i [class]="'la la-times-circle'" class="text-lg"></i>
+        <span class="pt-1">
+          Desativar
+        </span>
+      </button>
+    </div>
+  </div>
+</div>

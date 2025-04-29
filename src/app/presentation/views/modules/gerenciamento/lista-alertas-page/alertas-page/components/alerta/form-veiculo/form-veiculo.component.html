@@ -1,0 +1,95 @@
+<form [formGroup]="formGroup" class="form h-full flex flex-col justify-between gap-3">
+  <div class="form-group grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+    <mat-form-field appearance="outline">
+      <mat-label>
+        Pesquisar Placa do Veículo
+        <i [class]="'la la-search'" class="font-bold text-[1em]"></i>
+      </mat-label>
+      <input required type="text" class="!w-full" placeholder="Placa" matInput formControlName="nrPlaca"
+        (input)="onPlacaInput()" [minLength]="7" [maxLength]="7"
+        [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onVeiculoSelected($event)">
+        @for (veiculo of veiculosFiltrados; track veiculo.cdVeiculo) {
+        <mat-option [value]="veiculo">{{veiculo.nrPlaca}} - {{veiculo.nmModelo?.toUpperCase()}}</mat-option>
+        }
+      </mat-autocomplete>
+      <mat-error *ngIf="formGroup.get('nrPlaca')?.invalid && formGroup.get('nrPlaca')?.touched">
+        Placa inválida.
+      </mat-error>
+    </mat-form-field>
+
+    <tvc-input class="w-full" id="nmModelo" formControlName="nmModelo" label="Modelo" placeholder="Modelo"
+      inputNormalize="alfanum" />
+
+    <mat-form-field appearance="outline" class="!w-full">
+      <mat-label>Cor</mat-label>
+      <mat-select formControlName="nmCor" class="!w-full">
+        @for (cor of optionsCoresVeiculos; track cor.cor) {
+        <mat-option [value]="cor.nome">
+          <div class="flex flex-row flex-center">
+            <span class="color-square" [style.background-color]="cor.cor"></span>
+            {{ cor.nome }}
+          </div>
+        </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <tvc-input class="w-full" id="nmMarca" formControlName="nmMarca" label="Marca" placeholder="Marca"
+      inputNormalize="alfanum" />
+
+    <tvc-input [maxlength]="4" [minlength]="4" class="w-full" mask="0000" id="nrAno" formControlName="nrAno" label="Ano"
+      placeholder="Ano" inputNormalize="numeric" />
+
+    <tvc-input class="w-full" id="nrChassi" formControlName="nrChassi" label="Chassi" placeholder="Ano"
+      inputNormalize="alfanum" />
+
+    <tvc-input class="w-full" id="nrRenavam" formControlName="nrRenavam" label="Renavam" placeholder="Renavam"
+      inputNormalize="alfanum" />
+
+  </div>
+  <div class="w-full grid md:grid-cols-2 lg:grid-cols-4 gap-3" formGroupName="endereco">
+    <div class="col-span-full flex-center flex-row gap-2">
+      <span class="text-sm pl-1 flex-center gap-2 font-bold text-primary/60">
+        <i class="text-[20px]" [class]="'la la-map-marked'"></i>
+        Endereço do Veículo
+      </span>
+      <div class="flex-grow">
+        <hr class="w-full my-auto border-t border-primary/70">
+      </div>
+    </div>
+    <tvc-input class="w-full" id="dsLogradouro" formControlName="dsLogradouro" label="Logradouro"
+      placeholder="Logradouro" inputNormalize="alfanum" />
+
+    <tvc-input class="w-full" id="nrEndereco" formControlName="nrEndereco" label="Número" placeholder="Número"
+      inputNormalize="alfanum" />
+
+    <tvc-input class="w-full" id="dsComplemento" formControlName="dsComplemento" label="Complemento"
+      placeholder="Complemento" inputNormalize="alfanum" />
+
+    <tvc-input class="w-full" id="nmBairro" formControlName="nmBairro" label="Bairro" placeholder="Bairro"
+      inputNormalize="alfanum" />
+
+    <tvc-input class="w-full" id="nmEstado" formControlName="nmEstado" label="Estado" placeholder="Estado"
+      inputNormalize="alfanum" />
+
+    <tvc-input class="w-full" id="nmCidade" formControlName="nmCidade" label="Cidade" placeholder="Cidade"
+      inputNormalize="alfanum" />
+
+  </div>
+  <div class="w-full grid md:grid-cols-2 gap-3" formGroupName="proprietario">
+    <div class="col-span-full flex-center flex-row gap-2">
+      <span class="text-sm pl-1 flex-center gap-2 font-bold text-primary/60">
+        <i class="text-[20px]" [class]="'la la-user-edit'"></i>
+        Proprietário do Veículo
+      </span>
+      <div class="flex-grow">
+        <hr class="w-full my-auto border-t border-primary/70">
+      </div>
+    </div>
+    <tvc-input class="w-full" id="nmProprietario" formControlName="nmProprietario" label="Nome do Proprietário" placeholder="Nome do Proprietário"
+      inputNormalize="alfanum" />
+    <tvc-input class="w-full" id="nrDocumento" formControlName="nrDocumento" label="Documento do Proprietário"
+      placeholder="Documento do Proprietário" inputNormalize="alfanum" />
+  </div>
+</form>

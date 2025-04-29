@@ -1,0 +1,65 @@
+.modal {
+  @apply sm:w-[700px] lg:h-[35em] w-full p-5 h-auto flex flex-col bg-white rounded-3xl;
+
+  &-header {
+    @apply flex items-center gap-x-4 mb-2
+  }
+
+  &-close {
+    @apply flex items-center justify-end;
+  }
+
+  .main {
+    @apply flex flex-col justify-between h-full #{!important};
+  }
+
+  .button {
+    @apply w-5 flex justify-center items-center text-white h-5 cursor-pointer rounded-md;
+  }
+
+  .img-container {
+    @apply w-full h-full flex-center;
+  }
+
+  .export-button-wrapper {
+    @apply relative;
+  }
+
+  .page-header-content {
+    @apply bg-white dark:bg-dark-container rounded-t-lg p-4 flex justify-between;
+  }
+
+  .icon {
+    @apply text-accent text-[80px] leading-[80px] h-[80px] w-[80px] #{!important};
+  }
+
+  .header {
+    @apply flex flex-row justify-between w-full
+  }
+
+  .img-captura {
+    @apply h-full rounded-r-md;
+    background: no-repeat center;
+    background-size: cover;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
+  }
+}
+
+
+::ng-deep {
+  .mat-mdc-tab-body-content {
+    @apply h-auto #{!important}
+  }
+
+  .mat-mdc-tab-group {
+    @apply h-full #{!important}
+  }
+
+  .mdc-tab__text-label {
+    @apply text-primary #{!important}
+  }
+
+  .mdc-tab-indicator__content {
+    @apply border-primary #{!important}
+  }
+}

@@ -1,0 +1,85 @@
+.table {
+  @apply p-4 w-full ;
+}
+
+.mat-column-lgAtivo, .mat-column-dtDelecao, .mat-column-dtAlocacao, .mat-column-componentes {
+  text-align: center;
+  font-weight: bold;
+}
+
+::ng-deep .mdc-evolution-chip-set__chips{
+  @apply flex justify-center #{!important}
+}
+
+.mat-mdc-cell {
+  height: 20px;
+}
+
+.mat-form-field {
+  margin-bottom: 16px;
+}
+
+.chip-success {
+  @apply flex-center justify-center bg-green-100  text-green-700 p-0 w-[90px] #{!important}
+}
+
+.chip-danger {
+  @apply flex-center justify-center bg-gray-100 text-gray-400 p-0 w-[90px] #{!important}
+}
+
+.chip-delecao {
+  @apply flex-center justify-center bg-gray-100 text-gray-400/65 p-0 #{!important}
+}
+
+.content-success {
+  @apply text-green-500 #{!important}
+}
+
+.content-danger, .content-delecao {
+  @apply text-gray-400 #{!important}
+}
+
+// .row-container {
+//   @apply flex-col flex w-full;
+// }
+
+.table-container {
+  @apply h-full flex flex-col;
+
+  .mat-mdc-table {
+    max-height: calc(100vh - 200px);
+
+    thead {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      background: white;
+    }
+  }
+
+  .mat-mdc-paginator {
+    position: sticky;
+    bottom: 0;
+    z-index: 1;
+    background: white;
+  }
+}
+
+.date-time-display {
+  white-space: nowrap;
+}
+
+.date-break {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .date-break {
+    display: block;
+  }
+
+  .date-time-display {
+    white-space: normal;
+    text-align: center;
+  }
+}

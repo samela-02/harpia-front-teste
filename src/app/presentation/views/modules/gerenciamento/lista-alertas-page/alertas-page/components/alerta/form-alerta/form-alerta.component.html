@@ -1,0 +1,11 @@
+<form [formGroup]="formGroup" class="form h-full mt-4 flex flex-col justify-between gap-3">
+  <div class="form-group">
+    <tvc-dropdown class="col-span-6" id="cdTipoAlerta" formControlName="cdTipoAlerta" label="Tipo de alerta"
+      placeholder="Tipo de alerta" [providers]="tiposAlertasDrop" required useLabel="nmTipoAlerta" useValue="cdTipoAlerta" />
+
+    <tvc-datetime class="col-span-6" id="dtAlerta" formControlName="dtAlerta" label="Dt. do alerta" type="datetime-local" [max]="'9999-12-31T23:59'" />
+
+    <tvc-textarea class="col-span-12 max-h-28" id="dsAlerta" formControlName="dsAlerta" label="Descrição"
+      placeholder="Descrição" />
+  </div>
+</form>

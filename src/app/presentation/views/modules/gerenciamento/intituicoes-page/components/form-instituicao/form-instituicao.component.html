@@ -6,6 +6,8 @@
       placeholder="Id da Instituição" inputNormalize="alfanum" required [maxlength]="40" [minlength]="3" />
     <tvc-textarea class="w-full max-h-28" id="txtObservacao" formControlName="txtObservacao" label="Observação"
       placeholder="Observação" />
+    <tvc-dropdown *ngIf="!isEditable" class="w-full" id="cdCidade" formControlName="cdCidade" useLabel="nmCidade"
+      useValue="cdCidade" label="Cidade" placeholder="Cidade" required [providers]="cidades" />
   </div>
 
   <div class="w-full flex justify-end gap-2">

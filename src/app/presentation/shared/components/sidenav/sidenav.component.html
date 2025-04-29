@@ -1,0 +1,133 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav class="sidenav" #sidenav mode="side" opened [ngClass]="{'expanded': isExpanded}">
+    <div class="sidenav-header">
+      <img src="./public/img/logo/harpia-no-label.png" [ngClass]="{'hidden': isExpanded, 'visible': !isExpanded}"
+        class="w-[10em] transition-all logo-img">
+      <img src="./public/img/logo/harpia.png" [ngClass]="{'hidden': !isExpanded, 'visible': isExpanded}"
+        class="w-[10em] transition-all logo-img">
+    </div>
+    <mat-nav-list class="overflow-hidden">
+      @for (item of modules; track $index) {
+      <span *ngIf="isExpanded" class="modulo-label">{{ item.name }}</span>
+      @for (feature of item.features; track feature.label) {
+      @if (!feature.children) {
+      <a [routerLink]="feature.routerLink ? [item.routerLink + feature.routerLink] : null"
+        [ngClass]="{'expanded': isExpanded}" routerLinkActive="active">
+        <i [class]="feature.icon" class="icon"></i>
+        <span *ngIf="isExpanded">{{ feature.label }}</span>
+      </a>
+      } @else {
+      @if(isExpanded){
+      <mat-expansion-panel class="mat-elevation-z0 my-2 px-3" [expanded]="selectedModule === feature">
+        <mat-expansion-panel-header class="item-select" [ngClass]="{'expanded': isExpanded}">
+          <i [class]="feature.icon" class="text-[20px] flex justify-center mr-2"></i>
+          <span *ngIf="isExpanded">{{ feature.label }}</span>
+        </mat-expansion-panel-header>
+        @for (child of feature.children; track child.routerLink) {
+        <a [routerLink]="child.routerLink ? [item.routerLink + child.routerLink] : null"
+          [ngClass]="{'expanded': isExpanded}" routerLinkActive="active" class="child-item h-4" style="padding: 0;">
+          <span class="!left-3 flex-center">
+          <div class="text-lg mr-3">
+            ○
+          </div>
+            {{ child.label }}
+          </span>
+        </a>
+        }
+      </mat-expansion-panel>
+      }
+      @else{
+      <div>
+        <a (click)="abrirSidenaveEDropdown(feature)">
+          <i [class]="feature.icon" class="icon"></i>
+        </a>
+      </div>
+      }
+      }
+      }
+      }
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content [ngClass]="{'content-shifted': isExpanded}" class="max-h-screen">
+    <header class="app-header">
+      <div class="flex items-center">
+        <button mat-icon-button (click)="toggleSidenav()"
+          class="transition-all">
+          <mat-icon class="text-primary">{{ isExpanded ? 'menu_open' : 'menu' }}</mat-icon>
+        </button>
+      </div>
+      <div class="nav">
+        <div class="nav-list">
+          <button class="button-search">
+            <div class="button-search-title">
+              <mat-icon>search</mat-icon>
+              <h3>Pesquisar</h3>
+            </div>
+            <div class="button-search-item">
+              <span>⌘</span>
+              <span class="text-xs font-semibold">K</span>
+            </div>
+          </button>
+          <tvc-timer>
+            {{expiresIn | date: 'HH:mm:ss'}}
+            <!-- {{ "00:00" }} -->
+          </tvc-timer>
+
+          <div class="profile">
+            <img [src]="'./public/img/avatar.png'" alt="avatar" class="avatar" />
+            <div class="profile-container">
+              <div class="profile-content">
+                <img [src]="'./public/img/avatar.png'" alt="avatar" class="avatar">
+                <div>
+                  <h4>{{ nomeUsuario | nameFormatter }}</h4>
+                  <!-- <span>{{ user()?.nmEmail }}</span> -->
+                </div>
+              </div>
+              <div class="profile-action">
+                <button class="flex-center gap-2" (click)="deslogarUsuario()">
+                  <mat-icon class="material-symbols-outlined">logout</mat-icon>
+                  <span class="text-sm">Deslogar</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div class="content">
+      <app-breadcrumb class="mb-2"/>
+      <!-- <div class="title">
+        <label class="flex flex-center flex-row gap-2 font-semibold text-primary">
+          <i [class]="currentRouteData?.icon" class="title-icon"></i>
+          {{ currentRouteData?.title }}
+        </label>
+      </div> -->
+      <div class="main-content">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="footer-content">
+        <div class="flex items-center gap-x-2">
+          <span>&copy; {{ date | date: 'yyyy' }}</span>
+          <span>-</span>
+          <a href="https://www.tivic.com.br/" target="_blank"
+            class="truncate max-w-[120px] sm:max-w-[200px] md:max-w-full">
+            <span class="truncate block whitespace-nowrap"><b class="uppercase">Tivic</b> - Inovação, Informação e
+              Tecnologia.</span>
+          </a>
+        </div>
+        <div class="flex items-center gap-x-4">
+          <a href="https://wa.me/7734219279" target="_blank">
+            <i class="ri-customer-service-2-line"></i>
+            <span>Suporte</span>
+          </a>
+          <a class="version">
+            <i class="ri-rocket-2-line"></i>
+            <span>{{ version || "0.0.0" }}</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
