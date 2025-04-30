@@ -11,4 +11,5 @@ export const environment: Environment = {
   version: packageInfo.version,
 };
 
-export const environmentHarpiaMs = "http://localhost:8081/api/v1"
+export const environmentTelemetriaMs = "http://localhost:8082/api/v1"
+export const environmentComandoMs = "http://localhost:8083/api/v1"

@@ -1,11 +1,11 @@
 import { GpsTrackerRepository } from "@/application/repositories/gps-tracker.repository";
 import { inject } from "@angular/core";
-import { environmentHarpiaMs } from "@env/environment.development";
 import { EventSourceMessage, fetchEventSource } from '@microsoft/fetch-event-source';
 import { Observable } from "rxjs";
 import { AuthServiceImpl } from "../services/auth.service-impl";
+import { environmentTelemetriaMs } from "@env/environment.development";
 export class GpsTrackerRepositoryImpl implements GpsTrackerRepository {
-  private api = environmentHarpiaMs;
+  private api = environmentTelemetriaMs;
   private _authService = inject(AuthServiceImpl);
 
   buscarDadosGps(idInstituicao: string): Observable<EventSourceMessage> {
@@ -16,7 +16,7 @@ export class GpsTrackerRepositoryImpl implements GpsTrackerRepository {
           'Authorization': `Bearer ${token}`,
         },
         onmessage(event) {
-          observer.next(event);
+            observer.next(event);
         },
         onerror(error) {
           console.error("Erro ao buscar dados GPS:", error);
