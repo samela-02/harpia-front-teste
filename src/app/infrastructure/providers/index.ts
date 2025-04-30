@@ -1,6 +1,7 @@
 import { alertaProviders } from "./alerta/alerta.provider";
 import { cidadeProviders } from "./cidade/cidade.provider";
 import { clientProviders } from "./client.provider";
+import { comandoProviders } from "./comando/comando.provider";
 import { compoenenteProviders } from "./componente/componente.provider";
 import { deteccaoProviders } from "./deteccao/deteccao.provider";
 import { equipamentoProviders } from "./equipamento/equipamento.provider";
@@ -20,6 +21,7 @@ export const providers = [
   tipoComponenteProviders,
   deteccaoProviders,
   gpsTrackerProviders,
+  comandoProviders,
   veiculoCCOProviders,
   listaAlertaProviders,
   tipoEquipamentoProviders,

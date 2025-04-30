@@ -6,5 +6,5 @@
     window["env"]["host"]        = "localhost";
     window["env"]["port"]        = "8080";
     window["env"]["context"]     = "api";
-    window["env"]["harpiaMsTelemetria"] = "http://localhost:8081";
+    window["env"]["harpiaMsTelemetria"] = "http://localhost:8082";
 })(this);

@@ -7,6 +7,11 @@ import * as L from 'leaflet';
 import { contentMarker } from './helpers/content-marker';
 import { CommonModule, DatePipe } from '@angular/common';
 import { GpsTrackerQueryResponse } from '@/domain/models/query/gps-tracker-query-response';
+import { EnviarComandoUseCase } from '@/application/usecase/comando/enviar-comando.usecase';
+import { BuscarComandoUseCase } from '@/application/usecase/comando/buscar-comando.usecase';
+import { ComandoDTo } from '@/domain/dtos/comando.dto';
+import { v4 as uuidv4 } from 'uuid';
+import { TipoComandoEnum } from '@/domain/enums/tipo-alerta/tipo-comando.enum';
 
 export interface EquipmentStatus {
   idEquipamento: string;
@@ -35,11 +40,30 @@ export class MapaVeiculosPageComponent implements OnInit, OnDestroy {
   constructor(
     private buscarDadosGpsUseCase: buscarDadosGpsUseCase,
     private changeDetectorRef: ChangeDetectorRef,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private enviarComandoUseCase: EnviarComandoUseCase,
+    private buscarComandoUseCase: BuscarComandoUseCase
   ) { }
 
   ngOnInit(): void {
     this.bucarDadosGps();
+    this.enviarComando()
+  }
+
+  enviarComando(idEquipamento?: string) {
+    const uuid = uuidv4()
+    const comando = new ComandoDTo(uuid, 'HARPIA_0001', TipoComandoEnum.Snapshot)
+    this.enviarComandoUseCase.execute(comando).subscribe({
+      next: () => {
+        this.buscarComando(uuid)
+      }
+    })
+  }
+
+  buscarComando(idComando: string) {
+    this.buscarComandoUseCase.execute(idComando).subscribe((response) => {
+      console.log(JSON.parse(response.data))
+    })
   }
 
   bucarDadosGps(){
@@ -201,4 +225,5 @@ export class MapaVeiculosPageComponent implements OnInit, OnDestroy {
       this.statusCheckIntervalSubscription.unsubscribe();
     }
   }
+
 }
