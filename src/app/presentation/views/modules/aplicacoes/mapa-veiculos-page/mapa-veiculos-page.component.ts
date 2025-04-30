@@ -12,13 +12,8 @@ import { BuscarComandoUseCase } from '@/application/usecase/comando/buscar-coman
 import { ComandoDTo } from '@/domain/dtos/comando.dto';
 import { v4 as uuidv4 } from 'uuid';
 import { TipoComandoEnum } from '@/domain/enums/tipo-alerta/tipo-comando.enum';
-
-export interface EquipmentStatus {
-  idEquipamento: string;
-  lastCommunicationTime: Date;
-  statusColor: 'green' | 'yellow' | 'red';
-  nome?: string;
-}
+import { EquipmentStatus } from '@/presentation/interfaces/equipament-status';
+import { AuthServiceImpl } from '@/infrastructure/services/auth.service-impl';
 @Component({
   selector: 'app-mapa-veiculos-page',
   standalone: true,
@@ -33,26 +28,28 @@ export class MapaVeiculosPageComponent implements OnInit, OnDestroy {
   private eventSourceSubscription: Subscription | null = null;
   private statusCheckIntervalSubscription: Subscription | null = null;
   private movingMarkers: Map<string, L.Marker> = new Map();
+  private idInstituicao = this.authService.getIdInstituicaoUser()
 
   public equipmentStatusMap: Map<string, EquipmentStatus> = new Map();
   public markerCount: number = 0;
+
 
   constructor(
     private buscarDadosGpsUseCase: buscarDadosGpsUseCase,
     private changeDetectorRef: ChangeDetectorRef,
     private datePipe: DatePipe,
     private enviarComandoUseCase: EnviarComandoUseCase,
-    private buscarComandoUseCase: BuscarComandoUseCase
+    private buscarComandoUseCase: BuscarComandoUseCase,
+    private authService: AuthServiceImpl
   ) { }
 
   ngOnInit(): void {
     this.bucarDadosGps();
-    this.enviarComando()
   }
 
   enviarComando(idEquipamento?: string) {
     const uuid = uuidv4()
-    const comando = new ComandoDTo(uuid, 'HARPIA_0001', TipoComandoEnum.Snapshot)
+    const comando = new ComandoDTo(uuid, idEquipamento, TipoComandoEnum.Snapshot)
     this.enviarComandoUseCase.execute(comando).subscribe({
       next: () => {
         this.buscarComando(uuid)
@@ -67,7 +64,7 @@ export class MapaVeiculosPageComponent implements OnInit, OnDestroy {
   }
 
   bucarDadosGps(){
-    this.eventSourceSubscription = this.buscarDadosGpsUseCase.execute('TIVIC_PDI').subscribe((response) => {
+    this.eventSourceSubscription = this.buscarDadosGpsUseCase.execute(this.idInstituicao).subscribe((response) => {
       try {
         const equipamentoData: GpsTrackerQueryResponse = JSON.parse(response.data);
         this.updateEquipmentStatus(equipamentoData.idEquipamento, new Date(equipamentoData.sensores[0].dtEvento))
@@ -84,7 +81,6 @@ export class MapaVeiculosPageComponent implements OnInit, OnDestroy {
             this.checkAllEquipmentStatus();
           });
         }
-
       } catch (error) {
         console.error("Erro ao processar dado do EventSource:", error, response.data);
       }
@@ -197,9 +193,21 @@ export class MapaVeiculosPageComponent implements OnInit, OnDestroy {
     const status = this.equipmentStatusMap.get(idEquipamento);
     const popupContent = L.DomUtil.create("div");
     const lastUpdateFormatted = status ? this.datePipe.transform(status.lastCommunicationTime, 'dd/MM/yyyy HH:mm:ss') : 'N/A';
-    popupContent.innerHTML = contentMarker(`ID: ${idEquipamento}<br>Última Att: ${lastUpdateFormatted}`, "assets/gifteste.gif");
+
+    popupContent.innerHTML = contentMarker(`ID: ${idEquipamento}<br>Última Att: ${lastUpdateFormatted}`, "assets/gifteste.gif", idEquipamento);
 
     marker.bindPopup(popupContent);
+
+    marker.off('popupopen');
+
+    marker.on('popupopen', () => {
+        const button = popupContent.querySelector('.button-action') as HTMLButtonElement;
+        if (button) {
+            button.onclick = () => {
+                this.enviarComando(idEquipamento);
+            };
+        }
+    });
   }
 
   private easeInOutQuad(t: number): number {
@@ -216,6 +224,7 @@ export class MapaVeiculosPageComponent implements OnInit, OnDestroy {
       iconAnchor: [16, 16]
     });
   }
+
 
   ngOnDestroy() {
     if (this.eventSourceSubscription) {

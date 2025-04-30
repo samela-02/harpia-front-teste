@@ -52,6 +52,7 @@ export class AuthServiceImpl implements AuthService {
 
   public setDataUserLocalStorage(usuario: ResponseData<UsuarioLogadoResponse>){
     localStorage.setItem("nmUsuario", usuario.data.nmUsuario);
+    localStorage.setItem("idInstituicao", usuario.data.idInstituicao)
   }
 
   public getNomeUsuario() {
@@ -80,8 +81,14 @@ export class AuthServiceImpl implements AuthService {
     return localStorage.getItem('accessToken');
   }
 
+  public getIdInstituicaoUser(): string | null {
+    return localStorage.getItem('idInstituicao');
+  }
+
   public getExpiresIn(): string | null {
    return localStorage.getItem('expiresIn');
 }
+
+
 
 }
