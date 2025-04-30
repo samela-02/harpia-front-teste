@@ -1,7 +1,7 @@
 import { buscarDadosGpsUseCase } from '@/application/usecase/gps-tracker/buscar-dados-gps.usecase';
 import { FiltersInputsComponent } from '@/presentation/shared/components/filters-inputs/filters-inputs.component';
 import { MapMarkersComponent } from '@/presentation/shared/components/map-markers/map-markers.component';
-import { Component, OnDestroy, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild, ChangeDetectorRef, inject } from '@angular/core';
 import { Subscription, interval } from 'rxjs';
 import * as L from 'leaflet';
 import { contentMarker } from './helpers/content-marker';
@@ -14,6 +14,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { TipoComandoEnum } from '@/domain/enums/tipo-alerta/tipo-comando.enum';
 import { EquipmentStatus } from '@/presentation/interfaces/equipament-status';
 import { AuthServiceImpl } from '@/infrastructure/services/auth.service-impl';
+import { ModalService } from '@tivic-team/tivic-ui';
+import { ModalContentComponent } from './components/modal-content/modal-content.component';
 @Component({
   selector: 'app-mapa-veiculos-page',
   standalone: true,
@@ -29,6 +31,7 @@ export class MapaVeiculosPageComponent implements OnInit, OnDestroy {
   private statusCheckIntervalSubscription: Subscription | null = null;
   private movingMarkers: Map<string, L.Marker> = new Map();
   private idInstituicao = this.authService.getIdInstituicaoUser()
+  private _modalService = inject(ModalService<ModalContentComponent>)
 
   public equipmentStatusMap: Map<string, EquipmentStatus> = new Map();
   public markerCount: number = 0;
@@ -59,7 +62,8 @@ export class MapaVeiculosPageComponent implements OnInit, OnDestroy {
 
   buscarComando(idComando: string) {
     this.buscarComandoUseCase.execute(idComando).subscribe((response) => {
-      console.log(JSON.parse(response.data))
+      const content = JSON.parse(response.data)
+      this._modalService.component(ModalContentComponent).open(content)
     })
   }
 
