@@ -1,57 +1,13 @@
 .modal {
-  @apply sm:w-[700px] lg:h-[30em] w-full h-auto flex flex-col bg-white rounded-3xl p-0 relative;
-
-  &-close {
-    @apply absolute top-4 right-5 flex items-center justify-end;
-  }
-
-  .button {
-    @apply w-5 flex justify-center items-center text-white h-5 cursor-pointer rounded-md;
-  }
-
-  .img-container {
-    @apply w-full h-full flex-center;
-  }
-
-  .export-button-wrapper {
-    @apply relative;
-  }
-
-  .page-header-content {
-    @apply bg-white dark:bg-dark-container rounded-t-lg flex justify-between;
-  }
-
-  .icon {
-    @apply text-accent text-[80px] leading-[80px] h-[80px] w-[80px] #{!important};
-  }
-
-  .header {
-    @apply flex flex-row justify-between w-full
-  }
-
-  .img-captura {
-    @apply h-full w-full rounded-3xl;
-    background: no-repeat center;
-    background-size: cover;
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
-  }
+  @apply lg:w-[80em] bg-transparent flex-center justify-center relative rounded-xl h-auto p-0 #{!important};
 }
 
+.img-captura {
+  @apply h-full w-full rounded-xl block;
+  background: no-repeat center;
+  background-size: cover;
+}
 
-::ng-deep {
-  .mat-mdc-tab-body-content {
-    @apply h-auto #{!important}
-  }
-
-  .mat-mdc-tab-group {
-    @apply h-full #{!important}
-  }
-
-  .mdc-tab__text-label {
-    @apply text-primary #{!important}
-  }
-
-  .mdc-tab-indicator__content {
-    @apply border-primary #{!important}
-  }
+.image-container {
+  @apply relative w-full h-full;
 }
