@@ -6,7 +6,7 @@
       <td mat-cell *matCellDef="let item" class="uppercase columns">
         <div class="h-[11vh] min-w-[20vh] my-1">
           <div *ngIf="item?.imgOriginal" class="img-container">
-            <div [style.background-color]="getColorByNivel(5)" class="w-1/12 h-full rounded-l-md"></div>
+            <div [style.background-color]="getColorByNivel(item?.tpNivelAlerta)" class="w-1/12 h-full rounded-l-md"></div>
             <img *ngIf="item?.imgOriginal" [src]="'data:image/' + item.imgEncoding + ';base64,' + item.imgOriginal"
               alt="Imagem do evento" class="img-captura w-11/12">
           </div>

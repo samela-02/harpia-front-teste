@@ -2,6 +2,8 @@ import { BBoxQueryResponse } from "./bbox-query-response";
 
 export class DeteccaoQueryResponse {
    cdDeteccao: number;
+   cdAlerta: number;
+   tpNivelAlerta: number;
    cdEquipamento: number;
    cdInstituicao: number;
    idEquipamento: string;

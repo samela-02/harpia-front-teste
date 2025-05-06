@@ -6,6 +6,9 @@ import { Observable, tap } from "rxjs";
 import { DeteccaoQueryResponse } from "@/domain/models/query/deteccao-query-response";
 import { BuscarDeteccoesUseCase } from "@/application/usecase/deteccao/buscar-deteccoes.usecase";
 import { BuscarDeteccoesAction } from "../actions/deteccao.actions";
+import { AlertaCompletoQueryResponse } from "@/domain/models/query/alerta-completo-query-reponse";
+import { buscarAlertaPorCdAction } from "../actions/alerta.actions";
+import { BuscarAlertaPorCdUseCase } from "@/application/usecase/alerta/buscar-alerta-por-cd.usecase";
 
 export class DeteccaoStateModel {
   deteccoes: ResponseData<ResponsePaginacao<DeteccaoQueryResponse>> | null;
@@ -20,7 +23,7 @@ export class DeteccaoStateModel {
 
 @Injectable()
 export class DeteccaoState {
-  constructor(private buscarDeteccoesUseCase: BuscarDeteccoesUseCase) { }
+  constructor(private buscarDeteccoesUseCase: BuscarDeteccoesUseCase, private buscarAlertaPorCdUseCase: BuscarAlertaPorCdUseCase) { }
 
   @Action(BuscarDeteccoesAction)
   buscarDeteccoes({ setState }: StateContext<DeteccaoStateModel>,

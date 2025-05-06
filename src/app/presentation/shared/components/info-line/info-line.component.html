@@ -1,4 +1,4 @@
-<span class="flex items-start gap-1">
+<span class="flex items-start gap-1 linha-horizonal">
   <i [class]="icone" class="mt-[2px]"></i>
   <span>
     <strong>
@@ -7,7 +7,7 @@
     <span #tooltip="matTooltip"
           [matTooltip]="descricao"
           [matTooltipDisabled]="descricao?.length <= truncate">
-      {{descricao | truncate: truncate}}
+      {{descricao ? descricao : 'N/A' | truncate: truncate}}
     </span>
   </span>
 </span>
