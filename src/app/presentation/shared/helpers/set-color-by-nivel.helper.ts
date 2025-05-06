@@ -7,9 +7,9 @@ export class SetColorByNivel {
     } else if(nivel == 3) {
       return "#FFCC00";
     } else if(nivel == 4) {
-      return "#FF6600";
+      return "#FF8800";
     } else if(nivel == 5) {
-      return "#FF0000";
+      return "#d90000";
     } else {
       return "#9E9E9E";
     }
