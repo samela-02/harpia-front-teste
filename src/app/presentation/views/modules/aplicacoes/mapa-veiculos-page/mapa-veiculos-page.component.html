@@ -19,9 +19,12 @@
                 <span class="text-slate-600/80 font-semibold leading-none">
                   {{ equipment.nome || equipment.idEquipamento }}
                   </span>
-                  <div class="leading-none">
+                  <div class="leading-none flex flex-col">
                   <span class="card-update">
-                    <i [class]="'la la-history'" class="text-xs"></i> {{ equipment.lastCommunicationTime | date:'dd/MM/yyyy HH:mm:ss' }}
+                    <i [class]="'la la-history'" class="text-xs"></i> {{ equipment.lastCommunicationTimeGps ? (equipment.lastCommunicationTimeGps | date:'dd/MM/yyyy HH:mm:ss') : 'N/A' }}
+                  </span>
+                  <span class="card-update">
+                    <i [class]="'la la-database'" class="text-xs"></i> {{ equipment.lastCommunicationTimeBd ? (equipment.lastCommunicationTimeBd | date:'dd/MM/yyyy HH:mm:ss') : 'N/A' }}
                   </span>
                 </div>
               </div>
