@@ -71,7 +71,7 @@ export class MapaVeiculosPageComponent implements OnInit, OnDestroy {
     this.eventSourceSubscription = this.buscarDadosGpsUseCase.execute(this.idInstituicao).subscribe((response) => {
       try {
         const equipamentoData: GpsTrackerQueryResponse = JSON.parse(response.data);
-        this.updateEquipmentStatus(equipamentoData.idEquipamento, new Date(equipamentoData.sensores[0].dtEvento))
+        this.updateEquipmentStatus(equipamentoData.idEquipamento, equipamentoData.sensores[0].dtCriacao, equipamentoData.sensores[0].dtEvento)
 
         if (equipamentoData.sensores[0]?.vlLatitude && equipamentoData.sensores[0]?.vlLongitude && equipamentoData.idEquipamento) {
           const novaCoordenada: [number, number] = [equipamentoData.sensores[0].vlLatitude, equipamentoData.sensores[0].vlLongitude];
@@ -91,19 +91,20 @@ export class MapaVeiculosPageComponent implements OnInit, OnDestroy {
     });
   }
 
-  private updateEquipmentStatus(idEquipamento: string, communicationTime: Date): void {
+  private updateEquipmentStatus(idEquipamento: string, communicationTimeBd: Date, communicationTimeGps: Date): void {
     let status = this.equipmentStatusMap.get(idEquipamento);
     if (!status) {
       status = {
         idEquipamento: idEquipamento,
-        lastCommunicationTime: communicationTime,
+        lastCommunicationTimeBd: communicationTimeBd,
+        lastCommunicationTimeGps: communicationTimeGps,
         statusColor: 'green',
         nome: `${idEquipamento}`
       };
     } else {
-      status.lastCommunicationTime = communicationTime;
+      status.lastCommunicationTimeBd = communicationTimeBd;
     }
-    status.statusColor = this.calculateStatusColor(communicationTime);
+    status.statusColor = this.calculateStatusColor(new Date(communicationTimeBd));
     this.equipmentStatusMap.set(idEquipamento, status);
   }
 
@@ -123,7 +124,7 @@ export class MapaVeiculosPageComponent implements OnInit, OnDestroy {
   private checkAllEquipmentStatus(): void {
     let changed = false;
     this.equipmentStatusMap.forEach((status, id) => {
-      const newColor = this.calculateStatusColor(status.lastCommunicationTime);
+      const newColor = this.calculateStatusColor(status.lastCommunicationTimeBd);
       if (status.statusColor !== newColor) {
         status.statusColor = newColor;
         this.equipmentStatusMap.set(id, status);
@@ -196,7 +197,7 @@ export class MapaVeiculosPageComponent implements OnInit, OnDestroy {
   private addPopupToMarker(marker: L.Marker, idEquipamento: string): void {
     const status = this.equipmentStatusMap.get(idEquipamento);
     const popupContent = L.DomUtil.create("div");
-    const lastUpdateFormatted = status ? this.datePipe.transform(status.lastCommunicationTime, 'dd/MM/yyyy HH:mm:ss') : 'N/A';
+    const lastUpdateFormatted = status ? this.datePipe.transform(status.lastCommunicationTimeBd, 'dd/MM/yyyy HH:mm:ss') : 'N/A';
 
     popupContent.innerHTML = contentMarker(`ID: ${idEquipamento}<br>Última Att: ${lastUpdateFormatted}`, "assets/gifteste.gif", idEquipamento);
 

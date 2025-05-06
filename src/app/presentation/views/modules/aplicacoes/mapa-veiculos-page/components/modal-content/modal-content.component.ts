@@ -1,6 +1,5 @@
-import { CommonModule, JsonPipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Component, ElementRef, inject, ViewChild } from '@angular/core';
-import { MatIcon } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MODAL_DATA, ModalService } from '@tivic-team/tivic-ui';
@@ -9,7 +8,7 @@ import * as htmlToImage from 'html-to-image';
 @Component({
   selector: 'app-modal-content',
   standalone: true,
-  imports: [MatTooltipModule, CommonModule, MatTabsModule, MatIcon],
+  imports: [MatTooltipModule, CommonModule, MatTabsModule],
   templateUrl: './modal-content.component.html',
   styleUrl: './modal-content.component.scss',
 })
