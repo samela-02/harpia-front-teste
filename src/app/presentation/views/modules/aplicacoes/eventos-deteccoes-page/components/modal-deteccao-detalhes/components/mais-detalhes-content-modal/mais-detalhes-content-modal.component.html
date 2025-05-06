@@ -7,10 +7,10 @@
           <strong>
             Nível:
           </strong>
-          <span [style.background-color]="getColorByNivel(5)"
+          <span [style.background-color]="getColorByNivel(dadosAlerta()?.tipoAlerta.tpNivelAlerta)"
             style="display: inline-block; width: 10px; height: 10px; border-radius: 50%;">
           </span>
-          Furto/Roubo
+          {{dadosAlerta()?.tipoAlerta.nmTipoAlerta ? dadosAlerta()?.tipoAlerta.nmTipoAlerta: 'N/A'}}
         </span>
       </span>
 
@@ -22,25 +22,25 @@
   <app-card-details titulo="Veículo" icone="la la-car-alt">
     <div class="h-full w-full grid grid-cols-2 text-primary text-sm">
       <app-info-line titulo="Placa" icone="la la-tag" [descricao]="deteccao?.nrPlaca ? deteccao?.nrPlaca : 'N/A'" />
-      <app-info-line titulo="Modelo" icone="la la-truck-pickup" descricao="Polo Sedan" />
-      <app-info-line titulo="Marca" icone="la la-plus-square" descricao="Volkswagen" />
-      <app-info-line titulo="Cor" icone="la la-brush" descricao="Azul" />
-      <app-info-line titulo="Ano" icone="la la-sort-numeric-up-alt" descricao="1925" />
-      <app-info-line [descricao]="'GREIGHIOH3R3'" [icone]="'la la-x-ray'" titulo="Chassi"></app-info-line>
-      <app-info-line [descricao]="'RTHTOHOTR34'" [icone]="'la la-file-contract'" titulo="Renavam"></app-info-line>
-      <app-info-line [descricao]="'Rua São Geraldo'" [icone]="'la la-map-marked'" titulo="Logradouro" [truncate]="25"></app-info-line>
-      <app-info-line [descricao]="'578'" [icone]="'la la-map-marked'" titulo="Número do Endereço"></app-info-line>
-      <app-info-line [descricao]="'Próximo ao Supermercado Central'" [icone]="'la la-map-marked'" titulo="Complemento" [truncate]="22"></app-info-line>
-      <app-info-line [descricao]="'Centro'" [icone]="'la la-map-marked'" titulo="Bairro" [truncate]="25"></app-info-line>
-      <app-info-line [descricao]="'Vitória da Conquista'" [icone]="'la la-city'" titulo="Cidade"></app-info-line>
-      <app-info-line [descricao]="'Bahia'" [icone]="'la la-map-marked'" titulo="Estado"></app-info-line>
+      <app-info-line titulo="Modelo" icone="la la-truck-pickup" [descricao]="dadosAlerta()?.veiculo.nmModelo" />
+      <app-info-line titulo="Marca" icone="la la-plus-square" [descricao]="dadosAlerta()?.veiculo.nmMarca" />
+      <app-info-line titulo="Cor" icone="la la-brush" [descricao]="dadosAlerta()?.veiculo.nmCor" />
+      <app-info-line titulo="Ano" icone="la la-sort-numeric-up-alt" [descricao]="dadosAlerta()?.veiculo.nrAno.toString()" />
+      <app-info-line [descricao]="dadosAlerta()?.veiculo.nrChassi" [icone]="'la la-x-ray'" titulo="Chassi"></app-info-line>
+      <app-info-line [descricao]="dadosAlerta()?.veiculo.nrRenavam" [icone]="'la la-file-contract'" titulo="Renavam"></app-info-line>
+      <app-info-line [descricao]="dadosAlerta()?.veiculo.endereco.dsLogradouro" [icone]="'la la-map-marked'" titulo="Logradouro" [truncate]="25"></app-info-line>
+      <app-info-line [descricao]="dadosAlerta()?.veiculo.endereco.nrEndereco" [icone]="'la la-map-marked'" titulo="Número do Endereço"></app-info-line>
+      <app-info-line [descricao]="dadosAlerta()?.veiculo.endereco.dsComplemento" [icone]="'la la-map-marked'" titulo="Complemento" [truncate]="22"></app-info-line>
+      <app-info-line [descricao]="dadosAlerta()?.veiculo.endereco.nmBairro" [icone]="'la la-map-marked'" titulo="Bairro" [truncate]="25"></app-info-line>
+      <app-info-line [descricao]="dadosAlerta()?.veiculo.endereco.nmCidade" [icone]="'la la-city'" titulo="Cidade"></app-info-line>
+      <app-info-line [descricao]="dadosAlerta()?.veiculo.endereco.nmEstado" [icone]="'la la-map-marked'" titulo="Estado"></app-info-line>
     </div>
   </app-card-details>
   <app-card-details titulo="Proprietário" icone="la la-user-tag">
     <div class="grid grid-cols-1 text-primary text-sm">
-      <app-info-line [descricao]="'Proprietário'"
+      <app-info-line [descricao]="dadosAlerta()?.veiculo.proprietarios[0].nmProprietario"
         [icone]="'la la-id-card-alt'" titulo="Nome"></app-info-line>
-      <app-info-line [descricao]="'5484818181818787'"
+      <app-info-line [descricao]="dadosAlerta()?.veiculo.proprietarios[0].nrDocumento"
         [icone]="'la la-id-card'" titulo="Documento"></app-info-line>
     </div>
   </app-card-details>

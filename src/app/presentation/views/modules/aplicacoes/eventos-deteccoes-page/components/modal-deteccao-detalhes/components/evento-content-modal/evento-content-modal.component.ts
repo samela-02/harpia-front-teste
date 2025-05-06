@@ -7,6 +7,9 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, Input } from '@angular/core';
 import { ImagemDeteccaoModalComponent } from './components/imagem-deteccao-modal/imagem-deteccao-modal.component';
 import { ModalService } from '@/infrastructure/services/modal/modal.service';
+import { Store } from '@ngxs/store';
+import { AlertaSelectors } from '@/infrastructure/store/selectors/alerta.selectors';
+import { AlertaCompletoQueryResponse } from '@/domain/models/query/alerta-completo-query-reponse';
 
 @Component({
   selector: 'app-evento-content-modal',
@@ -16,7 +19,9 @@ import { ModalService } from '@/infrastructure/services/modal/modal.service';
   styleUrl: './evento-content-modal.component.scss'
 })
 export class EventoContentModalComponent {
+  private _store = inject(Store);
   private _modalService = inject(ModalService<ImagemDeteccaoModalComponent>)
+  public dadosAlerta = this._store.selectSignal(AlertaSelectors.alertaPorCd);
 
   @Input() deteccao: DeteccaoQueryResponse;
 

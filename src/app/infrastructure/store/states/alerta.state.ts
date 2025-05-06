@@ -7,9 +7,15 @@ import { VeiculoDeteccaoQueryResponse } from "@/domain/models/query/veiculo-dete
 import { Injectable } from "@angular/core";
 import { Action, State, StateContext } from "@ngxs/store";
 import { Observable, tap } from "rxjs";
-import { BuscarAlertaAction, BuscarVeiculoPorPlacaAction } from "../actions/alerta.actions";
+import { BuscarAlertaAction, buscarAlertaPorCdAction, BuscarVeiculoPorPlacaAction } from "../actions/alerta.actions";
+import { AlertaCompletoQueryResponse } from "@/domain/models/query/alerta-completo-query-reponse";
+import { BuscarAlertaPorCdUseCase } from "@/application/usecase/alerta/buscar-alerta-por-cd.usecase";
 export class AlertaStateModel {
   alertas: ResponseData<ResponsePaginacao<AlertaQueryResponse>> | null;
+}
+
+export class AlertaPorCdStateModel {
+  alerta: ResponseData<AlertaCompletoQueryResponse> | null
 }
 export class VeiculoStateModel {
   veiculoDeteccao: ResponseData<VeiculoDeteccaoQueryResponse> | null;
@@ -30,7 +36,7 @@ export class VeiculoStateModel {
 
 @Injectable()
 export class AlertaState {
-  constructor(private buscarAlertaUseCase: BuscarAlertasUseCase) { }
+  constructor(private buscarAlertaUseCase: BuscarAlertasUseCase, private buscarAlertaPorCdUseCase: BuscarAlertaPorCdUseCase) { }
 
   @Action(BuscarAlertaAction)
   buscarAlertas({ getState, setState }: StateContext<AlertaStateModel>,
@@ -39,7 +45,7 @@ export class AlertaState {
       tap({
         next: (response: ResponseData<ResponsePaginacao<AlertaQueryResponse>>) => {
           setState({
-            alertas: response
+            alertas: response,
           })
         }, error: () => {
           setState({
@@ -48,6 +54,27 @@ export class AlertaState {
         }
       })
     )
+  }
+
+  @Action(buscarAlertaPorCdAction)
+  buscarAlertaPorCd({ setState }: StateContext<AlertaPorCdStateModel>,
+    { payload }: buscarAlertaPorCdAction): Observable<ResponseData<AlertaCompletoQueryResponse>> {
+    setState({
+      alerta: null
+    })
+    return this.buscarAlertaPorCdUseCase.execute(payload).pipe(
+      tap({
+        next: (response: ResponseData<AlertaCompletoQueryResponse>) => {
+          setState({
+            alerta: response ? response : null,
+          });
+        }, error: () => {
+          setState({
+            alerta: null
+          })
+        }
+      }),
+    );
   }
 
 }

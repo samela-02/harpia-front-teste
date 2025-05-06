@@ -10,4 +10,6 @@ export interface Deteccao {
   nrPlaca: string;
   VlLatitude: number;
   VlLongitude: number;
+  tpNivelAlerta: number;
+  cdAlerta: number
 }

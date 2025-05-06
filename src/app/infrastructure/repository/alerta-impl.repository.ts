@@ -4,6 +4,7 @@ import { AlertaRepository } from "@/application/repositories/alerta.repository";
 import { AlertaFilter } from "@/domain/filters/alerta/alerta.filter";
 import { Alerta } from "@/domain/models/command/alerta";
 import { Veiculo } from "@/domain/models/command/veiculo-deteccao";
+import { AlertaCompletoQueryResponse } from "@/domain/models/query/alerta-completo-query-reponse";
 import { AlertaQueryResponse } from "@/domain/models/query/alerta-query-response";
 import { VeiculoDeteccaoQueryResponse } from "@/domain/models/query/veiculo-deteccao-query-response";
 import { inject } from "@angular/core";
@@ -25,6 +26,10 @@ export class AlertaRepositoryImpl implements AlertaRepository {
 
   buscarAlertas(filter?: AlertaFilter): Observable<ResponseData<ResponsePaginacao<AlertaQueryResponse>>> {
     return this._client.get(this._api, filter.getFilters()) as Observable<ResponseData<ResponsePaginacao<AlertaQueryResponse>>>
+  }
+
+  buscarAlertaPorCd(cdAlerta: number): Observable<ResponseData<AlertaCompletoQueryResponse>> {
+    return this._client.get(`${this._api}/${cdAlerta}`) as Observable<ResponseData<AlertaCompletoQueryResponse>>
   }
 
   desativarAlerta(cdAlerta: number): Observable<void> {

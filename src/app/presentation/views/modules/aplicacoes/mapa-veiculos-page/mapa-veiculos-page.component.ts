@@ -188,7 +188,7 @@ export class MapaVeiculosPageComponent implements OnInit, OnDestroy {
     if (markerElement) {
       const iconElement = markerElement.querySelector('.car-icon');
       if (iconElement) {
-        (iconElement as HTMLElement).style.transform = `rotate(${direction - 90}deg)`;
+        (iconElement as HTMLElement).style.transform = `rotate(${direction}deg)`;
       }
     }
   }

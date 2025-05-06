@@ -1,4 +1,5 @@
 import { AlertaRepository } from "@/application/repositories/alerta.repository"
+import { BuscarAlertaPorCdUseCase } from "@/application/usecase/alerta/buscar-alerta-por-cd.usecase"
 import { BuscarAlertasUseCase } from "@/application/usecase/alerta/buscar-alertas.usecase"
 import { BuscarVeiculoPorPlacaUseCase } from "@/application/usecase/alerta/buscar-veiculo-por-placa.usecase"
 import { CriarAlertaUseCase } from "@/application/usecase/alerta/criar-alerta.usecase"
@@ -32,6 +33,12 @@ export const buscaAlertasProvider = {
   deps: [AlertaRepository]
 }
 
+export const buscarAlertaPorCdProvider = {
+  provide: BuscarAlertaPorCdUseCase,
+  UseFactory: (AlertaRepository: AlertaRepository) => new BuscarAlertaPorCdUseCase(AlertaRepository),
+  deps: [AlertaRepository]
+}
+
 export const criarVeiculoProvider = {
   provide: CriarVeiculoUseCase,
   useFactory: (AlertaRepository: AlertaRepository) => new CriarVeiculoUseCase(AlertaRepository),
@@ -53,6 +60,7 @@ export const buscarVeiculoPorPlacaProvider = {
 export const alertaProviders = [
   criaAlertaProvider,
   buscaAlertasProvider,
+  buscarAlertaPorCdProvider,
   editaAlertaProvider,
   desativaAlertaProvider,
   criarVeiculoProvider,

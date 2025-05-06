@@ -11,3 +11,8 @@ export class BuscarVeiculoPorPlacaAction {
   static readonly type = `${scopeCar} BuscarVeiculo`;
   constructor(public payload?: string) { }
 }
+
+export class buscarAlertaPorCdAction {
+  static readonly type = `${scope} BuscarAlertaCd`;
+  constructor(public payload?: number) { }
+}
