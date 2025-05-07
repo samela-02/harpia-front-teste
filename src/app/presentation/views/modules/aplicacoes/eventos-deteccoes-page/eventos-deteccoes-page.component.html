@@ -2,7 +2,7 @@
 <div class="page">
   <div class="header">
     <div class="header-group-filter">
-      <app-filters-inputs/>
+      <app-filters-inputs [formGroup]="formGroup" searchField="nrPlaca" placeholder="Pesquisar placa" [openFilters]="false" (search)="onSearch()"/>
     </div>
   </div>
   <app-table-deteccoes/>
