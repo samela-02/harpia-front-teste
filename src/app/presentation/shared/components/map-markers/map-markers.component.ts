@@ -122,7 +122,7 @@ export class MapMarkersComponent implements OnChanges, AfterViewInit, OnDestroy 
                         const customIcon = L.icon({
                             iconUrl: this.iconUrl,
                             iconSize: [40, 40],
-                            iconAnchor: [20, 40],
+                            iconAnchor: [0, 0],
                             popupAnchor: [0, -40],
                         });
                         markerOptions.icon = customIcon;
