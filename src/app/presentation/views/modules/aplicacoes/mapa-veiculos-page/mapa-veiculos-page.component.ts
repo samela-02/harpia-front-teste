@@ -71,11 +71,11 @@ export class MapaVeiculosPageComponent implements OnInit, OnDestroy {
     this.eventSourceSubscription = this.buscarDadosGpsUseCase.execute(this.idInstituicao).subscribe((response) => {
       try {
         const equipamentoData: GpsTrackerQueryResponse = JSON.parse(response.data);
-        this.updateEquipmentStatus(equipamentoData.idEquipamento, equipamentoData.sensores[0].dtCriacao, equipamentoData.sensores[0].dtEvento)
+        this.updateEquipmentStatus(equipamentoData.idEquipamento, equipamentoData.gps[0].dtCriacao, equipamentoData.gps[0].dtEvento)
 
-        if (equipamentoData.sensores[0]?.vlLatitude && equipamentoData.sensores[0]?.vlLongitude && equipamentoData.idEquipamento) {
-          const novaCoordenada: [number, number] = [equipamentoData.sensores[0].vlLatitude, equipamentoData.sensores[0].vlLongitude];
-          this.updateMovingMarker(novaCoordenada, equipamentoData.sensores[0].vlTrueCourse ?? 0, equipamentoData.idEquipamento);
+        if (equipamentoData.gps[0]?.vlLatitude && equipamentoData.gps[0]?.vlLongitude && equipamentoData.idEquipamento) {
+          const novaCoordenada: [number, number] = [equipamentoData.gps[0].vlLatitude, equipamentoData.gps[0].vlLongitude];
+          this.updateMovingMarker(novaCoordenada, equipamentoData.gps[0].vlTrueCourse ?? 0, equipamentoData.idEquipamento);
         }
 
         this.changeDetectorRef.detectChanges();
@@ -226,10 +226,9 @@ export class MapaVeiculosPageComponent implements OnInit, OnDestroy {
              </div>`,
       className: '',
       iconSize: [32, 32],
-      iconAnchor: [16, 16]
+      iconAnchor: [0, 0]
     });
   }
-
 
   ngOnDestroy() {
     if (this.eventSourceSubscription) {

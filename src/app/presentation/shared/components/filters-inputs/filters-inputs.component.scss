@@ -28,17 +28,6 @@
 
 .search-container {
   @apply relative flex items-center w-full md:w-[300px];
-
-  .map-search-field {
-    @apply w-[150px] md:w-[200px];
-    opacity: 1;
-    pointer-events: auto;
-    visibility: visible;
-    transform: translateX(40px);
-    position: absolute;
-    left: 0;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
 }
 
 .search-container {
@@ -51,29 +40,17 @@
   }
 }
 
+.search-input {
+  @apply px-2 py-1
+}
+
+.search-input:focus {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
 ::ng-deep .map-search-field {
   @apply z-[1001];
-
-  .mdc-text-field--outlined {
-
-    .mdc-notched-outline__leading,
-    .mdc-notched-outline__notch,
-    .mdc-notched-outline__trailing {
-      border-color: transparent !important;
-    }
-
-    &:hover .mdc-notched-outline__leading,
-    &:hover .mdc-notched-outline__notch,
-    &:hover .mdc-notched-outline__trailing {
-      border-color: transparent !important;
-    }
-
-    &.mdc-text-field--focused .mdc-notched-outline__leading,
-    &.mdc-text-field--focused .mdc-notched-outline__notch,
-    &.mdc-text-field--focused .mdc-notched-outline__trailing {
-      border-color: transparent !important;
-    }
-  }
 }
 
 .custom-autocomplete {

@@ -1,21 +1,27 @@
-import { Component, ViewChild, AfterViewInit, ChangeDetectorRef, inject } from "@angular/core";
+import { Modules } from "@/domain/dtos/modules.dto";
+import { RouteData } from "@/domain/interfaces/route-data.interface";
+import { AuthServiceImpl } from "@/infrastructure/services/auth.service-impl";
+import { CommonModule, DatePipe } from "@angular/common";
+import { ChangeDetectorRef, Component, inject, ViewChild } from "@angular/core";
+import { MatButtonModule } from "@angular/material/button";
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from "@angular/material/icon";
 import { MatListModule } from "@angular/material/list";
-import { MatButtonModule } from "@angular/material/button";
 import { MatSidenav, MatSidenavModule } from "@angular/material/sidenav";
-import { RouterModule, Router, NavigationEnd, ActivatedRoute } from "@angular/router";
-import { CommonModule, DatePipe } from "@angular/common";
-import { AngularLineawesomeModule } from 'angular-line-awesome';
-import { MatExpansionModule } from '@angular/material/expansion';
+import { NavigationEnd, Router, RouterModule } from "@angular/router";
 import { environment } from "@env/environment.development";
-import { NameFormatterPipe, TimerComponent } from "@tivic-team/tivic-ui";
+import { BadgeComponent, ModalService, NameFormatterPipe, TimerComponent } from "@tivic-team/tivic-ui";
+import { AngularLineawesomeModule } from 'angular-line-awesome';
 import { filter } from 'rxjs/operators';
-import { RouteData } from "@/domain/interfaces/route-data.interface";
-import { Modules } from "@/domain/dtos/modules.dto";
-import jsonModules from "../../../../../assets/modules/module.json"
-import { AuthServiceImpl } from "@/infrastructure/services/auth.service-impl";
+import jsonModules from "../../../../../assets/modules/module.json";
 import { BreadcrumbComponent } from "../breadcrumb/breadcrumb.component";
-
+import { ModalFormProfileComponent } from "./components/modal-form-profile/modal-form-profile.component";
+export class UsuarioInfo {
+  nmUsuario: string;
+  idInstituicao: string;
+  role: string;
+  cdUsuario: number;
+}
 @Component({
     selector: "app-sidenav",
     templateUrl: "./sidenav.component.html",
@@ -24,6 +30,7 @@ import { BreadcrumbComponent } from "../breadcrumb/breadcrumb.component";
     imports: [
     MatSidenavModule,
     BreadcrumbComponent,
+    BadgeComponent,
     DatePipe,
     MatButtonModule,
     NameFormatterPipe,
@@ -38,11 +45,12 @@ import { BreadcrumbComponent } from "../breadcrumb/breadcrumb.component";
 })
 export class SidenavComponent {
   @ViewChild('sidenav') sidenav!: MatSidenav;
+  private _modalService = inject(ModalService<ModalFormProfileComponent>);
   modules: Modules[] = jsonModules;
   isExpanded = false;
   selectedModule: any = null;
   moduleName: string;
-  nomeUsuario: string;
+  usuarioInfo = new UsuarioInfo
   expiresIn: number;
   timerInterval: any;
 
@@ -51,7 +59,7 @@ export class SidenavComponent {
   currentRouteData: RouteData;
 
   ngOnInit(): void {
-    this.buscaNomeUsuario();
+    this.buscaDadosUsuario();
     this.iniciarContadorExpiracao();
   }
 
@@ -78,8 +86,12 @@ export class SidenavComponent {
     }
   }
 
-  buscaNomeUsuario() {
-    this.nomeUsuario = this.authService.getNomeUsuario()
+  buscaDadosUsuario() {
+    this.usuarioInfo.nmUsuario = this.authService.getNomeUsuario()
+    this.usuarioInfo.idInstituicao  = this.authService.getIdInstituicaoUser()
+    this.usuarioInfo.role = this.authService.getRole()
+    this.usuarioInfo.cdUsuario = this.authService.getCdUsuario()
+    console.log(this.usuarioInfo)
   }
 
   iniciarContadorExpiracao() {
@@ -116,6 +128,7 @@ export class SidenavComponent {
   }
 
   deslogarUsuario() {
+    console.log('ojo')
     clearInterval(this.timerInterval);
     this.authService.deslogar();
   }
@@ -124,5 +137,10 @@ export class SidenavComponent {
     if (this.timerInterval) {
       clearInterval(this.timerInterval);
     }
+  }
+
+  openModalProfile() {
+    console.log(this.usuarioInfo.cdUsuario)
+    this._modalService.component(ModalFormProfileComponent).open(this.usuarioInfo.cdUsuario);
   }
 }
