@@ -1,0 +1,56 @@
+
+.form-group {
+  @apply flex flex-col gap-4 items-center
+}
+
+fieldset {
+  @apply block mx-1 px-4 border border-gray-200 dark:border-dark-body rounded max-w-full w-full min-w-0;
+
+  >legend {
+    @apply text-sm font-bold px-2 m-0 py-0 #{!important};
+  }
+
+  >div {
+    max-width: 100%;
+  }
+
+  mat-form-field {
+    max-width: 100%;
+  }
+
+  .fieldset-content {
+    @apply grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 items-start gap-2 justify-around w-full;
+  }
+
+  .fieldset-item {
+    @apply flex flex-col gap-0.5;
+
+    h4 {
+      @apply text-sm font-text font-bold text-text/50 dark:text-dark-text/60;
+    }
+
+    span {
+      @apply text-base font-text font-semibold text-primary/90 dark:text-white/90;
+    }
+  }
+
+  h4 {
+    @apply text-sm font-text font-bold text-text/50 dark:text-dark-text/60;
+  }
+}
+
+.mat-mdc-form-field-infix {
+  @apply py-2 #{!important};
+}
+
+::ng-deep .mat-mdc-form-field-textarea-control {
+  @apply max-h-14 #{!important}
+}
+
+.mdc-button__label {
+  @apply flex-center justify-center gap-1
+}
+
+input::placeholder {
+  @apply text-sm font-light #{!important}
+}

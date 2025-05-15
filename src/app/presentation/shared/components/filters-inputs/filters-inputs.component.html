@@ -5,10 +5,9 @@
       <mat-icon class="text-primary">
         search
       </mat-icon>
-      <mat-form-field appearance="outline" class="map-search-field">
-        <input [maxlength]="maxLeght" [minlength]="minLenght" matInput [placeholder]="placeholder" class="search-input" [(ngModel)]="searchTerm"
+        <input [maxlength]="maxLeght" [minlength]="minLenght" [placeholder]="placeholder" class="search-input"
+          [(ngModel)]="searchTerm"
           (keyup)="onKeyUp($event)">
-      </mat-form-field>
     </div>
     @if(openFilters){
     <button (click)="toggleFilters()">

@@ -3,15 +3,15 @@ import { inject } from "@angular/core";
 import { EventSourceMessage, fetchEventSource } from '@microsoft/fetch-event-source';
 import { Observable } from "rxjs";
 import { AuthServiceImpl } from "../services/auth.service-impl";
-import { environmentTelemetriaMs } from "@env/environment.development";
+import { environment, environmentTelemetriaMs } from "@env/environment.development";
 export class GpsTrackerRepositoryImpl implements GpsTrackerRepository {
-  private api = environmentTelemetriaMs;
+  private api = `${environment.protocol}://${environment.host}:${environment.port}/${environment.context}/${environment.apiroot}`;
   private _authService = inject(AuthServiceImpl);
 
   buscarDadosGps(idInstituicao: string): Observable<EventSourceMessage> {
     return new Observable<EventSourceMessage>(observer => {
       const token = this._authService.getToken()
-      fetchEventSource(`${this.api}/gps?idInstituicao=${idInstituicao}`, {
+      fetchEventSource(`${this.api}/sensors?idInstituicao=${idInstituicao}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },

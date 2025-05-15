@@ -194,6 +194,10 @@
 
 }
 
+::ng-deep .badge span.small{
+  @apply text-[10px] #{!important}
+}
+
 .profile {
   .avatar {
     @apply w-10 h-10 rounded-lg cursor-pointer;

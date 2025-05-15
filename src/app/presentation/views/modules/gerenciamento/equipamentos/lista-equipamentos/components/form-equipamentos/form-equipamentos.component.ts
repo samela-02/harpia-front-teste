@@ -4,6 +4,9 @@ import { CriarEquipamentoUseCase } from '@/application/usecase/equipamento/criar
 import { DesalocarEquipamentoUseCase } from '@/application/usecase/equipamento/desalocar-equipamento.usecase';
 import { DesativarEquipamentoUseCase } from '@/application/usecase/equipamento/desativar-equipamento..usecase';
 import { EditarEquipamentoUseCase } from '@/application/usecase/equipamento/editar-tipo-equipamento.usecase';
+import { BuscarDadosDeUsuarioUseCase } from '@/application/usecase/usuario/buscar-dados-de-usuario.usecase';
+import { UsuarioLogadoResponse } from '@/domain/dtos/usuarioLogadoResponse.dto';
+import { UsuarioRole } from '@/domain/enums/usuario-role.enum';
 import { EquipamentosFilter, EquipamentosProps } from '@/domain/filters/equipamento/equipamento.filter';
 import { InstituicaoFilter, InstituicaoProps } from '@/domain/filters/instituicao/instituicao.filter';
 import { TipoEquipamentosFilter, TipoEquipamentosProps } from '@/domain/filters/lista-equipamento/tipo-equipamento.filter';
@@ -56,23 +59,29 @@ export class FormEquipamentoComponent {
   public instituicoes = () => this._store.select(InstituicaoSelectors.instituicaoSelect)
   public tiposEquipamento = () => this._store.select(TipoEquipamentoSelectors.tiposEquipamentosSelect)
   public veiculosCCO = () => this._store.select(VeiculoCCOSelectors.veiculosCCOSelect)
+  public usuarioLogado: UsuarioLogadoResponse;
+  public UsuarioRole = UsuarioRole;
 
   @Output() cadastroSucesso = new EventEmitter<void>();
   @Input() equipamentos: any = null;
 
   constructor(
-    private criarEquipamentoUseCase: CriarEquipamentoUseCase,
-    private alocarEquipamentoUseCase: AlocarEquipamentoUseCase,
-    private desalocarEquipamentoUseCase: DesalocarEquipamentoUseCase,
-    private editarEquipamentoUseCase: EditarEquipamentoUseCase,
-    private desativarEquipamentoUseCase: DesativarEquipamentoUseCase,
-    private formBuilder: FormBuilder,
-    private buscarEquipamentosUseCase: BuscarEquipamentosUseCase,
-  ) {
-    this.formGroup = this.formBuilder.group({
-      nmEquipamento: ['', [Validators.required]],
-      cdInstituicao: [0, [Validators.required]],
-      idEquipamento: ['', [Validators.required]],
+      private buscarDadosDeUsuario: BuscarDadosDeUsuarioUseCase,
+      private criarEquipamentoUseCase: CriarEquipamentoUseCase,
+      private alocarEquipamentoUseCase: AlocarEquipamentoUseCase,
+      private desalocarEquipamentoUseCase: DesalocarEquipamentoUseCase,
+      private editarEquipamentoUseCase: EditarEquipamentoUseCase,
+      private desativarEquipamentoUseCase: DesativarEquipamentoUseCase,
+      private formBuilder: FormBuilder,
+      private buscarEquipamentosUseCase: BuscarEquipamentosUseCase,
+    ) {
+      this.buscarDadosDeUsuario.execute().subscribe((usuario) => {
+        this.usuarioLogado = usuario.data
+      })
+      this.formGroup = this.formBuilder.group({
+        nmEquipamento: ['', [Validators.required]],
+        cdInstituicao: [0, [Validators.required]],
+        idEquipamento: ['', [Validators.required]],
       cdTipoEquipamento: [0, [Validators.required]],
       nrSerie: ['', [Validators.required]],
     });

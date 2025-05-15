@@ -29,7 +29,7 @@
   </app-card-details>
 </div>
 
-
+@if(usuarioLogado?.role == UsuarioRole.ADMINISTRADOR) {
   <div class="w-full flex justify-end gap-2 mt-3">
     <button *ngIf="equipamentos && !isEditable && equipamentos.lgAtivo" (click)="toggleEdit()" mat-flat-button
       class="bg-accent/10 text-primary disabled:cursor-not-allowed disabled:text-accent/50">
@@ -64,3 +64,4 @@
       </span>
     </button>
   </div>
+}

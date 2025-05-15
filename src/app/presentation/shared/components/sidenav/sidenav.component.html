@@ -7,7 +7,7 @@
         class="w-[10em] transition-all logo-img">
     </div>
     <mat-nav-list class="overflow-hidden">
-      @for (item of modules; track $index) {
+      @for (item of modulos; track $index) {
       <span *ngIf="isExpanded" class="modulo-label">{{ item.name }}</span>
       @for (feature of item.features; track feature.label) {
       @if (!feature.children) {
@@ -27,9 +27,9 @@
         <a [routerLink]="child.routerLink ? [item.routerLink + child.routerLink] : null"
           [ngClass]="{'expanded': isExpanded}" routerLinkActive="active" class="child-item h-4" style="padding: 0;">
           <span class="!left-3 flex-center">
-          <div class="text-lg mr-3">
-            ○
-          </div>
+            <div class="text-lg mr-3">
+              ○
+            </div>
             {{ child.label }}
           </span>
         </a>
@@ -51,8 +51,7 @@
   <mat-sidenav-content [ngClass]="{'content-shifted': isExpanded}" class="max-h-screen">
     <header class="app-header">
       <div class="flex items-center">
-        <button mat-icon-button (click)="toggleSidenav()"
-          class="transition-all">
+        <button mat-icon-button (click)="toggleSidenav()" class="transition-all">
           <mat-icon class="text-primary">{{ isExpanded ? 'menu_open' : 'menu' }}</mat-icon>
         </button>
       </div>
@@ -70,23 +69,27 @@
           </button>
           <tvc-timer>
             {{expiresIn | date: 'HH:mm:ss'}}
-            <!-- {{ "00:00" }} -->
           </tvc-timer>
 
           <div class="profile">
             <img [src]="'./public/img/avatar.png'" alt="avatar" class="avatar" />
-            <div class="profile-container">
-              <div class="profile-content">
+            <div class="profile-container z-[9999]">
+              <div class="profile-content cursor-pointer" (click)="openModalProfile()">
                 <img [src]="'./public/img/avatar.png'" alt="avatar" class="avatar">
                 <div>
-                  <h4>{{ nomeUsuario | nameFormatter }}</h4>
-                  <!-- <span>{{ user()?.nmEmail }}</span> -->
+                  <div class="flex justify-center flex-col">
+                    <h4>{{ usuarioInfo?.nmUsuario | nameFormatter }}</h4>
+                    <tvc-badge color="default" size="small">
+                      {{usuarioInfo?.role}}
+                    </tvc-badge>
+                  </div>
+                  <i [class]="'la la-edit'" class="text-sm text-primary absolute top-1 right-1"></i>
                 </div>
               </div>
               <div class="profile-action">
                 <button class="flex-center gap-2" (click)="deslogarUsuario()">
                   <mat-icon class="material-symbols-outlined">logout</mat-icon>
-                  <span class="text-sm">Deslogar</span>
+                  <span class="text-sm text-primary font-semibold">Deslogar</span>
                 </button>
               </div>
             </div>
@@ -95,13 +98,7 @@
       </div>
     </header>
     <div class="content">
-      <app-breadcrumb class="mb-2"/>
-      <!-- <div class="title">
-        <label class="flex flex-center flex-row gap-2 font-semibold text-primary">
-          <i [class]="currentRouteData?.icon" class="title-icon"></i>
-          {{ currentRouteData?.title }}
-        </label>
-      </div> -->
+      <app-breadcrumb class="mb-2" />
       <div class="main-content">
         <router-outlet></router-outlet>
       </div>
