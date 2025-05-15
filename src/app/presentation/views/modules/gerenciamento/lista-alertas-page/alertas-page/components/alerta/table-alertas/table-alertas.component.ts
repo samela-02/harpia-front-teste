@@ -17,7 +17,6 @@ import { BuscarAlertaAction } from '@/infrastructure/store/actions/alerta.action
 import { Alerta } from '@/domain/models/command/alerta';
 import { ModalDetalhesAlertaComponent } from '../modal-detalhes-alerta/modal-detalhes-alerta.component';
 import { TruncatePipe } from '@/infrastructure/pipe/truncate.pipe';
-
 @Component({
   selector: 'app-table-alertas',
   standalone: true,

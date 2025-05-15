@@ -8,6 +8,7 @@ import { Injectable, inject } from "@angular/core";
 import { Router } from "@angular/router";
 import { DeslogarUsuarioUseCase } from "@/application/usecase/login/deslogar-usuario.usecase";
 import { UsuarioLogadoResponse } from "@/domain/dtos/usuarioLogadoResponse.dto";
+import { UsuarioRole } from "@/domain/enums/usuario-role.enum";
 
 @Injectable({
   providedIn: "root"
@@ -104,8 +105,9 @@ export class AuthServiceImpl implements AuthService {
     return localStorage.getItem('idInstituicao');
   }
 
-  public getRole(): string | null {
-    return localStorage.getItem('role');
+  public getRole(): UsuarioRole | null {
+    const role = localStorage.getItem('role');
+    return role ? (UsuarioRole[role as keyof typeof UsuarioRole] || null) : null;
   }
 
   public getCdUsuario(): number | null {

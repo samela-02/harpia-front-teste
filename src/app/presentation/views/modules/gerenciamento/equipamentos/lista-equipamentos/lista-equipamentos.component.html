@@ -5,12 +5,14 @@
         (search)="onSearch()">
         <app-filter-equipamento [formGroup]="formGroup" [table]="table()" />
       </app-filters-inputs>
-      <button mat-flat-button (click)="cadastrar()" class="font-semibold bg-primary/10 text-primary">
-        <i [class]="icon" class="text-lg"></i>
-        <label class="md:flex hidden">
-          Cadastrar Equipamento
-        </label>
-      </button>
+      @if (usuarioLogado?.role == UsuarioRole.ADMINISTRADOR) {
+        <button mat-flat-button (click)="cadastrar()" class="font-semibold bg-primary/10 text-primary">
+          <i [class]="icon" class="text-lg"></i>
+          <label class="md:flex hidden">
+            Cadastrar Equipamento
+          </label>
+        </button>
+      }
     </div>
   </div>
   <app-table-equipamentos [formGroup]="formGroup" class="overflow-x-auto overflow-y-hidden"></app-table-equipamentos>

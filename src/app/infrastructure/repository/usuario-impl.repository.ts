@@ -7,14 +7,21 @@ import { Usuario } from "@/domain/models/command/usuario";
 import { UsuarioQueryResponse } from "@/domain/models/query/usuarioQueryResponse";
 import { inject } from "@angular/core";
 import { Client } from "@tivic-team/tivic-ui";
-import { Observable } from "rxjs";
+import { Observable, of } from "rxjs";
+import { tap } from 'rxjs/operators';
 
 export class UsuarioRepostoryImpl implements UsuarioRepository {
   private _client = inject(Client);
   private readonly _api = "usuarios";
+  private cachedUserResponse: ResponseData<UsuarioLogadoResponse> | null = null;
 
   buscarDadosDeUsuario(): Observable<ResponseData<UsuarioLogadoResponse>> {
-    return this._client.get(`${this._api}/user-info`) as Observable<ResponseData<UsuarioLogadoResponse>>
+    if (this.cachedUserResponse) {
+      return of(this.cachedUserResponse);
+    }
+    return this._client.get(`${this._api}/user-info`).pipe(
+      tap(response => this.cachedUserResponse = response as ResponseData<UsuarioLogadoResponse>)
+    ) as Observable<ResponseData<UsuarioLogadoResponse>>;
   }
 
   buscarUsuarios(filter?: UsuarioFilter): Observable<ResponseData<ResponsePaginacao<UsuarioQueryResponse>>> {

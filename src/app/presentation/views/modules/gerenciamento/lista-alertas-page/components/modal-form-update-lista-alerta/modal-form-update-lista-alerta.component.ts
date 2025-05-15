@@ -7,6 +7,9 @@ import { Store } from "@ngxs/store";
 import { MODAL_DATA, ModalService } from "@tivic-team/tivic-ui";
 import { FormListaAlertaComponent } from "../form-lista-alerta/form-lista-alerta.component";
 import { TableInstituicoesVinculadasComponent } from "./components/table-instituicoes-vinculadas/table-instituicoes-vinculadas.component";
+import { UsuarioLogadoResponse } from "@/domain/dtos/usuarioLogadoResponse.dto";
+import { UsuarioRole } from "@/domain/enums/usuario-role.enum";
+import { BuscarDadosDeUsuarioUseCase } from "@/application/usecase/usuario/buscar-dados-de-usuario.usecase";
 
 @Component({
   selector: "modal-form-update-lista-alerta",
@@ -26,12 +29,21 @@ export class ModalFormListaAlertaUpdateComponent {
   protected listaAlerta: any = inject(MODAL_DATA) || null;
   public tituloModal: string;
   private _modalService = inject(ModalService<ModalFormListaAlertaUpdateComponent>);
+  public usuarioLogado: UsuarioLogadoResponse;
+  public UsuarioRole = UsuarioRole;
+
+  constructor(private buscarDadosDeUsuario: BuscarDadosDeUsuarioUseCase
+  ) {
+    this.buscarDadosDeUsuario.execute().subscribe((usuario) => {
+      this.usuarioLogado = usuario.data
+    })
+  }
 
   fecharModal() {
     this._modalService.dismiss();
   }
 
-  loadTableListaAlerta () {
+  loadTableListaAlerta() {
     const paginationProps: ListaAlertaProps = {
       page: 0,
     };

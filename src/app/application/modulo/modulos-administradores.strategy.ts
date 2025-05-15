@@ -1,0 +1,128 @@
+import { ModulosDto } from "@/application/dtos/modulos.dto";
+import { ModulosStrategy } from "./modulos.strategy";
+
+export class ModulosAdministradoresStrategy implements ModulosStrategy {
+  definirModulos(): ModulosDto[] {
+    const modulos: ModulosDto[] = [
+      {
+        "name": "Aplicações",
+        "label": "Aplicações",
+        "enabled": true,
+        "routerLink": "/aplicacoes",
+        "features": [
+          {
+            "label": "Dashboard",
+            "icon": "la la-icons",
+            "routerLink": "/inicio",
+            "enabled": true
+          },
+          {
+            "label": "Mapa de Veículos",
+            "icon": "la la-map-marked",
+            "routerLink": "/mapa-veiculos",
+            "enabled": true
+          },
+          {
+            "label": "Eventos de Detecções",
+            "icon": "la la-camera-retro",
+            "routerLink": "/eventos-deteccoes",
+            "enabled": true
+          }
+        ]
+      },
+      {
+        "name": "Gerenciamento",
+        "label": "Gerenciamento",
+        "enabled": true,
+        "routerLink": "/gerenciamento",
+        "features": [
+          {
+            "label": "Lista de Alertas",
+            "icon": "la la-folder-open",
+            "routerLink": "/lista-alertas",
+            "enabled": true
+          },
+          {
+            "label": "Instituições",
+            "icon": "las la-industry",
+            "routerLink": "/instituicoes",
+            "enabled": true
+          },
+          {
+            "id": "idEquipamentos",
+            "label": "Equipamentos",
+            "icon": "las la-camera-retro",
+            "enabled": true,
+            "children": [
+              {
+                "id": "idTiposEquipamentos",
+                "label": "Lista de Equipamentos",
+                "icon": "las la-camera-retro",
+                "routerLink": "/equipamentos/lista-equipamentos",
+                "enabled": true
+              },
+              {
+                "id": "idEquipamentos",
+                "label": "Tipos de Equipamentos",
+                "icon": "las la-stream",
+                "routerLink": "/equipamentos/tipos-equipamentos",
+                "enabled": true
+              }
+            ]
+          },
+          {
+            "id": "idComponentes",
+            "label": "Componentes",
+            "icon": "las la-microchip",
+            "enabled": true,
+            "children": [
+              {
+                "id": "idTiposComponentes",
+                "label": "Lista de Componentes",
+                "icon": "las la-camera-retro",
+                "routerLink": "/componentes/lista-componentes",
+                "enabled": true
+              },
+              {
+                "id": "idComponentes",
+                "label": "Tipos de Componentes",
+                "icon": "las la-stream",
+                "routerLink": "/componentes/tipos-componentes",
+                "enabled": true
+              }
+            ]
+          },
+          {
+            "id": "idVeiculos",
+            "label": "Veículos",
+            "icon": "las la-car-side",
+            "enabled": true,
+            "children": [
+              {
+                "id": "idVeiculosCCO",
+                "label": "Veículos CCO",
+                "icon": "las la-car-alt",
+                "routerLink": "/veiculos/veiculos-cco",
+                "enabled": true
+              },
+              {
+                "id": "idVeiculosDeteccao",
+                "label": "Veículos Detecção",
+                "icon": "las la-car",
+                "routerLink": "/veiculos/veiculos-deteccao",
+                "enabled": true
+              }
+            ]
+          },
+          {
+            "label": "Usuários",
+            "icon": "la la-user-friends",
+            "routerLink": "/usuarios",
+            "enabled": true
+          }
+        ]
+      }
+    ];
+    return modulos
+  }
+}

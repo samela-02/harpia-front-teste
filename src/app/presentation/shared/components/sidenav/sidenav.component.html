@@ -7,7 +7,7 @@
         class="w-[10em] transition-all logo-img">
     </div>
     <mat-nav-list class="overflow-hidden">
-      @for (item of modules; track $index) {
+      @for (item of modulos; track $index) {
       <span *ngIf="isExpanded" class="modulo-label">{{ item.name }}</span>
       @for (feature of item.features; track feature.label) {
       @if (!feature.children) {
