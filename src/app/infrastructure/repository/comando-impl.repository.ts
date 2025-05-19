@@ -1,14 +1,14 @@
 import { ComandoRepository } from "@/application/repositories/comando.repository";
 import { ComandoDTo } from "@/domain/dtos/comando.dto";
 import { inject } from "@angular/core";
-import { environmentComandoMs } from "@env/environment.development";
+import { environment } from "@env/environment.development";
 import { EventSourceMessage, fetchEventSource } from "@microsoft/fetch-event-source";
 import { Client } from "@tivic-team/tivic-ui";
 import { Observable } from "rxjs";
 import { AuthServiceImpl } from "../services/auth.service-impl";
 
 export class ComandoRepositoryImpl implements ComandoRepository {
-  private api = environmentComandoMs;
+  private api = `${environment.protocol}://${environment.host}:${environment.port}/${environment.context}/${environment.apiroot}`;
   private _authService = inject(AuthServiceImpl);
   private _client = inject(Client);
 
