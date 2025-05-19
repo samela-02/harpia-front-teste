@@ -10,7 +10,7 @@ import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-filters-inputs',
   standalone: true,
-  imports: [MatIcon, MatFormFieldModule, MatFormField, CommonModule, FormsModule, ReactiveFormsModule, MatInputModule, MatButtonModule, RouterModule],
+  imports: [MatIcon, MatFormFieldModule, CommonModule, FormsModule, ReactiveFormsModule, MatInputModule, MatButtonModule, RouterModule],
   templateUrl: './filters-inputs.component.html',
   styleUrl: './filters-inputs.component.scss'
 })
