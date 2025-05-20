@@ -25,7 +25,7 @@
               {{dadosAlerta()?.tipoAlerta.nmTipoAlerta}}
             </span>
           </span>
-          <app-info-line [descricao]="(deteccao.dtDeteccao | date:'dd/MM/yyy HH:mm:ss') || 'N/A'"
+          <app-info-line [descricao]="(deteccao?.dtDeteccao | date:'dd/MM/yyy HH:mm:ss') || 'N/A'"
             [icone]="'la la-calendar'" titulo="Data"></app-info-line>
         </div>
       </app-card-details>
@@ -35,7 +35,7 @@
           <app-info-line titulo="Modelo" icone="la la-truck-pickup" [descricao]="dadosAlerta()?.veiculo.nmModelo" />
           <app-info-line titulo="Marca" icone="la la-plus-square" [descricao]="dadosAlerta()?.veiculo.nmMarca" />
           <app-info-line titulo="Cor" icone="la la-brush" [descricao]="dadosAlerta()?.veiculo.nmCor" />
-          <app-info-line titulo="Ano" icone="la la-sort-numeric-up-alt" [descricao]="dadosAlerta()?.veiculo.nrAno.toString()" />
+          <app-info-line titulo="Ano" icone="la la-sort-numeric-up-alt" [descricao]="dadosAlerta()?.veiculo.nrAno && dadosAlerta()?.veiculo.nrAno.toString()" />
         </div>
       </app-card-details>
     </div>

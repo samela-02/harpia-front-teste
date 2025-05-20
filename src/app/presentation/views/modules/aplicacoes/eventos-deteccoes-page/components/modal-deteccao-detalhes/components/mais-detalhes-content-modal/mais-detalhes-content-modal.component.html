@@ -25,7 +25,7 @@
         <app-info-line titulo="Modelo" icone="la la-truck-pickup" [descricao]="dadosAlerta()?.veiculo.nmModelo" />
         <app-info-line titulo="Marca" icone="la la-plus-square" [descricao]="dadosAlerta()?.veiculo.nmMarca" />
         <app-info-line titulo="Cor" icone="la la-brush" [descricao]="dadosAlerta()?.veiculo.nmCor" />
-        <app-info-line titulo="Ano" icone="la la-sort-numeric-up-alt" [descricao]="dadosAlerta()?.veiculo.nrAno.toString()" />
+        <app-info-line titulo="Ano" icone="la la-sort-numeric-up-alt" [descricao]="dadosAlerta()?.veiculo.nrAno && dadosAlerta()?.veiculo.nrAno.toString()" />
         <app-info-line [descricao]="dadosAlerta()?.veiculo.nrChassi" [icone]="'la la-x-ray'" titulo="Chassi"></app-info-line>
         <app-info-line [descricao]="dadosAlerta()?.veiculo.nrRenavam" [icone]="'la la-file-contract'" titulo="Renavam"></app-info-line>
         <app-info-line [descricao]="dadosAlerta()?.veiculo.endereco.dsLogradouro" [icone]="'la la-map-marked'" titulo="Logradouro" [truncate]="25"></app-info-line>
