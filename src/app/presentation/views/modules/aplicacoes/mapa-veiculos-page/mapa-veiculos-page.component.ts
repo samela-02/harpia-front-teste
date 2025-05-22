@@ -111,6 +111,7 @@ export class MapaVeiculosPageComponent implements OnInit {
 
   private calculateStatusColor(lastCommunicationTime: Date): 'green' | 'yellow' | 'red' {
     const now = new Date();
+    lastCommunicationTime = new Date(lastCommunicationTime)
     const diffMinutes = (now.getTime() - lastCommunicationTime.getTime()) / (1000 * 60);
 
     if (diffMinutes < 10) {
@@ -211,7 +212,7 @@ export class MapaVeiculosPageComponent implements OnInit {
         if (button) {
             button.onclick = () => {
                 this.enviarComando(idEquipamento);
-            };
+            }
         }
     });
   }
