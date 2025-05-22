@@ -25,6 +25,7 @@ export class GpsTrackerRepositoryImpl implements GpsTrackerRepository {
         onerror(error) {
           console.error("Erro ao buscar dados GPS:", error);
           observer.error(error);
+          throw new Error()
         },
         onclose() {
           console.error("Conexão ao serviço GPS fechada.")
