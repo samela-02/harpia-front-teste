@@ -53,8 +53,7 @@ export class TableDeteccoesComponent extends TablePageBase{
       nrPlaca: this.currentFilters?.nrPlaca,
       vlConfidencePivInferior: this.currentFilters?.vlConfidencePivInferior,
       vlConfidencePivSuperior: this.currentFilters?.vlConfidencePivSuperior,
-      lgAtivo: this.currentFilters?.lgAtivo,
-
+      lgAtivo: 1
     };
     const filterProps = new DeteccaoFilter(paginationProps);
     this.buscarDeteccoesUseCase.execute(filterProps).subscribe((response) => {

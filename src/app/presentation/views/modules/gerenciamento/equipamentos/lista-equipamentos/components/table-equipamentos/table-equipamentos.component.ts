@@ -47,6 +47,7 @@ export class TableEquipamentosComponent extends TablePageBase{
     const paginationProps: EquipamentosProps = {
       page: page,
       size: this.pageSize,
+      lgAtivo: 1,
       nmEquipamento: this.currentFilters?.nmEquipamento,
       cdInstituicao: this.currentFilters?.cdInstituicao,
       idEquipamento: this.currentFilters?.idEquipamento,

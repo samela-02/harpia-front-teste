@@ -50,11 +50,10 @@ export namespace EquipamentoType {
     validate = (): boolean => !!this.value;
   }
 
-  export class lgAtivo extends Filter<boolean> {
-    constructor(value: boolean) {
+  export class lgAtivo extends Filter<number> {
+    constructor(value: number) {
       super("lgAtivo", value);
     }
-
     validate = (): boolean => !!this.value;
   }
   export class dtDelecaoSuperior extends Filter<Date> {
