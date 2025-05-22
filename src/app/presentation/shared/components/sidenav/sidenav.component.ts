@@ -86,12 +86,10 @@ export class SidenavComponent {
   }
 
   private defineModulos() {
-    console.log(this.nivelUsuario)
     if (this.nivelUsuario == UsuarioRole.ADMINISTRADOR) {
       this.moduloStrategy = new ModulosAdministradoresStrategy
     }
     if (this.nivelUsuario == UsuarioRole.COORDENADOR_OPERACAO) {
-      console.log(this.nivelUsuario)
       this.moduloStrategy = new ModulosCoordenadoresStrategy
     }
     if (this.nivelUsuario == UsuarioRole.OPERADOR_CENTRAL) {
@@ -99,8 +97,6 @@ export class SidenavComponent {
     }
 
     this.modulos = new ModulosStrategyFactory(this.moduloStrategy).getModulos()
-
-    console.log(this.modulos)
   }
 
   toggleSidenav() {

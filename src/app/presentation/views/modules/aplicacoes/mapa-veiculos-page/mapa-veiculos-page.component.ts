@@ -24,7 +24,7 @@ import { ModalContentComponent } from './components/modal-content/modal-content.
   templateUrl: './mapa-veiculos-page.component.html',
   styleUrl: './mapa-veiculos-page.component.scss',
 })
-export class MapaVeiculosPageComponent implements OnInit, OnDestroy {
+export class MapaVeiculosPageComponent implements OnInit {
   @ViewChild(MapMarkersComponent) mapComponent!: MapMarkersComponent;
 
   private eventSourceSubscription: Subscription | null = null;
@@ -84,6 +84,7 @@ export class MapaVeiculosPageComponent implements OnInit, OnDestroy {
           this.statusCheckIntervalSubscription = interval(60000).subscribe(() => {
             this.checkAllEquipmentStatus();
           });
+
         }
       } catch (error) {
         console.error("Erro ao processar dado do EventSource:", error, response.data);
@@ -238,5 +239,4 @@ export class MapaVeiculosPageComponent implements OnInit, OnDestroy {
       this.statusCheckIntervalSubscription.unsubscribe();
     }
   }
-
 }

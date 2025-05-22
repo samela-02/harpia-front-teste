@@ -12,7 +12,7 @@ export interface EquipamentosProps extends PropsFilter {
   idEquipamento?: string;
   nmEquipamento?: string;
   nrSerie?: string;
-  lgAtivo?: boolean;
+  lgAtivo?: number;
   dtDelecaoInferior?: Date;
   dtDelecaoSuperior?: Date;
 }
