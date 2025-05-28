@@ -31,7 +31,6 @@ export class MapaVeiculosPageComponent implements OnInit {
 
   private eventSourceSubscription: Subscription | null = null;
   private ultimaComunicacaoEquipamentoEventSourceSubscription: Subscription | null = null;
-  private statusCheckIntervalSubscription: Subscription | null = null;
   private movingMarkers: Map<string, L.Marker> = new Map();
   private idInstituicao = this.authService.getIdInstituicaoUser()
   private _modalService = inject(ModalService<ModalContentComponent>)
@@ -53,6 +52,7 @@ export class MapaVeiculosPageComponent implements OnInit {
   ngOnInit(): void {
     this.bucarDadosGps();
     this._findStreamUltimaComunicacao();
+    this.atualizarStatusEquipamentoAsync();
   }
 
   enviarComando(idEquipamento?: string) {
@@ -84,12 +84,6 @@ export class MapaVeiculosPageComponent implements OnInit {
         }
 
         this.changeDetectorRef.detectChanges();
-
-        if (!this.statusCheckIntervalSubscription) {
-          this.statusCheckIntervalSubscription = interval(60000).subscribe(() => {
-            this.atualizarStatusEquipamentoAsync();
-          });
-        }
       } catch (error) {
         console.error("Erro ao processar dado do EventSource:", error, response.data);
       }
@@ -136,18 +130,28 @@ export class MapaVeiculosPageComponent implements OnInit {
   }
 
   private atualizarStatusEquipamentoAsync(): void {
-    let changed = false;
-    this.equipmentStatusMap.forEach((status, id) => {
-      const newColor = this.calculateStatusColor(status.lastCommunicationTimeBd);
-      if (status.statusColor !== newColor) {
-        status.statusColor = newColor;
-        this.equipmentStatusMap.set(id, status);
-        changed = true;
+    setTimeout(() => {
+      while (true) {
+        this.atualizarStatusEquipamento();
       }
-    });
-    if (changed) {
-      this.changeDetectorRef.detectChanges();
-    }
+    }, 0);
+  }
+
+  private atualizarStatusEquipamento(): void {
+    setTimeout(() => {
+      let changed = false;
+      this.equipmentStatusMap.forEach((status, id) => {
+        const newColor = this.calculateStatusColor(status.lastCommunicationTimeBd);
+        if (status.statusColor !== newColor) {
+          status.statusColor = newColor;
+          this.equipmentStatusMap.set(id, status);
+          changed = true;
+        }
+      });
+      if (changed) {
+        this.changeDetectorRef.detectChanges();
+      }
+    }, 60000);
   }
 
   getEquipmentStatusList(): EquipmentStatus[] {
@@ -250,9 +254,6 @@ export class MapaVeiculosPageComponent implements OnInit {
     }
     if (this.ultimaComunicacaoEquipamentoEventSourceSubscription) {
       this.ultimaComunicacaoEquipamentoEventSourceSubscription.unsubscribe();
-    }
-    if (this.statusCheckIntervalSubscription) {
-      this.statusCheckIntervalSubscription.unsubscribe();
     }
   }
 }
