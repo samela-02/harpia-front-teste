@@ -16,6 +16,8 @@ import { EquipmentStatus } from '@/presentation/interfaces/equipament-status';
 import { AuthServiceImpl } from '@/infrastructure/services/auth.service-impl';
 import { ModalService } from '@tivic-team/tivic-ui';
 import { ModalContentComponent } from './components/modal-content/modal-content.component';
+import { FindStreamUltimaComunicacaoEquipamentoUseCase } from '@/application/usecase/equipamento/find-stream-ultima-comunicacao-equipamento.usecase';
+import { EquipamentoComunicacaoQueryResponse } from '@/domain/models/query/equipamento-comunicacao-query-response';
 @Component({
   selector: 'app-mapa-veiculos-page',
   standalone: true,
@@ -28,6 +30,7 @@ export class MapaVeiculosPageComponent implements OnInit {
   @ViewChild(MapMarkersComponent) mapComponent!: MapMarkersComponent;
 
   private eventSourceSubscription: Subscription | null = null;
+  private ultimaComunicacaoEquipamentoEventSourceSubscription: Subscription | null = null;
   private statusCheckIntervalSubscription: Subscription | null = null;
   private movingMarkers: Map<string, L.Marker> = new Map();
   private idInstituicao = this.authService.getIdInstituicaoUser()
@@ -43,11 +46,13 @@ export class MapaVeiculosPageComponent implements OnInit {
     private datePipe: DatePipe,
     private enviarComandoUseCase: EnviarComandoUseCase,
     private buscarComandoUseCase: BuscarComandoUseCase,
-    private authService: AuthServiceImpl
+    private authService: AuthServiceImpl,
+    private findStreamUltimaComunicacaoEquipamentoUseCase: FindStreamUltimaComunicacaoEquipamentoUseCase
   ) { }
 
   ngOnInit(): void {
     this.bucarDadosGps();
+    this._findStreamUltimaComunicacao();
   }
 
   enviarComando(idEquipamento?: string) {
@@ -90,6 +95,14 @@ export class MapaVeiculosPageComponent implements OnInit {
         console.error("Erro ao processar dado do EventSource:", error, response.data);
       }
     });
+  }
+
+  private _findStreamUltimaComunicacao() {
+    this.ultimaComunicacaoEquipamentoEventSourceSubscription = this.findStreamUltimaComunicacaoEquipamentoUseCase
+        .execute()
+        .subscribe((response) => {
+          const equipamentoComunicacaoList: EquipamentoComunicacaoQueryResponse[] = JSON.parse(response.data);
+        });
   }
 
   private updateEquipmentStatus(idEquipamento: string, communicationTimeBd: Date, communicationTimeGps: Date): void {
@@ -235,6 +248,9 @@ export class MapaVeiculosPageComponent implements OnInit {
   ngOnDestroy() {
     if (this.eventSourceSubscription) {
       this.eventSourceSubscription.unsubscribe();
+    }
+    if (this.ultimaComunicacaoEquipamentoEventSourceSubscription) {
+      this.ultimaComunicacaoEquipamentoEventSourceSubscription.unsubscribe();
     }
     if (this.statusCheckIntervalSubscription) {
       this.statusCheckIntervalSubscription.unsubscribe();
