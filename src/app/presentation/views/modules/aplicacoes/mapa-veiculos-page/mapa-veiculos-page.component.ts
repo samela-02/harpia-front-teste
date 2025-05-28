@@ -51,7 +51,7 @@ export class MapaVeiculosPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.bucarDadosGps();
-    this._findStreamUltimaComunicacao();
+    this.findStreamUltimaComunicacao();
     this.atualizarStatusEquipamentoAsync();
   }
 
@@ -90,7 +90,7 @@ export class MapaVeiculosPageComponent implements OnInit {
     });
   }
 
-  private _findStreamUltimaComunicacao() {
+  private findStreamUltimaComunicacao() {
     this.ultimaComunicacaoEquipamentoEventSourceSubscription = this.findStreamUltimaComunicacaoEquipamentoUseCase
         .execute()
         .subscribe((response) => {
