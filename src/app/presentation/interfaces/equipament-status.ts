@@ -1,7 +1,6 @@
 export interface EquipmentStatus {
   idEquipamento: string;
-  lastCommunicationTimeGps: Date;
-  lastCommunicationTimeBd: Date
+  dtUltimaComunicacao: Date;
   statusColor: 'green' | 'yellow' | 'red';
   nome?: string;
 }

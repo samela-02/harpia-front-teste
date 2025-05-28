@@ -52,7 +52,7 @@ export class MapaVeiculosPageComponent implements OnInit {
   ngOnInit(): void {
     this.bucarDadosGps();
     this.findStreamUltimaComunicacao();
-    this.atualizarStatusEquipamentoAsync();
+    // this.atualizarStatusEquipamentoAsync();
   }
 
   enviarComando(idEquipamento?: string) {
@@ -76,7 +76,6 @@ export class MapaVeiculosPageComponent implements OnInit {
     this.eventSourceSubscription = this.buscarDadosGpsUseCase.execute(this.idInstituicao).subscribe((response) => {
       try {
         const equipamentoData: GpsTrackerQueryResponse = JSON.parse(response.data);
-        this.updateEquipmentStatus(equipamentoData.idEquipamento, equipamentoData.gps[0].dtCriacao, equipamentoData.gps[0].dtEvento)
 
         if (equipamentoData.gps[0]?.vlLatitude && equipamentoData.gps[0]?.vlLongitude && equipamentoData.idEquipamento) {
           const novaCoordenada: [number, number] = [equipamentoData.gps[0].vlLatitude, equipamentoData.gps[0].vlLongitude];
@@ -95,24 +94,29 @@ export class MapaVeiculosPageComponent implements OnInit {
         .execute()
         .subscribe((response) => {
           const equipamentoComunicacaoList: EquipamentoComunicacaoQueryResponse[] = JSON.parse(response.data);
+          const equipamentoStatusList: EquipmentStatus[] = this.converterQueryEmEquipamentoStatus(equipamentoComunicacaoList);
+          this.equipmentStatusMap = this.converterListEmMap(equipamentoStatusList);
         });
   }
 
-  private updateEquipmentStatus(idEquipamento: string, communicationTimeBd: Date, communicationTimeGps: Date): void {
-    let status = this.equipmentStatusMap.get(idEquipamento);
-    if (!status) {
-      status = {
-        idEquipamento: idEquipamento,
-        lastCommunicationTimeBd: communicationTimeBd,
-        lastCommunicationTimeGps: communicationTimeGps,
-        statusColor: 'green',
-        nome: `${idEquipamento}`
-      };
-    } else {
-      status.lastCommunicationTimeBd = communicationTimeBd;
-    }
-    status.statusColor = this.calculateStatusColor(new Date(communicationTimeBd));
-    this.equipmentStatusMap.set(idEquipamento, status);
+  private converterQueryEmEquipamentoStatus(equipamentoComunicacaoList: EquipamentoComunicacaoQueryResponse[]): EquipmentStatus[] {
+    return equipamentoComunicacaoList
+      .map(equipamento => {
+        return {
+          idEquipamento: equipamento.idEquipamento, 
+          dtUltimaComunicacao: equipamento.dtUltimaComunicacao, 
+          statusColor: this.calculateStatusColor(equipamento.dtUltimaComunicacao)
+        }
+      });
+  }
+
+  private converterListEmMap(equipamentoStatusList: EquipmentStatus[]): Map<string, EquipmentStatus> {
+    let result: Map<string, EquipmentStatus> = new Map();
+    equipamentoStatusList
+      .forEach(equipamento => {
+        result.set(equipamento.idEquipamento, equipamento);
+      })
+      return result;
   }
 
   private calculateStatusColor(lastCommunicationTime: Date): 'green' | 'yellow' | 'red' {
@@ -141,7 +145,7 @@ export class MapaVeiculosPageComponent implements OnInit {
     setTimeout(() => {
       let changed = false;
       this.equipmentStatusMap.forEach((status, id) => {
-        const newColor = this.calculateStatusColor(status.lastCommunicationTimeBd);
+        const newColor = this.calculateStatusColor(status.dtUltimaComunicacao);
         if (status.statusColor !== newColor) {
           status.statusColor = newColor;
           this.equipmentStatusMap.set(id, status);
@@ -215,7 +219,7 @@ export class MapaVeiculosPageComponent implements OnInit {
   private addPopupToMarker(marker: L.Marker, idEquipamento: string): void {
     const status = this.equipmentStatusMap.get(idEquipamento);
     const popupContent = L.DomUtil.create("div");
-    const lastUpdateFormatted = status ? this.datePipe.transform(status.lastCommunicationTimeBd, 'dd/MM/yyyy HH:mm:ss') : 'N/A';
+    const lastUpdateFormatted = status ? this.datePipe.transform(status.dtUltimaComunicacao, 'dd/MM/yyyy HH:mm:ss') : 'N/A';
 
     popupContent.innerHTML = contentMarker(`ID: ${idEquipamento}<br>Última Att: ${lastUpdateFormatted}`, "assets/gifteste.gif", idEquipamento);
 
