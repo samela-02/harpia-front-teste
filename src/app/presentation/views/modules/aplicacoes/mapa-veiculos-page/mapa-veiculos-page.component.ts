@@ -87,9 +87,8 @@ export class MapaVeiculosPageComponent implements OnInit {
 
         if (!this.statusCheckIntervalSubscription) {
           this.statusCheckIntervalSubscription = interval(60000).subscribe(() => {
-            this.checkAllEquipmentStatus();
+            this.atualizarStatusDosEquipamentos();
           });
-
         }
       } catch (error) {
         console.error("Erro ao processar dado do EventSource:", error, response.data);
@@ -136,7 +135,7 @@ export class MapaVeiculosPageComponent implements OnInit {
     }
   }
 
-  private checkAllEquipmentStatus(): void {
+  private atualizarStatusDosEquipamentos(): void {
     let changed = false;
     this.equipmentStatusMap.forEach((status, id) => {
       const newColor = this.calculateStatusColor(status.lastCommunicationTimeBd);
