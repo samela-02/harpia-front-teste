@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { ResponseData } from "../dtos/response-data.dto";
 import { ResponsePaginacao } from "../dtos/response-paginacao.dto";
 import { EquipamentoQuery } from "@/domain/models/query/equipamento";
+import { EventSourceMessage } from "@microsoft/fetch-event-source";
 
 export abstract class EquipamentoRepository {
   public abstract criarEquipamento(equipamento: Equipamento): Observable<void>;
@@ -12,4 +13,5 @@ export abstract class EquipamentoRepository {
   public abstract desativarEquipamento(cdEquipamento: number): Observable<void>;
   public abstract alocarEquipamento(cdEquipamento: number, cdVeiculo: number): Observable<void>
   public abstract desalocarEquipamento(cdEquipamento: number): Observable<void>
+  public abstract findStreamUltimaComunicacaoEquipamento(): Observable<EventSourceMessage>;
 }

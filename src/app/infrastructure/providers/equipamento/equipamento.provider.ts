@@ -5,6 +5,7 @@ import { CriarEquipamentoUseCase } from "@/application/usecase/equipamento/criar
 import { DesalocarEquipamentoUseCase } from "@/application/usecase/equipamento/desalocar-equipamento.usecase"
 import { DesativarEquipamentoUseCase } from "@/application/usecase/equipamento/desativar-equipamento..usecase"
 import { EditarEquipamentoUseCase } from "@/application/usecase/equipamento/editar-tipo-equipamento.usecase"
+import { FindStreamUltimaComunicacaoEquipamentoUseCase } from "@/application/usecase/equipamento/find-stream-ultima-comunicacao-equipamento.usecase"
 import { EquipamentoRepositoryImpl } from "@/infrastructure/repository/equipamento-impl.repository"
 
 export const criaEquipamentoProvider = {
@@ -43,6 +44,12 @@ export const desalocarEquipamentoProvider = {
   deps: [EquipamentoRepository]
 }
 
+export const findStreamUltimaComunicacaoEquipamentoProvider = {
+  provide: FindStreamUltimaComunicacaoEquipamentoUseCase,
+  useFactory: (equipamentoRepository: EquipamentoRepository) => new FindStreamUltimaComunicacaoEquipamentoUseCase(equipamentoRepository),
+  deps: [EquipamentoRepository]
+}
+
 export const equipamentoProviders = [
   criaEquipamentoProvider,
   buscaEquipamentosProvider,
@@ -50,6 +57,7 @@ export const equipamentoProviders = [
   desativaEquipamentoProvider,
   alocarEquipamentoProvider,
   desalocarEquipamentoProvider,
+  findStreamUltimaComunicacaoEquipamentoProvider,
   {
     provide: EquipamentoRepository,
     useClass: EquipamentoRepositoryImpl
