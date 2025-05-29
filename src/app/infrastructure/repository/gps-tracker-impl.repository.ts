@@ -7,18 +7,15 @@ import { AuthServiceImpl } from "../services/auth.service-impl";
 export class GpsTrackerRepositoryImpl implements GpsTrackerRepository {
   private api = `${environment.protocol}://${environment.host}:${environment.port}/${environment.context}/${environment.apiroot}`;
   private _authService = inject(AuthServiceImpl);
-  private _eventSourceConnection: EventSourceMessage = null
 
-  buscarDadosGps(idInstituicao: string): Observable<EventSourceMessage> {
-    if (this._eventSourceConnection) {
-      return of(this._eventSourceConnection)
-    }
+  buscarDadosGps(abortController: AbortController, idInstituicao: string): Observable<EventSourceMessage> {
     return new Observable<EventSourceMessage>(observer => {
-      const token = this._authService.getToken()
+      const token = this._authService.getToken();
       fetchEventSource(`${this.api}/sensors?idInstituicao=${idInstituicao}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
+        signal: abortController.signal,
         onmessage(event) {
           observer.next(event);
         },
@@ -30,10 +27,8 @@ export class GpsTrackerRepositoryImpl implements GpsTrackerRepository {
         onclose() {
           console.error("Conexão ao serviço GPS fechada.")
           observer.complete();
-        }
+        },
       })
-    }).pipe(tap(
-      response => this._eventSourceConnection = response
-    ));
+    });
   }
 }

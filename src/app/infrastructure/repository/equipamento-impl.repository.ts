@@ -14,7 +14,6 @@ import { AuthServiceImpl } from "../services/auth.service-impl";
 export class EquipamentoRepositoryImpl implements EquipamentoRepository {
   private api = `${environment.protocol}://${environment.host}:${environment.port}/${environment.context}/${environment.apiroot}`;
   private _authService = inject(AuthServiceImpl);
-  private _eventSourceConnection: EventSourceMessage = null;
 
   private _client = inject(Client);
   private readonly _api = "equipamentos";
@@ -42,16 +41,14 @@ export class EquipamentoRepositoryImpl implements EquipamentoRepository {
     return this._client.patch(`${this._api}/${cdEquipamento}/alocacoes`, null)
   }
 
-  findStreamUltimaComunicacaoEquipamento(): Observable<EventSourceMessage> {
-    if (this._eventSourceConnection) {
-      return of(this._eventSourceConnection)
-    }
+  findStreamUltimaComunicacaoEquipamento(abortController: AbortController): Observable<EventSourceMessage> {
     return new Observable<EventSourceMessage>(observer => {
       const token = this._authService.getToken()
       fetchEventSource(`${this.api}/equipamentos/stream-ultima-comunicacao`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
+        signal: abortController.signal,
         onmessage(event) {
           observer.next(event);
         },
@@ -65,9 +62,6 @@ export class EquipamentoRepositoryImpl implements EquipamentoRepository {
           observer.complete();
         }
       })
-    })
-    .pipe(tap(
-      response => this._eventSourceConnection = response
-    ));
+    });
   }
 }

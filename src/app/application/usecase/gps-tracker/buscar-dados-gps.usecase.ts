@@ -4,7 +4,7 @@ import { Observable } from "rxjs";
 
 export class buscarDadosGpsUseCase {
   constructor(private gpsTrackerRepository: GpsTrackerRepository){}
-  public execute(idInstituicao: string): Observable<EventSourceMessage>{
-    return this.gpsTrackerRepository.buscarDadosGps(idInstituicao)
+  public execute(abortController: AbortController, idInstituicao: string): Observable<EventSourceMessage>{
+    return this.gpsTrackerRepository.buscarDadosGps(abortController, idInstituicao)
   }
 }

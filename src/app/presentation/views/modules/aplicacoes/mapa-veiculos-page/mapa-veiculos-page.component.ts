@@ -40,6 +40,8 @@ export class MapaVeiculosPageComponent implements OnInit {
   public equipmentStatusMap: Map<string, EquipmentStatus> = new Map();
   public markerCount: number = 0;
 
+  private gpsAbortController: AbortController = null;
+  private ultimaComunicacaoEquipamentoAbortController: AbortController = null;
 
   constructor(
     private buscarDadosGpsUseCase: buscarDadosGpsUseCase,
@@ -52,6 +54,8 @@ export class MapaVeiculosPageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.gpsAbortController = new AbortController();
+    this.ultimaComunicacaoEquipamentoAbortController = new AbortController();
     this.bucarDadosGps();
     this.findStreamUltimaComunicacao();
     this.atualizarStatusEquipamentoAsync();
@@ -75,7 +79,7 @@ export class MapaVeiculosPageComponent implements OnInit {
   }
 
   bucarDadosGps(){
-    this.eventSourceSubscription = this.buscarDadosGpsUseCase.execute(this.idInstituicao).subscribe((response) => {
+    this.eventSourceSubscription = this.buscarDadosGpsUseCase.execute(this.gpsAbortController, this.idInstituicao).subscribe((response) => {
       try {
         const equipamentoData: GpsTrackerQueryResponse = JSON.parse(response.data);
 
@@ -93,7 +97,7 @@ export class MapaVeiculosPageComponent implements OnInit {
 
   private findStreamUltimaComunicacao() {
     this.ultimaComunicacaoEquipamentoEventSourceSubscription = this.findStreamUltimaComunicacaoEquipamentoUseCase
-        .execute()
+        .execute(this.ultimaComunicacaoEquipamentoAbortController)
         .subscribe((response) => {
           const equipamentoComunicacaoList: EquipamentoComunicacaoQueryResponse[] = JSON.parse(response.data);
           const equipamentoStatusList: EquipmentStatus[] = this.converterQueryEmEquipamentoStatus(equipamentoComunicacaoList);
@@ -262,12 +266,14 @@ export class MapaVeiculosPageComponent implements OnInit {
 
   ngOnDestroy() {
     if (this.eventSourceSubscription) {
+      this.gpsAbortController.abort();
       this.eventSourceSubscription.unsubscribe();
     }
     if (this.checkEquipamentoStatusSubscription) {
       this.eventSourceSubscription.unsubscribe();
     }
     if (this.ultimaComunicacaoEquipamentoEventSourceSubscription) {
+      this.ultimaComunicacaoEquipamentoAbortController.abort();
       this.ultimaComunicacaoEquipamentoEventSourceSubscription.unsubscribe();
     }
   }

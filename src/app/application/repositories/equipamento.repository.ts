@@ -13,5 +13,5 @@ export abstract class EquipamentoRepository {
   public abstract desativarEquipamento(cdEquipamento: number): Observable<void>;
   public abstract alocarEquipamento(cdEquipamento: number, cdVeiculo: number): Observable<void>
   public abstract desalocarEquipamento(cdEquipamento: number): Observable<void>
-  public abstract findStreamUltimaComunicacaoEquipamento(): Observable<EventSourceMessage>;
+  public abstract findStreamUltimaComunicacaoEquipamento(abortController: AbortController): Observable<EventSourceMessage>;
 }
