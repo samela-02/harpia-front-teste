@@ -16,6 +16,9 @@ import { EquipmentStatus } from '@/presentation/interfaces/equipament-status';
 import { AuthServiceImpl } from '@/infrastructure/services/auth.service-impl';
 import { ModalService } from '@tivic-team/tivic-ui';
 import { ModalContentComponent } from './components/modal-content/modal-content.component';
+import { FindStreamUltimaComunicacaoEquipamentoUseCase } from '@/application/usecase/equipamento/find-stream-ultima-comunicacao-equipamento.usecase';
+import { EquipamentoComunicacaoQueryResponse } from '@/domain/models/query/equipamento-comunicacao-query-response';
+
 @Component({
   selector: 'app-mapa-veiculos-page',
   standalone: true,
@@ -28,7 +31,8 @@ export class MapaVeiculosPageComponent implements OnInit {
   @ViewChild(MapMarkersComponent) mapComponent!: MapMarkersComponent;
 
   private eventSourceSubscription: Subscription | null = null;
-  private statusCheckIntervalSubscription: Subscription | null = null;
+  private ultimaComunicacaoEquipamentoEventSourceSubscription: Subscription | null = null;
+  private checkEquipamentoStatusSubscription: Subscription | null = null;
   private movingMarkers: Map<string, L.Marker> = new Map();
   private idInstituicao = this.authService.getIdInstituicaoUser()
   private _modalService = inject(ModalService<ModalContentComponent>)
@@ -36,6 +40,8 @@ export class MapaVeiculosPageComponent implements OnInit {
   public equipmentStatusMap: Map<string, EquipmentStatus> = new Map();
   public markerCount: number = 0;
 
+  private gpsAbortController: AbortController = null;
+  private ultimaComunicacaoEquipamentoAbortController: AbortController = null;
 
   constructor(
     private buscarDadosGpsUseCase: buscarDadosGpsUseCase,
@@ -43,11 +49,16 @@ export class MapaVeiculosPageComponent implements OnInit {
     private datePipe: DatePipe,
     private enviarComandoUseCase: EnviarComandoUseCase,
     private buscarComandoUseCase: BuscarComandoUseCase,
-    private authService: AuthServiceImpl
+    private authService: AuthServiceImpl,
+    private findStreamUltimaComunicacaoEquipamentoUseCase: FindStreamUltimaComunicacaoEquipamentoUseCase
   ) { }
 
   ngOnInit(): void {
+    this.gpsAbortController = new AbortController();
+    this.ultimaComunicacaoEquipamentoAbortController = new AbortController();
     this.bucarDadosGps();
+    this.findStreamUltimaComunicacao();
+    this.atualizarStatusEquipamentoAsync();
   }
 
   enviarComando(idEquipamento?: string) {
@@ -68,10 +79,9 @@ export class MapaVeiculosPageComponent implements OnInit {
   }
 
   bucarDadosGps(){
-    this.eventSourceSubscription = this.buscarDadosGpsUseCase.execute(this.idInstituicao).subscribe((response) => {
+    this.eventSourceSubscription = this.buscarDadosGpsUseCase.execute(this.gpsAbortController, this.idInstituicao).subscribe((response) => {
       try {
         const equipamentoData: GpsTrackerQueryResponse = JSON.parse(response.data);
-        this.updateEquipmentStatus(equipamentoData.idEquipamento, equipamentoData.gps[0].dtCriacao, equipamentoData.gps[0].dtEvento)
 
         if (equipamentoData.gps[0]?.vlLatitude && equipamentoData.gps[0]?.vlLongitude && equipamentoData.idEquipamento) {
           const novaCoordenada: [number, number] = [equipamentoData.gps[0].vlLatitude, equipamentoData.gps[0].vlLongitude];
@@ -79,34 +89,60 @@ export class MapaVeiculosPageComponent implements OnInit {
         }
 
         this.changeDetectorRef.detectChanges();
-
-        if (!this.statusCheckIntervalSubscription) {
-          this.statusCheckIntervalSubscription = interval(60000).subscribe(() => {
-            this.checkAllEquipmentStatus();
-          });
-
-        }
       } catch (error) {
         console.error("Erro ao processar dado do EventSource:", error, response.data);
       }
     });
   }
 
-  private updateEquipmentStatus(idEquipamento: string, communicationTimeBd: Date, communicationTimeGps: Date): void {
-    let status = this.equipmentStatusMap.get(idEquipamento);
-    if (!status) {
-      status = {
-        idEquipamento: idEquipamento,
-        lastCommunicationTimeBd: communicationTimeBd,
-        lastCommunicationTimeGps: communicationTimeGps,
-        statusColor: 'green',
-        nome: `${idEquipamento}`
-      };
-    } else {
-      status.lastCommunicationTimeBd = communicationTimeBd;
-    }
-    status.statusColor = this.calculateStatusColor(new Date(communicationTimeBd));
-    this.equipmentStatusMap.set(idEquipamento, status);
+  private findStreamUltimaComunicacao() {
+    this.ultimaComunicacaoEquipamentoEventSourceSubscription = this.findStreamUltimaComunicacaoEquipamentoUseCase
+        .execute(this.ultimaComunicacaoEquipamentoAbortController)
+        .subscribe((response) => {
+          const equipamentoComunicacaoList: EquipamentoComunicacaoQueryResponse[] = JSON.parse(response.data);
+          const equipamentoStatusList: EquipmentStatus[] = this.converterQueryEmEquipamentoStatus(equipamentoComunicacaoList);
+          this.equipmentStatusMap = this.converterListEmMap(equipamentoStatusList);
+        });
+  }
+
+  private converterQueryEmEquipamentoStatus(equipamentoComunicacaoList: EquipamentoComunicacaoQueryResponse[]): EquipmentStatus[] {
+    return equipamentoComunicacaoList
+      .map(equipamento => {
+        return {
+          idEquipamento: equipamento.idEquipamento, 
+          dtUltimaComunicacao: equipamento.dtUltimaComunicacao, 
+          statusColor: this.calculateStatusColor(equipamento.dtUltimaComunicacao)
+        }
+      });
+  }
+
+  private converterListEmMap(equipamentoStatusList: EquipmentStatus[]): Map<string, EquipmentStatus> {
+    let result: Map<string, EquipmentStatus> = new Map();
+    equipamentoStatusList
+      .forEach(equipamento => {
+        result.set(equipamento.idEquipamento, equipamento);
+      })
+    return result;
+  }
+
+  private atualizarStatusEquipamentoAsync(): void {
+    this.checkEquipamentoStatusSubscription = interval(60000)
+      .subscribe(() => this.atualizarStatusEquipamento());
+  }
+
+  private atualizarStatusEquipamento(): void {
+      let changed = false;
+      this.equipmentStatusMap.forEach((status, id) => {
+        const newColor = this.calculateStatusColor(status.dtUltimaComunicacao);
+        if (status.statusColor !== newColor) {
+          status.statusColor = newColor;
+          this.equipmentStatusMap.set(id, status);
+          changed = true;
+        }
+      });
+      if (changed) {
+        this.changeDetectorRef.detectChanges();
+      }
   }
 
   private calculateStatusColor(lastCommunicationTime: Date): 'green' | 'yellow' | 'red' {
@@ -116,30 +152,26 @@ export class MapaVeiculosPageComponent implements OnInit {
 
     if (diffMinutes < 10) {
       return 'green';
-    } else if (diffMinutes < 60) {
+    } 
+    
+    if (diffMinutes < 60) {
       return 'yellow';
-    } else {
-      return 'red';
     }
-  }
 
-  private checkAllEquipmentStatus(): void {
-    let changed = false;
-    this.equipmentStatusMap.forEach((status, id) => {
-      const newColor = this.calculateStatusColor(status.lastCommunicationTimeBd);
-      if (status.statusColor !== newColor) {
-        status.statusColor = newColor;
-        this.equipmentStatusMap.set(id, status);
-        changed = true;
-      }
-    });
-    if (changed) {
-      this.changeDetectorRef.detectChanges();
-    }
+    return 'red';
   }
 
   getEquipmentStatusList(): EquipmentStatus[] {
-    return Array.from(this.equipmentStatusMap.values());
+    return Array.from(this.equipmentStatusMap.values())
+      .sort((a, b) => {
+        return this.ajustarData(b.dtUltimaComunicacao) - this.ajustarData(a.dtUltimaComunicacao);
+      });
+  }
+
+  private ajustarData(date: Date): number {
+    if (date == null)
+      return 0;
+    return new Date(date).getTime();
   }
 
   private updateMovingMarker(coordinate: [number, number], direction: number, idEquipamento: string): void {
@@ -199,7 +231,7 @@ export class MapaVeiculosPageComponent implements OnInit {
   private addPopupToMarker(marker: L.Marker, idEquipamento: string): void {
     const status = this.equipmentStatusMap.get(idEquipamento);
     const popupContent = L.DomUtil.create("div");
-    const lastUpdateFormatted = status ? this.datePipe.transform(status.lastCommunicationTimeBd, 'dd/MM/yyyy HH:mm:ss') : 'N/A';
+    const lastUpdateFormatted = status ? this.datePipe.transform(status.dtUltimaComunicacao, 'dd/MM/yyyy HH:mm:ss') : 'N/A';
 
     popupContent.innerHTML = contentMarker(`ID: ${idEquipamento}<br>Última Att: ${lastUpdateFormatted}`, "assets/gifteste.gif", idEquipamento);
 
@@ -234,10 +266,15 @@ export class MapaVeiculosPageComponent implements OnInit {
 
   ngOnDestroy() {
     if (this.eventSourceSubscription) {
+      this.gpsAbortController.abort();
       this.eventSourceSubscription.unsubscribe();
     }
-    if (this.statusCheckIntervalSubscription) {
-      this.statusCheckIntervalSubscription.unsubscribe();
+    if (this.checkEquipamentoStatusSubscription) {
+      this.eventSourceSubscription.unsubscribe();
+    }
+    if (this.ultimaComunicacaoEquipamentoEventSourceSubscription) {
+      this.ultimaComunicacaoEquipamentoAbortController.abort();
+      this.ultimaComunicacaoEquipamentoEventSourceSubscription.unsubscribe();
     }
   }
 }
