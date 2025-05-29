@@ -18,11 +18,11 @@
 }
 
 .content {
-  @apply w-full h-full grid grid-cols-12 gap-2;
+  @apply w-full h-full flex xl:flex-row flex-col gap-2;
 }
 
 .card-right {
-  @apply xl:col-span-2 col-span-12 bg-slate-50 h-full rounded-md p-4;
+  @apply xl:w-[20%] w-full bg-slate-50 h-full rounded-md p-4;
 
   &-header {
     @apply mb-4 text-base flex-center gap-2 text-primary font-semibold;

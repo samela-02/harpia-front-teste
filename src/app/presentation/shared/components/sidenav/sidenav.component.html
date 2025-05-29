@@ -1,5 +1,6 @@
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav class="sidenav" #sidenav mode="side" opened [ngClass]="{'expanded': isExpanded}">
+  <mat-sidenav class="sidenav" #sidenav [mode]="sidenavMode" [opened]="isSidenavOpened" (backdropClick)="closeSidenav()"
+    [ngClass]="{'expanded': isExpanded}">
     <div class="sidenav-header">
       <img src="./public/img/logo/harpia-no-label.png" [ngClass]="{'hidden': isExpanded, 'visible': !isExpanded}"
         class="w-[10em] transition-all logo-img">
@@ -52,21 +53,12 @@
     <header class="app-header">
       <div class="flex items-center">
         <button mat-icon-button (click)="toggleSidenav()" class="transition-all">
-          <mat-icon class="text-primary">{{ isExpanded ? 'menu_open' : 'menu' }}</mat-icon>
+          <mat-icon class="text-primary dark:text-dark-primary">{{ isExpanded ? 'menu_open' : 'menu' }}</mat-icon>
         </button>
       </div>
       <div class="nav">
         <div class="nav-list">
-          <button class="button-search">
-            <div class="button-search-title">
-              <mat-icon>search</mat-icon>
-              <h3>Pesquisar</h3>
-            </div>
-            <div class="button-search-item">
-              <span>⌘</span>
-              <span class="text-xs font-semibold">K</span>
-            </div>
-          </button>
+          <tvc-theme />
           <tvc-timer>
             {{expiresIn | date: 'HH:mm:ss'}}
           </tvc-timer>
@@ -89,7 +81,7 @@
               <div class="profile-action">
                 <button class="flex-center gap-2" (click)="deslogarUsuario()">
                   <mat-icon class="material-symbols-outlined">logout</mat-icon>
-                  <span class="text-sm text-primary font-semibold">Deslogar</span>
+                  <span class="text-sm text-primary dark:text-dark-primary font-semibold">Deslogar</span>
                 </button>
               </div>
             </div>
