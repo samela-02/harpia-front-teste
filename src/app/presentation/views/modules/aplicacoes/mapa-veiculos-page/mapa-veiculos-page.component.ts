@@ -158,7 +158,16 @@ export class MapaVeiculosPageComponent implements OnInit {
   }
 
   getEquipmentStatusList(): EquipmentStatus[] {
-    return Array.from(this.equipmentStatusMap.values());
+    return Array.from(this.equipmentStatusMap.values())
+      .sort((a, b) => {
+        return this.ajustarData(b.dtUltimaComunicacao) - this.ajustarData(a.dtUltimaComunicacao);
+      });
+  }
+
+  private ajustarData(date: Date): number {
+    if (date == null)
+      return 0;
+    return new Date(date).getTime();
   }
 
   private updateMovingMarker(coordinate: [number, number], direction: number, idEquipamento: string): void {
