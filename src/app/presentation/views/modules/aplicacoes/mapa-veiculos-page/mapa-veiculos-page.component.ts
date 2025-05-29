@@ -18,6 +18,7 @@ import { ModalService } from '@tivic-team/tivic-ui';
 import { ModalContentComponent } from './components/modal-content/modal-content.component';
 import { FindStreamUltimaComunicacaoEquipamentoUseCase } from '@/application/usecase/equipamento/find-stream-ultima-comunicacao-equipamento.usecase';
 import { EquipamentoComunicacaoQueryResponse } from '@/domain/models/query/equipamento-comunicacao-query-response';
+
 @Component({
   selector: 'app-mapa-veiculos-page',
   standalone: true,
@@ -31,6 +32,7 @@ export class MapaVeiculosPageComponent implements OnInit {
 
   private eventSourceSubscription: Subscription | null = null;
   private ultimaComunicacaoEquipamentoEventSourceSubscription: Subscription | null = null;
+  private checkEquipamentoStatusSubscription: Subscription | null = null;
   private movingMarkers: Map<string, L.Marker> = new Map();
   private idInstituicao = this.authService.getIdInstituicaoUser()
   private _modalService = inject(ModalService<ModalContentComponent>)
@@ -52,7 +54,7 @@ export class MapaVeiculosPageComponent implements OnInit {
   ngOnInit(): void {
     this.bucarDadosGps();
     this.findStreamUltimaComunicacao();
-    // this.atualizarStatusEquipamentoAsync();
+    this.atualizarStatusEquipamentoAsync();
   }
 
   enviarComando(idEquipamento?: string) {
@@ -116,33 +118,15 @@ export class MapaVeiculosPageComponent implements OnInit {
       .forEach(equipamento => {
         result.set(equipamento.idEquipamento, equipamento);
       })
-      return result;
-  }
-
-  private calculateStatusColor(lastCommunicationTime: Date): 'green' | 'yellow' | 'red' {
-    const now = new Date();
-    lastCommunicationTime = new Date(lastCommunicationTime)
-    const diffMinutes = (now.getTime() - lastCommunicationTime.getTime()) / (1000 * 60);
-
-    if (diffMinutes < 10) {
-      return 'green';
-    } else if (diffMinutes < 60) {
-      return 'yellow';
-    } else {
-      return 'red';
-    }
+    return result;
   }
 
   private atualizarStatusEquipamentoAsync(): void {
-    setTimeout(() => {
-      while (true) {
-        this.atualizarStatusEquipamento();
-      }
-    }, 0);
+    this.checkEquipamentoStatusSubscription = interval(60000)
+      .subscribe(() => this.atualizarStatusEquipamento());
   }
 
   private atualizarStatusEquipamento(): void {
-    setTimeout(() => {
       let changed = false;
       this.equipmentStatusMap.forEach((status, id) => {
         const newColor = this.calculateStatusColor(status.dtUltimaComunicacao);
@@ -155,7 +139,22 @@ export class MapaVeiculosPageComponent implements OnInit {
       if (changed) {
         this.changeDetectorRef.detectChanges();
       }
-    }, 60000);
+  }
+
+  private calculateStatusColor(lastCommunicationTime: Date): 'green' | 'yellow' | 'red' {
+    const now = new Date();
+    lastCommunicationTime = new Date(lastCommunicationTime)
+    const diffMinutes = (now.getTime() - lastCommunicationTime.getTime()) / (1000 * 60);
+
+    if (diffMinutes < 10) {
+      return 'green';
+    } 
+    
+    if (diffMinutes < 60) {
+      return 'yellow';
+    }
+
+    return 'red';
   }
 
   getEquipmentStatusList(): EquipmentStatus[] {
@@ -254,6 +253,9 @@ export class MapaVeiculosPageComponent implements OnInit {
 
   ngOnDestroy() {
     if (this.eventSourceSubscription) {
+      this.eventSourceSubscription.unsubscribe();
+    }
+    if (this.checkEquipamentoStatusSubscription) {
       this.eventSourceSubscription.unsubscribe();
     }
     if (this.ultimaComunicacaoEquipamentoEventSourceSubscription) {
