@@ -20,11 +20,11 @@
 }
 
 .chip-success {
-  @apply flex-center justify-center bg-green-100  text-green-700 p-0 w-[90px] #{!important}
+  @apply flex-center justify-center bg-green-100 dark:bg-green-300 p-0 w-[90px] #{!important}
 }
 
 .chip-danger {
-  @apply flex-center justify-center bg-gray-100 text-gray-400 p-0 w-[90px] #{!important}
+  @apply flex-center justify-center bg-gray-100 dark:bg-gray-300 p-0 w-[90px] #{!important}
 }
 
 .chip-delecao {
@@ -32,11 +32,11 @@
 }
 
 .content-success {
-  @apply text-green-500 #{!important}
+  @apply text-green-500 dark:text-green-800 #{!important}
 }
 
 .content-danger, .content-delecao {
-  @apply text-gray-400 #{!important}
+  @apply text-gray-400 dark:text-gray-800 #{!important}
 }
 
 // .row-container {

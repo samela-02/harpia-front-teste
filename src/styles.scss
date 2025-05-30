@@ -34,7 +34,7 @@ body {
 }
 
 body {
-  @apply bg-body dark:bg-dark-body text-text dark:text-dark-text text-base #{!important};
+  @apply bg-body dark:bg-dark-body text-text dark:text-cyan-50 text-base #{!important};
 }
 
 ::ng-deep .mat-mdc-snack-bar-container {

@@ -270,7 +270,7 @@
   @apply bg-white dark:bg-dark-container p-4 rounded-lg h-[100%] overflow-auto relative;
 
   &::before {
-    @apply absolute top-[25%] left-[70%] w-[40%] h-[40%] pointer-events-none z-0;
+    @apply absolute top-[25%] left-[70%] w-[40%] h-[40%] pointer-events-none z-0 dark:block hidden;
     content: '';
     transform: translate(-50%, -50%);
     background: radial-gradient(circle, rgba(59,130,246,0.25) 0%, rgba(59,130,246,0.10) 20%, transparent 100%);
@@ -281,7 +281,7 @@
   }
 
     &::after {
-      @apply absolute top-[75%] left-[20%] w-[40%] h-[40%] pointer-events-none z-0;
+      @apply absolute top-[75%] left-[20%] w-[40%] h-[40%] pointer-events-none z-0 dark:block hidden;
       content: '';
       position: absolute;
       transform: translate(-50%, -50%);

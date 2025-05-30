@@ -32,7 +32,7 @@
 @if(usuarioLogado?.role == UsuarioRole.ADMINISTRADOR) {
   <div class="w-full flex justify-end gap-2 mt-3">
     <button *ngIf="equipamentos && !isEditable && equipamentos.lgAtivo" (click)="toggleEdit()" mat-flat-button
-      class="bg-accent/10 text-primary disabled:cursor-not-allowed disabled:text-accent/50">
+      class="bg-accent/10 text-primary dark:text-dark-primary disabled:cursor-not-allowed disabled:text-accent/50">
       <i [class]="icon" class="text-lg"></i>
       <span class="pt-1">
         Editar
@@ -57,7 +57,7 @@
 
     <button *ngIf="(isEditable && equipamentos) || (!equipamentos)" (click)="onSubmit()" [disabled]="!formGroup.valid"
       mat-flat-button
-      class="bg-primary/10 text-primary disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-primary/50">
+      class="bg-primary/10 dark:bg-dark-primary/10 text-primary dark:text-dark-primary disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-primary/50">
       <i [class]="icon" class="text-lg"></i>
       <span class="pt-1">
         Salvar

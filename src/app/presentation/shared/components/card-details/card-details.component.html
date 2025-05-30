@@ -1,8 +1,10 @@
 <div class="p-4 border border-primary/20 relative rounded-md">
-  <div class="absolute -top-[14px] px-1 bg-white" *ngIf="titulo ||icone">
-    <span class="text-sm text-primary font-bold">
+  <div class="absolute -top-[14px] px-1 bg-white dark:bg-dark-body" *ngIf="titulo ||icone">
+    <span class="text-sm text-primary dark:text-dark-primary font-bold">
       <i [class]="icone"></i>
-      {{titulo}}
+      <span class="dark:text-cyan-50">
+        {{titulo}}
+      </span>
     </span>
   </div>
   <div class="content">

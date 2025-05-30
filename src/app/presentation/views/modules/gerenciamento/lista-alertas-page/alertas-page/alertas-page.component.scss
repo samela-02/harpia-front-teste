@@ -34,7 +34,7 @@
   }
 
   .button-label {
-    @apply md:flex hidden;
+    @apply md:flex hidden dark:text-cyan-50;
   }
 }
 
