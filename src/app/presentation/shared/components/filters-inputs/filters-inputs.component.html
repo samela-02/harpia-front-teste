@@ -1,8 +1,8 @@
-<div class="w-[240px] md:w-[300px] relative">
+<div class="w-[240px] md:w-[300px] relative ">
   <div class="header-group-filter" [class.header-overlay-opening]="isOpenBox"
     [class.header-overlay-closing]="!isOpenBox">
     <div class="search-container flex flex-row">
-      <mat-icon class="text-primary">
+      <mat-icon class="text-primary dark:text-cyan-50">
         search
       </mat-icon>
         <input [maxlength]="maxLeght" [minlength]="minLenght" [placeholder]="placeholder" class="search-input"
@@ -11,7 +11,7 @@
     </div>
     @if(openFilters){
     <button (click)="toggleFilters()">
-      <i class="las la-filter icon "></i>
+      <i [class]="'las la-filter icon '" class="dark:text-cyan-50"></i>
     </button>
     }
   </div>

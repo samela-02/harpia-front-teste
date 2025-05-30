@@ -41,7 +41,7 @@
 }
 
 .search-input {
-  @apply px-2 py-1
+  @apply px-2 py-1 dark:bg-dark-box
 }
 
 .search-input:focus {
@@ -76,9 +76,8 @@
 }
 
 .filters-overlay {
-  @apply absolute z-[10] w-full left-0 top-[100%] p-1 bg-slate-50 rounded-b-lg;
+  @apply absolute z-[10] w-full left-0 top-[100%] p-1 bg-slate-50 dark:bg-dark-box rounded-b-lg;
   z-index: 10;
-  background-color: white;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transform-origin: top center;
   overflow: hidden;

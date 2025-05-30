@@ -53,7 +53,8 @@ export class SidenavComponent {
   @ViewChild('sidenav') sidenav!: MatSidenav;
   private _modalService = inject(ModalService<ModalFormProfileComponent>);
 
-  isExpanded: boolean = false;
+  isExpanded: boolean = true;
+  logoPeloNome: string = '';
   selectedModule: any = null;
   moduleName: string;
   usuarioInfo = new UsuarioInfo
@@ -75,6 +76,7 @@ export class SidenavComponent {
     this.buscaDadosUsuario();
     this.iniciarContadorExpiracao();
     this.updateSidenavMode();
+    this.defineLogoUser();
     window.addEventListener('resize', this.updateSidenavMode.bind(this));
   }
 
@@ -103,6 +105,14 @@ export class SidenavComponent {
     }
 
     this.modulos = new ModulosStrategyFactory(this.moduloStrategy).getModulos()
+  }
+
+  private defineLogoUser() {
+    const nome = this.usuarioInfo.nmUsuario.split(' ').slice(0, 2);
+    const primeiraLetra = nome[0].charAt(0);
+    const segundaLetra = nome[1] ? nome[1].charAt(0) : '';
+    this.logoPeloNome = `${primeiraLetra}${segundaLetra}`.toUpperCase()
+    console.log(this.logoPeloNome)
   }
 
   toggleSidenav() {

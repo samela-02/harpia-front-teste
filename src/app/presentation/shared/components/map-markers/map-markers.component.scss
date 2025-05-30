@@ -8,8 +8,23 @@
     @apply bg-transparent border-none rounded-none p-0 shadow-none font-semibold;
 }
 
-:host ::ng-deep {
+.layer-control-item {
+  @apply pointer-events-auto;
 
+  * {
+    @apply pointer-events-auto;
+  }
+}
+
+.layer-control {
+  @apply pointer-events-auto;
+
+  * {
+    @apply pointer-events-auto;
+  }
+}
+
+:host ::ng-deep {
     .popup-buttons {
 
         margin-top: 10px;
@@ -114,44 +129,6 @@
 
     &:hover {
         background-color: rgba(0, 0, 0, 0.04);
-    }
-}
-
-.search-container {
-    @apply relative flex items-center;
-    width: 40px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
-    &.expanded {
-        width: 240px;
-
-        .search-button {
-            @apply bg-transparent;
-        }
-
-        .map-search-field {
-            width: 200px;
-            opacity: 1;
-            pointer-events: auto;
-            visibility: visible;
-            transform: translateX(40px);
-        }
-    }
-
-    .search-button {
-        @apply absolute left-0 z-10 flex items-center justify-center w-10 h-10 bg-white rounded-full shadow-md;
-        transition: background-color 0.3s ease;
-    }
-
-    .map-search-field {
-        width: 0;
-        opacity: 0;
-        pointer-events: none;
-        visibility: hidden;
-        transform: translateX(0);
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        position: absolute;
-        left: 0;
     }
 }
 

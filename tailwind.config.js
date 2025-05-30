@@ -27,11 +27,12 @@ module.exports = {
         body: "#f5f6f8",
         border: "#f1f1f2",
         container: "#020024",
-        "dark-primary": "#109cdc",
+        "dark-primary": "#22b3f2",
         "dark-white": "#111315",
         "dark-text": "#898989",
         "dark-body": "#091830",
         "dark-container": "#0B1C3A",
+        "dark-box": "#0B1C3f",
         "dark-border": "#37373a",
         "dark-panel": "#3d4145",
 

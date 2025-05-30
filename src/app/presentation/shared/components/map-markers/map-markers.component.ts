@@ -1,3 +1,4 @@
+import { MapLayer, MapLayers } from "@/infrastructure/enums/map-layers.enum";
 import { CommonModule, isPlatformBrowser } from "@angular/common";
 import {
   AfterViewInit,
@@ -19,157 +20,173 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 import * as L from 'leaflet';
 
 export interface MarkerData {
-    coordinates: [number, number];
-    content?: string;
+  coordinates: [number, number];
+  content?: string;
 }
 
 export interface PopupAction {
-    label: string;
-    bgColor?: string;
-    showIf?: () => boolean;
-    action: (data: any) => void;
+  label: string;
+  bgColor?: string;
+  showIf?: () => boolean;
+  action: (data: any) => void;
 }
 
 @Component({
-    selector: "map-markers",
-    standalone: true,
-    imports: [
-        CommonModule,
-        MatSlideToggleModule,
-        MatIconModule,
-        MatTooltipModule,
-        FormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatAutocompleteModule,
-        ReactiveFormsModule,
-    ],
-    styleUrl: "./map-markers.component.scss",
-    templateUrl: "./map-markers.component.html",
+  selector: "map-markers",
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatSlideToggleModule,
+    MatIconModule,
+    MatTooltipModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatAutocompleteModule,
+    ReactiveFormsModule,
+  ],
+  styleUrl: "./map-markers.component.scss",
+  templateUrl: "./map-markers.component.html",
 })
 export class MapMarkersComponent implements OnChanges, AfterViewInit, OnDestroy {
-    @Input() iconUrl?: string;
-    @Input() markers: MarkerData[] = [];
-    @Input() mapCenter: [number, number] = [-14.8570367, -40.8447884];
-    @Input() zoomLevel: number = 13.0;
-    @Input() popupActions?: PopupAction[];
+  @Input() iconUrl?: string;
+  @Input() markers: MarkerData[] = [];
+  @Input() mapCenter: [number, number] = [-14.8570367, -40.8447884];
+  @Input() zoomLevel: number = 13.0;
+  @Input() popupActions?: PopupAction[];
 
-    divId: string = "divId";
-    openSettings: boolean = false;
-    searchQuery: string = "";
-    onLoadSearch: boolean = false;
-    filteredAddresses: any[] = [];
-    searchControl = new FormControl("");
-    toggleMarkers: boolean = false;
+  private tileLayer!: L.TileLayer;
 
-    @Input() enableFitBounds: boolean = true;
+  optionsLayers: MapLayer[] = Object.values(MapLayers);
+  layerSelected = this.optionsLayers[0];
+  divId: string = "divId";
+  openSettings: boolean = false;
+  searchQuery: string = "";
+  onLoadSearch: boolean = false;
+  filteredAddresses: any[] = [];
+  searchControl = new FormControl("");
+  toggleMarkers: boolean = false;
 
-    private map!: L.Map;
-    private isMapInitialized = false;
+  @Input() enableFitBounds: boolean = true;
 
-    isFullscreen: boolean = false;
-    invalidMarkers: MarkerData[] = [];
-    isSearchExpanded = false;
+  private map!: L.Map;
+  private isMapInitialized = false;
 
-    constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
-    ngOnChanges (changes: SimpleChanges): void {
-        if ((changes["mapCenter"] || changes["zoomLevel"]) && this.isMapInitialized && this.map) {
-            const isValidCenter = this.mapCenter &&
-                this.mapCenter.every(coord => coord !== null && !isNaN(coord));
+  isFullscreen: boolean = false;
+  invalidMarkers: MarkerData[] = [];
+  isSearchExpanded = false;
 
-            if (isValidCenter) {
-                this.map.setView(this.mapCenter, this.zoomLevel);
-            } else {
-              this.mapCenter = [-14.8570367, -40.8447884];
-                this.zoomLevel = 4;
-                this.map.setView(this.mapCenter, this.zoomLevel);
-            }
-            this.updateMarkers();
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) { }
+  ngOnChanges(changes: SimpleChanges): void {
+    if ((changes["mapCenter"] || changes["zoomLevel"]) && this.isMapInitialized && this.map) {
+      const isValidCenter = this.mapCenter &&
+        this.mapCenter.every(coord => coord !== null && !isNaN(coord));
+
+      if (isValidCenter) {
+        this.map.setView(this.mapCenter, this.zoomLevel);
+      } else {
+        this.mapCenter = [-14.8570367, -40.8447884];
+        this.zoomLevel = 4;
+        this.map.setView(this.mapCenter, this.zoomLevel);
+      }
+      this.updateMarkers();
+    }
+    if (changes["markers"] && this.isMapInitialized && this.map) {
+      this.updateMarkers();
+    }
+  }
+
+  ngAfterViewInit(): void {
+    if (!this.isMapInitialized && isPlatformBrowser(this.platformId)) {
+      this.initMap();
+      this.isMapInitialized = true;
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.map) {
+      this.map.remove();
+    }
+  }
+
+  private updateMarkers(): void {
+    this.invalidMarkers = [];
+    this.markers.forEach(markerData => {
+      if (markerData.coordinates && markerData.coordinates.every(coord => coord !== null && !isNaN(coord))) {
+        const markerLatLng = L.latLng(markerData.coordinates[0], markerData.coordinates[1]);
+
+        const markerOptions: L.MarkerOptions = {
+          icon: L.icon({
+            iconUrl: this.iconUrl || "",
+            iconSize: [40, 40],
+            iconAnchor: [20, 40],
+            popupAnchor: [0, -40],
+          })
+        };
+        if (this.iconUrl) {
+          const customIcon = L.icon({
+            iconUrl: this.iconUrl,
+            iconSize: [40, 40],
+            iconAnchor: [0, 0],
+            popupAnchor: [0, -40],
+          });
+          markerOptions.icon = customIcon;
         }
-        if (changes["markers"] && this.isMapInitialized && this.map) {
-            this.updateMarkers();
+
+        const marker = L.marker(markerLatLng, markerOptions);
+
+        const popupContent = L.DomUtil.create("div");
+        popupContent.innerHTML = markerData.content || "";
+        popupContent.style.fontSize = "14px";
+        popupContent.style.fontWeight = "500";
+
+        if (this.popupActions && this.popupActions.length > 0) {
+          const buttonContainer = L.DomUtil.create("div", "popup-buttons", popupContent);
+
+          this.popupActions.forEach(action => {
+            const button = L.DomUtil.create("button", "popup-button", buttonContainer);
+            button.style.backgroundColor = action.bgColor || "#5c7285";
+            button.innerHTML += action.label;
+            L.DomEvent.on(button, "click", (e: any) => {
+              L.DomEvent.stopPropagation(e);
+              action.action(markerData);
+              marker.closePopup();
+            });
+          });
         }
+        marker.bindPopup(popupContent);
+        marker.addTo(this.map);
+      }
+    });
+
+  }
+
+  toggleMapLayer(layerIndex: number) {
+    if (!this.map) return;
+    if (this.tileLayer) {
+      this.map.removeLayer(this.tileLayer);
     }
+    this.layerSelected = this.optionsLayers[layerIndex];
+    this.tileLayer = L.tileLayer(this.layerSelected.url, {
+      attribution: "TIVIC"
+    });
+    this.tileLayer.addTo(this.map);
+  }
 
-    ngAfterViewInit(): void {
-        if (!this.isMapInitialized && isPlatformBrowser(this.platformId)) {
-            this.initMap();
-            this.isMapInitialized = true;
-        }
-    }
+  private initMap(): void {
+    this.tileLayer = L.tileLayer(this.layerSelected.url, {
+      attribution: "TIVIC"
+    });
 
-    ngOnDestroy (): void {
-        if (this.map) {
-            this.map.remove();
-        }
-    }
+    this.map = L.map("map", {
+      center: this.mapCenter,
+      zoom: this.zoomLevel,
+      layers: [this.tileLayer]
+    });
+    this.updateMarkers();
+  }
 
-    private updateMarkers (): void {
-        this.invalidMarkers = [];
-        this.markers.forEach(markerData => {
-            if (markerData.coordinates && markerData.coordinates.every(coord => coord !== null && !isNaN(coord))) {
-                const markerLatLng = L.latLng(markerData.coordinates[0], markerData.coordinates[1]);
-
-                const markerOptions: L.MarkerOptions = {
-                    icon: L.icon({
-                        iconUrl: this.iconUrl || "",
-                        iconSize: [40, 40],
-                        iconAnchor: [20, 40],
-                        popupAnchor: [0, -40],
-                        })
-                    };
-                    if (this.iconUrl) {
-                        const customIcon = L.icon({
-                            iconUrl: this.iconUrl,
-                            iconSize: [40, 40],
-                            iconAnchor: [0, 0],
-                            popupAnchor: [0, -40],
-                        });
-                        markerOptions.icon = customIcon;
-                    }
-
-                    const marker = L.marker(markerLatLng, markerOptions);
-
-                    const popupContent = L.DomUtil.create("div");
-                    popupContent.innerHTML = markerData.content || "";
-                    popupContent.style.fontSize = "14px";
-                    popupContent.style.fontWeight = "500";
-
-                    if (this.popupActions && this.popupActions.length > 0) {
-                      const buttonContainer = L.DomUtil.create("div", "popup-buttons", popupContent);
-
-                        this.popupActions.forEach(action => {
-                          const button = L.DomUtil.create("button", "popup-button", buttonContainer);
-                          button.style.backgroundColor = action.bgColor || "#5c7285";
-                            button.innerHTML += action.label;
-                          L.DomEvent.on(button, "click", (e: any) => {
-                                L.DomEvent.stopPropagation(e);
-                                action.action(markerData);
-                                marker.closePopup();
-                            });
-                        });
-                    }
-                    marker.bindPopup(popupContent);
-                    marker.addTo(this.map);
-            }
-        });
-
-    }
-
-    private initMap (): void {
-        this.map = L.map("map", {
-            center: this.mapCenter,
-            zoom: this.zoomLevel,
-            layers: [
-                L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-                    attribution: "TIVIC"
-                })
-            ]
-        });
-        this.updateMarkers();
-    }
-
-    getMap(): L.Map {
-        return this.map;
-    }
+  getMap(): L.Map {
+    return this.map;
+  }
 }

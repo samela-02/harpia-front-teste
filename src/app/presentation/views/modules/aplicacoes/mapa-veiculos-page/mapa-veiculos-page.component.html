@@ -8,7 +8,7 @@
       <map-markers class="w-full min-h-[300px] h-full shadow-md xl:w-[80%]"></map-markers>
       <div class="card-right">
         <div class="card-right-header">
-          <i [class]="'la la-satellite-dish'" class="text-xl"></i>
+          <i [class]="'la la-satellite-dish'" class="text-xl dark:text-dark-primary"></i>
           <span>Status dos Equipamentos</span>
         </div>
         <div class="flex flex-col p-1 md:grid-cols-2 gap-2 w-full overflow-y-auto lg:max-h-[40em] max-h-[20em]">
@@ -16,12 +16,15 @@
             <div class="card-info">
               <div class="card-status" [ngClass]="equipment.statusColor"></div>
               <div class="card-text">
-                <span class="text-slate-600/80 font-semibold leading-none">
+                <span class="text-slate-600/80 dark:text-cyan-50 font-semibold leading-none">
                   {{ equipment.nome || equipment.idEquipamento }}
                   </span>
                   <div class="leading-none flex flex-col">
                   <span class="card-update">
-                    <i [class]="'la la-history'" class="text-xs"></i> {{ equipment.dtUltimaComunicacao ? (equipment.dtUltimaComunicacao | date:'dd/MM/yyyy HH:mm:ss') : 'N/A' }}
+                    <i [class]="'la la-history'" class="text-xs dark:text-cyan-50"></i>
+                    <span class="dark:text-cyan-50">
+                      {{ equipment.dtUltimaComunicacao ? (equipment.dtUltimaComunicacao | date:'dd/MM/yyyy HH:mm:ss') : 'N/A' }}
+                    </span>
                   </span>
                 </div>
               </div>

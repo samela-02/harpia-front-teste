@@ -4,8 +4,10 @@
     <div class="sidenav-header">
       <img src="./public/img/logo/harpia-no-label.png" [ngClass]="{'hidden': isExpanded, 'visible': !isExpanded}"
         class="w-[10em] transition-all logo-img">
-      <img src="./public/img/logo/harpia.png" [ngClass]="{'hidden': !isExpanded, 'visible': isExpanded}"
+      <img *ngIf="isExpanded" src="./public/img/logo/harpia.png" class="dark:hidden"
         class="w-[10em] transition-all logo-img">
+      <img *ngIf="isExpanded" src="./public/img/logo/dark/harpia-dark.png"
+        class="hidden dark:block w-[10em] transition-all logo-img">
     </div>
     <mat-nav-list class="overflow-hidden">
       @for (item of modulos; track $index) {
@@ -15,14 +17,14 @@
       <a [routerLink]="feature.routerLink ? [item.routerLink + feature.routerLink] : null"
         [ngClass]="{'expanded': isExpanded}" routerLinkActive="active">
         <i [class]="feature.icon" class="icon"></i>
-        <span *ngIf="isExpanded">{{ feature.label }}</span>
+        <span *ngIf="isExpanded" class="dark:text-cyan-50">{{ feature.label }}</span>
       </a>
       } @else {
       @if(isExpanded){
       <mat-expansion-panel class="mat-elevation-z0 my-2 px-3" [expanded]="selectedModule === feature">
         <mat-expansion-panel-header class="item-select" [ngClass]="{'expanded': isExpanded}">
           <i [class]="feature.icon" class="text-[20px] flex justify-center mr-2"></i>
-          <span *ngIf="isExpanded">{{ feature.label }}</span>
+          <span *ngIf="isExpanded" class="dark:text-cyan-50">{{ feature.label }}</span>
         </mat-expansion-panel-header>
         @for (child of feature.children; track child.routerLink) {
         <a [routerLink]="child.routerLink ? [item.routerLink + child.routerLink] : null"
@@ -64,10 +66,18 @@
           </tvc-timer>
 
           <div class="profile">
-            <img [src]="'./public/img/avatar.png'" alt="avatar" class="avatar" />
+            <div class="box-logo">
+              <span class="box-logo-span">
+                {{logoPeloNome}}
+              </span>
+            </div>
             <div class="profile-container z-[9999]">
               <div class="profile-content cursor-pointer" (click)="openModalProfile()">
-                <img [src]="'./public/img/avatar.png'" alt="avatar" class="avatar">
+                <div class="box-logo">
+                  <span class="box-logo-span">
+                    {{logoPeloNome}}
+                  </span>
+                </div>
                 <div>
                   <div class="flex justify-center flex-col">
                     <h4>{{ usuarioInfo?.nmUsuario | nameFormatter }}</h4>
@@ -81,7 +91,7 @@
               <div class="profile-action">
                 <button class="flex-center gap-2" (click)="deslogarUsuario()">
                   <mat-icon class="material-symbols-outlined">logout</mat-icon>
-                  <span class="text-sm text-primary dark:text-dark-primary font-semibold">Deslogar</span>
+                  <span class="text-sm text-primary dark:text-cyan-50 font-semibold">Deslogar</span>
                 </button>
               </div>
             </div>
@@ -108,11 +118,11 @@
         </div>
         <div class="flex items-center gap-x-4">
           <a href="https://wa.me/7734219279" target="_blank">
-            <i class="ri-customer-service-2-line"></i>
+            <i [class]="'ri-customer-service-2-line'" class="text-primary/75 dark:text-dark-primary"></i>
             <span>Suporte</span>
           </a>
           <a class="version">
-            <i class="ri-rocket-2-line"></i>
+            <i [class]="'ri-rocket-2-line'" class="text-primary/75 dark:text-dark-primary"></i>
             <span>{{ version || "0.0.0" }}</span>
           </a>
         </div>
