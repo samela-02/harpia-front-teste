@@ -257,10 +257,10 @@ export class MapaVeiculosPageComponent implements OnInit {
   private createCarIcon(): L.DivIcon {
     return L.divIcon({
       html: `<div class="car-icon-wrapper">
-               <img src="assets/pinCar.gif" class="car-icon" style="width: 32px; height: 32px;"/>
+               <img src="assets/pinCar.gif" class="car-icon" style="width: 17px; height: 30px;"/>
              </div>`,
       className: '',
-      iconSize: [32, 32],
+      iconSize: [30, 17],
       iconAnchor: [0, 0]
     });
   }
