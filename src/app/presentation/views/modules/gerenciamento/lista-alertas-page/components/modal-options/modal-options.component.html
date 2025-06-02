@@ -1,8 +1,8 @@
 <div class="modal">
   <div class="header">
     <div class="modal-header">
-      <i [class]="'la la-pencil-ruler'" class="text-[27px] flex justify-center text-primary flex-shrink-0"></i>
-      <span class="text-lg font-semibold text-text leading-tight">
+      <i [class]="'la la-pencil-ruler'" class="text-[27px] flex justify-center text-primary dark:text-dark-primary flex-shrink-0"></i>
+      <span class="text-lg font-semibold text-text dark:text-cyan-50 leading-tight">
         {{listaAlerta?.nmListaAlerta}}
       </span>
     </div>
@@ -13,12 +13,12 @@
   <div class="main">
     <button mat-flat-button class="font-semibold bg-primary text-blue-50" (click)="openModalUpdate()">
       <i [class]="'la la-edit'" class="text-lg"></i>
-      <label class="md:flex hidden">
+      <label class="md:flex hidden dark:text-cyan-50">
         Editar Lista de Alerta
       </label>
     </button>
-    <button (click)="redirectPageAlerts()" mat-flat-button class="font-semibold bg-primary/10 text-primary">
-      <label class="md:flex hidden">
+    <button (click)="redirectPageAlerts()" mat-flat-button class="button-actions">
+      <label class="md:flex hidden dark:text-cyan-50">
         Visualizar Alertas
       </label>
       <i [class]="'la la-exclamation-triangle'" class="text-lg"></i>

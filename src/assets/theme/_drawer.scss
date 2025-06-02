@@ -5,7 +5,7 @@
 .drawer {
     @apply p-6 bg-body h-full;
     h2 {
-        @apply border-b border-b-primary/5 font-text font-bold text-2xl pb-2;
+        @apply border-b border-b-primary/5 dark:border-b-dark-primary/5 font-text font-bold text-2xl pb-2;
     }
 
     &-container {

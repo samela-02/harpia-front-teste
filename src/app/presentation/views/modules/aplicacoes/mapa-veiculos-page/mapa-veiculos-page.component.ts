@@ -109,8 +109,8 @@ export class MapaVeiculosPageComponent implements OnInit {
     return equipamentoComunicacaoList
       .map(equipamento => {
         return {
-          idEquipamento: equipamento.idEquipamento, 
-          dtUltimaComunicacao: equipamento.dtUltimaComunicacao, 
+          idEquipamento: equipamento.idEquipamento,
+          dtUltimaComunicacao: equipamento.dtUltimaComunicacao,
           statusColor: this.calculateStatusColor(equipamento.dtUltimaComunicacao)
         }
       });
@@ -152,8 +152,8 @@ export class MapaVeiculosPageComponent implements OnInit {
 
     if (diffMinutes < 10) {
       return 'green';
-    } 
-    
+    }
+
     if (diffMinutes < 60) {
       return 'yellow';
     }
@@ -175,6 +175,7 @@ export class MapaVeiculosPageComponent implements OnInit {
   }
 
   private updateMovingMarker(coordinate: [number, number], direction: number, idEquipamento: string): void {
+
     const map = this.mapComponent?.getMap();
     if (!map) return;
     const existingMarker = this.movingMarkers.get(idEquipamento);
@@ -256,10 +257,10 @@ export class MapaVeiculosPageComponent implements OnInit {
   private createCarIcon(): L.DivIcon {
     return L.divIcon({
       html: `<div class="car-icon-wrapper">
-               <img src="assets/pinCar.gif" class="car-icon" style="width: 32px; height: 32px;"/>
+               <img src="assets/pinCar.gif" class="car-icon" style="width: 17px; height: 30px;"/>
              </div>`,
       className: '',
-      iconSize: [32, 32],
+      iconSize: [30, 17],
       iconAnchor: [0, 0]
     });
   }

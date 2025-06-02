@@ -19,22 +19,6 @@
   margin-bottom: 16px;
 }
 
-.chip-success {
-  @apply flex-center justify-center bg-green-100  text-green-700 p-0 w-[90px] #{!important}
-}
-
-.chip-danger {
-  @apply flex-center justify-center bg-gray-100 text-gray-400 p-0 w-[90px] #{!important}
-}
-
-.content-success {
-  @apply text-green-500 #{!important}
-}
-
-.content-danger {
-  @apply text-gray-400 #{!important}
-}
-
 .row-container {
   @apply flex-col flex w-full;
 }
@@ -54,7 +38,6 @@
   }
 
   .mat-mdc-paginator {
-    position: sticky;
     bottom: 0;
     z-index: 1;
     background: white;

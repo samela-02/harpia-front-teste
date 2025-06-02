@@ -23,18 +23,18 @@
 }
 
 .header-title {
-  @apply text-primary text-base;
+  @apply text-primary dark:text-dark-primary text-base;
 }
 
 .cadastrar-button {
   @apply font-semibold bg-primary/10 text-primary #{!important};
 
   .icon {
-    @apply text-lg;
+    @apply text-lg dark:text-dark-primary;
   }
 
   .button-label {
-    @apply md:flex hidden;
+    @apply md:flex hidden dark:text-cyan-50;
   }
 }
 
@@ -43,7 +43,7 @@
 }
 
 .sidebar-area {
-  @apply xl:col-span-3 lg:col-span-5 col-span-12 flex flex-row gap-2 p-4 h-full bg-gray-50/80 overflow-auto;
+  @apply xl:col-span-3 lg:col-span-5 col-span-12 flex flex-row gap-2 p-4 h-full bg-gray-50/80 dark:bg-dark-body overflow-auto;
 }
 
 .sidebar-content {

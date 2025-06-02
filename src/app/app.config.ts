@@ -1,28 +1,24 @@
-import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter, withComponentInputBinding, withHashLocation } from '@angular/router';
+import { registerLocaleData } from '@angular/common';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
+import localePT from '@angular/common/locales/pt';
+import { ApplicationConfig, importProvidersFrom } from '@angular/core';
+import { MatDialogModule } from "@angular/material/dialog";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { provideAnimations } from "@angular/platform-browser/animations";
+import { provideRouter, withComponentInputBinding } from '@angular/router';
 import {
-  AuthLibModule,
-  AuthModule,
   BreadcrumbComponent,
   CustomDialogService,
   CustomFormBuilder,
   LoaderService, ModalService,
   paginatorProviders,
-  PermissaoModule,
   SnackbarService
 } from "@tivic-team/tivic-ui";
-import { routes } from './app.routes';
-import { registerLocaleData } from '@angular/common';
-import localePT from '@angular/common/locales/pt';
 import { provideNgxMask } from 'ngx-mask';
 import { maskConfig } from '../assets/config/mask.config';
-import { provideAnimations } from "@angular/platform-browser/animations";
-import { MatDialogModule } from "@angular/material/dialog";
-import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
+import { routes } from './app.routes';
 import { AuthInterceptor } from './infrastructure/interceptors/auth-config.interceptor';
-import { provideStore } from '@ngxs/store';
-import { stateProviders } from './infrastructure/store/state.providers';
+import { VerifyStatusInterceptor } from './infrastructure/interceptors/verify-deslog.interceptor';
 import { infraProviders } from './infrastructure/store/infraProviders';
 registerLocaleData(localePT);
 
@@ -42,6 +38,11 @@ export const appConfig: ApplicationConfig = {
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass:  VerifyStatusInterceptor,
       multi: true,
     },
     importProvidersFrom(

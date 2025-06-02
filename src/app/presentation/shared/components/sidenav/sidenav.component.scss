@@ -1,4 +1,3 @@
-
 .mat-expansion-panel {
   @apply bg-gray-50 dark:bg-transparent #{!important};
 }
@@ -7,12 +6,21 @@
   @apply px-4 bg-gray-50 dark:bg-transparent #{!important};
 }
 
+.box-logo {
+  @apply w-10 h-10 justify-center flex-center rounded-md bg-primary/5 dark:bg-text #{!important};
+
+  &-span {
+    @apply text-primary dark:text-cyan-50 font-semibold #{!important};
+  }
+}
+
 .sidenav-container {
   @apply h-screen w-screen;
 
   .sidenav {
-    @apply bg-gray-50 text-primary overflow-hidden border-none md:w-[80px] w-[0px];
+    @apply bg-gray-50 dark:bg-dark-body text-primary dark:text-dark-primary overflow-hidden border-none md:w-[80px] w-[0px];
     box-shadow: rgba(204, 204, 204, 0.2) 0px 2px 5px 1px;
+    @apply dark:shadow-sm dark:shadow-gray-600;
     transition: width 0.3s ease;
     overflow: hidden;
 
@@ -21,11 +29,11 @@
     }
 
     .item-select {
-      @apply text-primary font-bold h-10;
+      @apply text-primary dark:text-dark-primary font-bold h-10;
     }
 
     .modulo-label {
-      @apply text-[11px] text-slate-500 ml-5 tracking-wider font-medium py-2;
+      @apply text-[11px] text-slate-500 dark:text-slate-200 ml-5 tracking-wider font-medium py-2;
       position: relative;
 
     }
@@ -34,7 +42,7 @@
     }
 
     .sidenav-header {
-      @apply flex-center relative justify-start py-1 px-2 pb-4 mb-4 mt-2 overflow-hidden border-b border-gray-200;
+      @apply flex-center relative justify-start py-1 px-2 pb-4 mb-4 mt-2 overflow-hidden border-b border-gray-200 dark:border-gray-700;
       height: 80px;
 
       .logo-img {
@@ -44,14 +52,6 @@
         max-width: 155px;
         object-position: left;
         transition: opacity 0.3s ease;
-
-        &.hidden {
-          opacity: 0;
-        }
-
-        &.visible {
-          opacity: 1;
-        }
       }
     }
 
@@ -63,7 +63,7 @@
         transition: all 0.5s ease;
 
         &.active {
-          @apply bg-primary/5 rounded-md;
+          @apply bg-primary/5 dark:bg-dark-primary/5 rounded-md;
           transition: all 0.5s ease;
         }
 
@@ -118,7 +118,8 @@
 }
 
 .app-header {
-  background: linear-gradient(to right, #f5f3f3, #e8ecf5) !important;
+  @apply bg-gradient-to-b from-gray-50 to-gray-100 dark:bg-gradient-to-b dark:from-[#091830] dark:to-[#091830];
+
   @apply flex justify-between items-center pr-6 pl-2 py-3 h-[64px];
   position: relative;
   z-index: 2;
@@ -132,7 +133,7 @@
 
     button {
       mat-icon {
-        @apply text-primary;
+        @apply text-primary dark:text-dark-primary;
       }
     }
 
@@ -163,13 +164,13 @@
 }
 
 .content {
-  background: linear-gradient(to right, #f5f3f3, #e8ecf5) !important;
+  @apply bg-gradient-to-r from-gray-50 to-gray-100 dark:bg-gradient-to-r dark:from-[#091830] dark:to-[#091830];
   @apply flex flex-col flex-grow overflow-auto h-[calc(100vh-76px)] px-5;
   height: calc(100vh - 76px - 40px);
 }
 
 .footer {
-  background: linear-gradient(to right, #f5f3f3, #e8ecf5) !important;
+  @apply bg-gradient-to-r from-gray-50 to-gray-100 dark:bg-gradient-to-r dark:from-[#091830] dark:to-[#091830];
   @apply left-0 bottom-0 w-full h-12 flex-none relative z-[999];
 
   &.show {
@@ -189,9 +190,13 @@
   }
 
   span {
-    @apply text-xs font-semibold text-primary/75 dark:text-white/75;
+    @apply text-xs font-semibold text-primary/75 dark:text-cyan-50
   }
 
+}
+
+::ng-deep .timer[_ngcontent-ng-c1166730718] span[_ngcontent-ng-c1166730718] {
+  @apply text-primary/75 dark:text-cyan-50 #{!important}
 }
 
 ::ng-deep .badge span.small{
@@ -199,10 +204,6 @@
 }
 
 .profile {
-  .avatar {
-    @apply w-10 h-10 rounded-lg cursor-pointer;
-  }
-
   &:hover {
     .profile-container {
       @apply opacity-100 pointer-events-auto;
@@ -210,11 +211,11 @@
   }
 
   &-container {
-    @apply flex flex-col absolute top-12 right-4 bg-white rounded-lg p-4 h-auto w-max opacity-0 pointer-events-none transition-opacity duration-300;
+    @apply flex flex-col absolute top-12 right-4 bg-white dark:bg-slate-900 rounded-lg p-4 h-auto w-max opacity-0 pointer-events-none transition-opacity duration-300;
   }
 
   &-content {
-    @apply flex items-center gap-x-4 pb-2 border-b border-b-border;
+    @apply flex items-center gap-x-4 pb-2 border-b border-b-border dark:border-gray-700;
 
     h4 {
       @apply text-base leading-5 text-primary  dark:text-white font-semibold;
@@ -243,7 +244,7 @@
   }
 
   &.active {
-    @apply bg-primary/5 rounded-md;
+    @apply bg-primary/5 dark:bg-dark-primary/5 rounded-md;
   }
 }
 
@@ -266,7 +267,34 @@
 }
 
 .main-content {
-  @apply bg-white dark:bg-dark-body p-4 rounded-lg h-[100%] overflow-auto;
+  @apply bg-white dark:bg-dark-container p-4 rounded-lg h-[100%] overflow-auto relative;
+
+  &::before {
+    @apply absolute top-[25%] left-[70%] w-[40%] h-[40%] pointer-events-none z-0 dark:block hidden;
+    content: '';
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, rgba(59,130,246,0.25) 0%, rgba(59,130,246,0.10) 20%, transparent 100%);
+    filter: blur(70px);
+    max-width: 100%;
+    max-height: 100%;
+    contain: strict;
+  }
+
+    &::after {
+      @apply absolute top-[75%] left-[20%] w-[40%] h-[40%] pointer-events-none z-0 dark:block hidden;
+      content: '';
+      position: absolute;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.25) 0%, rgba(59, 130, 246, 0.10) 20%, transparent 100%);
+      filter: blur(70px);
+      z-index: 0;
+    }
+
+  > * {
+    position: relative;
+    z-index: 1;
+  }
 }
 
 

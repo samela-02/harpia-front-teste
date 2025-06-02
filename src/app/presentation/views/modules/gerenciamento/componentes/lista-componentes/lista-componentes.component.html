@@ -5,9 +5,9 @@
         (search)="onSearch()">
         <app-filter-componente [formGroup]="formGroup" [table]="table()" />
       </app-filters-inputs>
-      <button mat-flat-button (click)="cadastrar()" class="font-semibold bg-primary/10 text-primary">
+      <button mat-flat-button (click)="cadastrar()" class="button-actions">
         <i [class]="icon" class="text-lg"></i>
-        <label class="md:flex hidden">
+        <label class="md:flex hidden dark:text-cyan-50 ">
           Cadastrar Componente
         </label>
       </button>

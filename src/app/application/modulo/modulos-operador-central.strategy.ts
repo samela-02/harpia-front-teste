@@ -24,7 +24,7 @@ export class ModulosOperadorCentralStrategy implements ModulosStrategy {
           },
           {
             "label": "Eventos de Detecções",
-            "icon": "la la-camera-retro",
+            "icon": "la la-satellite-dish",
             "routerLink": "/eventos-deteccoes",
             "enabled": true
           }

@@ -18,19 +18,19 @@
 }
 
 .content {
-  @apply w-full h-full grid grid-cols-12 gap-2;
+  @apply w-full h-full flex xl:flex-row flex-col gap-2;
 }
 
 .card-right {
-  @apply xl:col-span-2 col-span-12 bg-slate-50 h-full rounded-md p-4;
+  @apply xl:w-[20%] w-full bg-slate-50 dark:bg-dark-body h-full rounded-md p-4;
 
   &-header {
-    @apply mb-4 text-base flex-center gap-2 text-primary font-semibold;
+    @apply mb-4 text-base flex-center gap-2 text-primary dark:text-cyan-50 font-semibold;
   }
 }
 
 .card-info {
-  @apply w-full grid grid-cols-12 gap-4 p-3 col-span-2 bg-white rounded-lg shadow-md items-center;
+  @apply w-full grid grid-cols-12 gap-4 p-3 col-span-2 bg-white dark:bg-dark-container rounded-lg shadow-md items-center;
 }
 
 .card-status {
@@ -58,10 +58,6 @@
 }
 
 ::ng-deep {
-
-  // .button-action{
-  //   @apply mt-2 px-2 py-1 rounded-md bg-primary/10 text-xs text-primary flex-center gap-1
-  // }
   .button-action {
     @apply px-2 py-1 rounded-full w-7 h-6 shadow-lg bg-primary/10 text-sm text-primary flex-center justify-center gap-1
   }

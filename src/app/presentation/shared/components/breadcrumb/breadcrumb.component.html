@@ -1,8 +1,8 @@
-<div class="flex flex-row items-center text-primary gap-1 text-[17px]">
+<div class="flex flex-row items-center gap-1 text-[17px]">
   <ng-container *ngFor="let breadcrumb of breadcrumbService.breadcrumbs$ | async; let last = last; let first = first">
     <a [routerLink]="breadcrumb.path" class="rota">
-      <i [class]="breadcrumb.icon" *ngIf="breadcrumb.icon && first" class="text-[25px]"></i>
-      <label>
+      <i [class]="breadcrumb.icon" *ngIf="breadcrumb.icon && first" class="text-[25px] text-primary dark:text-dark-primary"></i>
+      <label class="dark:text-cyan-50">
         {{ breadcrumb.label }}
       </label>
     </a>

@@ -1,6 +1,6 @@
 <div class=" mt-1 w-full grid grid-cols-2 gap-2 h-full" style="flex-grow: 1;">
   <div class="h-full">
-    <map-markers class="w-full h-full shadow-md"></map-markers>
+    <map-markers class="w-full h-full "></map-markers>
   </div>
   <div class="h-full w-full flex-col flex">
     <div class=" min-w-full">
@@ -12,10 +12,10 @@
     </div>
     <div class="flex flex-col gap-4">
       <app-card-details class="pt-5" titulo="Detecção" icone="la la-camera-retro">
-        <div class="h-full w-full flex-col flex text-primary text-sm">
+        <div class="h-full w-full flex-col flex text-primary dark:text-dark-primary text-sm">
           <span class="flex items-start gap-1">
             <i [class]="'la la-star-half-alt'" class="mt-[2px]"></i>
-            <span>
+            <span class="dark:text-cyan-50">
               <strong>
                 Nível:
               </strong>
@@ -25,6 +25,7 @@
               {{dadosAlerta()?.tipoAlerta.nmTipoAlerta}}
             </span>
           </span>
+
           <app-info-line [descricao]="(deteccao?.dtDeteccao | date:'dd/MM/yyy HH:mm:ss') || 'N/A'"
             [icone]="'la la-calendar'" titulo="Data"></app-info-line>
         </div>

@@ -15,7 +15,7 @@ import { MatListModule } from "@angular/material/list";
 import { MatSidenav, MatSidenavModule } from "@angular/material/sidenav";
 import { NavigationEnd, Router, RouterModule } from "@angular/router";
 import { environment } from "@env/environment.development";
-import { BadgeComponent, ModalService, NameFormatterPipe, TimerComponent } from "@tivic-team/tivic-ui";
+import { BadgeComponent, ModalService, NameFormatterPipe, ThemeComponent, TimerComponent } from "@tivic-team/tivic-ui";
 import { AngularLineawesomeModule } from 'angular-line-awesome';
 import { filter } from 'rxjs/operators';
 import { BreadcrumbComponent } from "../breadcrumb/breadcrumb.component";
@@ -36,6 +36,7 @@ export class UsuarioInfo {
     MatSidenavModule,
     BreadcrumbComponent,
     BadgeComponent,
+    ThemeComponent,
     DatePipe,
     MatButtonModule,
     NameFormatterPipe,
@@ -52,7 +53,8 @@ export class SidenavComponent {
   @ViewChild('sidenav') sidenav!: MatSidenav;
   private _modalService = inject(ModalService<ModalFormProfileComponent>);
 
-  isExpanded: boolean = false;
+  isExpanded: boolean = true;
+  logoPeloNome: string = '';
   selectedModule: any = null;
   moduleName: string;
   usuarioInfo = new UsuarioInfo
@@ -67,9 +69,15 @@ export class SidenavComponent {
 
   moduloStrategy: any;
 
+  sidenavMode: 'side' | 'over' = 'side';
+  isSidenavOpened = true;
+
   ngOnInit(): void {
     this.buscaDadosUsuario();
     this.iniciarContadorExpiracao();
+    this.updateSidenavMode();
+    this.defineLogoUser();
+    window.addEventListener('resize', this.updateSidenavMode.bind(this));
   }
 
   constructor(private router: Router, private authService: AuthServiceImpl) {
@@ -99,8 +107,19 @@ export class SidenavComponent {
     this.modulos = new ModulosStrategyFactory(this.moduloStrategy).getModulos()
   }
 
+  private defineLogoUser() {
+    const nome = this.usuarioInfo.nmUsuario.split(' ').slice(0, 2);
+    const primeiraLetra = nome[0].charAt(0);
+    const segundaLetra = nome[1] ? nome[1].charAt(0) : '';
+    this.logoPeloNome = `${primeiraLetra}${segundaLetra}`.toUpperCase()
+    console.log(this.logoPeloNome)
+  }
+
   toggleSidenav() {
     this.isExpanded = !this.isExpanded;
+    if (this.sidenavMode === 'over') {
+      this.isSidenavOpened = !this.isSidenavOpened;
+    }
   }
 
   abrirSidenaveEDropdown(module: any) {
@@ -158,6 +177,23 @@ export class SidenavComponent {
   ngOnDestroy() {
     if (this.timerInterval) {
       clearInterval(this.timerInterval);
+    }
+    window.removeEventListener('resize', this.updateSidenavMode.bind(this));
+  }
+
+  updateSidenavMode() {
+    if (window.innerWidth < 768) {
+      this.sidenavMode = 'over';
+      this.isSidenavOpened = false;
+    } else {
+      this.sidenavMode = 'side';
+      this.isSidenavOpened = true;
+    }
+  }
+
+  closeSidenav() {
+    if (this.sidenavMode === 'over') {
+      this.isSidenavOpened = false;
     }
   }
 

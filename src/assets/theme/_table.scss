@@ -3,13 +3,18 @@
 }
 .mat-mdc-header-cell {
   border-bottom-color: transparent !important;
-  @apply bg-gray-50 text-text text-xs font-bold #{!important};
+  @apply bg-gray-50 dark:bg-dark-body text-text text-xs font-bold #{!important};
+}
+
+.mdc-data-table__cell {
+  @apply dark:text-cyan-50 #{!important}
 }
 .mat-mdc-row {
-  @apply text-text font-medium text-[13px];
+  @apply  dark:text-cyan-50 font-medium text-[13px] #{!important};
 }
+
 .mat-mdc-row{
-  @apply hover:bg-slate-50 #{!important}
+  @apply hover:bg-slate-50 dark:text-cyan-50 #{!important}
 }
 
 .mat-mdc-cell {

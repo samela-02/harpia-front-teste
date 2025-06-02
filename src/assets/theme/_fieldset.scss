@@ -23,15 +23,15 @@ fieldset {
     @apply flex flex-col gap-0.5;
 
     h4 {
-      @apply text-sm font-text font-bold text-text/50 dark:text-dark-text/60;
+      @apply text-sm font-text font-bold text-text/50 dark:text-cyan-50;
     }
 
     span {
-      @apply text-base font-text font-semibold text-primary/90 dark:text-white/90;
+      @apply text-base font-text font-semibold text-primary/90 dark:text-cyan-50;
     }
   }
 
   h4 {
-    @apply text-sm font-text font-bold text-text/50 dark:text-dark-text/60;
+    @apply text-sm font-text font-bold text-text/50 dark:text-cyan-50;
   }
 }

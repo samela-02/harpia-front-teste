@@ -1,4 +1,4 @@
-<div class="table-container max-h-[37em]">
+<div class="table-container ">
   <table mat-table [dataSource]="equipamento()?.data?.dados" class="table" [style.width]="'100%'" [style.table-layout]="'fixed'" style="min-width: 900px;">
 
     <ng-container matColumnDef="nmEquipamento">
@@ -70,17 +70,7 @@
     <ng-container matColumnDef="lgAtivo">
       <th mat-header-cell *matHeaderCellDef>Situação</th>
       <td mat-cell *matCellDef="let dados">
-        <mat-chip-set>
-          <mat-chip #lgAtivo [class.chip-success]="dados.lgAtivo" [class.chip-danger]="!dados.lgAtivo">
-            <i [class.content-success]="dados.lgAtivo" [class.content-danger]="!dados.lgAtivo" class="la la-check-circle" matChipAvatar *ngIf="dados.lgAtivo">
-            </i>
-            <i [class.content-success]="dados.lgAtivo" [class.content-danger]="!dados.lgAtivo" class="la la-times-circle" matChipAvatar *ngIf="!dados.lgAtivo">
-            </i>
-            <span [class.content-success]="dados.lgAtivo" [class.content-danger]="!dados.lgAtivo">
-              {{ getSituacao(dados.lgAtivo) || "" }}
-            </span>
-          </mat-chip>
-        </mat-chip-set>
+        <app-chip-status [lgAtivo]="dados.lgAtivo"></app-chip-status>
       </td>
     </ng-container>
 

@@ -15,11 +15,12 @@ import { Store } from '@ngxs/store';
 import { ModalService } from '@tivic-team/tivic-ui';
 import { ModalFormVeiculoCCOUpdateComponent } from '../modal-form-update-veiculo-cco/modal-form-update-veiculo-cco.component';
 import { VeiculoCCOQueryResponse } from '@/domain/models/query/veiculo-cco-query-response';
+import { ChipStatusComponent } from '@/presentation/shared/components/chip-status/chip-status.component';
 
 @Component({
   selector: 'app-table-veiculos-cco',
   standalone: true,
-  imports: [...tableModule, MatChipsModule, MatSortModule, CommonModule, NoTableComponent, ModeloPlacaComponent],
+  imports: [...tableModule, MatChipsModule, MatSortModule, CommonModule, NoTableComponent, ModeloPlacaComponent, ChipStatusComponent],
   templateUrl: './table-veiculos-cco.component.html',
   styleUrl: './table-veiculos-cco.component.scss'
 })
@@ -64,8 +65,6 @@ export class TableVeiculosCCOComponent extends TablePageBase{
     event.preventDefault();
     this._modalService.component(ModalFormVeiculoCCOUpdateComponent).open(veiculo);
   }
-
-  getSituacao = (lgAtivo: boolean) => lgAtivo ? "Ativo" : "Inativo";
 
   displayedColumns: string[] = ['idVeiculo', 'nrPlaca', 'nmMarca', 'nmModelo', 'corVeiculo', 'lgAtivo', 'dtDelecao'];
 }

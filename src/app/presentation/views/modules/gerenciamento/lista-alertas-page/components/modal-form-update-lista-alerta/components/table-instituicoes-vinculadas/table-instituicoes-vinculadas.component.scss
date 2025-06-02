@@ -31,11 +31,11 @@
 }
 
 .content-success {
-  @apply text-green-500 #{!important}
+  @apply text-green-500 dark:text-green-800 #{!important}
 }
 
-.content-danger {
-  @apply text-gray-400 #{!important}
+.content-danger, .content-delecao {
+  @apply text-gray-400 dark:text-gray-800 #{!important}
 }
 
 // .row-container {
@@ -57,7 +57,6 @@
   }
 
   .mat-mdc-paginator {
-    position: sticky;
     bottom: 0;
     z-index: 1;
     background: white;

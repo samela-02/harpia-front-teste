@@ -1,0 +1,13 @@
+<mat-chip-set>
+  <mat-chip [class.chip-success]="lgAtivo" [class.chip-danger]="!lgAtivo">
+    <i [class.content-success]="lgAtivo" [class.content-danger]="!lgAtivo" class="la la-check-circle"
+      matChipAvatar *ngIf="lgAtivo">
+    </i>
+    <i [class.content-success]="lgAtivo" [class.content-danger]="!lgAtivo" class="la la-times-circle"
+      matChipAvatar *ngIf="!lgAtivo">
+    </i>
+    <span [class.content-success]="lgAtivo" [class.content-danger]="!lgAtivo">
+      {{ buscaSituacao(lgAtivo) }}
+    </span>
+  </mat-chip>
+</mat-chip-set>

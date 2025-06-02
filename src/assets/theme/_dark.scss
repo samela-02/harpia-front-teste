@@ -6,7 +6,7 @@
   }
 
   .mat-drawer {
-    @apply bg-dark-container border-r-0 #{!important};
+    @apply bg-dark-body border-r-0 #{!important};
   }
 
   .mdc-text-field--outlined.mdc-text-field--disabled .mdc-floating-label,
