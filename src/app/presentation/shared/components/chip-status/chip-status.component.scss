@@ -1,0 +1,19 @@
+.chip-success {
+  @apply flex-center justify-center bg-green-100 dark:bg-green-700/30 p-0 w-[90px] #{!important}
+}
+
+.chip-danger {
+  @apply flex-center justify-center bg-gray-100 dark:bg-gray-300/20 p-0 w-[90px] #{!important}
+}
+
+.chip-delecao {
+  @apply flex-center justify-center bg-gray-100 text-gray-400/65 p-0 #{!important}
+}
+
+.content-success {
+  @apply text-green-500 dark:text-green-300 #{!important}
+}
+
+.content-danger, .content-delecao {
+  @apply text-gray-400 dark:text-gray-300 #{!important}
+}

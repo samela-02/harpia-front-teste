@@ -13,11 +13,12 @@ import { Store } from '@ngxs/store';
 import { ModalService } from '@tivic-team/tivic-ui';
 import { ModalFormUsuarioUpdateComponent } from '../modal-form-update-usuario/modal-form-update-usuario.component';
 import { NoTableComponent } from '@/presentation/shared/components/no-table/no-table.component';
+import { ChipStatusComponent } from '@/presentation/shared/components/chip-status/chip-status.component';
 
 @Component({
   selector: 'app-table-usuarios',
   standalone: true,
-  imports: [...tableModule, MatChipsModule, MatSortModule, CommonModule, NoTableComponent],
+  imports: [...tableModule, MatChipsModule, MatSortModule, CommonModule, NoTableComponent, ChipStatusComponent],
   templateUrl: './table-usuarios.component.html',
   styleUrl: './table-usuarios.component.scss'
 })
@@ -60,8 +61,6 @@ export class TableUsuariosComponent extends TablePageBase{
     event.preventDefault();
     this._modalService.component(ModalFormUsuarioUpdateComponent).open(instituicao);
   }
-
-  getSituacao = (lgAtivo: boolean) => lgAtivo ? "Ativo" : "Inativo";
 
   displayedColumns: string[] = ['nmUsuario', 'nmEmail', 'nmCargo', 'role', 'lgAtivo'];
 }

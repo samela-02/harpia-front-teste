@@ -50,9 +50,11 @@
   </div>
   <div class="w-full grid md:grid-cols-2 lg:grid-cols-4 gap-3" formGroupName="endereco">
     <div class="col-span-full flex-center flex-row gap-2">
-      <span class="text-sm pl-1 flex-center gap-2 font-bold text-primary/60">
+      <span class="text-sm pl-1 flex-center gap-2 font-bold text-primary/60 dark:text-dark-primary">
         <i class="text-[20px]" [class]="'la la-map-marked'"></i>
-        Endereço do Veículo
+        <span class="dark:text-cyan-50">
+          Endereço do Veículo
+        </span>
       </span>
       <div class="flex-grow">
         <hr class="w-full my-auto border-t border-primary/70">
@@ -79,9 +81,11 @@
   </div>
   <div class="w-full grid md:grid-cols-2 gap-3" formGroupName="proprietario">
     <div class="col-span-full flex-center flex-row gap-2">
-      <span class="text-sm pl-1 flex-center gap-2 font-bold text-primary/60">
+      <span class="text-sm pl-1 flex-center gap-2 font-bold text-primary/60 dark:text-dark-primary">
         <i class="text-[20px]" [class]="'la la-user-edit'"></i>
-        Proprietário do Veículo
+        <span class="dark:text-cyan-50">
+          Proprietário do Veículo
+        </span>
       </span>
       <div class="flex-grow">
         <hr class="w-full my-auto border-t border-primary/70">

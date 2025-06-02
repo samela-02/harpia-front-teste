@@ -13,11 +13,12 @@ import { Store } from '@ngxs/store';
 import { ModalService } from '@tivic-team/tivic-ui';
 import { ModalFormComponenteUpdateComponent } from '../modal-form-update-componente/modal-form-update-componente.component';
 import { NoTableComponent } from '@/presentation/shared/components/no-table/no-table.component';
+import { ChipStatusComponent } from '@/presentation/shared/components/chip-status/chip-status.component';
 
 @Component({
   selector: 'app-table-componentes',
   standalone: true,
-  imports: [...tableModule, MatChipsModule, MatSortModule, CommonModule, DatePipe, NoTableComponent],
+  imports: [...tableModule, MatChipsModule, MatSortModule, CommonModule, ChipStatusComponent, NoTableComponent],
   templateUrl: './table-componentes.component.html',
   styleUrl: './table-componentes.component.scss'
 })
@@ -64,8 +65,6 @@ export class TableComponentesComponent extends TablePageBase{
     event.preventDefault();
     this._modalService.component(ModalFormComponenteUpdateComponent).open(tipoComponente);
   }
-
-  getSituacao = (lgAtivo: boolean) => lgAtivo ? "Ativo" : "Inativo";
 
   displayedColumns: string[] = ['nmComponente', 'idComponente', 'idEquipamento', 'dtDelecao', 'lgAtivo',];
 }

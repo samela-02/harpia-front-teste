@@ -13,11 +13,12 @@ import { EquipamentosFilter, EquipamentosProps } from '@/domain/filters/equipame
 import { BuscarEquipamentosAction } from '@/infrastructure/store/actions/equipamento.actions';
 import { Equipamento } from '@/domain/models/command/equipamento';
 import { NoTableComponent } from '@/presentation/shared/components/no-table/no-table.component';
+import { ChipStatusComponent } from '@/presentation/shared/components/chip-status/chip-status.component';
 
 @Component({
   selector: 'app-table-equipamentos',
   standalone: true,
-  imports: [...tableModule, MatChipsModule, MatSortModule, CommonModule, DatePipe, NoTableComponent],
+  imports: [...tableModule, MatChipsModule, MatSortModule, CommonModule, DatePipe, NoTableComponent, ChipStatusComponent],
   templateUrl: './table-equipamentos.component.html',
   styleUrl: './table-equipamentos.component.scss'
 })
@@ -66,8 +67,6 @@ export class TableEquipamentosComponent extends TablePageBase{
     event.preventDefault();
     this._modalService.component(ModalFormEquipamentoUpdateComponent).open(tipoEquipamento);
   }
-
-  getSituacao = (lgAtivo: boolean) => lgAtivo ? "Ativo" : "Inativo";
 
   displayedColumns: string[] = ['nmEquipamento', 'idEquipamento', 'nrSerie', 'componentes', 'dtAlocacao', 'dtDelecao', 'lgAtivo',];
 }

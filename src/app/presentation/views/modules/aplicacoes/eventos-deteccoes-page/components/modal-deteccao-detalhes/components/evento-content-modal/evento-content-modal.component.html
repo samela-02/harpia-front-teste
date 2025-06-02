@@ -25,6 +25,7 @@
               {{dadosAlerta()?.tipoAlerta.nmTipoAlerta}}
             </span>
           </span>
+
           <app-info-line [descricao]="(deteccao?.dtDeteccao | date:'dd/MM/yyy HH:mm:ss') || 'N/A'"
             [icone]="'la la-calendar'" titulo="Data"></app-info-line>
         </div>

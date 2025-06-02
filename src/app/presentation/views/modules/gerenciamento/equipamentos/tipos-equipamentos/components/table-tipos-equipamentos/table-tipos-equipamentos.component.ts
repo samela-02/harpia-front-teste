@@ -13,11 +13,12 @@ import { Store } from '@ngxs/store';
 import { ModalService } from '@tivic-team/tivic-ui';
 import { ModalFormTipoEquipamentoUpdateComponent } from '../modal-form-update-tipo-equipamento/modal-form-update-tipo-equipamento.component';
 import { NoTableComponent } from '@/presentation/shared/components/no-table/no-table.component';
+import { ChipStatusComponent } from '@/presentation/shared/components/chip-status/chip-status.component';
 
 @Component({
   selector: 'app-table-tipos-equipamentos',
   standalone: true,
-  imports: [...tableModule, MatChipsModule, MatSortModule, CommonModule, DatePipe, NoTableComponent],
+  imports: [...tableModule, MatChipsModule, MatSortModule, CommonModule, DatePipe, NoTableComponent, ChipStatusComponent],
   templateUrl: './table-tipos-equipamentos.component.html',
   styleUrl: './table-tipos-equipamentos.component.scss'
 })
@@ -60,8 +61,6 @@ export class TableTiposEquipamentosComponent extends TablePageBase{
     event.preventDefault();
     this._modalService.component(ModalFormTipoEquipamentoUpdateComponent).open(tipoEquipamento);
   }
-
-  getSituacao = (lgAtivo: boolean) => lgAtivo ? "Ativo" : "Inativo";
 
   displayedColumns: string[] = ['nmTipoEquipamento', 'dtDelecao', 'lgAtivo'];
 }

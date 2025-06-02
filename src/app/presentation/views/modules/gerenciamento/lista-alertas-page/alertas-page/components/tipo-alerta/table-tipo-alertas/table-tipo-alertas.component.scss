@@ -42,10 +42,6 @@
   @apply text-gray-400 dark:text-gray-800 #{!important}
 }
 
-// .row-container {
-//   @apply flex-col flex w-full;
-// }
-
 .table-container {
   @apply h-full flex flex-col;
 
@@ -61,7 +57,6 @@
   }
 
   .mat-mdc-paginator {
-    position: sticky;
     bottom: 0;
     z-index: 1;
     background: white;
