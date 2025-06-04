@@ -6,6 +6,8 @@ import { EventSourceMessage, fetchEventSource } from "@microsoft/fetch-event-sou
 import { Client } from "@tivic-team/tivic-ui";
 import { Observable } from "rxjs";
 import { AuthServiceImpl } from "../services/auth.service-impl";
+import { ResponseData } from "@/application/dtos/response-data.dto";
+import { UltimoSnapshotQueryResponse } from "@/domain/models/query/ultimo-snapshot-query-response";
 
 export class ComandoRepositoryImpl implements ComandoRepository {
   private api = `${environment.protocol}://${environment.host}:${environment.port}/${environment.context}/${environment.apiroot}`;
@@ -35,5 +37,9 @@ export class ComandoRepositoryImpl implements ComandoRepository {
 
   enviarComando(comando: ComandoDTo): Observable<void> {
     return this._client.environment(null).post(`${this.api}/comandos`, comando)
+  }
+
+  buscarUltimoSnapshot(idEquipamento: String): Observable<ResponseData<UltimoSnapshotQueryResponse>> {
+    return this._client.environment(null).get(`${this.api}/comandos/ultimo-snapshot?idEquipamento=${idEquipamento}`) as Observable<ResponseData<UltimoSnapshotQueryResponse>>
   }
 }
