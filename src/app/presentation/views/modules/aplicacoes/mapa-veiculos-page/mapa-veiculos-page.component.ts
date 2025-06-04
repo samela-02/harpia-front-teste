@@ -18,6 +18,8 @@ import { ModalService } from '@tivic-team/tivic-ui';
 import { ModalContentComponent } from './components/modal-content/modal-content.component';
 import { FindStreamUltimaComunicacaoEquipamentoUseCase } from '@/application/usecase/equipamento/find-stream-ultima-comunicacao-equipamento.usecase';
 import { EquipamentoComunicacaoQueryResponse } from '@/domain/models/query/equipamento-comunicacao-query-response';
+import { BuscarUltimoSnapshotUseCase } from '@/application/usecase/comando/buscar-ultimo-snapshot.usecase';
+import { UltimoSnapshotQueryResponse } from '@/domain/models/query/ultimo-snapshot-query-response';
 
 @Component({
   selector: 'app-mapa-veiculos-page',
@@ -42,6 +44,10 @@ export class MapaVeiculosPageComponent implements OnInit {
 
   private gpsAbortController: AbortController = null;
   private ultimaComunicacaoEquipamentoAbortController: AbortController = null;
+  private ultimoSnapshot: UltimoSnapshotQueryResponse;
+
+  // Adicione esta propriedade para controlar o loading por equipamento
+  private loadingSnapshots: Map<string, boolean> = new Map();
 
   constructor(
     private buscarDadosGpsUseCase: buscarDadosGpsUseCase,
@@ -50,7 +56,8 @@ export class MapaVeiculosPageComponent implements OnInit {
     private enviarComandoUseCase: EnviarComandoUseCase,
     private buscarComandoUseCase: BuscarComandoUseCase,
     private authService: AuthServiceImpl,
-    private findStreamUltimaComunicacaoEquipamentoUseCase: FindStreamUltimaComunicacaoEquipamentoUseCase
+    private findStreamUltimaComunicacaoEquipamentoUseCase: FindStreamUltimaComunicacaoEquipamentoUseCase,
+    private buscarUltimoSnapshotUseCase: BuscarUltimoSnapshotUseCase
   ) { }
 
   ngOnInit(): void {
@@ -62,19 +69,34 @@ export class MapaVeiculosPageComponent implements OnInit {
   }
 
   enviarComando(idEquipamento?: string) {
+    if (!idEquipamento || this.loadingSnapshots.get(idEquipamento)) {
+      return; // Bloqueia se já está processando
+    }
+
+    this.loadingSnapshots.set(idEquipamento, true);
     const uuid = uuidv4()
     const comando = new ComandoDTo(uuid, idEquipamento, TipoComandoEnum.Snapshot)
+
     this.enviarComandoUseCase.execute(comando).subscribe({
       next: () => {
-        this.buscarComando(uuid)
+        this.buscarComando(uuid, idEquipamento)
+      },
+      error: () => {
+        this.loadingSnapshots.set(idEquipamento, false);
       }
     })
   }
 
-  buscarComando(idComando: string) {
-    this.buscarComandoUseCase.execute(idComando).subscribe((response) => {
-      const content = JSON.parse(response.data)
-      this._modalService.component(ModalContentComponent).open(content)
+  buscarComando(idComando: string, idEquipamento: string) {
+    this.buscarComandoUseCase.execute(idComando).subscribe({
+      next: (response) => {
+        const content = JSON.parse(response.data)
+        this._modalService.component(ModalContentComponent).open(content)
+        this.loadingSnapshots.set(idEquipamento, false);
+      },
+      error: () => {
+        this.loadingSnapshots.set(idEquipamento, false);
+      }
     })
   }
 
@@ -234,19 +256,24 @@ export class MapaVeiculosPageComponent implements OnInit {
     const popupContent = L.DomUtil.create("div");
     const lastUpdateFormatted = status ? this.datePipe.transform(status.dtUltimaComunicacao, 'dd/MM/yyyy HH:mm:ss') : 'N/A';
 
-    popupContent.innerHTML = contentMarker(`ID: ${idEquipamento}<br>Última Att: ${lastUpdateFormatted}`, "assets/gifteste.gif", idEquipamento);
+    popupContent.innerHTML = contentMarker(`ID: ${idEquipamento}<br>Última Att: ${lastUpdateFormatted}`, "assets/no-content.png", idEquipamento, false);
 
     marker.bindPopup(popupContent);
-
     marker.off('popupopen');
-
     marker.on('popupopen', () => {
+      this.buscarUltimoSnapshotUseCase.execute(idEquipamento).subscribe((response) => {
+        const isLoading = this.loadingSnapshots.get(idEquipamento) || false;
+        const formattedDtPedido = response.data?.dtPedido
+          ? this.datePipe.transform(response.data.dtPedido, 'dd/MM/yyyy HH:mm:ss')
+          : undefined;
+        popupContent.innerHTML = contentMarker(`ID: ${idEquipamento}<br>Última Att: ${lastUpdateFormatted}`, response.data?.cntComando, idEquipamento, isLoading, formattedDtPedido);
         const button = popupContent.querySelector('.button-action') as HTMLButtonElement;
         if (button) {
             button.onclick = () => {
                 this.enviarComando(idEquipamento);
             }
         }
+      });
     });
   }
 
