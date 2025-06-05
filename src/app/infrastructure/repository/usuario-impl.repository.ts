@@ -39,4 +39,8 @@ export class UsuarioRepostoryImpl implements UsuarioRepository {
   desativarUsuario(cdUsuario: number): Observable<void> {
     return this._client.patch(`${this._api}/${cdUsuario}`, null)
   }
+
+  public limparCache(): void {
+    this.cachedUserResponse = null;
+  }
 }

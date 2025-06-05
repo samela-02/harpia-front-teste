@@ -12,4 +12,5 @@ export abstract class UsuarioRepository {
   public abstract criarUsuario(usuario: Usuario): Observable<void>;
   public abstract editarUsuario(cdUsuario: number, usuario: Usuario): Observable<void>;
   public abstract desativarUsuario(cdUsuario: number): Observable<void>;
+  public abstract limparCache(): void;
 }
