@@ -22,7 +22,7 @@ export class ModalDeteccaoDetalhesComponent {
   private _modalService = inject(ModalService<ModalDeteccaoDetalhesComponent>)
 
   constructor() {
-    this.BuscarDadosDeAlerta(this.deteccao.cdAlerta)
+    this.BuscarDadosDeAlerta(this.deteccao?.cdAlerta)
   }
 
   fecharModal() {

@@ -94,6 +94,7 @@ export class FormEquipamentoComponent {
   ngOnInit(): void {
     this.loadInstituicoes()
     this.loadVeiculos()
+    this.loadTipoEquipamento();
     this.updateForm();
     this.updateFormState();
   }
@@ -104,7 +105,7 @@ export class FormEquipamentoComponent {
       this.formGroupAlocacao.disable()
     } else {
       this.formGroup.enable();
-      if (!this.equipamentos.alocacao) {
+      if (!this.equipamentos?.alocacao) {
         this.formGroupAlocacao.enable()
       }
     }
