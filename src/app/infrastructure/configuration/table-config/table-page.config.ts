@@ -1,7 +1,5 @@
-import { signal } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { PageEvent } from "@angular/material/paginator";
-import { Sort } from "@angular/material/sort";
 
 export abstract class TablePageBase {
     protected pageSize: number = 10;

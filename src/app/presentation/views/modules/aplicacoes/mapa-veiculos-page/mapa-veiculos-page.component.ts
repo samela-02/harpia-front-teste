@@ -1,25 +1,24 @@
+import { BuscarComandoUseCase } from '@/application/usecase/comando/buscar-comando.usecase';
+import { BuscarUltimoSnapshotUseCase } from '@/application/usecase/comando/buscar-ultimo-snapshot.usecase';
+import { EnviarComandoUseCase } from '@/application/usecase/comando/enviar-comando.usecase';
+import { FindStreamUltimaComunicacaoEquipamentoUseCase } from '@/application/usecase/equipamento/find-stream-ultima-comunicacao-equipamento.usecase';
 import { buscarDadosGpsUseCase } from '@/application/usecase/gps-tracker/buscar-dados-gps.usecase';
+import { ComandoDTo } from '@/domain/dtos/comando.dto';
+import { TipoComandoEnum } from '@/domain/enums/tipo-alerta/tipo-comando.enum';
+import { EquipamentoComunicacaoQueryResponse } from '@/domain/models/query/equipamento-comunicacao-query-response';
+import { GpsTrackerQueryResponse } from '@/domain/models/query/gps-tracker-query-response';
+import { AuthServiceImpl } from '@/infrastructure/services/auth.service-impl';
+import { EquipmentStatus } from '@/presentation/interfaces/equipament-status';
 import { FiltersInputsComponent } from '@/presentation/shared/components/filters-inputs/filters-inputs.component';
 import { MapMarkersComponent } from '@/presentation/shared/components/map-markers/map-markers.component';
-import { Component, OnDestroy, OnInit, ViewChild, ChangeDetectorRef, inject } from '@angular/core';
-import { Subscription, interval } from 'rxjs';
-import * as L from 'leaflet';
-import { contentMarker } from './helpers/content-marker';
 import { CommonModule, DatePipe } from '@angular/common';
-import { GpsTrackerQueryResponse } from '@/domain/models/query/gps-tracker-query-response';
-import { EnviarComandoUseCase } from '@/application/usecase/comando/enviar-comando.usecase';
-import { BuscarComandoUseCase } from '@/application/usecase/comando/buscar-comando.usecase';
-import { ComandoDTo } from '@/domain/dtos/comando.dto';
-import { v4 as uuidv4 } from 'uuid';
-import { TipoComandoEnum } from '@/domain/enums/tipo-alerta/tipo-comando.enum';
-import { EquipmentStatus } from '@/presentation/interfaces/equipament-status';
-import { AuthServiceImpl } from '@/infrastructure/services/auth.service-impl';
+import { ChangeDetectorRef, Component, OnInit, ViewChild, inject } from '@angular/core';
 import { ModalService } from '@tivic-team/tivic-ui';
+import * as L from 'leaflet';
+import { Subscription, interval } from 'rxjs';
+import { v4 as uuidv4 } from 'uuid';
 import { ModalContentComponent } from './components/modal-content/modal-content.component';
-import { FindStreamUltimaComunicacaoEquipamentoUseCase } from '@/application/usecase/equipamento/find-stream-ultima-comunicacao-equipamento.usecase';
-import { EquipamentoComunicacaoQueryResponse } from '@/domain/models/query/equipamento-comunicacao-query-response';
-import { BuscarUltimoSnapshotUseCase } from '@/application/usecase/comando/buscar-ultimo-snapshot.usecase';
-import { UltimoSnapshotQueryResponse } from '@/domain/models/query/ultimo-snapshot-query-response';
+import { contentMarker } from './helpers/content-marker';
 
 @Component({
   selector: 'app-mapa-veiculos-page',
@@ -38,15 +37,13 @@ export class MapaVeiculosPageComponent implements OnInit {
   private movingMarkers: Map<string, L.Marker> = new Map();
   private idInstituicao = this.authService.getIdInstituicaoUser()
   private _modalService = inject(ModalService<ModalContentComponent>)
+  private popupContent = L.DomUtil.create("div");
 
   public equipmentStatusMap: Map<string, EquipmentStatus> = new Map();
   public markerCount: number = 0;
 
   private gpsAbortController: AbortController = null;
   private ultimaComunicacaoEquipamentoAbortController: AbortController = null;
-  private ultimoSnapshot: UltimoSnapshotQueryResponse;
-
-  // Adicione esta propriedade para controlar o loading por equipamento
   private loadingSnapshots: Map<string, boolean> = new Map();
 
   constructor(
@@ -70,7 +67,7 @@ export class MapaVeiculosPageComponent implements OnInit {
 
   enviarComando(idEquipamento?: string) {
     if (!idEquipamento || this.loadingSnapshots.get(idEquipamento)) {
-      return; // Bloqueia se já está processando
+      return;
     }
 
     this.loadingSnapshots.set(idEquipamento, true);
@@ -93,6 +90,7 @@ export class MapaVeiculosPageComponent implements OnInit {
         const content = JSON.parse(response.data)
         this._modalService.component(ModalContentComponent).open(content)
         this.loadingSnapshots.set(idEquipamento, false);
+        this.buscarUltimoSnapshot(idEquipamento);
       },
       error: () => {
         this.loadingSnapshots.set(idEquipamento, false);
@@ -100,7 +98,17 @@ export class MapaVeiculosPageComponent implements OnInit {
     })
   }
 
-  bucarDadosGps(){
+  private buscarUltimoSnapshot(idEquipamento: string) {
+    this.buscarUltimoSnapshotUseCase.execute(idEquipamento).subscribe((response) => {
+      const isLoading = this.loadingSnapshots.get(idEquipamento) || false;
+      const formattedDtPedido = response.data?.dtPedido
+        ? this.datePipe.transform(response.data.dtPedido, 'dd/MM/yyyy HH:mm:ss')
+        : undefined;
+      this.updatePopupContent(response.data?.cntComando, isLoading, idEquipamento, formattedDtPedido);
+    });
+  }
+
+  bucarDadosGps() {
     this.eventSourceSubscription = this.buscarDadosGpsUseCase.execute(this.gpsAbortController, this.idInstituicao).subscribe((response) => {
       try {
         const equipamentoData: GpsTrackerQueryResponse = JSON.parse(response.data);
@@ -119,12 +127,12 @@ export class MapaVeiculosPageComponent implements OnInit {
 
   private findStreamUltimaComunicacao() {
     this.ultimaComunicacaoEquipamentoEventSourceSubscription = this.findStreamUltimaComunicacaoEquipamentoUseCase
-        .execute(this.ultimaComunicacaoEquipamentoAbortController)
-        .subscribe((response) => {
-          const equipamentoComunicacaoList: EquipamentoComunicacaoQueryResponse[] = JSON.parse(response.data);
-          const equipamentoStatusList: EquipmentStatus[] = this.converterQueryEmEquipamentoStatus(equipamentoComunicacaoList);
-          this.equipmentStatusMap = this.converterListEmMap(equipamentoStatusList);
-        });
+      .execute(this.ultimaComunicacaoEquipamentoAbortController)
+      .subscribe((response) => {
+        const equipamentoComunicacaoList: EquipamentoComunicacaoQueryResponse[] = JSON.parse(response.data);
+        const equipamentoStatusList: EquipmentStatus[] = this.converterQueryEmEquipamentoStatus(equipamentoComunicacaoList);
+        this.equipmentStatusMap = this.converterListEmMap(equipamentoStatusList);
+      });
   }
 
   private converterQueryEmEquipamentoStatus(equipamentoComunicacaoList: EquipamentoComunicacaoQueryResponse[]): EquipmentStatus[] {
@@ -153,18 +161,18 @@ export class MapaVeiculosPageComponent implements OnInit {
   }
 
   private atualizarStatusEquipamento(): void {
-      let changed = false;
-      this.equipmentStatusMap.forEach((status, id) => {
-        const newColor = this.calculateStatusColor(status.dtUltimaComunicacao);
-        if (status.statusColor !== newColor) {
-          status.statusColor = newColor;
-          this.equipmentStatusMap.set(id, status);
-          changed = true;
-        }
-      });
-      if (changed) {
-        this.changeDetectorRef.detectChanges();
+    let changed = false;
+    this.equipmentStatusMap.forEach((status, id) => {
+      const newColor = this.calculateStatusColor(status.dtUltimaComunicacao);
+      if (status.statusColor !== newColor) {
+        status.statusColor = newColor;
+        this.equipmentStatusMap.set(id, status);
+        changed = true;
       }
+    });
+    if (changed) {
+      this.changeDetectorRef.detectChanges();
+    }
   }
 
   private calculateStatusColor(lastCommunicationTime: Date): 'green' | 'yellow' | 'red' {
@@ -251,29 +259,37 @@ export class MapaVeiculosPageComponent implements OnInit {
     }
   }
 
+  private updatePopupContent = (
+    imgSrc: string,
+    isLoading: boolean,
+    idEquipamento: string,
+    formattedDtPedido?: string
+  ) => {
+    this.popupContent.innerHTML = contentMarker(
+      `ID: ${idEquipamento}<br>Última Att: ${formattedDtPedido}`,
+      imgSrc,
+      idEquipamento,
+      isLoading,
+      formattedDtPedido
+    );
+    const button = this.popupContent.querySelector('.button-action') as HTMLButtonElement;
+    if (button) {
+      button.onclick = () => this.enviarComando(idEquipamento);
+    }
+  };
+
   private addPopupToMarker(marker: L.Marker, idEquipamento: string): void {
     const status = this.equipmentStatusMap.get(idEquipamento);
-    const popupContent = L.DomUtil.create("div");
-    const lastUpdateFormatted = status ? this.datePipe.transform(status.dtUltimaComunicacao, 'dd/MM/yyyy HH:mm:ss') : 'N/A';
+    const lastUpdateFormatted = status
+      ? this.datePipe.transform(status.dtUltimaComunicacao, 'dd/MM/yyyy HH:mm:ss')
+      : 'N/A';
 
-    popupContent.innerHTML = contentMarker(`ID: ${idEquipamento}<br>Última Att: ${lastUpdateFormatted}`, "assets/no-content.png", idEquipamento, false);
+    this.updatePopupContent("assets/no-content.png", false, idEquipamento, lastUpdateFormatted);
 
-    marker.bindPopup(popupContent);
+    marker.bindPopup(this.popupContent);
     marker.off('popupopen');
     marker.on('popupopen', () => {
-      this.buscarUltimoSnapshotUseCase.execute(idEquipamento).subscribe((response) => {
-        const isLoading = this.loadingSnapshots.get(idEquipamento) || false;
-        const formattedDtPedido = response.data?.dtPedido
-          ? this.datePipe.transform(response.data.dtPedido, 'dd/MM/yyyy HH:mm:ss')
-          : undefined;
-        popupContent.innerHTML = contentMarker(`ID: ${idEquipamento}<br>Última Att: ${lastUpdateFormatted}`, response.data?.cntComando, idEquipamento, isLoading, formattedDtPedido);
-        const button = popupContent.querySelector('.button-action') as HTMLButtonElement;
-        if (button) {
-            button.onclick = () => {
-                this.enviarComando(idEquipamento);
-            }
-        }
-      });
+      this.buscarUltimoSnapshot(idEquipamento);
     });
   }
 

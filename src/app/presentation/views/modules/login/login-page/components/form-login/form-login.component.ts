@@ -3,7 +3,7 @@ import { AuthServiceImpl } from '@/infrastructure/services/auth.service-impl';
 import { Component, HostListener} from '@angular/core';
 import { FormGroup, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDividerModule } from '@angular/material/divider';
+import { MatDivider, MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormField, MatInput, MatLabel } from '@angular/material/input';
 import { FormType } from '@tivic-team/tivic-ui';
@@ -13,6 +13,7 @@ import { FormType } from '@tivic-team/tivic-ui';
   standalone: true,
   imports: [
     MatInput,
+    MatDivider,
     MatFormField,
     MatButtonModule,
     MatDividerModule,

@@ -6,6 +6,11 @@
   @apply flex flex-col items-center justify-center gap-3;
 }
 
+.mat-divider {
+  --mat-divider-width: 2px;
+  --mat-divider-color: rgba(120, 135, 155, 0.548);
+}
+
 ::ng-deep .mat-mdc-text-field-wrapper {
   @apply bg-slate-700 h-[40px] #{!important};
 }
