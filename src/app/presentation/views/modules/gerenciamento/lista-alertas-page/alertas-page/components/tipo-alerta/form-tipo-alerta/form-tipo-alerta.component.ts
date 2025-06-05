@@ -133,7 +133,7 @@ export class FormTipoAlertaComponent {
   loadTableTipoAlerta() {
     const paginationProps: TipoAlertaProps = {
       page: 0,
-      cdListaAlerta: this.cdListaAlerta()
+      size: 10
     };
     const filter = new TipoAlertaFilter(paginationProps);
     this._store.dispatch(new BuscarTiposAlertasAction(filter)).subscribe(() => {
