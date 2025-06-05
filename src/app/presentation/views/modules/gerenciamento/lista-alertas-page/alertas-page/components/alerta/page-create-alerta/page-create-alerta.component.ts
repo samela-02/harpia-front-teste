@@ -65,7 +65,7 @@ export class ModalFormCreateAlertaComponent {
       nmCor: [''],
       nmMarca: [''],
       nrAno: [],
-      nrChassi: [''],
+      nrChassi: ['', Validators.pattern("^(?=.*[A-HJ-NPR-Z])(?=.*[0-9])[A-HJ-NPR-Z0-9]{17}$")],
       nrRenavam: [''],
       endereco: this.formBuilder.group({
         dsLogradouro: [''],
