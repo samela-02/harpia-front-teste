@@ -18,6 +18,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { Store } from '@ngxs/store';
 import { CustomDialogService, DropdownComponent, FormType, InputComponent, makeDeleteCustomDialog, SnackbarService, TextareaComponent } from '@tivic-team/tivic-ui';
 import { TableInstituicoesVinculadasComponent } from '../modal-form-update-lista-alerta/components/table-instituicoes-vinculadas/table-instituicoes-vinculadas.component';
+import { UsuarioLogadoResponse } from '@/domain/dtos/usuarioLogadoResponse.dto';
+import { BuscarDadosDeUsuarioUseCase } from '@/application/usecase/usuario/buscar-dados-de-usuario.usecase';
+import { RoleLabel, UsuarioRole } from '@/domain/enums/usuario-role.enum';
 
 @Component({
   selector: 'app-form-lista-alerta',
@@ -44,16 +47,29 @@ export class FormListaAlertaComponent {
   public iconClose = 'la la-times-circle'
   public isEditable = false;
   public instituicoes = () => this._store.select(InstituicaoSelectors.instituicaoSelect)
+  public usuarioLogado: UsuarioLogadoResponse;
+  public roles = UsuarioRole;
 
   @Output() cadastroSucesso = new EventEmitter<void>();
   @Input() listaAlerta: any = null;
 
   constructor(
+    private buscarDadosDeUsuario: BuscarDadosDeUsuarioUseCase,
     private criarListaAlertaUseCase: CriarListaAlertaUseCase,
     private editarListaAlertaUseCase: EditarListaAlertaUseCase,
     private desativarListaAlertaUseCase: DesativarListaAlertaUseCase,
     private formBuilder: FormBuilder,
   ) {
+    this.buscarDadosDeUsuario.execute().subscribe((usuario) => {
+      this.usuarioLogado = usuario.data
+      if (this.usuarioLogado?.role == this.roles.ADMINISTRADOR) {
+      this.loadInstituicoes()
+    } else {
+      this.formGroup.patchValue({
+        idInstituicao: this.usuarioLogado.idInstituicao
+      });
+    }
+    })
     this.formGroup = this.formBuilder.group({
       nmListaAlerta: ['', [Validators.required]],
       dsListaAlerta: ['', [Validators.required]],
@@ -64,7 +80,6 @@ export class FormListaAlertaComponent {
   ngOnInit(): void {
     this.updateForm();
     this.updateFormState();
-    this.loadInstituicoes()
   }
 
   private updateFormState() {
