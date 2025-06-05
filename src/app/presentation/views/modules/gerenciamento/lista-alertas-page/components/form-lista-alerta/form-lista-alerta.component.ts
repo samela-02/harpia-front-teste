@@ -60,21 +60,21 @@ export class FormListaAlertaComponent {
     private desativarListaAlertaUseCase: DesativarListaAlertaUseCase,
     private formBuilder: FormBuilder,
   ) {
-    this.buscarDadosDeUsuario.execute().subscribe((usuario) => {
-      this.usuarioLogado = usuario.data
-      if (this.usuarioLogado?.role == this.roles.ADMINISTRADOR) {
-      this.loadInstituicoes()
-    } else {
-      this.formGroup.patchValue({
-        idInstituicao: this.usuarioLogado.idInstituicao
-      });
-    }
-    })
     this.formGroup = this.formBuilder.group({
       nmListaAlerta: ['', [Validators.required]],
       dsListaAlerta: ['', [Validators.required]],
       idInstituicao: ['', [Validators.required]]
     });
+    this.buscarDadosDeUsuario.execute().subscribe((usuario) => {
+      this.usuarioLogado = usuario.data
+      if (this.usuarioLogado?.role == this.roles.ADMINISTRADOR) {
+        this.loadInstituicoes()
+      } else {
+        this.formGroup.patchValue({
+          idInstituicao: this.usuarioLogado.idInstituicao
+        });
+      }
+    })
   }
 
   ngOnInit(): void {
