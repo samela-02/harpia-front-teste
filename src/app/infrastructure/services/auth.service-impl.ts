@@ -9,13 +9,17 @@ import { Router } from "@angular/router";
 import { DeslogarUsuarioUseCase } from "@/application/usecase/login/deslogar-usuario.usecase";
 import { UsuarioLogadoResponse } from "@/domain/dtos/usuarioLogadoResponse.dto";
 import { UsuarioRole } from "@/domain/enums/usuario-role.enum";
+import { UsuarioRepository } from "@/application/repositories/usuario.repository";
 
 @Injectable({
   providedIn: "root"
 })
 export class AuthServiceImpl implements AuthService {
+  constructor(private usuarioRepository: UsuarioRepository,
+    private logarUsuarioUseCase: LogarUsuarioUseCase, 
+    private buscarDadosDeUsuario: BuscarDadosDeUsuarioUseCase, 
+    private deslogarUsuarioUseCase: DeslogarUsuarioUseCase) { }
 
-  constructor(private logarUsuarioUseCase: LogarUsuarioUseCase, private buscarDadosDeUsuario: BuscarDadosDeUsuarioUseCase, private deslogarUsuarioUseCase: DeslogarUsuarioUseCase) { }
   private _router = inject(Router);
 
   async logar(login: LoginDto): Promise<ResponseData<AuthDTO>> {
@@ -74,6 +78,7 @@ export class AuthServiceImpl implements AuthService {
     this.deslogarUsuarioUseCase.execute().subscribe({
       next: () => {
         this.removeItemsLocalStorage();
+        this.limparFlyweight();
         this._router.navigate(['/login']);
       },
       error: () => {
@@ -84,6 +89,7 @@ export class AuthServiceImpl implements AuthService {
     });
 
   }
+  
   public removeItemsLocalStorage() {
     localStorage.removeItem('accessToken');
     localStorage.removeItem("nmUsuario");
@@ -117,5 +123,9 @@ export class AuthServiceImpl implements AuthService {
 
   public getExpiresIn(): string | null {
     return localStorage.getItem('expiresIn');
+  }
+
+  limparFlyweight() {
+    this.usuarioRepository.limparCache();
   }
 }
