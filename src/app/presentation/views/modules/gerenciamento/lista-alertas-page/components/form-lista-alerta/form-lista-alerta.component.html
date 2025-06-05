@@ -3,9 +3,11 @@
     <tvc-input class="w-full" id="nmListaAlerta" formControlName="nmListaAlerta" label="Nome da Lista de Alerta"
       placeholder="Nome da Lista de Alerta" inputNormalize="alfanum" required [maxlength]="40" [minlength]="3" />
 
-    <tvc-dropdown *ngIf="!listaAlerta" class="w-full" id="idInstituicao" formControlName="idInstituicao" useLabel="nmInstituicao"
-    useValue="idInstituicao" label="Instituição" placeholder="Instituição" [providers]="instituicoes"
-    />
+    @if(usuarioLogado?.role ==  roles.ADMINISTRADOR) {
+      <tvc-dropdown *ngIf="!listaAlerta" class="w-full" id="idInstituicao" formControlName="idInstituicao" useLabel="nmInstituicao"
+      useValue="idInstituicao" label="Instituição" placeholder="Instituição" [providers]="instituicoes"
+      />
+    }
 
     <tvc-textarea class="w-full max-h-28" id="dsListaAlerta" formControlName="dsListaAlerta" label="Descrição"
       placeholder="Descrição" />

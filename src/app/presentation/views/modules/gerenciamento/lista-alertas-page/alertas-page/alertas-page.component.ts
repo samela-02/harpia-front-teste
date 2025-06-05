@@ -64,7 +64,7 @@ export class AlertasPageComponent {
   loadTiposDeAlertas() {
     const paginationProps: TipoAlertaProps = {
       page: 0,
-      size: 100
+      size: 10
     };
     const filter = new TipoAlertaFilter(paginationProps);
     this._store.dispatch(new BuscarTiposAlertasAction(filter)).subscribe()
