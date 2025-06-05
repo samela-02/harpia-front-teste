@@ -6,7 +6,7 @@ export interface MapLayer {
 
 export const MapLayers: Record<string, MapLayer> = {
   NORMAL: {
-    url: "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
+    url: "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
     subdomains: 'abcd',
     label: "Normal"
   },
@@ -14,6 +14,11 @@ export const MapLayers: Record<string, MapLayer> = {
     url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}.png",
     subdomains: 'abcd',
     label: "Satélite"
+  },
+  LIGHT: {
+    url: "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+    subdomains: 'abcd',
+    label: "Claro"
   },
   DARK: {
     url: "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",

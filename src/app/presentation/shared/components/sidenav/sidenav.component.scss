@@ -15,7 +15,7 @@
 }
 
 .sidenav-container {
-  @apply h-screen w-screen;
+  @apply h-screen w-screen dark:bg-dark-body;
 
   .sidenav {
     @apply bg-gray-50 dark:bg-dark-body text-primary dark:text-dark-primary overflow-hidden border-none md:w-[80px] w-[0px];
