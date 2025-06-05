@@ -1,6 +1,4 @@
-import { BuscarTipoAlertaPeloCdUseCase } from '@/application/usecase/tipo-alerta/buscar-tipo-alerta-pelo-cd.usecase';
 import { CriarTipoAlertaUseCase } from '@/application/usecase/tipo-alerta/criar-tipo-alerta.usecase';
-import { DesativarTipoAlertaUseCase } from '@/application/usecase/tipo-alerta/desativar-tipo-alerta..usecase';
 import { EditarTipoAlertaUseCase } from '@/application/usecase/tipo-alerta/editar-tipo-alerta.usecase';
 import { nvAlertaMap } from '@/domain/enums/tipo-alerta/nv-alerta.enum';
 import { TipoAlertaFilter, TipoAlertaProps } from '@/domain/filters/tipo-alerta/tipo-alerta.filter';
@@ -55,7 +53,6 @@ export class FormTipoAlertaComponent {
   constructor(
     private criarTipoAlertaUseCase: CriarTipoAlertaUseCase,
     private editarTipoAlertaUseCase: EditarTipoAlertaUseCase,
-    private desativarTipoAlertaUseCase: DesativarTipoAlertaUseCase,
     private formBuilder: FormBuilder,
   ) {
     this.formGroup = this.formBuilder.group({
@@ -129,33 +126,6 @@ export class FormTipoAlertaComponent {
       },
       error: (error) => {
         this._snackbar.error(error.message);
-      }
-    });
-  }
-
-  desativarTipoAlerta(tipoAlerta: TipoAlerta) {
-    this.desativarTipoAlertaUseCase.execute(tipoAlerta.cdListaAlerta).subscribe({
-      next: () => {
-        this._snackbar.success('Tipo de alerta desativada com sucesso!');
-        this.cadastroSucesso.emit();
-        this.loadTableTipoAlerta()
-      },
-      error: (error) => {
-        this._snackbar.error(error.message)
-      }
-    })
-  }
-
-  confirmarDesativacaoDeTipoAlerta(tipoAlerta: TipoAlerta) {
-    const dialog = this._customDialog.warn(makeDeleteCustomDialog({
-      title: "Desativar Tipo de alerta",
-      value:`o tipo de alerta ${tipoAlerta.nmTipoAlerta.toLowerCase()}?`
-    }));
-    return this._customDialog.afterClosed(dialog).subscribe((confirm) => {
-      if (confirm) {
-        this.desativarTipoAlerta(tipoAlerta)
-        this._snackbar.success("Tipo de alerta desativada com sucesso")
-        this.loadTableTipoAlerta()
       }
     });
   }
