@@ -304,7 +304,8 @@ export class MapaVeiculosPageComponent implements OnInit {
              </div>`,
       className: '',
       iconSize: [30, 17],
-      iconAnchor: [0, 0]
+      iconAnchor: [10, 15],
+      popupAnchor: [0,-15]
     });
   }
 
