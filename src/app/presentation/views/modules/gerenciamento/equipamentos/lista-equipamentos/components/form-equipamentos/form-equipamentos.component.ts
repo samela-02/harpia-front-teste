@@ -12,6 +12,7 @@ import { InstituicaoFilter, InstituicaoProps } from '@/domain/filters/instituica
 import { TipoEquipamentosFilter, TipoEquipamentosProps } from '@/domain/filters/lista-equipamento/tipo-equipamento.filter';
 import { VeiculoCCOFilter, VeiculoCCOProps } from '@/domain/filters/veiculoCCO/veiculoCCO.filter';
 import { Equipamento } from '@/domain/models/command/equipamento';
+import { HasRoleDirective } from '@/infrastructure/directives/has-role.directive';
 import { BuscarEquipamentosAction } from '@/infrastructure/store/actions/equipamento.actions';
 import { BuscarInstituicoesAction } from '@/infrastructure/store/actions/instituicao.actions';
 import { BuscarTiposEquipamentosAction } from '@/infrastructure/store/actions/tipo-equipamento.actions';
@@ -38,6 +39,7 @@ import { CustomDialogService, DropdownComponent, FormType, InputComponent, makeD
     MatButtonModule,
     MatDividerModule,
     DropdownComponent,
+    HasRoleDirective,
     CommonModule,
     MatIconModule,
     ReactiveFormsModule
@@ -59,14 +61,12 @@ export class FormEquipamentoComponent {
   public instituicoes = () => this._store.select(InstituicaoSelectors.instituicaoSelect)
   public tiposEquipamento = () => this._store.select(TipoEquipamentoSelectors.tiposEquipamentosSelect)
   public veiculosCCO = () => this._store.select(VeiculoCCOSelectors.veiculosCCOSelect)
-  public usuarioLogado: UsuarioLogadoResponse;
   public UsuarioRole = UsuarioRole;
 
   @Output() cadastroSucesso = new EventEmitter<void>();
   @Input() equipamentos: any = null;
 
   constructor(
-      private buscarDadosDeUsuario: BuscarDadosDeUsuarioUseCase,
       private criarEquipamentoUseCase: CriarEquipamentoUseCase,
       private alocarEquipamentoUseCase: AlocarEquipamentoUseCase,
       private desalocarEquipamentoUseCase: DesalocarEquipamentoUseCase,
@@ -75,9 +75,6 @@ export class FormEquipamentoComponent {
       private formBuilder: FormBuilder,
       private buscarEquipamentosUseCase: BuscarEquipamentosUseCase,
     ) {
-      this.buscarDadosDeUsuario.execute().subscribe((usuario) => {
-        this.usuarioLogado = usuario.data
-      })
       this.formGroup = this.formBuilder.group({
         nmEquipamento: ['', [Validators.required]],
         cdInstituicao: [0, [Validators.required]],

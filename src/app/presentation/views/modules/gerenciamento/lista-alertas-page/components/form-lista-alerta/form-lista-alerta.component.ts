@@ -21,6 +21,7 @@ import { TableInstituicoesVinculadasComponent } from '../modal-form-update-lista
 import { UsuarioLogadoResponse } from '@/domain/dtos/usuarioLogadoResponse.dto';
 import { BuscarDadosDeUsuarioUseCase } from '@/application/usecase/usuario/buscar-dados-de-usuario.usecase';
 import { RoleLabel, UsuarioRole } from '@/domain/enums/usuario-role.enum';
+import { HasRoleDirective } from '@/infrastructure/directives/has-role.directive';
 
 @Component({
   selector: 'app-form-lista-alerta',
@@ -30,6 +31,7 @@ import { RoleLabel, UsuarioRole } from '@/domain/enums/usuario-role.enum';
     MatButtonModule,
     InputComponent,
     DropdownComponent,
+    HasRoleDirective,
     MatDividerModule,
     CommonModule,
     MatIconModule,

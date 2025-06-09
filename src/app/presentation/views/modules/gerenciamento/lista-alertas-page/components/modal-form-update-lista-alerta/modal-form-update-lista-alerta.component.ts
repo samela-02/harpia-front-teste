@@ -10,6 +10,7 @@ import { TableInstituicoesVinculadasComponent } from "./components/table-institu
 import { UsuarioLogadoResponse } from "@/domain/dtos/usuarioLogadoResponse.dto";
 import { UsuarioRole } from "@/domain/enums/usuario-role.enum";
 import { BuscarDadosDeUsuarioUseCase } from "@/application/usecase/usuario/buscar-dados-de-usuario.usecase";
+import { HasRoleDirective } from "@/infrastructure/directives/has-role.directive";
 
 @Component({
   selector: "modal-form-update-lista-alerta",
@@ -17,6 +18,7 @@ import { BuscarDadosDeUsuarioUseCase } from "@/application/usecase/usuario/busca
   imports: [
     ...tableImports,
     FormListaAlertaComponent,
+    HasRoleDirective,
     TableInstituicoesVinculadasComponent,
     MatTabsModule
   ],
