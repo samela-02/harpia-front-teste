@@ -13,30 +13,30 @@
       placeholder="Descrição" />
   </div>
 
-  <div class="w-full flex justify-end gap-2">
-    <button *ngIf="listaAlerta && !isEditable" (click)="toggleEdit()" mat-flat-button
-      class="bg-accent/10 text-primary dark:text-dark-primary disabled:cursor-not-allowed disabled:text-accent/50">
-      <i [class]="icon" class="text-lg"></i>
-      <span class="pt-1">
-        Editar
-      </span>
-    </button>
+    <div class="w-full flex justify-end gap-2" *verifyInstitution="instituicoesPermitidasEditar">
+      <button *ngIf="listaAlerta && !isEditable" (click)="toggleEdit()" mat-flat-button
+        class="bg-accent/10 text-primary dark:text-dark-primary disabled:cursor-not-allowed disabled:text-accent/50">
+        <i [class]="icon" class="text-lg"></i>
+        <span class="pt-1">
+          Editar
+        </span>
+      </button>
 
-    <button *ngIf="(isEditable && listaAlerta)" (click)="confirmarDesativacaoDeListaAlerta(listaAlerta)"
-      [disabled]="!formGroup.valid" mat-flat-button class="bg-red-700/10 text-red-700 disabled:cursor-not-allowed">
-      <i [class]="iconClose" class="text-lg"></i>
-      <span class="pt-1">
-        Desativar
-      </span>
-    </button>
+      <button *ngIf="(isEditable && listaAlerta)" (click)="confirmarDesativacaoDeListaAlerta(listaAlerta)"
+        [disabled]="!formGroup.valid" mat-flat-button class="bg-red-700/10 text-red-700 disabled:cursor-not-allowed">
+        <i [class]="iconClose" class="text-lg"></i>
+        <span class="pt-1">
+          Desativar
+        </span>
+      </button>
 
-    <button *ngIf="(isEditable && listaAlerta) || (!listaAlerta)" (click)="onSubmit()" [disabled]="!formGroup.valid"
-      mat-flat-button
-      class="bg-primary/10 dark:bg-dark-primary/10 text-primary dark:text-dark-primary disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-primary/50">
-      <i [class]="icon" class="text-lg"></i>
-      <span class="pt-1">
-        Salvar
-      </span>
-    </button>
-  </div>
+      <button *ngIf="(isEditable && listaAlerta) || (!listaAlerta)" (click)="onSubmit()" [disabled]="!formGroup.valid"
+        mat-flat-button
+        class="bg-primary/10 dark:bg-dark-primary/10 text-primary dark:text-dark-primary disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-primary/50">
+        <i [class]="icon" class="text-lg"></i>
+        <span class="pt-1">
+          Salvar
+        </span>
+      </button>
+    </div>
 </form>

@@ -22,6 +22,9 @@ import { UsuarioLogadoResponse } from '@/domain/dtos/usuarioLogadoResponse.dto';
 import { BuscarDadosDeUsuarioUseCase } from '@/application/usecase/usuario/buscar-dados-de-usuario.usecase';
 import { RoleLabel, UsuarioRole } from '@/domain/enums/usuario-role.enum';
 import { HasRoleDirective } from '@/infrastructure/directives/has-role.directive';
+import { AuthServiceImpl } from '@/infrastructure/services/auth.service-impl';
+import { ListaAlertaAcessoQueryResponse } from '@/domain/models/query/lista-alerta-acesso-query-response';
+import { VerifyInstitutionDirective } from '@/infrastructure/directives/verify-institution.directive';
 
 @Component({
   selector: 'app-form-lista-alerta',
@@ -32,6 +35,7 @@ import { HasRoleDirective } from '@/infrastructure/directives/has-role.directive
     InputComponent,
     DropdownComponent,
     HasRoleDirective,
+    VerifyInstitutionDirective,
     MatDividerModule,
     CommonModule,
     MatIconModule,
@@ -42,36 +46,35 @@ import { HasRoleDirective } from '@/infrastructure/directives/has-role.directive
 })
 export class FormListaAlertaComponent {
   private _snackbar = inject(SnackbarService);
-  public formGroup!: FormGroup<FormType<ListaAlerta>>;
   private _customDialog = inject(CustomDialogService);
   private _store = inject(Store);
+
+  private usuarioRole = this.authService.getRole();
+  private usuarioIdInstituicao = this.authService.getIdInstituicaoUser();
+
+  public formGroup!: FormGroup<FormType<ListaAlerta>>;
   public icon = 'la la-save'
   public iconClose = 'la la-times-circle'
   public isEditable = false;
   public instituicoes = () => this._store.select(InstituicaoSelectors.instituicaoSelect)
-  public usuarioLogado: UsuarioLogadoResponse;
   public roles = UsuarioRole;
+  public instituicoesPermitidasEditar: string[] = [];
 
   @Output() cadastroSucesso = new EventEmitter<void>();
   @Input() listaAlerta: any = null;
 
   constructor(
-    private buscarDadosDeUsuario: BuscarDadosDeUsuarioUseCase,
+    private authService: AuthServiceImpl,
     private criarListaAlertaUseCase: CriarListaAlertaUseCase,
     private editarListaAlertaUseCase: EditarListaAlertaUseCase,
     private desativarListaAlertaUseCase: DesativarListaAlertaUseCase,
     private formBuilder: FormBuilder,
   ) {
-    this.buscarDadosDeUsuario.execute().subscribe((usuario) => {
-      this.usuarioLogado = usuario.data
-      if (this.usuarioLogado?.role == this.roles.ADMINISTRADOR) {
-      this.loadInstituicoes()
-    } else {
-      this.formGroup.patchValue({
-        idInstituicao: this.usuarioLogado.idInstituicao
-      });
-    }
-    })
+    this.inicializaForm();
+    this.aplicarRegraPorTipoDeUsuario();
+  }
+
+  private inicializaForm() {
     this.formGroup = this.formBuilder.group({
       nmListaAlerta: ['', [Validators.required]],
       dsListaAlerta: ['', [Validators.required]],
@@ -79,9 +82,31 @@ export class FormListaAlertaComponent {
     });
   }
 
+  private aplicarRegraPorTipoDeUsuario() {
+    if (this.usuarioRole == this.roles.ADMINISTRADOR) {
+      this.loadInstituicoes();
+    } else {
+      this.formGroup.patchValue({
+        idInstituicao: this.usuarioIdInstituicao
+      });
+    }
+  }
+
+  private setarInstituicoesPermitidas() {
+    if (this.listaAlerta) {
+      const instituicoes = this.listaAlerta.instituicoesComAcesso
+        .filter((inst: ListaAlertaAcessoQueryResponse) => inst.owner === true)
+        .map((inst: ListaAlertaAcessoQueryResponse) => inst.idInstituicao);
+
+      instituicoes.forEach((id: string) => this.instituicoesPermitidasEditar.push(id));
+    }
+
+  }
+
   ngOnInit(): void {
     this.updateForm();
     this.updateFormState();
+    this.setarInstituicoesPermitidas()
   }
 
   private updateFormState() {
@@ -191,5 +216,4 @@ export class FormListaAlertaComponent {
     this._store.dispatch(new BuscarInstituicoesAction(filter)).subscribe(() => {
     })
   }
-
 }

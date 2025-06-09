@@ -1,7 +1,5 @@
-export class ListaAlertaAcessoQueryResponse {
-  idInstituicao: string;
-  isOwner: boolean
-}
+import { ListaAlertaAcessoQueryResponse } from "./lista-alerta-acesso-query-response";
+
 export class ListaAlertaResponse {
   nmListaAlerta: string;
   dsListaAlerta: string;

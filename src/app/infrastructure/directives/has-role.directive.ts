@@ -26,7 +26,6 @@ export class HasRoleDirective implements OnInit {
         break;
       }
     }
-
     if (permite) {
       this.viewContainer.createEmbeddedView(this.templateRef);
     } else {
