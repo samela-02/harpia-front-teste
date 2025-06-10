@@ -65,8 +65,8 @@ export class ModalFormCreateAlertaComponent {
       nmCor: [''],
       nmMarca: [''],
       nrAno: [],
-      nrChassi: [''],
-      nrRenavam: [''],
+      nrChassi: ['', Validators.pattern("^(?=.*[A-HJ-NPR-Z])(?=.*[0-9])[A-HJ-NPR-Z0-9]{17}$")],
+      nrRenavam: ['', Validators.pattern("^[0-9]{9,11}$")],
       endereco: this.formBuilder.group({
         dsLogradouro: [''],
         nrEndereco: [''],
@@ -77,7 +77,7 @@ export class ModalFormCreateAlertaComponent {
       }),
       proprietario: this.formBuilder.group({
         nmProprietario: [''],
-        nrDocumento: ['']
+        nrDocumento: ['', Validators.maxLength(20)]
       })
     }) as FormGroup<FormType<Veiculo>>
   }
