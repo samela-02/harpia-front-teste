@@ -10,7 +10,7 @@ export const listaAlertasRoutes: Routes = [
     }
   },
   {
-    path: ":cdAlerta",
+    path: ":idInstituicao/:cdAlerta",
     loadChildren: () => import('./alertas-page/alertas.routes').then(m => m.alertasRoutes),
     resolve: { breadcrumbData: breadcrumbResolver },
     data: {

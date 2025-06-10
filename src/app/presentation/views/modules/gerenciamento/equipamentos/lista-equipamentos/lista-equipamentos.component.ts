@@ -11,29 +11,21 @@ import { ModalService } from '@tivic-team/tivic-ui';
 import { FilterEquipamentoComponent } from './components/filter-equipamentos/filter-equipamento.component';
 import { ModalFormCreateEquipamentoComponent } from './components/modal-form-create-equipamento/modal-form-create-equipamento.component';
 import { TableEquipamentosComponent } from './components/table-equipamentos/table-equipamentos.component';
+import { HasRoleDirective } from '@/infrastructure/directives/has-role.directive';
 
 @Component({
   selector: 'app-lista-equipamentos',
   standalone: true,
-  imports: [TableEquipamentosComponent, CommonModule, MatButtonModule, FilterEquipamentoComponent, FiltersInputsComponent, ...sharedModule],
+  imports: [TableEquipamentosComponent, CommonModule, MatButtonModule, FilterEquipamentoComponent, FiltersInputsComponent, HasRoleDirective, ...sharedModule],
   templateUrl: './lista-equipamentos.component.html',
   styleUrl: './lista-equipamentos.component.scss',
 })
 export class ListaEquipamentosComponent {
   private _modalService = inject(ModalService<ModalFormCreateEquipamentoComponent>);
   private _formBuilder = inject(FormBuilder);
-
-  public usuarioLogado: UsuarioLogadoResponse;
   public UsuarioRole = UsuarioRole;
 
   @ViewChild(TableEquipamentosComponent) tableEquipamentos!: TableEquipamentosComponent;
-
-  constructor(private buscarDadosDeUsuario: BuscarDadosDeUsuarioUseCase
-  ) {
-    this.buscarDadosDeUsuario.execute().subscribe((usuario) => {
-      this.usuarioLogado = usuario.data
-    })
-  }
 
   icon = "la la-plus-circle"
 

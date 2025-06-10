@@ -1,18 +1,16 @@
 <div class="page h-full flex flex-col gap-2">
   <div class="w-full flex flex-row justify-end">
     <div class="flex-center gap-3">
-      <app-filters-inputs  [formGroup]="formGroup" searchField="nmEquipamento" placeholder="Pesquisar equipamento"
+      <app-filters-inputs [formGroup]="formGroup" searchField="nmEquipamento" placeholder="Pesquisar equipamento"
         (search)="onSearch()">
         <app-filter-equipamento [formGroup]="formGroup" [table]="table()" />
       </app-filters-inputs>
-      @if (usuarioLogado?.role == UsuarioRole.ADMINISTRADOR) {
-        <button mat-flat-button (click)="cadastrar()" class="button-actions">
-          <i [class]="icon" class="text-lg"></i>
-          <label class="md:flex hidden dark:text-cyan-50 ">
-            Cadastrar Equipamento
-          </label>
-        </button>
-      }
+      <button *hasRole="[UsuarioRole.ADMINISTRADOR]" mat-flat-button (click)="cadastrar()" class="button-actions">
+        <i [class]="icon" class="text-lg"></i>
+        <label class="md:flex hidden dark:text-cyan-50 ">
+          Cadastrar Equipamento
+        </label>
+      </button>
     </div>
   </div>
   <app-table-equipamentos [formGroup]="formGroup" class="overflow-x-auto overflow-y-hidden"></app-table-equipamentos>

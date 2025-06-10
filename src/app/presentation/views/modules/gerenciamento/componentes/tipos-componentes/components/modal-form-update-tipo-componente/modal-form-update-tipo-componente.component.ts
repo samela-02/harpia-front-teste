@@ -5,6 +5,7 @@ import { Store } from "@ngxs/store";
 import { MODAL_DATA, ModalService } from "@tivic-team/tivic-ui";
 import { FormTipoComponenteComponent } from "../form-tipos-componentes/form-tipos-componentes.component";
 import { TiposComponentesFilter, TiposComponentesProps } from "@/domain/filters/tipo-componente/tipo-componente.filter";
+import { TipoComponente } from "@/domain/models/command/tipo-componente";
 
 @Component({
   selector: "modal-form-tipo-componente",
@@ -19,7 +20,7 @@ import { TiposComponentesFilter, TiposComponentesProps } from "@/domain/filters/
 export class ModalFormTipoComponenteUpdateComponent {
   public icon: string = "la la-microchip"
   private _store = inject(Store);
-  protected tipoComponente = inject(MODAL_DATA) || null;
+  protected tipoComponente: TipoComponente = inject(MODAL_DATA) as TipoComponente;
   public tituloModal: string;
   private _modalService = inject(ModalService<ModalFormTipoComponenteUpdateComponent>);
 

@@ -5,6 +5,7 @@ import { Component, inject } from "@angular/core";
 import { Store } from "@ngxs/store";
 import { MODAL_DATA, ModalService } from "@tivic-team/tivic-ui";
 import { FormComponenteComponent } from "../form-componentes/form-componentes.component";
+import { Componente } from "@/domain/models/command/componentes";
 
 @Component({
   selector: "modal-form-componente",
@@ -19,7 +20,7 @@ import { FormComponenteComponent } from "../form-componentes/form-componentes.co
 export class ModalFormComponenteUpdateComponent {
   public icon: string = "la la-microchip"
   private _store = inject(Store);
-  protected componente = inject(MODAL_DATA) || null;
+  protected componente: Componente = inject(MODAL_DATA) as Componente;
   public tituloModal: string;
   private _modalService = inject(ModalService<ModalFormComponenteUpdateComponent>);
 

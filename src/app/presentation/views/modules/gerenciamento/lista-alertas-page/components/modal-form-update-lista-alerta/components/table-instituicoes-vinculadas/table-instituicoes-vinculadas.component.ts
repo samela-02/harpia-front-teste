@@ -1,6 +1,5 @@
 import { InstituicaoFilter, InstituicaoProps } from '@/domain/filters/instituicao/instituicao.filter';
 import { Instituicao } from '@/domain/models/command/instituicao';
-import { ListaAlertaAcessoQueryResponse } from '@/domain/models/query/lista-alerta-response';
 import { TablePageBase } from '@/infrastructure/configuration/table-config/table-page.config';
 import { BuscarInstituicoesAction } from '@/infrastructure/store/actions/instituicao.actions';
 import { InstituicaoSelectors } from '@/infrastructure/store/selectors/instituicao.selectors';
@@ -17,6 +16,7 @@ import { DesvincularInstituicaoUseCase } from '@/application/usecase/lista-alert
 import { CustomDialogService, makeDeleteCustomDialog, SnackbarService } from '@tivic-team/tivic-ui';
 import { ListaAlertaFilter, ListaAlertaProps } from '@/domain/filters/lista-alerta/lista-alerta.filter';
 import { BuscarListaAlertaAction } from '@/infrastructure/store/actions/lista-alerta.actions';
+import { ListaAlertaAcessoQueryResponse } from '@/domain/models/query/lista-alerta-acesso-query-response';
 
 @Component({
   selector: 'app-table-instituicoes-vinculadas',

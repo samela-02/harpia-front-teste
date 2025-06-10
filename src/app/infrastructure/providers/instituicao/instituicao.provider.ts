@@ -3,7 +3,6 @@ import { BuscarInstituicoesUseCase } from "@/application/usecase/instituicao/bus
 import { CriarInstituicaoUseCase } from "@/application/usecase/instituicao/criar-instituicao.usecase";
 import { DesativarInstituicaoUseCase } from "@/application/usecase/instituicao/desativar-instituicao.usecase";
 import { EditarInstituicaoUseCase } from "@/application/usecase/instituicao/editar-instituicao.usecase";
-import { BuscarDadosDeUsuarioUseCase } from "@/application/usecase/usuario/buscar-dados-de-usuario.usecase";
 import { InstituicaoRepositoryImpl } from "@/infrastructure/repository/instituicao-impl.repository";
 
 export const criarInstituicaoProvider = {

@@ -1,3 +1,4 @@
+import { DeteccaoQueryResponse } from '@/domain/models/query/deteccao-query-response';
 import { MODAL_DATA, ModalService } from '@/infrastructure/services/modal/modal.service';
 import { DatePipe } from '@angular/common';
 import { Component, ElementRef, ViewChild, inject } from '@angular/core';
@@ -20,7 +21,7 @@ export class ImagemDeteccaoModalComponent {
   public openConfig: boolean = false;
   public exibeBoundBox: boolean = true;
 
-  protected deteccao: any = inject(MODAL_DATA) || null;
+  protected deteccao: DeteccaoQueryResponse = inject(MODAL_DATA) as DeteccaoQueryResponse;
   private _modalService = inject(ModalService<ImagemDeteccaoModalComponent>)
   fecharModal() {
     this._modalService.dismiss();

@@ -20,7 +20,7 @@ import L from 'leaflet';
 })
 export class EventoContentModalComponent implements AfterViewInit {
   @ViewChild('mapDeteccao') mapComponent!: MapMarkersComponent;
-  
+
   private _store = inject(Store);
   private _modalService = inject(ModalService<ImagemDeteccaoModalComponent>)
   public dadosAlerta = this._store.selectSignal(AlertaSelectors.alertaPorCd);
@@ -48,6 +48,7 @@ export class EventoContentModalComponent implements AfterViewInit {
       L.marker(coordenadas, {
         icon: this.createIcon()
       }).addTo(map);
+      map.setView(coordenadas, map.getZoom() || 15);
     }
   }
 

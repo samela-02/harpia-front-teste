@@ -13,12 +13,10 @@
         <mat-tab label="Formulário">
           <app-form-lista-alerta [listaAlerta]="listaAlerta" (cadastroSucesso)="fecharModal()" />
         </mat-tab>
-        @if(usuarioLogado?.role == UsuarioRole.ADMINISTRADOR) {
-          <mat-tab label="Instituições Vinculadas">
+          <mat-tab *hasRole="[UsuarioRole.ADMINISTRADOR]" label="Instituições Vinculadas">
             <app-table-instituicoes-vinculadas [instituicoesVinculadas]="listaAlerta?.instituicoesComAcesso"
               [cdListaAlerta]="listaAlerta.cdListaAlerta"></app-table-instituicoes-vinculadas>
             </mat-tab>
-        }
       </mat-tab-group>
     </div>
 </div>
