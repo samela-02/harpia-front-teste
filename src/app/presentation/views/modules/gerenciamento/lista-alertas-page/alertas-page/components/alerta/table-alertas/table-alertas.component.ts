@@ -1,22 +1,22 @@
+import { AlertaFilter, AlertaProps } from '@/domain/filters/alerta/alerta.filter';
+import { Alerta } from '@/domain/models/command/alerta';
+import { TablePageBase } from '@/infrastructure/configuration/table-config/table-page.config';
+import { TruncatePipe } from '@/infrastructure/pipe/truncate.pipe';
+import { BuscarAlertaAction } from '@/infrastructure/store/actions/alerta.actions';
+import { AlertaSelectors } from '@/infrastructure/store/selectors/alerta.selectors';
+import { ListaAlertaSelectors } from '@/infrastructure/store/selectors/lista-alerta.selectors';
+import { NoTableComponent } from '@/presentation/shared/components/no-table/no-table.component';
 import { SetColorByNivel } from '@/presentation/shared/helpers/set-color-by-nivel.helper';
+import { tableModule } from '@/presentation/shared/table.module';
 import { CommonModule, DatePipe } from '@angular/common';
-import { Component, inject, Input, signal } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatSortModule } from '@angular/material/sort';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { BadgeComponent, ModalService } from '@tivic-team/tivic-ui';
-import { tableModule } from '@/presentation/shared/table.module';
-import { NoTableComponent } from '@/presentation/shared/components/no-table/no-table.component';
-import { ListaAlertaSelectors } from '@/infrastructure/store/selectors/lista-alerta.selectors';
-import { TablePageBase } from '@/infrastructure/configuration/table-config/table-page.config';
-import { AlertaSelectors } from '@/infrastructure/store/selectors/alerta.selectors';
-import { AlertaFilter, AlertaProps } from '@/domain/filters/alerta/alerta.filter';
-import { BuscarAlertaAction } from '@/infrastructure/store/actions/alerta.actions';
-import { Alerta } from '@/domain/models/command/alerta';
 import { ModalDetalhesAlertaComponent } from '../modal-detalhes-alerta/modal-detalhes-alerta.component';
-import { TruncatePipe } from '@/infrastructure/pipe/truncate.pipe';
 @Component({
   selector: 'app-table-alertas',
   standalone: true,

@@ -9,7 +9,7 @@
         <div class="flex flex-row gap-2">
           <app-filters-inputs [minLenght]="7" [maxLeght]="7" [formGroup]="formGroup" (search)="onSearch()" [openFilters]="false" searchField="nrPlaca" placeholder="Pesquisar Placa">
           </app-filters-inputs>
-          <button mat-flat-button (click)="cadastrarAlerta()" class="cadastrar-button">
+          <button *verifyInstitution="[idInstituicao]" mat-flat-button (click)="cadastrarAlerta()" class="cadastrar-button">
             <i [class]="icon" class="icon"></i>
             <label class="button-label">
               Cadastrar alerta

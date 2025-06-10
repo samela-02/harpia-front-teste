@@ -7,11 +7,9 @@ import { ListaAlertaSelectors } from '@/infrastructure/store/selectors/lista-ale
 import { NoTableComponent } from '@/presentation/shared/components/no-table/no-table.component';
 import { tableModule } from '@/presentation/shared/table.module';
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component, inject } from '@angular/core';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatSortModule } from '@angular/material/sort';
-import { Route, Router } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { ModalService } from '@tivic-team/tivic-ui';
 import { ModalOptionsComponent } from '../modal-options/modal-options.component';

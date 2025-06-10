@@ -7,6 +7,7 @@ import { MODAL_DATA, ModalService } from "@tivic-team/tivic-ui";
 import { FormEquipamentoComponent } from "../form-equipamentos/form-equipamentos.component";
 import { EquipamentosFilter, EquipamentosProps } from "@/domain/filters/equipamento/equipamento.filter";
 import { BuscarEquipamentosAction } from "@/infrastructure/store/actions/equipamento.actions";
+import { Equipamento } from "@/domain/models/command/equipamento";
 
 @Component({
   selector: "modal-form-equipamento",
@@ -21,7 +22,7 @@ import { BuscarEquipamentosAction } from "@/infrastructure/store/actions/equipam
 export class ModalFormEquipamentoUpdateComponent {
   public icon: string = "la la-camera-retro"
   private _store = inject(Store);
-  protected equipamento = inject(MODAL_DATA) || null;
+  protected equipamento: Equipamento = inject(MODAL_DATA) as Equipamento;
   public tituloModal: string;
   private _modalService = inject(ModalService<ModalFormEquipamentoUpdateComponent>);
 

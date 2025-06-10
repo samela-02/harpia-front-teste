@@ -1,30 +1,25 @@
-import { BuscarInstituicoesUseCase } from '@/application/usecase/instituicao/buscar-instituicoes.usecase';
-import { BuscarListaAlertaUseCase } from '@/application/usecase/lista-alerta/buscar-lista-alertas.usecase';
 import { CriarListaAlertaUseCase } from '@/application/usecase/lista-alerta/criar-lista-alerta.usecase';
 import { DesativarListaAlertaUseCase } from '@/application/usecase/lista-alerta/desativar-lista-alerta.usecase';
 import { EditarListaAlertaUseCase } from '@/application/usecase/lista-alerta/editar-lista-alerta.usecase';
+import { UsuarioRole } from '@/domain/enums/usuario-role.enum';
 import { InstituicaoFilter, InstituicaoProps } from '@/domain/filters/instituicao/instituicao.filter';
 import { ListaAlertaFilter, ListaAlertaProps } from '@/domain/filters/lista-alerta/lista-alerta.filter';
 import { ListaAlerta } from '@/domain/models/command/lista-alerta';
+import { ListaAlertaAcessoQueryResponse } from '@/domain/models/query/lista-alerta-acesso-query-response';
+import { HasRoleDirective } from '@/infrastructure/directives/has-role.directive';
+import { VerifyInstitutionDirective } from '@/infrastructure/directives/verify-institution.directive';
+import { AuthServiceImpl } from '@/infrastructure/services/auth.service-impl';
 import { BuscarInstituicoesAction } from '@/infrastructure/store/actions/instituicao.actions';
 import { BuscarListaAlertaAction } from '@/infrastructure/store/actions/lista-alerta.actions';
 import { InstituicaoSelectors } from '@/infrastructure/store/selectors/instituicao.selectors';
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { Store } from '@ngxs/store';
 import { CustomDialogService, DropdownComponent, FormType, InputComponent, makeDeleteCustomDialog, SnackbarService, TextareaComponent } from '@tivic-team/tivic-ui';
-import { TableInstituicoesVinculadasComponent } from '../modal-form-update-lista-alerta/components/table-instituicoes-vinculadas/table-instituicoes-vinculadas.component';
-import { UsuarioLogadoResponse } from '@/domain/dtos/usuarioLogadoResponse.dto';
-import { BuscarDadosDeUsuarioUseCase } from '@/application/usecase/usuario/buscar-dados-de-usuario.usecase';
-import { RoleLabel, UsuarioRole } from '@/domain/enums/usuario-role.enum';
-import { HasRoleDirective } from '@/infrastructure/directives/has-role.directive';
-import { AuthServiceImpl } from '@/infrastructure/services/auth.service-impl';
-import { ListaAlertaAcessoQueryResponse } from '@/domain/models/query/lista-alerta-acesso-query-response';
-import { VerifyInstitutionDirective } from '@/infrastructure/directives/verify-institution.directive';
 
 @Component({
   selector: 'app-form-lista-alerta',
@@ -93,14 +88,9 @@ export class FormListaAlertaComponent {
   }
 
   private setarInstituicoesPermitidas() {
-    if (this.listaAlerta) {
-      const instituicoes = this.listaAlerta.instituicoesComAcesso
-        .filter((inst: ListaAlertaAcessoQueryResponse) => inst.owner === true)
-        .map((inst: ListaAlertaAcessoQueryResponse) => inst.idInstituicao);
-
-      instituicoes.forEach((id: string) => this.instituicoesPermitidasEditar.push(id));
-    }
-
+    this.instituicoesPermitidasEditar = this.listaAlerta?.instituicoesComAcesso
+      ?.filter((inst: ListaAlertaAcessoQueryResponse) => inst.owner)
+      .map((inst: ListaAlertaAcessoQueryResponse) => inst.idInstituicao) || [];
   }
 
   ngOnInit(): void {

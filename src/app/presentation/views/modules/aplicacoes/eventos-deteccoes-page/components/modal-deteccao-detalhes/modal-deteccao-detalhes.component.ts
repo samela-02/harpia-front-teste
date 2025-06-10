@@ -7,6 +7,7 @@ import { EventoContentModalComponent } from './components/evento-content-modal/e
 import { MaisDetalhesContentModalComponent } from './components/mais-detalhes-content-modal/mais-detalhes-content-modal.component';
 import { Store } from '@ngxs/store';
 import { buscarAlertaPorCdAction } from '@/infrastructure/store/actions/alerta.actions';
+import { DeteccaoQueryResponse } from '@/domain/models/query/deteccao-query-response';
 
 @Component({
   selector: 'app-modal-deteccao-detalhes',
@@ -18,7 +19,7 @@ import { buscarAlertaPorCdAction } from '@/infrastructure/store/actions/alerta.a
 export class ModalDeteccaoDetalhesComponent {
 
   private _store = inject(Store);
-  protected deteccao: any = inject(MODAL_DATA) || null;
+  protected deteccao: DeteccaoQueryResponse = inject(MODAL_DATA) as DeteccaoQueryResponse;
   private _modalService = inject(ModalService<ModalDeteccaoDetalhesComponent>)
 
   constructor() {

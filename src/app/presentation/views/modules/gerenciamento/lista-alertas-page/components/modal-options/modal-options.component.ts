@@ -5,6 +5,7 @@ import { ButtonComponent, MODAL_DATA, ModalService } from '@tivic-team/tivic-ui'
 import { ModalFormListaAlertaUpdateComponent } from '../modal-form-update-lista-alerta/modal-form-update-lista-alerta.component';
 import { SetarBreadcrumbAction } from '@/infrastructure/store/actions/breadcrumb.action';
 import { Router } from '@angular/router';
+import { ListaAlerta } from '@/domain/models/command/lista-alerta';
 
 @Component({
   selector: 'app-modal-options',
@@ -18,7 +19,7 @@ export class ModalOptionsComponent {
   private _router = inject(Router);
   private _modalService = inject(ModalService<ModalOptionsComponent>);
 
-  protected listaAlerta: any = inject(MODAL_DATA) || null;
+  protected listaAlerta: ListaAlerta = inject(MODAL_DATA) as ListaAlerta;
   public tituloModal: string;
 
   fecharModal() {
@@ -30,13 +31,13 @@ export class ModalOptionsComponent {
     this._modalService.component(ModalFormListaAlertaUpdateComponent).open(this.listaAlerta)
   }
 
-  public setarBreadcrumb(listaAlerta: any) {
+  public setarBreadcrumb(listaAlerta: ListaAlerta) {
     this._store.dispatch(new SetarBreadcrumbAction(listaAlerta.nmListaAlerta))
   }
 
   redirectPageAlerts() {
     this.fecharModal()
     this.setarBreadcrumb(this.listaAlerta);
-    this._router.navigate(['/gerenciamento/lista-alertas', this.listaAlerta.cdListaAlerta]);
+    this._router.navigate(['/gerenciamento/lista-alertas',this.listaAlerta.idInstituicao, this.listaAlerta.cdListaAlerta]);
   }
 }
