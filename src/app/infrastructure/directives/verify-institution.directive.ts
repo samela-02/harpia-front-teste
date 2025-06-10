@@ -32,12 +32,18 @@ export class VerifyInstitutionDirective implements OnInit, OnChanges {
   }
 
   private verifyPermission() {
-    let permite = this.setarIntuicoesPermitidas.has(this.instituicaoUsuario);
+    if (this.verifyInstitution && this.verifyInstitution.length > 0) {
+      let permite = this.setarIntuicoesPermitidas.has(this.instituicaoUsuario);
 
-    if(permite && this.viewContainer.length === 0) {
-      this.viewContainer.createEmbeddedView(this.templateRef);
-    } else if(!permite) {
-      this.viewContainer.clear();
+      if (permite && this.viewContainer.length === 0) {
+        this.viewContainer.createEmbeddedView(this.templateRef);
+      } else if (!permite) {
+        this.viewContainer.clear();
+      }
+    } else {
+      if (this.viewContainer.length === 0) {
+        this.viewContainer.createEmbeddedView(this.templateRef);
+      }
     }
   }
 }
