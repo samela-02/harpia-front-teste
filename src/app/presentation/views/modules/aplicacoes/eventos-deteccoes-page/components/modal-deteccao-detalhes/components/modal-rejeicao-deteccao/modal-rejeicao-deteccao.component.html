@@ -1,1 +1,18 @@
-<p>modal-rejeicao-deteccao works!</p>
+<div class="p-2">
+  <div class="modal">
+    <div class="header">
+      <div class="modal-header">
+        <i [class]="'la la-camera-retro'" class="text-[27px] flex justify-center text-primary dark:text-dark-primary dark:text-dark-primary"></i>
+        <span class="flex-center text-lg font-semibold text-text dark:text-cyan-50 ">
+         Rejeitar detecção
+        </span>
+      </div>
+      <div class="modal-close">
+        <tvc-button icon="close" color="link" class="opacity-50" (click)="fecharModal()" />
+      </div>
+    </div>
+    <div class="main">
+        <app-form-rejeicao-deteccao (rejeitadoComSucesso)="fecharModal()"></app-form-rejeicao-deteccao>
+    </div>
+  </div>-
+</div>
