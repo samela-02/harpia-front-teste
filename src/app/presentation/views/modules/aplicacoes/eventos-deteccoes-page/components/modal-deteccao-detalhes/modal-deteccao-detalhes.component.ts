@@ -21,14 +21,13 @@ import { EventosModal } from '@/domain/enums/evento-modal';
   templateUrl: './modal-deteccao-detalhes.component.html',
   styleUrl: './modal-deteccao-detalhes.component.scss',
 })
-export class ModalDeteccaoDetalhesComponent extends Observer {
+export class ModalDeteccaoDetalhesComponent implements Observer {
   private _store = inject(Store);
   protected deteccao: DeteccaoQueryResponse = inject(MODAL_DATA) as DeteccaoQueryResponse;
   private _modalService = inject(ModalService<ModalDeteccaoDetalhesComponent>)
   private _modalServiceRejeicaoDeteccao = inject(ModalService<ModalRejeicaoDeteccaoComponent>);
 
   constructor(private _modalMediator: ModalMediator) {
-    super();
     this._modalMediator.registrarEvento(EventosModal.FECHAR_MODAL_DETALHES_DETECCAO, this);
     this.BuscarDadosDeAlerta(this.deteccao?.cdAlerta)
   }
@@ -50,7 +49,7 @@ export class ModalDeteccaoDetalhesComponent extends Observer {
     return SetColorByNivel.setColor(nivel);
   }
 
-  override onEvent(data: any): void {
+  onEvent(data: any): void {
     this.fecharModal();
   }
 }

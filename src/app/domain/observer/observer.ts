@@ -1,3 +1,3 @@
-export abstract class Observer {
-    abstract onEvent(data: any): void;
+export interface Observer {
+    onEvent(data: any): void;
 }
