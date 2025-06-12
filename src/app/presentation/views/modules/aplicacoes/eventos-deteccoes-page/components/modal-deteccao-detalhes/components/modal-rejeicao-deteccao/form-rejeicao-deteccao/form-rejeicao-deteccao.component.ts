@@ -42,7 +42,8 @@ export class FormRejeicaoDeteccaoComponent implements OnInit {
   findCidades() {
     const paginationProps: MotivoRejeicaoProps = {
           page: 0,
-          size: 5000
+          size: 5000,
+          lgAtivo: 1
     };
     const motivoRejeicaoFilter = new MotivoRejeicaoFilter(paginationProps);
     this._store.dispatch(new FindMotivoRejeicaoAction(motivoRejeicaoFilter)).subscribe();
