@@ -1,4 +1,4 @@
-export class MovimentacaoDeteccao {
+export class DeteccaoRejeitada {
     cdDeteccao: number;
     cdMotivoRejeicao: number;
     dsMovimentacaoDeteccao: string;

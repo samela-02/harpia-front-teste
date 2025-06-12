@@ -1,6 +1,6 @@
 import { MotivoRejeicaoFilter } from '@/domain/filters/motivo-rejeicao/motivo-rejeicao.filter';
 import { MotivoRejeicaoProps } from '@/domain/filters/motivo-rejeicao/motivo-rejeicao.props';
-import { MovimentacaoDeteccao } from '@/domain/models/command/movimentacao-deteccao';
+import { DeteccaoRejeitada } from '@/domain/models/command/deteccao/movimentacao-deteccao';
 import { MotivoRejeicaoQueryResponse } from '@/domain/models/query/motivo-rejeicao-query-response';
 import { FindMotivoRejeicaoAction } from '@/infrastructure/store/actions/motivo-rejeicao.actions';
 import { MotivoRejeicaoSelector } from '@/infrastructure/store/selectors/motivo-rejeicao.selector';
@@ -22,7 +22,7 @@ export class FormRejeicaoDeteccaoComponent implements OnInit {
   private _store = inject(Store);
   @Input() cdDeteccao: number;
   @Output() rejeitadoComSucesso: EventEmitter<void> = new EventEmitter<void>;
-  formGroup: FormGroup<FormType<MovimentacaoDeteccao>>;
+  formGroup: FormGroup<FormType<DeteccaoRejeitada>>;
 
   public motivosRejeicao = () => this._store.select(MotivoRejeicaoSelector.findMotivoRejeicao)
 
