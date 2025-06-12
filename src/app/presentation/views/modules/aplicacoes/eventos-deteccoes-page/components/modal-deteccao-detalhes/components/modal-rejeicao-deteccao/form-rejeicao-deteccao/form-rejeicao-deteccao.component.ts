@@ -1,6 +1,6 @@
 import { MotivoRejeicaoFilter } from '@/domain/filters/motivo-rejeicao/motivo-rejeicao.filter';
 import { MotivoRejeicaoProps } from '@/domain/filters/motivo-rejeicao/motivo-rejeicao.props';
-import { DeteccaoRejeitada } from '@/domain/models/command/deteccao/movimentacao-deteccao';
+import { DeteccaoRejeitada } from '@/domain/models/command/deteccao/deteccao-rejeitada';
 import { MotivoRejeicaoQueryResponse } from '@/domain/models/query/motivo-rejeicao-query-response';
 import { FindMotivoRejeicaoAction } from '@/infrastructure/store/actions/motivo-rejeicao.actions';
 import { MotivoRejeicaoSelector } from '@/infrastructure/store/selectors/motivo-rejeicao.selector';

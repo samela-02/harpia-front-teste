@@ -2,7 +2,7 @@ import { ResponseData } from "@/application/dtos/response-data.dto";
 import { ResponsePaginacao } from "@/application/dtos/response-paginacao.dto";
 import { DeteccaoRepository } from "@/application/repositories/deteccao.repository";
 import { DeteccaoFilter } from "@/domain/filters/deteccao/deteccao.filter";
-import { DeteccaoRejeitada } from "@/domain/models/command/deteccao/movimentacao-deteccao";
+import { DeteccaoRejeitada } from "@/domain/models/command/deteccao/deteccao-rejeitada";
 import { DeteccaoQueryResponse } from "@/domain/models/query/deteccao-query-response";
 import { inject } from "@angular/core";
 import { Client } from "@tivic-team/tivic-ui";
