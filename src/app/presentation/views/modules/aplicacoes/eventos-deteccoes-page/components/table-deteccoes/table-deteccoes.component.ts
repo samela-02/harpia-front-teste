@@ -12,6 +12,9 @@ import { Component, inject } from '@angular/core';
 import { BadgeComponent } from '@tivic-team/tivic-ui';
 import { ModalDeteccaoDetalhesComponent } from '../modal-deteccao-detalhes/modal-deteccao-detalhes.component';
 import { ModalService } from '@/infrastructure/services/modal/modal.service';
+import { Observer } from '@/domain/observer/observer';
+import { ModalMediator } from '@/domain/mediator/modal-mediator';
+import { EventosModal } from '@/domain/enums/evento-modal';
 
 @Component({
   selector: 'app-table-deteccoes',
@@ -21,7 +24,7 @@ import { ModalService } from '@/infrastructure/services/modal/modal.service';
   styleUrl: './table-deteccoes.component.scss'
 })
 
-export class TableDeteccoesComponent extends TablePageBase{
+export class TableDeteccoesComponent extends TablePageBase implements Observer{
   public deteccoes!: ResponsePaginacao<DeteccaoQueryResponse>;
   public dataLength!: number;
   protected override pageSize: number = 5;
@@ -29,8 +32,9 @@ export class TableDeteccoesComponent extends TablePageBase{
 
   private _modalService = inject(ModalService<ModalDeteccaoDetalhesComponent>);
 
-  constructor(private buscarDeteccoesUseCase: BuscarDeteccoesUseCase){
+  constructor(private buscarDeteccoesUseCase: BuscarDeteccoesUseCase, private _modalMediator: ModalMediator){
     super()
+    this._modalMediator.registrarEvento(EventosModal.BUSCAR_DETECCOES, this);
   }
 
   ngOnInit(): void {
@@ -71,6 +75,10 @@ export class TableDeteccoesComponent extends TablePageBase{
 
   public getColorByNivel(nivel: number): string {
     return SetColorByNivel.setColor(nivel);
+  }
+
+  onEvent(data: any): void {
+    this.load();
   }
 }
 

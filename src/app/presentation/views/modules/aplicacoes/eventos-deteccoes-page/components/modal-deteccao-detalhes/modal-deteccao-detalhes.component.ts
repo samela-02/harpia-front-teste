@@ -51,5 +51,6 @@ export class ModalDeteccaoDetalhesComponent implements Observer {
 
   onEvent(data: any): void {
     this.fecharModal();
+    this._modalMediator.emitirEvento(EventosModal.BUSCAR_DETECCOES);
   }
 }
