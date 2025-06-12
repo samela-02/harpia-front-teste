@@ -16,7 +16,7 @@ export class DeteccaoImplRepository implements DeteccaoRepository{
     return this._client.get(this._api, filter.getFilters()) as Observable<ResponseData<ResponsePaginacao<DeteccaoQueryResponse>>>
   }
 
-  rejeitarDeteccao(deteccaoRejeitada: DeteccaoRejeitada): void {
-    this._client.post(`${this._api}/rejeicao`, deteccaoRejeitada);
+  rejeitarDeteccao(deteccaoRejeitada: DeteccaoRejeitada): Observable<void> {
+    return this._client.post(`${this._api}/rejeicao`, deteccaoRejeitada);
   }
 }

@@ -7,5 +7,5 @@ import { DeteccaoRejeitada } from "@/domain/models/command/deteccao/deteccao-rej
 
 export abstract class DeteccaoRepository {
   public abstract buscarDeteccoes(filter?: DeteccaoFilter): Observable<ResponseData<ResponsePaginacao<DeteccaoQueryResponse>>>
-  abstract rejeitarDeteccao(deteccaoRejeitada: DeteccaoRejeitada): void;
+  abstract rejeitarDeteccao(deteccaoRejeitada: DeteccaoRejeitada): Observable<void>;
 }

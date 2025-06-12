@@ -1,3 +1,4 @@
+import { RejeitarDeteccaoUseCase } from '@/application/usecase/deteccao/rejeitar-deteccao.usecase';
 import { MotivoRejeicaoFilter } from '@/domain/filters/motivo-rejeicao/motivo-rejeicao.filter';
 import { MotivoRejeicaoProps } from '@/domain/filters/motivo-rejeicao/motivo-rejeicao.props';
 import { DeteccaoRejeitada } from '@/domain/models/command/deteccao/deteccao-rejeitada';
@@ -26,7 +27,7 @@ export class FormRejeicaoDeteccaoComponent implements OnInit {
 
   public motivosRejeicao = () => this._store.select(MotivoRejeicaoSelector.findMotivoRejeicao)
 
-  constructor(private _formBuilder: FormBuilder) {
+  constructor(private _formBuilder: FormBuilder, private _rejeitarDeteccaoUseCase: RejeitarDeteccaoUseCase) {
   }
 
   ngOnInit(): void {
@@ -48,8 +49,17 @@ export class FormRejeicaoDeteccaoComponent implements OnInit {
   }
 
   onSubmit() {
-    // TODO fechar modal do pai e chamar ação que cria rejeita a detecção
-    this._snackbar.success('Detecção rejeitada com sucesso.')
-    this.rejeitadoComSucesso.emit();
+    // TODO fechar modal do pai
+    this._rejeitarDeteccaoUseCase
+      .execute(this.formGroup.value as DeteccaoRejeitada)
+      .subscribe({
+        next: (response) => {
+              this._snackbar.success('Detecção rejeitada com sucesso.')
+              this.rejeitadoComSucesso.emit();
+        },
+        error: () => {
+          this._snackbar.error('Erro ao rejeitar detecção.')
+        }
+      });
   }
 }
