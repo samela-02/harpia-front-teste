@@ -1,6 +1,5 @@
 import { DeteccaoQueryResponse } from '@/domain/models/query/deteccao-query-response';
 import { MODAL_DATA, ModalService } from '@/infrastructure/services/modal/modal.service';
-import { DatePipe } from '@angular/common';
 import { Component, ElementRef, ViewChild, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -24,7 +23,7 @@ export class ImagemDeteccaoModalComponent {
   protected deteccao: DeteccaoQueryResponse = inject(MODAL_DATA) as DeteccaoQueryResponse;
   private _modalService = inject(ModalService<ImagemDeteccaoModalComponent>)
   fecharModal() {
-    this._modalService.dismiss();
+    this._modalService.component(ImagemDeteccaoModalComponent).dismiss(this.deteccao);
   }
 
   public downloadImage() {

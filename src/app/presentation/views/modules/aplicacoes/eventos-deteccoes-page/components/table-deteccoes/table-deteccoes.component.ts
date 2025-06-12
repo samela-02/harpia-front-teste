@@ -9,8 +9,9 @@ import { SetColorByNivel } from '@/presentation/shared/helpers/set-color-by-nive
 import { tableModule } from '@/presentation/shared/table.module';
 import { CommonModule, DatePipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { BadgeComponent, ModalService } from '@tivic-team/tivic-ui';
+import { BadgeComponent } from '@tivic-team/tivic-ui';
 import { ModalDeteccaoDetalhesComponent } from '../modal-deteccao-detalhes/modal-deteccao-detalhes.component';
+import { ModalService } from '@/infrastructure/services/modal/modal.service';
 
 @Component({
   selector: 'app-table-deteccoes',
