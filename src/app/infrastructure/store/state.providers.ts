@@ -14,6 +14,7 @@ import { TipoAlertaState } from "./states/tipo-alerta.state";
 import { AlertaState, VeiculoState } from "./states/alerta.state";
 import { CidadeState } from "./states/cidade.state";
 import { VeiculoCCOState } from "./states/veiculo-cco.state";
+import { MotivoRejeicaoState } from "./states/motivo-rejeicao.state";
 export const stateProviders = [
   provideStore(
     [
@@ -30,6 +31,7 @@ export const stateProviders = [
       TipoEquipamentoState,
       VeiculoState,
       UsuarioState,
+      MotivoRejeicaoState
     ],
     withNgxsStoragePlugin({ keys: "*" }),
     withNgxsLoggerPlugin(),
