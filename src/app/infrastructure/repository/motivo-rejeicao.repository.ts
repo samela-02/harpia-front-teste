@@ -14,6 +14,6 @@ export class MotivoRejeicaoRepositoryImpl extends MotivoRejeicaoRepository {
     }
     
     findAllPaginado(motivoRejeicaoFilter: MotivoRejeicaoFilter): Observable<ResponseData<ResponsePaginacao<MotivoRejeicaoQueryResponse>>> {
-        return this._client.get(this.url, motivoRejeicaoFilter) as Observable<ResponseData<ResponsePaginacao<MotivoRejeicaoQueryResponse>>>;
+        return this._client.get(this.url, motivoRejeicaoFilter.getFilters()) as Observable<ResponseData<ResponsePaginacao<MotivoRejeicaoQueryResponse>>>;
     }
 }
