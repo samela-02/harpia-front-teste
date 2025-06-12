@@ -9,6 +9,7 @@ import { gpsTrackerProviders } from "./gps-tracker/gps-tracker-provider";
 import { instituicaoProviders } from "./instituicao/instituicao.provider";
 import { listaAlertaProviders } from "./lista-alerta/lista-alerta.provider";
 import { loginProviders } from "./login/login.provider";
+import { mediatorProviders } from "./mediator.provider";
 import { motivoRejeicaoProviders } from "./motivo-rejeicao/motivo-rejeicao.provider";
 import { tipoAlertaProviders } from "./tipo-alerta/tipo-alerta.provider";
 import { tipoComponenteProviders } from "./tipo-componente/tipo-component.provider";
@@ -33,5 +34,6 @@ export const providers = [
   usuarioProviders,
   loginProviders,
   cidadeProviders,
-  motivoRejeicaoProviders
+  motivoRejeicaoProviders,
+  mediatorProviders
 ];
