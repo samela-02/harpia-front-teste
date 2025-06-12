@@ -10,6 +10,9 @@ import { buscarAlertaPorCdAction } from '@/infrastructure/store/actions/alerta.a
 import { DeteccaoQueryResponse } from '@/domain/models/query/deteccao-query-response';
 import { MODAL_DATA, ModalService } from '@/infrastructure/services/modal/modal.service';
 import { ModalRejeicaoDeteccaoComponent } from './components/modal-rejeicao-deteccao/modal-rejeicao-deteccao.component';
+import { Observer } from '@/domain/observer/observer';
+import { ModalMediator } from '@/domain/mediator/modal-mediator';
+import { EventosModal } from '@/domain/enums/evento-modal';
 
 @Component({
   selector: 'app-modal-deteccao-detalhes',
@@ -18,14 +21,15 @@ import { ModalRejeicaoDeteccaoComponent } from './components/modal-rejeicao-dete
   templateUrl: './modal-deteccao-detalhes.component.html',
   styleUrl: './modal-deteccao-detalhes.component.scss',
 })
-export class ModalDeteccaoDetalhesComponent {
-
+export class ModalDeteccaoDetalhesComponent extends Observer {
   private _store = inject(Store);
   protected deteccao: DeteccaoQueryResponse = inject(MODAL_DATA) as DeteccaoQueryResponse;
   private _modalService = inject(ModalService<ModalDeteccaoDetalhesComponent>)
   private _modalServiceRejeicaoDeteccao = inject(ModalService<ModalRejeicaoDeteccaoComponent>);
 
-  constructor() {
+  constructor(private _modalMediator: ModalMediator) {
+    super();
+    this._modalMediator.registrarEvento(EventosModal.FECHAR_MODAL_DETALHES_DETECCAO, this);
     this.BuscarDadosDeAlerta(this.deteccao?.cdAlerta)
   }
 
@@ -44,5 +48,9 @@ export class ModalDeteccaoDetalhesComponent {
 
   public getColorByNivel(nivel: number): string {
     return SetColorByNivel.setColor(nivel);
+  }
+
+  override onEvent(data: any): void {
+    this.fecharModal();
   }
 }
