@@ -17,7 +17,7 @@ export const rejeitarDetecaoProvider = {
 
 export const deteccaoProviders = [
   buscarDeteccoesProvider,
-  RejeitarDeteccaoUseCase,
+  rejeitarDetecaoProvider,
   {
     provide: DeteccaoRepository,
     useClass: DeteccaoImplRepository
