@@ -5,5 +5,5 @@ import { MotivoRejeicaoFilter } from "@/domain/filters/motivo-rejeicao/motivo-re
 import { Observable } from "rxjs";
 
 export abstract class MotivoRejeicaoRepository {
-    abstract findAllPaginado(motivoRejeicaoFilter: MotivoRejeicaoFilter): Observable<ResponsePaginacao<ResponseData<MotivoRejeicaoQueryResponse[]>>>;
+    abstract findAllPaginado(motivoRejeicaoFilter: MotivoRejeicaoFilter): Observable<ResponseData<ResponsePaginacao<MotivoRejeicaoQueryResponse>>>;
 }

@@ -13,7 +13,7 @@ export class MotivoRejeicaoRepositoryImpl extends MotivoRejeicaoRepository {
         super();
     }
     
-    findAllPaginado(motivoRejeicaoFilter: MotivoRejeicaoFilter): Observable<ResponsePaginacao<ResponseData<MotivoRejeicaoQueryResponse[]>>> {
-        return this._client.get(this.url, motivoRejeicaoFilter) as Observable<ResponsePaginacao<ResponseData<MotivoRejeicaoQueryResponse[]>>>;
+    findAllPaginado(motivoRejeicaoFilter: MotivoRejeicaoFilter): Observable<ResponseData<ResponsePaginacao<MotivoRejeicaoQueryResponse>>> {
+        return this._client.get(this.url, motivoRejeicaoFilter) as Observable<ResponseData<ResponsePaginacao<MotivoRejeicaoQueryResponse>>>;
     }
 }

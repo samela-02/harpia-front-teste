@@ -8,7 +8,7 @@ import { Observable } from "rxjs";
 export class FindMotivoRejeicaoUseCase {
     constructor(private motivoRejeicaoRepository: MotivoRejeicaoRepository) {}
 
-    execute(motivoRejeicaoFilter: MotivoRejeicaoFilter): Observable<ResponsePaginacao<ResponseData<MotivoRejeicaoQueryResponse[]>>> {
+    execute(motivoRejeicaoFilter: MotivoRejeicaoFilter): Observable<ResponseData<ResponsePaginacao<MotivoRejeicaoQueryResponse>>> {
         return this.motivoRejeicaoRepository.findAllPaginado(motivoRejeicaoFilter);
     }
 }
