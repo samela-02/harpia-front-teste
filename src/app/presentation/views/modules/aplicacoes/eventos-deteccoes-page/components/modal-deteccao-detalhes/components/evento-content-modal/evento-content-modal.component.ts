@@ -6,10 +6,10 @@ import { SetColorByNivel } from '@/presentation/shared/helpers/set-color-by-nive
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, inject, Input, OnInit, ViewChild } from '@angular/core';
 import { ImagemDeteccaoModalComponent } from './components/imagem-deteccao-modal/imagem-deteccao-modal.component';
-import { ModalService } from '@/infrastructure/services/modal/modal.service';
 import { Store } from '@ngxs/store';
 import { AlertaSelectors } from '@/infrastructure/store/selectors/alerta.selectors';
 import L from 'leaflet';
+import { ModalService } from '@/infrastructure/services/modal/modal.service';
 
 @Component({
   selector: 'app-evento-content-modal',

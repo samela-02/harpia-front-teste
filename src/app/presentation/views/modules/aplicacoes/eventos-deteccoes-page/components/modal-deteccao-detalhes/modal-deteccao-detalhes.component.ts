@@ -2,12 +2,13 @@ import { SetColorByNivel } from '@/presentation/shared/helpers/set-color-by-nive
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { MatTabsModule } from '@angular/material/tabs';
-import { ButtonComponent, MODAL_DATA, ModalService } from '@tivic-team/tivic-ui';
+import { ButtonComponent } from '@tivic-team/tivic-ui';
 import { EventoContentModalComponent } from './components/evento-content-modal/evento-content-modal.component';
 import { MaisDetalhesContentModalComponent } from './components/mais-detalhes-content-modal/mais-detalhes-content-modal.component';
 import { Store } from '@ngxs/store';
 import { buscarAlertaPorCdAction } from '@/infrastructure/store/actions/alerta.actions';
 import { DeteccaoQueryResponse } from '@/domain/models/query/deteccao-query-response';
+import { MODAL_DATA, ModalService } from '@/infrastructure/services/modal/modal.service';
 
 @Component({
   selector: 'app-modal-deteccao-detalhes',
