@@ -41,12 +41,12 @@ export class TableDeteccoesComponent extends TablePageBase implements Observer, 
     this.load();
   }
 
-  public load(filters?: DeteccaoProps, page: number = 0) {
+  public load(filters?: DeteccaoProps) {
     if (filters) {
       this.currentFilters = { ...filters };
     }
     const paginationProps: DeteccaoProps = {
-      page: page,
+      page: this.pageIndex,
       size: this.pageSize,
       cdInstituicao: this.currentFilters?.cdInstituicao,
       cdEquipamento: this.currentFilters?.cdEquipamento,
