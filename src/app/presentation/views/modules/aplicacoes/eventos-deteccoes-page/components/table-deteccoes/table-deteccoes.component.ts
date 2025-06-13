@@ -8,7 +8,7 @@ import { NoTableComponent } from '@/presentation/shared/components/no-table/no-t
 import { SetColorByNivel } from '@/presentation/shared/helpers/set-color-by-nivel.helper';
 import { tableModule } from '@/presentation/shared/table.module';
 import { CommonModule, DatePipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnDestroy } from '@angular/core';
 import { BadgeComponent } from '@tivic-team/tivic-ui';
 import { ModalDeteccaoDetalhesComponent } from '../modal-deteccao-detalhes/modal-deteccao-detalhes.component';
 import { ModalService } from '@/infrastructure/services/modal/modal.service';
@@ -24,7 +24,7 @@ import { EventosMediator } from '@/domain/enums/evento-mediator';
   styleUrl: './table-deteccoes.component.scss'
 })
 
-export class TableDeteccoesComponent extends TablePageBase implements Observer{
+export class TableDeteccoesComponent extends TablePageBase implements Observer, OnDestroy {
   public deteccoes!: ResponsePaginacao<DeteccaoQueryResponse>;
   public dataLength!: number;
   protected override pageSize: number = 5;
@@ -79,6 +79,14 @@ export class TableDeteccoesComponent extends TablePageBase implements Observer{
 
   onEvent(data: any): void {
     this.load();
+  }
+
+  getObserverId(): string {
+    return TableDeteccoesComponent.name;
+  }
+
+  ngOnDestroy(): void {
+    this._modalMediator.removerRegistroDoEvento(EventosMediator.BUSCAR_DETECCOES_APOS_REJEITAR_DETECCAO, this)
   }
 }
 

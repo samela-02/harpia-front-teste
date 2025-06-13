@@ -14,6 +14,12 @@ export class Mediator {
         observers.forEach(observer => observer.onEvent(data));
     }
 
+    public removerRegistroDoEvento(eventoMediator: EventosMediator, observer: Observer): void {
+        let observers: Observer[] = this.getObserversDoEvento(eventoMediator);
+        observers = observers.filter(observerDoArray => observerDoArray.getObserverId() != observer.getObserverId())
+        this.atualizarObserversDoEvento(eventoMediator, observers);
+    }
+
     private getObserversDoEvento(eventoMediator: EventosMediator): Observer[] {
         let observers: Observer[] = this.observerMap.get(eventoMediator);
         if (!observers) {
@@ -21,5 +27,9 @@ export class Mediator {
             this.observerMap.set(eventoMediator, observers);
         }
         return observers;
+    }
+
+    private atualizarObserversDoEvento(eventoMediator: EventosMediator, observers: Observer[]) {
+        this.observerMap.set(eventoMediator, observers);
     }
 }
