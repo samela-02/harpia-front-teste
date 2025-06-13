@@ -10,14 +10,13 @@ import { Store } from '@ngxs/store';
 import { AlertaSelectors } from '@/infrastructure/store/selectors/alerta.selectors';
 import L from 'leaflet';
 import { ModalService } from '@/infrastructure/services/modal/modal.service';
-import { ButtonComponent } from '@tivic-team/tivic-ui';
 import { ModalRejeicaoDeteccaoComponent } from '../modal-rejeicao-deteccao/modal-rejeicao-deteccao.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-evento-content-modal',
   standalone: true,
-  imports: [ButtonComponent, MapMarkersComponent, CardDetailsComponent, InfoLineComponent, CommonModule, MatTooltipModule],
+  imports: [MapMarkersComponent, CardDetailsComponent, InfoLineComponent, CommonModule, MatTooltipModule],
   templateUrl: './evento-content-modal.component.html',
   styleUrl: './evento-content-modal.component.scss'
 })

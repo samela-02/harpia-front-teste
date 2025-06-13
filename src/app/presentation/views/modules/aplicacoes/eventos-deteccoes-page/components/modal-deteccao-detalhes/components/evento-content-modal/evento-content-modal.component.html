@@ -39,11 +39,14 @@
           <app-info-line titulo="Ano" icone="la la-sort-numeric-up-alt" [descricao]="dadosAlerta()?.veiculo.nrAno && dadosAlerta()?.veiculo.nrAno.toString()" />
         </div>
       </app-card-details>
-      <app-card-details titulo="Ações">
-          <div class="flex justify-end">
-            <tvc-button matTooltip="Rejeitar detecção" icon="warning" color="link" (click)="abrirModalRejeicao()" />
-          </div>
-      </app-card-details>
+      <div class="flex justify-end">
+            <button (click)="abrirModalRejeicao()" mat-flat-button class="bg-red-700/10 text-red-700 rounded-md py-1 px-4 text-md">
+              <i class="la la-times-circle text-lg"></i>
+              <span class="pt-1">
+                Rejeitar
+              </span>
+            </button>
+        </div>
     </div>
   </div>
 </div>
