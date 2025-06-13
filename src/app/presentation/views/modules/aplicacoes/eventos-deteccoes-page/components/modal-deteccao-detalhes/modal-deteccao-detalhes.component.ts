@@ -25,7 +25,6 @@ export class ModalDeteccaoDetalhesComponent implements Observer, OnDestroy {
   private _store = inject(Store);
   protected deteccao: DeteccaoQueryResponse = inject(MODAL_DATA) as DeteccaoQueryResponse;
   private _modalService = inject(ModalService<ModalDeteccaoDetalhesComponent>)
-  private _modalServiceRejeicaoDeteccao = inject(ModalService<ModalRejeicaoDeteccaoComponent>);
 
   constructor(private _mediator: Mediator) {
     this._mediator.registrarEvento(EventosMediator.FECHAR_MODAL_DETALHES_DETECCAO, this);
@@ -34,10 +33,6 @@ export class ModalDeteccaoDetalhesComponent implements Observer, OnDestroy {
 
   fecharModal() {
     this._modalService.dismiss();
-  }
-
-  abrirModalRejeicao() {
-    this._modalServiceRejeicaoDeteccao.component(ModalRejeicaoDeteccaoComponent).open(this.deteccao);
   }
 
   private BuscarDadosDeAlerta(cdAlerta: number) {

@@ -10,11 +10,14 @@ import { Store } from '@ngxs/store';
 import { AlertaSelectors } from '@/infrastructure/store/selectors/alerta.selectors';
 import L from 'leaflet';
 import { ModalService } from '@/infrastructure/services/modal/modal.service';
+import { ButtonComponent } from '@tivic-team/tivic-ui';
+import { ModalRejeicaoDeteccaoComponent } from '../modal-rejeicao-deteccao/modal-rejeicao-deteccao.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-evento-content-modal',
   standalone: true,
-  imports: [MapMarkersComponent, CardDetailsComponent, InfoLineComponent, CommonModule],
+  imports: [ButtonComponent, MapMarkersComponent, CardDetailsComponent, InfoLineComponent, CommonModule, MatTooltipModule],
   templateUrl: './evento-content-modal.component.html',
   styleUrl: './evento-content-modal.component.scss'
 })
@@ -24,6 +27,7 @@ export class EventoContentModalComponent implements AfterViewInit {
   private _store = inject(Store);
   private _modalService = inject(ModalService<ImagemDeteccaoModalComponent>)
   public dadosAlerta = this._store.selectSignal(AlertaSelectors.alertaPorCd);
+  private _modalServiceRejeicaoDeteccao = inject(ModalService<ModalRejeicaoDeteccaoComponent>);
 
   @Input() deteccao: DeteccaoQueryResponse;
 
@@ -64,5 +68,9 @@ export class EventoContentModalComponent implements AfterViewInit {
       className: '',
       iconAnchor: [0, 0]
     });
+  }
+
+  abrirModalRejeicao() {
+    this._modalServiceRejeicaoDeteccao.component(ModalRejeicaoDeteccaoComponent).open(this.deteccao);
   }
 }
