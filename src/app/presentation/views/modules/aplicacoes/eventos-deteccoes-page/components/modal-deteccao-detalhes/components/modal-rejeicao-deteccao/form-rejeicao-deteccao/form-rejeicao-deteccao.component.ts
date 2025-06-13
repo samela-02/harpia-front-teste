@@ -9,7 +9,7 @@ import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
 import { Store } from '@ngxs/store';
-import { DropdownComponent, FormType, InputComponent, SnackbarService } from '@tivic-team/tivic-ui';
+import { CustomDialogService, DropdownComponent, FormType, InputComponent, makeDeleteCustomDialog, SnackbarService } from '@tivic-team/tivic-ui';
 
 @Component({
   selector: 'app-form-rejeicao-deteccao',
@@ -21,6 +21,7 @@ import { DropdownComponent, FormType, InputComponent, SnackbarService } from '@t
 export class FormRejeicaoDeteccaoComponent implements OnInit {
   private _snackbar = inject(SnackbarService);
   private _store = inject(Store);
+  private _customDialog = inject(CustomDialogService);
   @Input() cdDeteccao: number;
   @Output() rejeitadoComSucesso: EventEmitter<void> = new EventEmitter<void>;
   formGroup: FormGroup<FormType<DeteccaoRejeitada>>;
@@ -50,15 +51,30 @@ export class FormRejeicaoDeteccaoComponent implements OnInit {
   }
 
   onSubmit() {
+    const dialog = this._customDialog.warn({
+      title: 'Rejeitar a detecção',
+      message: 'Tem certeza que deseja rejeitar a detecção?',
+      icon: {name: 'warning', size: 'normal', color: 'warn'},
+      cancelLabel: 'Não',
+      confirmLabel: 'Sim'
+    })
+    return this._customDialog.afterClosed(dialog).subscribe((confirm) => {
+      if (confirm) {
+        this.rejeitarDeteccao();
+      }
+    })
+  }
+
+  private rejeitarDeteccao() {
     this._rejeitarDeteccaoUseCase
       .execute(this.formGroup.value as DeteccaoRejeitada)
       .subscribe({
         next: (response) => {
-              this._snackbar.success('Detecção rejeitada com sucesso.')
-              this.rejeitadoComSucesso.emit();
+          this._snackbar.success('Detecção rejeitada com sucesso.');
+          this.rejeitadoComSucesso.emit();
         },
         error: () => {
-          this._snackbar.error('Erro ao rejeitar detecção.')
+          this._snackbar.error('Erro ao rejeitar detecção.');
         }
       });
   }
