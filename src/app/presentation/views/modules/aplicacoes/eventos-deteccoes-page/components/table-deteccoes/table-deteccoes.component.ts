@@ -8,9 +8,13 @@ import { NoTableComponent } from '@/presentation/shared/components/no-table/no-t
 import { SetColorByNivel } from '@/presentation/shared/helpers/set-color-by-nivel.helper';
 import { tableModule } from '@/presentation/shared/table.module';
 import { CommonModule, DatePipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
-import { BadgeComponent, ModalService } from '@tivic-team/tivic-ui';
+import { Component, inject, OnDestroy } from '@angular/core';
+import { BadgeComponent } from '@tivic-team/tivic-ui';
 import { ModalDeteccaoDetalhesComponent } from '../modal-deteccao-detalhes/modal-deteccao-detalhes.component';
+import { ModalService } from '@/infrastructure/services/modal/modal.service';
+import { Observer } from '@/domain/observer/observer';
+import { Mediator } from '@/domain/mediator/mediator';
+import { EventosMediator } from '@/domain/enums/evento-mediator';
 
 @Component({
   selector: 'app-table-deteccoes',
@@ -20,7 +24,7 @@ import { ModalDeteccaoDetalhesComponent } from '../modal-deteccao-detalhes/modal
   styleUrl: './table-deteccoes.component.scss'
 })
 
-export class TableDeteccoesComponent extends TablePageBase{
+export class TableDeteccoesComponent extends TablePageBase implements Observer, OnDestroy {
   public deteccoes!: ResponsePaginacao<DeteccaoQueryResponse>;
   public dataLength!: number;
   protected override pageSize: number = 5;
@@ -28,20 +32,21 @@ export class TableDeteccoesComponent extends TablePageBase{
 
   private _modalService = inject(ModalService<ModalDeteccaoDetalhesComponent>);
 
-  constructor(private buscarDeteccoesUseCase: BuscarDeteccoesUseCase){
+  constructor(private buscarDeteccoesUseCase: BuscarDeteccoesUseCase, private _mediator: Mediator){
     super()
+    this._mediator.registrarEvento(EventosMediator.BUSCAR_DETECCOES_APOS_REJEITAR_DETECCAO, this);
   }
 
   ngOnInit(): void {
     this.load();
   }
 
-  public load(filters?: DeteccaoProps, page: number = 0) {
+  public load(filters?: DeteccaoProps) {
     if (filters) {
       this.currentFilters = { ...filters };
     }
     const paginationProps: DeteccaoProps = {
-      page: page,
+      page: this.pageIndex,
       size: this.pageSize,
       cdInstituicao: this.currentFilters?.cdInstituicao,
       cdEquipamento: this.currentFilters?.cdEquipamento,
@@ -70,6 +75,18 @@ export class TableDeteccoesComponent extends TablePageBase{
 
   public getColorByNivel(nivel: number): string {
     return SetColorByNivel.setColor(nivel);
+  }
+
+  onEvent(data: any): void {
+    this.load();
+  }
+
+  getObserverId(): string {
+    return TableDeteccoesComponent.name;
+  }
+
+  ngOnDestroy(): void {
+    this._mediator.removerRegistroDoEvento(EventosMediator.BUSCAR_DETECCOES_APOS_REJEITAR_DETECCAO, this)
   }
 }
 
