@@ -1,8 +1,8 @@
-import { ModalMediator } from "@/domain/mediator/modal-mediator";
+import { Mediator } from "@/domain/mediator/mediator";
 
 export const modalMediatorProvider = {
-    provide: ModalMediator,
-    useFactory: () => new ModalMediator()
+    provide: Mediator,
+    useFactory: () => new Mediator()
 }
 
 export const mediatorProviders = [

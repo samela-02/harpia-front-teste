@@ -11,8 +11,8 @@ import { DeteccaoQueryResponse } from '@/domain/models/query/deteccao-query-resp
 import { MODAL_DATA, ModalService } from '@/infrastructure/services/modal/modal.service';
 import { ModalRejeicaoDeteccaoComponent } from './components/modal-rejeicao-deteccao/modal-rejeicao-deteccao.component';
 import { Observer } from '@/domain/observer/observer';
-import { ModalMediator } from '@/domain/mediator/modal-mediator';
-import { EventosModal } from '@/domain/enums/evento-modal';
+import { Mediator } from '@/domain/mediator/mediator';
+import { EventosMediator } from '@/domain/enums/evento-mediator';
 
 @Component({
   selector: 'app-modal-deteccao-detalhes',
@@ -27,8 +27,8 @@ export class ModalDeteccaoDetalhesComponent implements Observer {
   private _modalService = inject(ModalService<ModalDeteccaoDetalhesComponent>)
   private _modalServiceRejeicaoDeteccao = inject(ModalService<ModalRejeicaoDeteccaoComponent>);
 
-  constructor(private _modalMediator: ModalMediator) {
-    this._modalMediator.registrarEvento(EventosModal.FECHAR_MODAL_DETALHES_DETECCAO, this);
+  constructor(private _modalMediator: Mediator) {
+    this._modalMediator.registrarEvento(EventosMediator.FECHAR_MODAL_DETALHES_DETECCAO, this);
     this.BuscarDadosDeAlerta(this.deteccao?.cdAlerta)
   }
 
@@ -51,6 +51,6 @@ export class ModalDeteccaoDetalhesComponent implements Observer {
 
   onEvent(data: any): void {
     this.fecharModal();
-    this._modalMediator.emitirEvento(EventosModal.BUSCAR_DETECCOES);
+    this._modalMediator.emitirEvento(EventosMediator.BUSCAR_DETECCOES_APOS_REJEITAR_DETECCAO);
   }
 }

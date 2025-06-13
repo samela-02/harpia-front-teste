@@ -13,8 +13,8 @@ import { BadgeComponent } from '@tivic-team/tivic-ui';
 import { ModalDeteccaoDetalhesComponent } from '../modal-deteccao-detalhes/modal-deteccao-detalhes.component';
 import { ModalService } from '@/infrastructure/services/modal/modal.service';
 import { Observer } from '@/domain/observer/observer';
-import { ModalMediator } from '@/domain/mediator/modal-mediator';
-import { EventosModal } from '@/domain/enums/evento-modal';
+import { Mediator } from '@/domain/mediator/mediator';
+import { EventosMediator } from '@/domain/enums/evento-mediator';
 
 @Component({
   selector: 'app-table-deteccoes',
@@ -32,9 +32,9 @@ export class TableDeteccoesComponent extends TablePageBase implements Observer{
 
   private _modalService = inject(ModalService<ModalDeteccaoDetalhesComponent>);
 
-  constructor(private buscarDeteccoesUseCase: BuscarDeteccoesUseCase, private _modalMediator: ModalMediator){
+  constructor(private buscarDeteccoesUseCase: BuscarDeteccoesUseCase, private _modalMediator: Mediator){
     super()
-    this._modalMediator.registrarEvento(EventosModal.BUSCAR_DETECCOES, this);
+    this._modalMediator.registrarEvento(EventosMediator.BUSCAR_DETECCOES_APOS_REJEITAR_DETECCAO, this);
   }
 
   ngOnInit(): void {
