@@ -32,9 +32,9 @@ export class TableDeteccoesComponent extends TablePageBase implements Observer, 
 
   private _modalService = inject(ModalService<ModalDeteccaoDetalhesComponent>);
 
-  constructor(private buscarDeteccoesUseCase: BuscarDeteccoesUseCase, private _modalMediator: Mediator){
+  constructor(private buscarDeteccoesUseCase: BuscarDeteccoesUseCase, private _mediator: Mediator){
     super()
-    this._modalMediator.registrarEvento(EventosMediator.BUSCAR_DETECCOES_APOS_REJEITAR_DETECCAO, this);
+    this._mediator.registrarEvento(EventosMediator.BUSCAR_DETECCOES_APOS_REJEITAR_DETECCAO, this);
   }
 
   ngOnInit(): void {
@@ -86,7 +86,7 @@ export class TableDeteccoesComponent extends TablePageBase implements Observer, 
   }
 
   ngOnDestroy(): void {
-    this._modalMediator.removerRegistroDoEvento(EventosMediator.BUSCAR_DETECCOES_APOS_REJEITAR_DETECCAO, this)
+    this._mediator.removerRegistroDoEvento(EventosMediator.BUSCAR_DETECCOES_APOS_REJEITAR_DETECCAO, this)
   }
 }
 

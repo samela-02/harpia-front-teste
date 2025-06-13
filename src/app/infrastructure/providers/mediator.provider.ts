@@ -1,10 +1,10 @@
 import { Mediator } from "@/domain/mediator/mediator";
 
-export const modalMediatorProvider = {
+export const mediatorProvider = {
     provide: Mediator,
     useFactory: () => new Mediator()
 }
 
 export const mediatorProviders = [
-    modalMediatorProvider
+    mediatorProvider
 ]

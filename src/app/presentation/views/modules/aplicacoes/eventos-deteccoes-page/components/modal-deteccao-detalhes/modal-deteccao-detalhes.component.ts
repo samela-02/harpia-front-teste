@@ -27,8 +27,8 @@ export class ModalDeteccaoDetalhesComponent implements Observer, OnDestroy {
   private _modalService = inject(ModalService<ModalDeteccaoDetalhesComponent>)
   private _modalServiceRejeicaoDeteccao = inject(ModalService<ModalRejeicaoDeteccaoComponent>);
 
-  constructor(private _modalMediator: Mediator) {
-    this._modalMediator.registrarEvento(EventosMediator.FECHAR_MODAL_DETALHES_DETECCAO, this);
+  constructor(private _mediator: Mediator) {
+    this._mediator.registrarEvento(EventosMediator.FECHAR_MODAL_DETALHES_DETECCAO, this);
     this.BuscarDadosDeAlerta(this.deteccao?.cdAlerta)
   }
 
@@ -51,7 +51,7 @@ export class ModalDeteccaoDetalhesComponent implements Observer, OnDestroy {
 
   onEvent(data: any): void {
     this.fecharModal();
-    this._modalMediator.emitirEvento(EventosMediator.BUSCAR_DETECCOES_APOS_REJEITAR_DETECCAO);
+    this._mediator.emitirEvento(EventosMediator.BUSCAR_DETECCOES_APOS_REJEITAR_DETECCAO);
   }
 
   getObserverId(): string {
@@ -59,6 +59,6 @@ export class ModalDeteccaoDetalhesComponent implements Observer, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this._modalMediator.removerRegistroDoEvento(EventosMediator.FECHAR_MODAL_DETALHES_DETECCAO, this)
+    this._mediator.removerRegistroDoEvento(EventosMediator.FECHAR_MODAL_DETALHES_DETECCAO, this)
   }
 }

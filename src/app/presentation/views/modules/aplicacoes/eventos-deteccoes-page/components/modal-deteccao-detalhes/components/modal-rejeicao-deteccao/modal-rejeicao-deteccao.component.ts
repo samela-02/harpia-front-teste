@@ -16,7 +16,7 @@ import { EventosMediator } from '@/domain/enums/evento-mediator';
 export class ModalRejeicaoDeteccaoComponent {
   protected deteccao: DeteccaoQueryResponse = inject(MODAL_DATA) as DeteccaoQueryResponse;
   private _modalServiceRejeicaoDeteccao = inject(ModalService<ModalRejeicaoDeteccaoComponent>);
-  private _modalMediator = inject(Mediator);
+  private _mediator = inject(Mediator);
 
   fecharModal() {
     this._modalServiceRejeicaoDeteccao.component(ModalRejeicaoDeteccaoComponent).dismiss(this.deteccao);
@@ -24,6 +24,6 @@ export class ModalRejeicaoDeteccaoComponent {
 
   fecharTodosModais() {
     this.fecharModal();
-    this._modalMediator.emitirEvento(EventosMediator.FECHAR_MODAL_DETALHES_DETECCAO);
+    this._mediator.emitirEvento(EventosMediator.FECHAR_MODAL_DETALHES_DETECCAO);
   }
 }
