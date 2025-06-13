@@ -50,7 +50,6 @@ export class FormRejeicaoDeteccaoComponent implements OnInit {
   }
 
   onSubmit() {
-    // TODO fechar modal do pai
     this._rejeitarDeteccaoUseCase
       .execute(this.formGroup.value as DeteccaoRejeitada)
       .subscribe({
