@@ -13,11 +13,12 @@ import { ModalRejeicaoDeteccaoComponent } from './components/modal-rejeicao-dete
 import { Observer } from '@/domain/observer/observer';
 import { Mediator } from '@/domain/mediator/mediator';
 import { EventosMediator } from '@/domain/enums/evento-mediator';
+import { TimelineMovimentacaoDeteccaoComponent } from "./components/timeline-movimentacao-deteccao/timeline-movimentacao-deteccao.component";
 
 @Component({
   selector: 'app-modal-deteccao-detalhes',
   standalone: true,
-  imports: [ButtonComponent, CommonModule, MatTabsModule, EventoContentModalComponent, MaisDetalhesContentModalComponent ],
+  imports: [ButtonComponent, CommonModule, MatTabsModule, EventoContentModalComponent, MaisDetalhesContentModalComponent, TimelineMovimentacaoDeteccaoComponent],
   templateUrl: './modal-deteccao-detalhes.component.html',
   styleUrl: './modal-deteccao-detalhes.component.scss',
 })
