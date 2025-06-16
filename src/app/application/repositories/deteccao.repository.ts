@@ -4,8 +4,10 @@ import { ResponseData } from "../dtos/response-data.dto";
 import { ResponsePaginacao } from "../dtos/response-paginacao.dto";
 import { DeteccaoFilter } from "@/domain/filters/deteccao/deteccao.filter";
 import { DeteccaoRejeitada } from "@/domain/models/command/deteccao/deteccao-rejeitada";
+import { ObservacaoDeteccao } from "@/domain/models/command/deteccao/observacao-deteccao";
 
 export abstract class DeteccaoRepository {
   public abstract buscarDeteccoes(filter?: DeteccaoFilter): Observable<ResponseData<ResponsePaginacao<DeteccaoQueryResponse>>>
   abstract rejeitarDeteccao(deteccaoRejeitada: DeteccaoRejeitada): Observable<void>;
+  abstract adicionarObservacao(observacaoDeteccao: ObservacaoDeteccao): Observable<void>;
 }
