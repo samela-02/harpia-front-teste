@@ -40,14 +40,14 @@
         </div>
       </app-card-details>
       <div class="w-full flex justify-end">
-            <button mat-flat-button (click)="abrirModalCreateObservacao()"
+            <button mat-flat-button [disabled]="deteccao.dtDelecao" (click)="abrirModalCreateObservacao()"
               class="mr-2 bg-primary/10 dark:bg-dark-primary/10 text-primary dark:text-dark-primary disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-primary/50 rounded-md py-1 px-4 text-md">
               <i class="la la-save text-lg"></i>
               <span class="pt-1">
                 Adicionar observação
               </span>
             </button>
-            <button (click)="abrirModalRejeicao()" mat-flat-button class="bg-red-700/10 text-red-700 rounded-md py-1 px-4 text-md">
+            <button [disabled]="deteccao.dtDelecao" (click)="abrirModalRejeicao()" mat-flat-button class="bg-red-700/10 text-red-700 rounded-md py-1 px-4 text-md">
               <i class="la la-times-circle text-lg"></i>
               <span class="pt-1">
                 Rejeitar
