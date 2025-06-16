@@ -28,7 +28,7 @@ export class TableDeteccoesComponent extends TablePageBase implements Observer, 
   public deteccoes!: ResponsePaginacao<DeteccaoQueryResponse>;
   public dataLength!: number;
   protected override pageSize: number = 5;
-  public displayedColumns: string[] = ['imgOriginal', 'nrPlaca', 'idEquipamento', 'dtDeteccao'];
+  public displayedColumns: string[] = ['imgOriginal', 'nrPlaca', 'idEquipamento', 'dtDeteccao', 'dtDelecao'];
 
   private _modalService = inject(ModalService<ModalDeteccaoDetalhesComponent>);
 
@@ -58,8 +58,7 @@ export class TableDeteccoesComponent extends TablePageBase implements Observer, 
       nmPiv: this.currentFilters?.nmPiv,
       nrPlaca: this.currentFilters?.nrPlaca,
       vlConfidencePivInferior: this.currentFilters?.vlConfidencePivInferior,
-      vlConfidencePivSuperior: this.currentFilters?.vlConfidencePivSuperior,
-      lgAtivo: 1
+      vlConfidencePivSuperior: this.currentFilters?.vlConfidencePivSuperior
     };
     const filterProps = new DeteccaoFilter(paginationProps);
     this.buscarDeteccoesUseCase.execute(filterProps).subscribe((response) => {
