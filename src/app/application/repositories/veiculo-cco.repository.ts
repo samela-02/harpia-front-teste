@@ -10,4 +10,5 @@ export abstract class VeiculoCCORepository {
   public abstract editarVeiculoCCO(cdVeiculo: number, veiculo: VeiculoCCO): Observable<void>;
   public abstract buscarVeiculosCCO(filter?: VeiculoCCOFilter): Observable<ResponseData<ResponsePaginacao<VeiculoCCOQueryResponse>>>
   public abstract desativarVeiculoCCO(cdVeiculo: number): Observable<void>;
+  public abstract buscarVeiculoCCOPorIdEquipamento(idInstituicao: string): Observable<ResponseData<VeiculoCCOQueryResponse>>
 }

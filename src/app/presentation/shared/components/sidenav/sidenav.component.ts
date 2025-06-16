@@ -3,7 +3,7 @@ import { ModulosAdministradoresStrategy } from "@/application/modulo/modulos-adm
 import { ModulosCoordenadoresStrategy } from "@/application/modulo/modulos-coordenadores.strategy";
 import { ModulosOperadorCentralStrategy } from "@/application/modulo/modulos-operador-central.strategy";
 import { Modules } from "@/domain/dtos/modules.dto";
-import { UsuarioRole } from "@/domain/enums/usuario-role.enum";
+import { RoleLabel, UsuarioRole } from "@/domain/enums/usuario-role.enum";
 import { RouteData } from "@/domain/interfaces/route-data.interface";
 import { AuthServiceImpl } from "@/infrastructure/services/auth.service-impl";
 import { CommonModule, DatePipe } from "@angular/common";
@@ -132,7 +132,7 @@ export class SidenavComponent {
   buscaDadosUsuario() {
     this.usuarioInfo.nmUsuario = this.authService.getNomeUsuario()
     this.usuarioInfo.idInstituicao  = this.authService.getIdInstituicaoUser()
-    this.usuarioInfo.role = this.authService.getRole()
+    this.usuarioInfo.role = RoleLabel.get(this.authService.getRole());
     this.usuarioInfo.cdUsuario = this.authService.getCdUsuario()
   }
 

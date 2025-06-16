@@ -1,4 +1,5 @@
 import { VeiculoCCORepository } from "@/application/repositories/veiculo-cco.repository"
+import { BuscarVeiculoCCOIdEquipamentoUseCase } from "@/application/usecase/veiculo-cco/buscar-veiculo-cco-por-idEquipamento.usecase"
 import { BuscarVeiculosCCOUseCase } from "@/application/usecase/veiculo-cco/buscar-veiculos-cco.usecase"
 import { CriarVeiculoCCOUseCase } from "@/application/usecase/veiculo-cco/criar-veiculo-cco.usecase"
 import { DesativarVeiculoCCOUseCase } from "@/application/usecase/veiculo-cco/desativar-veiculo-cco..usecase"
@@ -29,11 +30,18 @@ export const buscaVeiculoCCOsProvider = {
   deps: [VeiculoCCORepository]
 }
 
+export const buscaVeiculoCCOPorIdEquipamentoProvider = {
+  provide: BuscarVeiculoCCOIdEquipamentoUseCase,
+  useFactory: (veiculoCCORepository: VeiculoCCORepository) => new BuscarVeiculoCCOIdEquipamentoUseCase(veiculoCCORepository),
+  deps: [VeiculoCCORepository]
+}
+
 export const veiculoCCOProviders = [
   criaVeiculoCCOProvider,
   buscaVeiculoCCOsProvider,
   editaVeiculoCCOProvider,
   desativaVeiculoCCOProvider,
+  buscaVeiculoCCOPorIdEquipamentoProvider,
   {
     provide: VeiculoCCORepository,
     useClass: VeiculoCCORepositoryIml

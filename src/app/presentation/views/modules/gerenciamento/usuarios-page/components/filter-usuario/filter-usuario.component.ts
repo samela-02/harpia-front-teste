@@ -8,7 +8,7 @@ import { RoleLabel } from '@/domain/enums/usuario-role.enum';
 @Component({
   selector: 'app-filter-usuario',
   standalone: true,
-  imports: [InputComponent, ButtonComponent, ...sharedModule, ReactiveFormsModule, DropdownComponent],
+  imports: [ ButtonComponent, ...sharedModule, ReactiveFormsModule, DropdownComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './filter-usuario.component.html',
   styleUrl: './filter-usuario.component.scss'

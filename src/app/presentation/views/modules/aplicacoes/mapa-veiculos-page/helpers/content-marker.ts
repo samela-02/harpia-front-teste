@@ -1,4 +1,4 @@
-export const contentMarker = (content: string, imageUrl: string, idEquipamento: string, isLoading: boolean = false, dtPedido?: string) => {
+export const contentMarker = (content: string, imageUrl: string, idEquipamento: string, dtPedido?: string) => {
   const hasValidImage = imageUrl && imageUrl !== '' && imageUrl !== 'assets/no-content.png';
 
   const imageContent = hasValidImage
@@ -15,14 +15,6 @@ export const contentMarker = (content: string, imageUrl: string, idEquipamento: 
          </div>
        </div>`;
 
-  const buttonContent = isLoading
-    ? `<button class="button-action opacity-50 cursor-not-allowed" title="Processando..." disabled>
-         <i class="la la-spinner la-spin" style="font-size:15px;"></i>
-       </button>`
-    : `<button class="button-action" title="Solicitar snapshot">
-         <i class="la la-camera-retro" style="font-size:15px;"></i>
-       </button>`;
-
   return `
     <div class="flex flex-col items-center justify-center">
       ${imageContent}
@@ -33,7 +25,9 @@ export const contentMarker = (content: string, imageUrl: string, idEquipamento: 
             ${idEquipamento}
           </span>
         </span>
-        ${buttonContent}
+        <button class="button-action" title="Solicitar snapshot">
+         <i class="la la-camera-retro" style="font-size:15px;"></i>
+       </button>
       </div>
     </div>
   `;

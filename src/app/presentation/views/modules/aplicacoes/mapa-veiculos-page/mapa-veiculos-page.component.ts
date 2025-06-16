@@ -1,10 +1,6 @@
-import { BuscarComandoUseCase } from '@/application/usecase/comando/buscar-comando.usecase';
 import { BuscarUltimoSnapshotUseCase } from '@/application/usecase/comando/buscar-ultimo-snapshot.usecase';
-import { EnviarComandoUseCase } from '@/application/usecase/comando/enviar-comando.usecase';
 import { FindStreamUltimaComunicacaoEquipamentoUseCase } from '@/application/usecase/equipamento/find-stream-ultima-comunicacao-equipamento.usecase';
 import { buscarDadosGpsUseCase } from '@/application/usecase/gps-tracker/buscar-dados-gps.usecase';
-import { ComandoDTo } from '@/domain/dtos/comando.dto';
-import { TipoComandoEnum } from '@/domain/enums/tipo-alerta/tipo-comando.enum';
 import { EquipamentoComunicacaoQueryResponse } from '@/domain/models/query/equipamento-comunicacao-query-response';
 import { GpsTrackerQueryResponse } from '@/domain/models/query/gps-tracker-query-response';
 import { AuthServiceImpl } from '@/infrastructure/services/auth.service-impl';
@@ -13,12 +9,12 @@ import { FiltersInputsComponent } from '@/presentation/shared/components/filters
 import { MapMarkersComponent } from '@/presentation/shared/components/map-markers/map-markers.component';
 import { CommonModule, DatePipe } from '@angular/common';
 import { ChangeDetectorRef, Component, OnInit, ViewChild, inject } from '@angular/core';
-import { ModalService } from '@tivic-team/tivic-ui';
 import * as L from 'leaflet';
 import { Subscription, interval } from 'rxjs';
-import { v4 as uuidv4 } from 'uuid';
 import { ModalContentComponent } from './components/modal-content/modal-content.component';
 import { contentMarker } from './helpers/content-marker';
+import { ModalDetalhesEquipamentoComponent } from './components/modal-detalhes-equipamento/modal-detalhes-equipamento.component';
+import { ModalService } from '@/infrastructure/services/modal/modal.service';
 
 @Component({
   selector: 'app-mapa-veiculos-page',
@@ -36,7 +32,7 @@ export class MapaVeiculosPageComponent implements OnInit {
   private checkEquipamentoStatusSubscription: Subscription | null = null;
   private movingMarkers: Map<string, L.Marker> = new Map();
   private idInstituicao = this.authService.getIdInstituicaoUser()
-  private _modalService = inject(ModalService<ModalContentComponent>)
+  private _modalService = inject(ModalService<ModalDetalhesEquipamentoComponent>)
   private popupContent = L.DomUtil.create("div");
 
   public equipmentStatusMap: Map<string, EquipmentStatus> = new Map();
@@ -44,14 +40,11 @@ export class MapaVeiculosPageComponent implements OnInit {
 
   private gpsAbortController: AbortController = null;
   private ultimaComunicacaoEquipamentoAbortController: AbortController = null;
-  private loadingSnapshots: Map<string, boolean> = new Map();
 
   constructor(
     private buscarDadosGpsUseCase: buscarDadosGpsUseCase,
     private changeDetectorRef: ChangeDetectorRef,
     private datePipe: DatePipe,
-    private enviarComandoUseCase: EnviarComandoUseCase,
-    private buscarComandoUseCase: BuscarComandoUseCase,
     private authService: AuthServiceImpl,
     private findStreamUltimaComunicacaoEquipamentoUseCase: FindStreamUltimaComunicacaoEquipamentoUseCase,
     private buscarUltimoSnapshotUseCase: BuscarUltimoSnapshotUseCase
@@ -65,46 +58,49 @@ export class MapaVeiculosPageComponent implements OnInit {
     this.atualizarStatusEquipamentoAsync();
   }
 
-  enviarComando(idEquipamento?: string) {
-    if (!idEquipamento || this.loadingSnapshots.get(idEquipamento)) {
-      return;
-    }
+  // enviarComando(idEquipamento?: string) {
+  //   if (!idEquipamento || this.loadingSnapshots.get(idEquipamento)) {
+  //     return;
+  //   }
 
-    this.loadingSnapshots.set(idEquipamento, true);
-    const uuid = uuidv4()
-    const comando = new ComandoDTo(uuid, idEquipamento, TipoComandoEnum.Snapshot)
+  //   this.loadingSnapshots.set(idEquipamento, true);
+  //   const uuid = uuidv4()
+  //   const comando = new ComandoDTo(uuid, idEquipamento, TipoComandoEnum.Snapshot)
 
-    this.enviarComandoUseCase.execute(comando).subscribe({
-      next: () => {
-        this.buscarComando(uuid, idEquipamento)
-      },
-      error: () => {
-        this.loadingSnapshots.set(idEquipamento, false);
-      }
-    })
-  }
+  //   this.enviarComandoUseCase.execute(comando).subscribe({
+  //     next: () => {
+  //       this.buscarComando(uuid, idEquipamento)
+  //     },
+  //     error: () => {
+  //       this.loadingSnapshots.set(idEquipamento, false);
+  //     }
+  //   })
+  // }
 
-  buscarComando(idComando: string, idEquipamento: string) {
-    this.buscarComandoUseCase.execute(idComando).subscribe({
-      next: (response) => {
-        const content = JSON.parse(response.data)
-        this._modalService.component(ModalContentComponent).open(content)
-        this.loadingSnapshots.set(idEquipamento, false);
-        this.buscarUltimoSnapshot(idEquipamento);
-      },
-      error: () => {
-        this.loadingSnapshots.set(idEquipamento, false);
-      }
-    })
+  // buscarComando(idComando: string, idEquipamento: string) {
+  //   this.buscarComandoUseCase.execute(idComando).subscribe({
+  //     next: (response) => {
+  //       const content = JSON.parse(response.data)
+  //       this._modalService.component(ModalContentComponent).open(content)
+  //       this.loadingSnapshots.set(idEquipamento, false);
+  //       this.buscarUltimoSnapshot(idEquipamento);
+  //     },
+  //     error: () => {
+  //       this.loadingSnapshots.set(idEquipamento, false);
+  //     }
+  //   })
+  // }
+
+  private abrirModalDetalhesEquipamento(idEquipamento: string) {
+    this._modalService.component(ModalDetalhesEquipamentoComponent).open(idEquipamento)
   }
 
   private buscarUltimoSnapshot(idEquipamento: string) {
     this.buscarUltimoSnapshotUseCase.execute(idEquipamento).subscribe((response) => {
-      const isLoading = this.loadingSnapshots.get(idEquipamento) || false;
       const formattedDtPedido = response.data?.dtPedido
         ? this.datePipe.transform(response.data.dtPedido, 'dd/MM/yyyy HH:mm:ss')
         : undefined;
-      this.updatePopupContent(response.data?.cntComando, isLoading, idEquipamento, formattedDtPedido);
+      this.updatePopupContent(response.data?.cntComando, idEquipamento, formattedDtPedido);
     });
   }
 
@@ -183,11 +179,9 @@ export class MapaVeiculosPageComponent implements OnInit {
     if (diffMinutes < 10) {
       return 'green';
     }
-
     if (diffMinutes < 60) {
       return 'yellow';
     }
-
     return 'red';
   }
 
@@ -205,7 +199,6 @@ export class MapaVeiculosPageComponent implements OnInit {
   }
 
   private updateMovingMarker(coordinate: [number, number], direction: number, idEquipamento: string): void {
-
     const map = this.mapComponent?.getMap();
     if (!map) return;
     const existingMarker = this.movingMarkers.get(idEquipamento);
@@ -261,7 +254,7 @@ export class MapaVeiculosPageComponent implements OnInit {
 
   private updatePopupContent = (
     imgSrc: string,
-    isLoading: boolean,
+    // isLoading: boolean,
     idEquipamento: string,
     formattedDtPedido?: string
   ) => {
@@ -269,12 +262,12 @@ export class MapaVeiculosPageComponent implements OnInit {
       `ID: ${idEquipamento}<br>Última Att: ${formattedDtPedido}`,
       imgSrc,
       idEquipamento,
-      isLoading,
+      // isLoading,
       formattedDtPedido
     );
     const button = this.popupContent.querySelector('.button-action') as HTMLButtonElement;
     if (button) {
-      button.onclick = () => this.enviarComando(idEquipamento);
+      button.onclick = () => this.abrirModalDetalhesEquipamento(idEquipamento);
     }
   };
 
@@ -284,7 +277,7 @@ export class MapaVeiculosPageComponent implements OnInit {
       ? this.datePipe.transform(status.dtUltimaComunicacao, 'dd/MM/yyyy HH:mm:ss')
       : 'N/A';
 
-    this.updatePopupContent("assets/no-content.png", false, idEquipamento, lastUpdateFormatted);
+    this.updatePopupContent("assets/no-content.png", idEquipamento, lastUpdateFormatted);
 
     marker.bindPopup(this.popupContent);
     marker.off('popupopen');
