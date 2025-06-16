@@ -1,6 +1,8 @@
 import { BBoxQueryResponse } from "./bbox-query-response";
+import { MovimentacaoDeteccaoQueryResponse } from "./movimentacao-deteccao-query-response";
 
 export class DeteccaoQueryResponse {
+   movimentacoes: MovimentacaoDeteccaoQueryResponse[];
    cdDeteccao: number;
    cdAlerta: number;
    tpNivelAlerta: number;
