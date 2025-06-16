@@ -35,6 +35,7 @@ export class TableDeteccoesComponent extends TablePageBase implements Observer, 
   constructor(private buscarDeteccoesUseCase: BuscarDeteccoesUseCase, private _mediator: Mediator){
     super()
     this._mediator.registrarEvento(EventosMediator.BUSCAR_DETECCOES_APOS_REJEITAR_DETECCAO, this);
+    this._mediator.registrarEvento(EventosMediator.BUSCAR_DETECCOES_APOS_ADICIONAR_OBSERVACAO, this);
   }
 
   ngOnInit(): void {
@@ -87,6 +88,6 @@ export class TableDeteccoesComponent extends TablePageBase implements Observer, 
 
   ngOnDestroy(): void {
     this._mediator.removerRegistroDoEvento(EventosMediator.BUSCAR_DETECCOES_APOS_REJEITAR_DETECCAO, this)
+    this._mediator.removerRegistroDoEvento(EventosMediator.BUSCAR_DETECCOES_APOS_ADICIONAR_OBSERVACAO, this);
   }
 }
-

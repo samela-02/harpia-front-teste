@@ -3,6 +3,8 @@ import { Component, inject } from '@angular/core';
 import { ButtonComponent } from '@tivic-team/tivic-ui';
 import { FormAdicaoObservacaoComponent } from "./form-adicao-observacao/form-adicao-observacao.component";
 import { MODAL_DATA, ModalService } from '@/infrastructure/services/modal/modal.service';
+import { Mediator } from '@/domain/mediator/mediator';
+import { EventosMediator } from '@/domain/enums/evento-mediator';
 
 @Component({
   selector: 'app-modal-adicao-observacao',
@@ -15,7 +17,10 @@ export class ModalAdicaoObservacaoComponent {
   protected deteccao: DeteccaoQueryResponse = inject(MODAL_DATA) as DeteccaoQueryResponse;
   private _modalServiceAdicaoObservacao = inject(ModalService<ModalAdicaoObservacaoComponent>);
 
+  constructor(private _mediator: Mediator) {}
+
   fecharModal(): void {
     this._modalServiceAdicaoObservacao.component(ModalAdicaoObservacaoComponent).dismiss(this.deteccao);
+    this._mediator.emitirEvento(EventosMediator.BUSCAR_DETECCOES_APOS_ADICIONAR_OBSERVACAO);
   }
 }
