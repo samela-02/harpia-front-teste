@@ -22,13 +22,27 @@ import { TimelineMovimentacaoDeteccaoComponent } from "./components/timeline-mov
   templateUrl: './modal-deteccao-detalhes.component.html',
   styleUrl: './modal-deteccao-detalhes.component.scss',
 })
-export class ModalDeteccaoDetalhesComponent {
+export class ModalDeteccaoDetalhesComponent implements OnDestroy, Observer {
   private _store = inject(Store);
   protected deteccao: DeteccaoQueryResponse = inject(MODAL_DATA) as DeteccaoQueryResponse;
   private _modalService = inject(ModalService<ModalDeteccaoDetalhesComponent>)
 
-  constructor() {
+  constructor(private _mediator: Mediator) {
     this.BuscarDadosDeAlerta(this.deteccao?.cdAlerta)
+    this._mediator.registrarEvento(EventoMediator.DETECCOES_RECARREGADAS, this);
+  }
+
+  ngOnDestroy(): void {
+    this._mediator.removerRegistroDoEvento(EventoMediator.DETECCOES_RECARREGADAS, this);
+  }
+
+  onEvent(data: any): void {
+    const deteccoes: DeteccaoQueryResponse[] = data.dados as DeteccaoQueryResponse[];
+    if (this.deteccao && deteccoes.length > 0) {
+      this.deteccao = deteccoes
+        .filter(deteccao => deteccao.cdDeteccao === this.deteccao.cdDeteccao)
+        .at(0);
+    }
   }
 
   fecharModal() {

@@ -67,6 +67,7 @@ export class TableDeteccoesComponent extends TablePageBase implements OnDestroy,
     this.buscarDeteccoesUseCase.execute(filterProps).subscribe((response) => {
       this.deteccoes = response.data
       this.dataLength = response.data.totalItens
+      this._mediator.emitirEvento(EventoMediator.DETECCOES_RECARREGADAS, response.data)
     })
   }
 
