@@ -12,7 +12,7 @@ import { MODAL_DATA, ModalService } from '@/infrastructure/services/modal/modal.
 import { ModalRejeicaoDeteccaoComponent } from './components/modal-rejeicao-deteccao/modal-rejeicao-deteccao.component';
 import { Observer } from '@/domain/observer/observer';
 import { Mediator } from '@/domain/mediator/mediator';
-import { EventosMediator } from '@/domain/enums/evento-mediator';
+import { EventoMediator } from '@/domain/enums/evento-mediator';
 import { TimelineMovimentacaoDeteccaoComponent } from "./components/timeline-movimentacao-deteccao/timeline-movimentacao-deteccao.component";
 
 @Component({
@@ -28,7 +28,7 @@ export class ModalDeteccaoDetalhesComponent implements Observer, OnDestroy {
   private _modalService = inject(ModalService<ModalDeteccaoDetalhesComponent>)
 
   constructor(private _mediator: Mediator) {
-    this._mediator.registrarEvento(EventosMediator.FECHAR_MODAL_DETALHES_DETECCAO, this);
+    this._mediator.registrarEvento(EventoMediator.FECHAR_MODAL_DETALHES_DETECCAO, this);
     this.BuscarDadosDeAlerta(this.deteccao?.cdAlerta)
   }
 
@@ -47,7 +47,7 @@ export class ModalDeteccaoDetalhesComponent implements Observer, OnDestroy {
 
   onEvent(data: any): void {
     this.fecharModal();
-    this._mediator.emitirEvento(EventosMediator.BUSCAR_DETECCOES_APOS_REJEITAR_DETECCAO);
+    this._mediator.emitirEvento(EventoMediator.BUSCAR_DETECCOES_APOS_REJEITAR_DETECCAO);
   }
 
   getObserverId(): string {
@@ -55,6 +55,6 @@ export class ModalDeteccaoDetalhesComponent implements Observer, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this._mediator.removerRegistroDoEvento(EventosMediator.FECHAR_MODAL_DETALHES_DETECCAO, this)
+    this._mediator.removerRegistroDoEvento(EventoMediator.FECHAR_MODAL_DETALHES_DETECCAO, this)
   }
 }

@@ -14,7 +14,7 @@ import { ModalDeteccaoDetalhesComponent } from '../modal-deteccao-detalhes/modal
 import { ModalService } from '@/infrastructure/services/modal/modal.service';
 import { Observer } from '@/domain/observer/observer';
 import { Mediator } from '@/domain/mediator/mediator';
-import { EventosMediator } from '@/domain/enums/evento-mediator';
+import { EventoMediator } from '@/domain/enums/evento-mediator';
 
 @Component({
   selector: 'app-table-deteccoes',
@@ -34,7 +34,7 @@ export class TableDeteccoesComponent extends TablePageBase implements Observer, 
 
   constructor(private buscarDeteccoesUseCase: BuscarDeteccoesUseCase, private _mediator: Mediator){
     super()
-    this._mediator.registrarEvento(EventosMediator.BUSCAR_DETECCOES_APOS_REJEITAR_DETECCAO, this);
+    this._mediator.registrarEvento(EventoMediator.BUSCAR_DETECCOES_APOS_REJEITAR_DETECCAO, this);
   }
 
   ngOnInit(): void {
@@ -85,6 +85,6 @@ export class TableDeteccoesComponent extends TablePageBase implements Observer, 
   }
 
   ngOnDestroy(): void {
-    this._mediator.removerRegistroDoEvento(EventosMediator.BUSCAR_DETECCOES_APOS_REJEITAR_DETECCAO, this)
+    this._mediator.removerRegistroDoEvento(EventoMediator.BUSCAR_DETECCOES_APOS_REJEITAR_DETECCAO, this)
   }
 }

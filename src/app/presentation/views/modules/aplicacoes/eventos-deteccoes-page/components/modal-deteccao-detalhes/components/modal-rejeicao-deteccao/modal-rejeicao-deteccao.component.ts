@@ -4,7 +4,7 @@ import { Component, inject } from '@angular/core';
 import { ButtonComponent } from '@tivic-team/tivic-ui';
 import { FormRejeicaoDeteccaoComponent } from './form-rejeicao-deteccao/form-rejeicao-deteccao.component';
 import { Mediator } from '@/domain/mediator/mediator';
-import { EventosMediator } from '@/domain/enums/evento-mediator';
+import { EventoMediator } from '@/domain/enums/evento-mediator';
 
 @Component({
   selector: 'app-modal-rejeicao-deteccao',
@@ -24,6 +24,6 @@ export class ModalRejeicaoDeteccaoComponent {
 
   fecharTodosModais() {
     this.fecharModal();
-    this._mediator.emitirEvento(EventosMediator.FECHAR_MODAL_DETALHES_DETECCAO);
+    this._mediator.emitirEvento(EventoMediator.FECHAR_MODAL_DETALHES_DETECCAO);
   }
 }
