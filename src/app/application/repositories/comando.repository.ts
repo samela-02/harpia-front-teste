@@ -6,6 +6,7 @@ import { UltimoSnapshotQueryResponse } from "@/domain/models/query/ultimo-snapsh
 
 export abstract class ComandoRepository {
   public abstract buscarComando(idComando: string): Observable<EventSourceMessage>;
-  public abstract enviarComando(comando: ComandoDTo): Observable<void>;
+  public abstract solicitarSnapshot(comando: ComandoDTo): Observable<void>;
+  public abstract solicitarWebRtc(comando: ComandoDTo): Observable<void>;
   public abstract buscarUltimoSnapshot(idEquipamento: String): Observable<ResponseData<UltimoSnapshotQueryResponse>>;
 }

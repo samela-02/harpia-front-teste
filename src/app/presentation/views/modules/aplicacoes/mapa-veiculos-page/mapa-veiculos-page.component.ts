@@ -4,6 +4,7 @@ import { buscarDadosGpsUseCase } from '@/application/usecase/gps-tracker/buscar-
 import { EquipamentoComunicacaoQueryResponse } from '@/domain/models/query/equipamento-comunicacao-query-response';
 import { GpsTrackerQueryResponse } from '@/domain/models/query/gps-tracker-query-response';
 import { AuthServiceImpl } from '@/infrastructure/services/auth.service-impl';
+import { ModalService } from '@/infrastructure/services/modal/modal.service';
 import { EquipmentStatus } from '@/presentation/interfaces/equipament-status';
 import { FiltersInputsComponent } from '@/presentation/shared/components/filters-inputs/filters-inputs.component';
 import { MapMarkersComponent } from '@/presentation/shared/components/map-markers/map-markers.component';
@@ -11,10 +12,8 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { ChangeDetectorRef, Component, OnInit, ViewChild, inject } from '@angular/core';
 import * as L from 'leaflet';
 import { Subscription, interval } from 'rxjs';
-import { ModalContentComponent } from './components/modal-content/modal-content.component';
-import { contentMarker } from './helpers/content-marker';
 import { ModalDetalhesEquipamentoComponent } from './components/modal-detalhes-equipamento/modal-detalhes-equipamento.component';
-import { ModalService } from '@/infrastructure/services/modal/modal.service';
+import { contentMarker } from './helpers/content-marker';
 
 @Component({
   selector: 'app-mapa-veiculos-page',
@@ -57,39 +56,6 @@ export class MapaVeiculosPageComponent implements OnInit {
     this.findStreamUltimaComunicacao();
     this.atualizarStatusEquipamentoAsync();
   }
-
-  // enviarComando(idEquipamento?: string) {
-  //   if (!idEquipamento || this.loadingSnapshots.get(idEquipamento)) {
-  //     return;
-  //   }
-
-  //   this.loadingSnapshots.set(idEquipamento, true);
-  //   const uuid = uuidv4()
-  //   const comando = new ComandoDTo(uuid, idEquipamento, TipoComandoEnum.Snapshot)
-
-  //   this.enviarComandoUseCase.execute(comando).subscribe({
-  //     next: () => {
-  //       this.buscarComando(uuid, idEquipamento)
-  //     },
-  //     error: () => {
-  //       this.loadingSnapshots.set(idEquipamento, false);
-  //     }
-  //   })
-  // }
-
-  // buscarComando(idComando: string, idEquipamento: string) {
-  //   this.buscarComandoUseCase.execute(idComando).subscribe({
-  //     next: (response) => {
-  //       const content = JSON.parse(response.data)
-  //       this._modalService.component(ModalContentComponent).open(content)
-  //       this.loadingSnapshots.set(idEquipamento, false);
-  //       this.buscarUltimoSnapshot(idEquipamento);
-  //     },
-  //     error: () => {
-  //       this.loadingSnapshots.set(idEquipamento, false);
-  //     }
-  //   })
-  // }
 
   private abrirModalDetalhesEquipamento(idEquipamento: string) {
     this._modalService.component(ModalDetalhesEquipamentoComponent).open(idEquipamento)
@@ -254,7 +220,6 @@ export class MapaVeiculosPageComponent implements OnInit {
 
   private updatePopupContent = (
     imgSrc: string,
-    // isLoading: boolean,
     idEquipamento: string,
     formattedDtPedido?: string
   ) => {
@@ -262,7 +227,6 @@ export class MapaVeiculosPageComponent implements OnInit {
       `ID: ${idEquipamento}<br>Última Att: ${formattedDtPedido}`,
       imgSrc,
       idEquipamento,
-      // isLoading,
       formattedDtPedido
     );
     const button = this.popupContent.querySelector('.button-action') as HTMLButtonElement;

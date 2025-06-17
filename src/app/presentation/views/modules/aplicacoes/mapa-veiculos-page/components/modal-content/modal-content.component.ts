@@ -1,9 +1,9 @@
+import { MODAL_DATA, ModalService } from '@/infrastructure/services/modal/modal.service';
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, inject, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MODAL_DATA, ModalService } from '@tivic-team/tivic-ui';
 import * as htmlToImage from 'html-to-image';
 
 @Component({

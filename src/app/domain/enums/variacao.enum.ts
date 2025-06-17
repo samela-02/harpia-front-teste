@@ -1,4 +1,4 @@
 export enum VariacaoEnum {
     ANN ="ANN",
-    ORI = "ORIG"
+    ORI = "ORI"
 }

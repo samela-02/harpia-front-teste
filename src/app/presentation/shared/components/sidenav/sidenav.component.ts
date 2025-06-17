@@ -112,7 +112,6 @@ export class SidenavComponent {
     const primeiraLetra = nome[0].charAt(0);
     const segundaLetra = nome[1] ? nome[1].charAt(0) : '';
     this.logoPeloNome = `${primeiraLetra}${segundaLetra}`.toUpperCase()
-    console.log(this.logoPeloNome)
   }
 
   toggleSidenav() {
