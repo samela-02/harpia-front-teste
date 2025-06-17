@@ -22,13 +22,12 @@ import { TimelineMovimentacaoDeteccaoComponent } from "./components/timeline-mov
   templateUrl: './modal-deteccao-detalhes.component.html',
   styleUrl: './modal-deteccao-detalhes.component.scss',
 })
-export class ModalDeteccaoDetalhesComponent implements Observer, OnDestroy {
+export class ModalDeteccaoDetalhesComponent {
   private _store = inject(Store);
   protected deteccao: DeteccaoQueryResponse = inject(MODAL_DATA) as DeteccaoQueryResponse;
   private _modalService = inject(ModalService<ModalDeteccaoDetalhesComponent>)
 
-  constructor(private _mediator: Mediator) {
-    this._mediator.registrarEvento(EventoMediator.FECHAR_MODAL_DETALHES_DETECCAO, this);
+  constructor() {
     this.BuscarDadosDeAlerta(this.deteccao?.cdAlerta)
   }
 
@@ -45,16 +44,7 @@ export class ModalDeteccaoDetalhesComponent implements Observer, OnDestroy {
     return SetColorByNivel.setColor(nivel);
   }
 
-  onEvent(data: any): void {
-    this.fecharModal();
-    this._mediator.emitirEvento(EventoMediator.BUSCAR_DETECCOES_APOS_REJEITAR_DETECCAO);
-  }
-
   getObserverId(): string {
     return ModalDeteccaoDetalhesComponent.name;
-  }
-
-  ngOnDestroy(): void {
-    this._mediator.removerRegistroDoEvento(EventoMediator.FECHAR_MODAL_DETALHES_DETECCAO, this)
   }
 }
