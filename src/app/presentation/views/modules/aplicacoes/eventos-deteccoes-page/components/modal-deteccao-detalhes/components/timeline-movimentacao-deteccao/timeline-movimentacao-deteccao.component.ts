@@ -20,7 +20,7 @@ export class TimelineMovimentacaoDeteccaoComponent implements OnInit, OnDestroy,
   timelineList: TimelineDto[];
 
   constructor(private _mediator: Mediator, private _buscarMovimentacoesUseCase: BuscarMovimentacoesDeteccaoUseCase) {
-    this._mediator.registrarEvento(EventoMediator.BUSCAR_MOVIMENTACOES_APOS_ADICIONAR_OBSERVACAO, this);
+    this._mediator.registrarEvento(EventoMediator.OBSERVACAO_ADICIONADA, this);
   }
 
   ngOnInit(): void {
@@ -46,7 +46,7 @@ export class TimelineMovimentacaoDeteccaoComponent implements OnInit, OnDestroy,
   }
 
   ngOnDestroy(): void {
-    this._mediator.removerRegistroDoEvento(EventoMediator.BUSCAR_MOVIMENTACOES_APOS_ADICIONAR_OBSERVACAO, this);
+    this._mediator.removerRegistroDoEvento(EventoMediator.OBSERVACAO_ADICIONADA, this);
   }
 
   onEvent(data: any): void {

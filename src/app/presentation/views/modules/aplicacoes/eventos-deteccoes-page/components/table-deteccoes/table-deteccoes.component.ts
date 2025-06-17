@@ -34,7 +34,7 @@ export class TableDeteccoesComponent extends TablePageBase implements OnDestroy,
 
   constructor(private buscarDeteccoesUseCase: BuscarDeteccoesUseCase, private _mediator: Mediator){
     super();
-    this._mediator.registrarEvento(EventoMediator.BUSCAR_DETECCOES_APOS_REJEITAR_DETECCAO, this);
+    this._mediator.registrarEvento(EventoMediator.DETECCAO_REJEITADA, this);
   }
 
   ngOnInit(): void {
@@ -42,7 +42,7 @@ export class TableDeteccoesComponent extends TablePageBase implements OnDestroy,
   }
 
   ngOnDestroy(): void {
-    this._mediator.removerRegistroDoEvento(EventoMediator.BUSCAR_DETECCOES_APOS_REJEITAR_DETECCAO, this);
+    this._mediator.removerRegistroDoEvento(EventoMediator.DETECCAO_REJEITADA, this);
   }
 
   public load(filters?: DeteccaoProps) {

@@ -21,6 +21,6 @@ export class ModalAdicaoObservacaoComponent {
 
   fecharModal(): void {
     this._modalServiceAdicaoObservacao.component(ModalAdicaoObservacaoComponent).dismiss(this.deteccao);
-    this._mediator.emitirEvento(EventoMediator.BUSCAR_MOVIMENTACOES_APOS_ADICIONAR_OBSERVACAO);
+    this._mediator.emitirEvento(EventoMediator.OBSERVACAO_ADICIONADA);
   }
 }
