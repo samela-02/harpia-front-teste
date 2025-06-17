@@ -1,67 +1,67 @@
 <div class="modal">
-    <div class="header">
-      <div class="modal-header">
-        <i [class]="'la la-camera-retro'" class="text-[27px] flex justify-center text-primary dark:text-dark-primary"></i>
-        <span class="flex-center text-lg font-semibold text-text dark:text-cyan-50">
-          {{idEquipamento}}
-        </span>
+  <div class="header">
+    <div class="modal-header">
+      <i [class]="'la la-camera-retro'" class="text-[27px] flex justify-center text-primary dark:text-dark-primary"></i>
+      <span class="flex-center text-lg font-semibold text-text dark:text-cyan-50">
+        {{idEquipamento}}
+      </span>
+    </div>
+    <div class="modal-close">
+      <tvc-button icon="close" color="link" class="opacity-50" (click)="fecharModal()" />
+    </div>
+  </div>
+  <div class="main">
+    <app-card-details class="h-full" titulo="Veículo" icone="la la-car-alt">
+      <div class="h-full w-full grid grid-cols-2 text-primary text-sm">
+        <app-info-line titulo="Placa" icone="la la-tag" [descricao]="veiculo?.nrPlaca" />
+        <app-info-line titulo="Modelo" icone="la la-truck-pickup" [descricao]="veiculo?.nmModelo" />
+        <app-info-line titulo="Marca" icone="la la-plus-square" [descricao]="veiculo?.nmMarca" />
+        <app-info-line titulo="Cor" icone="la la-brush" [descricao]="veiculo?.corVeiculo" />
       </div>
-      <div class="modal-close">
-        <tvc-button icon="close" color="link" class="opacity-50" (click)="fecharModal()" />
+    </app-card-details>
+    <div class="actions">
+      <div class="col-span-full flex-center flex-row gap-2 mb-3">
+        <span class="text-sm pl-1 flex-center gap-1 font-bold text-primary/60 dark:text-dark-primary">
+          <i class="text-[20px]" [class]="'la la-bolt'"></i>
+          <span class="dark:text-cyan-50">
+            Ações
+          </span>
+        </span>
+        <div class="flex-grow">
+          <hr class="w-full my-auto border-t border-primary/70">
+        </div>
+      </div>
+      <div class="flex gap-2 flex-col">
+        <div>
+          <mat-form-field appearance="outline" class="compact-mat-select">
+            <mat-label>Câmera</mat-label>
+            <mat-select [(value)]="cameraSelecionada">
+              @for (componente of componentes; track componente) {
+              <mat-option [value]="componente.idComponente">{{componente.nmComponente}}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="flex gap-2">
+          <button mat-flat-button (click)="solicitarSnapshot()"
+            class="bg-emerald-700/10 text-emerald-500 disabled:cursor-not-allowed" [disabled]="aguardandoSnapshot">
+            @if (aguardandoSnapshot == true) {
+            <i [class]="'la la-spinner'" class="text-lg animate-spin"></i>
+            } @else {
+            <i [class]="'la la-image'" class="text-lg"></i>
+            }
+            <span>
+              Solicitar Snapshot
+            </span>
+          </button>
+          <button mat-flat-button class="bg-amber-700/10 text-amber-500 disabled:cursor-not-allowed flex-center">
+            <i [class]="'la la-video'" class="text-lg"></i>
+            <span>
+              Abrir Stream
+            </span>
+          </button>
+        </div>
       </div>
     </div>
-    <div class="main">
-      <app-card-details class="h-full" titulo="Veículo" icone="la la-car-alt">
-        <div class="h-full w-full grid grid-cols-2 text-primary text-sm">
-          <app-info-line titulo="Placa" icone="la la-tag" [descricao]="veiculo?.nrPlaca" />
-          <app-info-line titulo="Modelo" icone="la la-truck-pickup" [descricao]="veiculo?.nmModelo" />
-          <app-info-line titulo="Marca" icone="la la-plus-square" [descricao]="veiculo?.nmMarca" />
-          <app-info-line titulo="Cor" icone="la la-brush" [descricao]="veiculo?.corVeiculo" />
-        </div>
-      </app-card-details>
-      <div class="actions">
-        <div class="col-span-full flex-center flex-row gap-2 mb-3">
-          <span class="text-sm pl-1 flex-center gap-1 font-bold text-primary/60 dark:text-dark-primary">
-            <i class="text-[20px]" [class]="'la la-bolt'"></i>
-            <span class="dark:text-cyan-50">
-              Ações
-            </span>
-          </span>
-          <div class="flex-grow">
-            <hr class="w-full my-auto border-t border-primary/70">
-          </div>
-          </div>
-            <div class="flex gap-2 flex-col">
-              <div>
-                <mat-form-field appearance="outline" class="compact-mat-select">
-                  <mat-label>Câmera</mat-label>
-                  <mat-select [(value)]="cameraSelecionada">
-                    @for (componente of componentes; track componente) {
-                    <mat-option [value]="componente.idComponente">{{componente.nmComponente}}</mat-option>
-                    }
-                  </mat-select>
-                </mat-form-field>
-              </div>
-              <div class="flex gap-2">
-                <button
-                  mat-flat-button
-                  (click)="solicitarSnapshot()"
-                  class="bg-emerald-700/10 text-emerald-500 disabled:cursor-not-allowed"
-                  [disabled]="aguardandoSnapshot"
-                >
-                  <i [class]="'la la-image'" class="text-lg"></i>
-                  <span>
-                    Solicitar Snapshot
-                  </span>
-                </button>
-                <button mat-flat-button class="bg-amber-700/10 text-amber-500 disabled:cursor-not-allowed flex-center">
-                  <i [class]="'la la-video'" class="text-lg"></i>
-                  <span>
-                    Abrir Stream
-                  </span>
-                </button>
-              </div>
-            </div>
-      </div>
-      </div>
   </div>
+</div>
