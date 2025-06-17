@@ -25,7 +25,7 @@ export const contentMarker = (content: string, imageUrl: string, idEquipamento: 
             ${idEquipamento}
           </span>
         </span>
-        <button class="button-action" title="Solicitar snapshot">
+        <button class="button-action" title="Detalhes do Equipamento">
          <i class="la la-camera-retro" style="font-size:15px;"></i>
        </button>
       </div>
