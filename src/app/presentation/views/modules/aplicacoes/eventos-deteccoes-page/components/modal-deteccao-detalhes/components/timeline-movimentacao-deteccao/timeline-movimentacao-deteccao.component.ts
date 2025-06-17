@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { TimelineComponent } from "../../../../../../../../shared/components/timeline/timeline.component";
 import { TimelineDto } from '@/domain/dtos/timeline.dto';
-import { Observer } from '@/domain/observer/observer';
+import { MediatorObserver } from '@/domain/observer/mediator-observer';
 import { Mediator } from '@/domain/mediator/mediator';
 import { EventoMediator } from '@/domain/enums/evento-mediator';
 import { BuscarMovimentacoesDeteccaoUseCase } from '@/application/usecase/deteccao/buscar-movimentacoes-deteccao.usecase';
@@ -14,7 +14,7 @@ import { MovimentacaoDeteccaoQueryResponse } from '@/domain/models/query/movimen
   templateUrl: './timeline-movimentacao-deteccao.component.html',
   styleUrl: './timeline-movimentacao-deteccao.component.scss'
 })
-export class TimelineMovimentacaoDeteccaoComponent implements OnInit, OnDestroy, Observer {
+export class TimelineMovimentacaoDeteccaoComponent implements OnInit, OnDestroy, MediatorObserver {
   @Input() cdDeteccao: number;
 
   timelineList: TimelineDto[];

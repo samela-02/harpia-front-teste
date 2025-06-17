@@ -10,7 +10,7 @@ import { buscarAlertaPorCdAction } from '@/infrastructure/store/actions/alerta.a
 import { DeteccaoQueryResponse } from '@/domain/models/query/deteccao-query-response';
 import { MODAL_DATA, ModalService } from '@/infrastructure/services/modal/modal.service';
 import { ModalRejeicaoDeteccaoComponent } from './components/modal-rejeicao-deteccao/modal-rejeicao-deteccao.component';
-import { Observer } from '@/domain/observer/observer';
+import { MediatorObserver } from '@/domain/observer/mediator-observer';
 import { Mediator } from '@/domain/mediator/mediator';
 import { EventoMediator } from '@/domain/enums/evento-mediator';
 import { TimelineMovimentacaoDeteccaoComponent } from "./components/timeline-movimentacao-deteccao/timeline-movimentacao-deteccao.component";
@@ -22,7 +22,7 @@ import { TimelineMovimentacaoDeteccaoComponent } from "./components/timeline-mov
   templateUrl: './modal-deteccao-detalhes.component.html',
   styleUrl: './modal-deteccao-detalhes.component.scss',
 })
-export class ModalDeteccaoDetalhesComponent implements OnDestroy, Observer {
+export class ModalDeteccaoDetalhesComponent implements OnDestroy, MediatorObserver {
   private _store = inject(Store);
   protected deteccao: DeteccaoQueryResponse = inject(MODAL_DATA) as DeteccaoQueryResponse;
   private _modalService = inject(ModalService<ModalDeteccaoDetalhesComponent>)
