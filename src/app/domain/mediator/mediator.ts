@@ -1,26 +1,26 @@
-import { EventoMediator } from "../enums/evento-mediator";
+import { MediatorEvento } from "../enums/mediator-evento";
 import { MediatorObserver } from "../observer/mediator-observer";
 
 export class Mediator {
-    private observerMap: Map<EventoMediator, MediatorObserver[]> = new Map;
+    private observerMap: Map<MediatorEvento, MediatorObserver[]> = new Map;
 
-    public registrarEvento(eventoMediator: EventoMediator, observer: MediatorObserver): void {
+    public registrarEvento(eventoMediator: MediatorEvento, observer: MediatorObserver): void {
         const observers: MediatorObserver[] = this.getObserversDoEvento(eventoMediator);
         observers.push(observer);
     }
 
-    public emitirEvento(eventoMediator: EventoMediator, data?: any): void {
+    public emitirEvento(eventoMediator: MediatorEvento, data?: any): void {
         const observers: MediatorObserver[] = this.getObserversDoEvento(eventoMediator);
         observers.forEach(observer => observer.onEvent(eventoMediator, data));
     }
 
-    public removerRegistroDoEvento(eventoMediator: EventoMediator, observer: MediatorObserver): void {
+    public removerRegistroDoEvento(eventoMediator: MediatorEvento, observer: MediatorObserver): void {
         let observers: MediatorObserver[] = this.getObserversDoEvento(eventoMediator);
         observers = observers.filter(observerDoArray => observerDoArray.getObserverId() != observer.getObserverId())
         this.atualizarObserversDoEvento(eventoMediator, observers);
     }
 
-    private getObserversDoEvento(eventoMediator: EventoMediator): MediatorObserver[] {
+    private getObserversDoEvento(eventoMediator: MediatorEvento): MediatorObserver[] {
         let observers: MediatorObserver[] = this.observerMap.get(eventoMediator);
         if (!observers) {
             observers = []
@@ -29,7 +29,7 @@ export class Mediator {
         return observers;
     }
 
-    private atualizarObserversDoEvento(eventoMediator: EventoMediator, observers: MediatorObserver[]) {
+    private atualizarObserversDoEvento(eventoMediator: MediatorEvento, observers: MediatorObserver[]) {
         this.observerMap.set(eventoMediator, observers);
     }
 }

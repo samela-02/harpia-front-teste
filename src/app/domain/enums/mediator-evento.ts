@@ -1,4 +1,4 @@
-export enum EventoMediator {
+export enum MediatorEvento {
     DETECCAO_REJEITADA,
     OBSERVACAO_ADICIONADA,
     DETECCOES_RECARREGADAS

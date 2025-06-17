@@ -4,7 +4,7 @@ import { Component, inject } from '@angular/core';
 import { ButtonComponent } from '@tivic-team/tivic-ui';
 import { FormRejeicaoDeteccaoComponent } from './form-rejeicao-deteccao/form-rejeicao-deteccao.component';
 import { Mediator } from '@/domain/mediator/mediator';
-import { EventoMediator } from '@/domain/enums/evento-mediator';
+import { MediatorEvento } from '@/domain/enums/mediator-evento';
 
 @Component({
   selector: 'app-modal-rejeicao-deteccao',
@@ -24,8 +24,8 @@ export class ModalRejeicaoDeteccaoComponent {
   }
 
   buscarAsMovimentacoesDaDeteccao() {
-    this._mediator.emitirEvento(EventoMediator.OBSERVACAO_ADICIONADA);
-    this._mediator.emitirEvento(EventoMediator.DETECCAO_REJEITADA);
+    this._mediator.emitirEvento(MediatorEvento.OBSERVACAO_ADICIONADA);
+    this._mediator.emitirEvento(MediatorEvento.DETECCAO_REJEITADA);
     this.fecharModal();
   }
 }

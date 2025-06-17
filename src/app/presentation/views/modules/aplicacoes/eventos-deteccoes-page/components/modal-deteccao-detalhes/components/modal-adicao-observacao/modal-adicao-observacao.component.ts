@@ -4,7 +4,7 @@ import { ButtonComponent } from '@tivic-team/tivic-ui';
 import { FormAdicaoObservacaoComponent } from "./form-adicao-observacao/form-adicao-observacao.component";
 import { MODAL_DATA, ModalService } from '@/infrastructure/services/modal/modal.service';
 import { Mediator } from '@/domain/mediator/mediator';
-import { EventoMediator } from '@/domain/enums/evento-mediator';
+import { MediatorEvento } from '@/domain/enums/mediator-evento';
 
 @Component({
   selector: 'app-modal-adicao-observacao',
@@ -21,6 +21,6 @@ export class ModalAdicaoObservacaoComponent {
 
   fecharModal(): void {
     this._modalServiceAdicaoObservacao.component(ModalAdicaoObservacaoComponent).dismiss(this.deteccao);
-    this._mediator.emitirEvento(EventoMediator.OBSERVACAO_ADICIONADA);
+    this._mediator.emitirEvento(MediatorEvento.OBSERVACAO_ADICIONADA);
   }
 }

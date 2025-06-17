@@ -12,7 +12,7 @@ import { MODAL_DATA, ModalService } from '@/infrastructure/services/modal/modal.
 import { ModalRejeicaoDeteccaoComponent } from './components/modal-rejeicao-deteccao/modal-rejeicao-deteccao.component';
 import { MediatorObserver } from '@/domain/observer/mediator-observer';
 import { Mediator } from '@/domain/mediator/mediator';
-import { EventoMediator } from '@/domain/enums/evento-mediator';
+import { MediatorEvento } from '@/domain/enums/mediator-evento';
 import { TimelineMovimentacaoDeteccaoComponent } from "./components/timeline-movimentacao-deteccao/timeline-movimentacao-deteccao.component";
 
 @Component({
@@ -29,14 +29,14 @@ export class ModalDeteccaoDetalhesComponent implements OnDestroy, MediatorObserv
 
   constructor(private _mediator: Mediator) {
     this.BuscarDadosDeAlerta(this.deteccao?.cdAlerta)
-    this._mediator.registrarEvento(EventoMediator.DETECCOES_RECARREGADAS, this);
+    this._mediator.registrarEvento(MediatorEvento.DETECCOES_RECARREGADAS, this);
   }
 
   ngOnDestroy(): void {
-    this._mediator.removerRegistroDoEvento(EventoMediator.DETECCOES_RECARREGADAS, this);
+    this._mediator.removerRegistroDoEvento(MediatorEvento.DETECCOES_RECARREGADAS, this);
   }
 
-  onEvent(eventoMediator: EventoMediator, data: any): void {
+  onEvent(eventoMediator: MediatorEvento, data: any): void {
     const deteccoes: DeteccaoQueryResponse[] = data.dados as DeteccaoQueryResponse[];
     if (this.deteccao && deteccoes.length > 0) {
       this.deteccao = deteccoes

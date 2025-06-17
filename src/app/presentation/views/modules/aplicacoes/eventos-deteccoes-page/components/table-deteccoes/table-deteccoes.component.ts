@@ -14,7 +14,7 @@ import { ModalDeteccaoDetalhesComponent } from '../modal-deteccao-detalhes/modal
 import { ModalService } from '@/infrastructure/services/modal/modal.service';
 import { MediatorObserver } from '@/domain/observer/mediator-observer';
 import { Mediator } from '@/domain/mediator/mediator';
-import { EventoMediator } from '@/domain/enums/evento-mediator';
+import { MediatorEvento } from '@/domain/enums/mediator-evento';
 
 @Component({
   selector: 'app-table-deteccoes',
@@ -34,7 +34,7 @@ export class TableDeteccoesComponent extends TablePageBase implements OnDestroy,
 
   constructor(private buscarDeteccoesUseCase: BuscarDeteccoesUseCase, private _mediator: Mediator){
     super();
-    this._mediator.registrarEvento(EventoMediator.DETECCAO_REJEITADA, this);
+    this._mediator.registrarEvento(MediatorEvento.DETECCAO_REJEITADA, this);
   }
 
   ngOnInit(): void {
@@ -42,7 +42,7 @@ export class TableDeteccoesComponent extends TablePageBase implements OnDestroy,
   }
 
   ngOnDestroy(): void {
-    this._mediator.removerRegistroDoEvento(EventoMediator.DETECCAO_REJEITADA, this);
+    this._mediator.removerRegistroDoEvento(MediatorEvento.DETECCAO_REJEITADA, this);
   }
 
   public load(filters?: DeteccaoProps) {
@@ -67,7 +67,7 @@ export class TableDeteccoesComponent extends TablePageBase implements OnDestroy,
     this.buscarDeteccoesUseCase.execute(filterProps).subscribe((response) => {
       this.deteccoes = response.data
       this.dataLength = response.data.totalItens
-      this._mediator.emitirEvento(EventoMediator.DETECCOES_RECARREGADAS, response.data)
+      this._mediator.emitirEvento(MediatorEvento.DETECCOES_RECARREGADAS, response.data)
     })
   }
 
@@ -81,7 +81,7 @@ export class TableDeteccoesComponent extends TablePageBase implements OnDestroy,
     return SetColorByNivel.setColor(nivel);
   }
 
-  onEvent(eventoMediator: EventoMediator, data: any): void {
+  onEvent(eventoMediator: MediatorEvento, data: any): void {
     this.load();
   }
 

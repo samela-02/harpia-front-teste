@@ -1,6 +1,6 @@
-import { EventoMediator } from "../enums/evento-mediator";
+import { MediatorEvento } from "../enums/mediator-evento";
 
 export interface MediatorObserver {
-    onEvent(eventoMediator: EventoMediator, data: any): void;
+    onEvent(eventoMediator: MediatorEvento, data: any): void;
     getObserverId(): string;
 }

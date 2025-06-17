@@ -3,7 +3,7 @@ import { TimelineComponent } from "../../../../../../../../shared/components/tim
 import { TimelineDto } from '@/domain/dtos/timeline.dto';
 import { MediatorObserver } from '@/domain/observer/mediator-observer';
 import { Mediator } from '@/domain/mediator/mediator';
-import { EventoMediator } from '@/domain/enums/evento-mediator';
+import { MediatorEvento } from '@/domain/enums/mediator-evento';
 import { BuscarMovimentacoesDeteccaoUseCase } from '@/application/usecase/deteccao/buscar-movimentacoes-deteccao.usecase';
 import { MovimentacaoDeteccaoQueryResponse } from '@/domain/models/query/movimentacao-deteccao-query-response';
 
@@ -20,7 +20,7 @@ export class TimelineMovimentacaoDeteccaoComponent implements OnInit, OnDestroy,
   timelineList: TimelineDto[];
 
   constructor(private _mediator: Mediator, private _buscarMovimentacoesUseCase: BuscarMovimentacoesDeteccaoUseCase) {
-    this._mediator.registrarEvento(EventoMediator.OBSERVACAO_ADICIONADA, this);
+    this._mediator.registrarEvento(MediatorEvento.OBSERVACAO_ADICIONADA, this);
   }
 
   ngOnInit(): void {
@@ -46,10 +46,10 @@ export class TimelineMovimentacaoDeteccaoComponent implements OnInit, OnDestroy,
   }
 
   ngOnDestroy(): void {
-    this._mediator.removerRegistroDoEvento(EventoMediator.OBSERVACAO_ADICIONADA, this);
+    this._mediator.removerRegistroDoEvento(MediatorEvento.OBSERVACAO_ADICIONADA, this);
   }
 
-  onEvent(eventoMediator: EventoMediator, data: any): void {
+  onEvent(eventoMediator: MediatorEvento, data: any): void {
     this.buscarMovimentacoes();
   }
 
