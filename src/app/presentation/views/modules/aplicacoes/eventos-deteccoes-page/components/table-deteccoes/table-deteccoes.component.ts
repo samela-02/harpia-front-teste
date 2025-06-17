@@ -12,6 +12,9 @@ import { Component, inject, OnDestroy } from '@angular/core';
 import { BadgeComponent } from '@tivic-team/tivic-ui';
 import { ModalDeteccaoDetalhesComponent } from '../modal-deteccao-detalhes/modal-deteccao-detalhes.component';
 import { ModalService } from '@/infrastructure/services/modal/modal.service';
+import { Observer } from '@/domain/observer/observer';
+import { Mediator } from '@/domain/mediator/mediator';
+import { EventoMediator } from '@/domain/enums/evento-mediator';
 
 @Component({
   selector: 'app-table-deteccoes',
@@ -21,7 +24,7 @@ import { ModalService } from '@/infrastructure/services/modal/modal.service';
   styleUrl: './table-deteccoes.component.scss'
 })
 
-export class TableDeteccoesComponent extends TablePageBase {
+export class TableDeteccoesComponent extends TablePageBase implements OnDestroy, Observer {
   public deteccoes!: ResponsePaginacao<DeteccaoQueryResponse>;
   public dataLength!: number;
   protected override pageSize: number = 5;
@@ -29,12 +32,17 @@ export class TableDeteccoesComponent extends TablePageBase {
 
   private _modalService = inject(ModalService<ModalDeteccaoDetalhesComponent>);
 
-  constructor(private buscarDeteccoesUseCase: BuscarDeteccoesUseCase){
-    super()
+  constructor(private buscarDeteccoesUseCase: BuscarDeteccoesUseCase, private _mediator: Mediator){
+    super();
+    this._mediator.registrarEvento(EventoMediator.BUSCAR_DETECCOES_APOS_REJEITAR_DETECCAO, this);
   }
 
   ngOnInit(): void {
     this.load();
+  }
+
+  ngOnDestroy(): void {
+    this._mediator.removerRegistroDoEvento(EventoMediator.BUSCAR_DETECCOES_APOS_REJEITAR_DETECCAO, this);
   }
 
   public load(filters?: DeteccaoProps) {

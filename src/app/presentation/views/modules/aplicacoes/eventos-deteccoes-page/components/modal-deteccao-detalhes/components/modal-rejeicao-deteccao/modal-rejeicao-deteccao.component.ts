@@ -25,6 +25,7 @@ export class ModalRejeicaoDeteccaoComponent {
 
   buscarAsMovimentacoesDaDeteccao() {
     this._mediator.emitirEvento(EventoMediator.BUSCAR_MOVIMENTACOES_APOS_ADICIONAR_OBSERVACAO);
+    this._mediator.emitirEvento(EventoMediator.BUSCAR_DETECCOES_APOS_REJEITAR_DETECCAO);
     this.fecharModal();
   }
 }
