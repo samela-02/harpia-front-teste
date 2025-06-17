@@ -10,25 +10,39 @@ import { buscarAlertaPorCdAction } from '@/infrastructure/store/actions/alerta.a
 import { DeteccaoQueryResponse } from '@/domain/models/query/deteccao-query-response';
 import { MODAL_DATA, ModalService } from '@/infrastructure/services/modal/modal.service';
 import { ModalRejeicaoDeteccaoComponent } from './components/modal-rejeicao-deteccao/modal-rejeicao-deteccao.component';
-import { Observer } from '@/domain/observer/observer';
+import { MediatorObserver } from '@/domain/observer/mediator-observer';
 import { Mediator } from '@/domain/mediator/mediator';
-import { EventosMediator } from '@/domain/enums/evento-mediator';
+import { MediatorEvento } from '@/domain/enums/mediator-evento';
+import { TimelineMovimentacaoDeteccaoComponent } from "./components/timeline-movimentacao-deteccao/timeline-movimentacao-deteccao.component";
 
 @Component({
   selector: 'app-modal-deteccao-detalhes',
   standalone: true,
-  imports: [ButtonComponent, CommonModule, MatTabsModule, EventoContentModalComponent, MaisDetalhesContentModalComponent ],
+  imports: [ButtonComponent, CommonModule, MatTabsModule, EventoContentModalComponent, MaisDetalhesContentModalComponent, TimelineMovimentacaoDeteccaoComponent],
   templateUrl: './modal-deteccao-detalhes.component.html',
   styleUrl: './modal-deteccao-detalhes.component.scss',
 })
-export class ModalDeteccaoDetalhesComponent implements Observer, OnDestroy {
+export class ModalDeteccaoDetalhesComponent implements OnDestroy, MediatorObserver {
   private _store = inject(Store);
   protected deteccao: DeteccaoQueryResponse = inject(MODAL_DATA) as DeteccaoQueryResponse;
   private _modalService = inject(ModalService<ModalDeteccaoDetalhesComponent>)
 
   constructor(private _mediator: Mediator) {
-    this._mediator.registrarEvento(EventosMediator.FECHAR_MODAL_DETALHES_DETECCAO, this);
     this.BuscarDadosDeAlerta(this.deteccao?.cdAlerta)
+    this._mediator.registrarEvento(MediatorEvento.DETECCOES_RECARREGADAS, this);
+  }
+
+  ngOnDestroy(): void {
+    this._mediator.removerRegistroDoEvento(MediatorEvento.DETECCOES_RECARREGADAS, this);
+  }
+
+  onEvent(eventoMediator: MediatorEvento, data: any): void {
+    const deteccoes: DeteccaoQueryResponse[] = data.dados as DeteccaoQueryResponse[];
+    if (this.deteccao && deteccoes.length > 0) {
+      this.deteccao = deteccoes
+        .filter(deteccao => deteccao.cdDeteccao === this.deteccao.cdDeteccao)
+        .at(0);
+    }
   }
 
   fecharModal() {
@@ -44,16 +58,7 @@ export class ModalDeteccaoDetalhesComponent implements Observer, OnDestroy {
     return SetColorByNivel.setColor(nivel);
   }
 
-  onEvent(data: any): void {
-    this.fecharModal();
-    this._mediator.emitirEvento(EventosMediator.BUSCAR_DETECCOES_APOS_REJEITAR_DETECCAO);
-  }
-
   getObserverId(): string {
     return ModalDeteccaoDetalhesComponent.name;
-  }
-
-  ngOnDestroy(): void {
-    this._mediator.removerRegistroDoEvento(EventosMediator.FECHAR_MODAL_DETALHES_DETECCAO, this)
   }
 }

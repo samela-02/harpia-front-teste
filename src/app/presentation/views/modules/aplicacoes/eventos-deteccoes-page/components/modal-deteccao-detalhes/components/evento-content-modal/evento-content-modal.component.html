@@ -39,8 +39,15 @@
           <app-info-line titulo="Ano" icone="la la-sort-numeric-up-alt" [descricao]="dadosAlerta()?.veiculo.nrAno && dadosAlerta()?.veiculo.nrAno.toString()" />
         </div>
       </app-card-details>
-      <div class="flex justify-end">
-            <button (click)="abrirModalRejeicao()" mat-flat-button class="bg-red-700/10 text-red-700 rounded-md py-1 px-4 text-md">
+      <div class="w-full flex justify-end">
+            <button mat-flat-button [disabled]="deteccao.dtDelecao" (click)="abrirModalCreateObservacao()"
+              class="mr-2 bg-primary/10 dark:bg-dark-primary/10 text-primary dark:text-dark-primary disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-primary/50 rounded-md py-1 px-4 text-md">
+              <i class="la la-save text-lg"></i>
+              <span class="pt-1">
+                Adicionar observação
+              </span>
+            </button>
+            <button [disabled]="deteccao.dtDelecao" (click)="abrirModalRejeicao()" mat-flat-button class="bg-red-700/10 text-red-700 rounded-md py-1 px-4 text-md disabled:text-red-700/50 disabled:cursor-not-allowed disabled:bg-gray-100">
               <i class="la la-times-circle text-lg"></i>
               <span class="pt-1">
                 Rejeitar

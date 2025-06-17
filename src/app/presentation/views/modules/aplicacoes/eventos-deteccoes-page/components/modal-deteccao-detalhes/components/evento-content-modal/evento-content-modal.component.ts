@@ -12,6 +12,7 @@ import L from 'leaflet';
 import { ModalService } from '@/infrastructure/services/modal/modal.service';
 import { ModalRejeicaoDeteccaoComponent } from '../modal-rejeicao-deteccao/modal-rejeicao-deteccao.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { ModalAdicaoObservacaoComponent } from '../modal-adicao-observacao/modal-adicao-observacao.component';
 
 @Component({
   selector: 'app-evento-content-modal',
@@ -27,6 +28,7 @@ export class EventoContentModalComponent implements AfterViewInit {
   private _modalService = inject(ModalService<ImagemDeteccaoModalComponent>)
   public dadosAlerta = this._store.selectSignal(AlertaSelectors.alertaPorCd);
   private _modalServiceRejeicaoDeteccao = inject(ModalService<ModalRejeicaoDeteccaoComponent>);
+  private _modalServiceAdicaoObservacao = inject(ModalService<ModalAdicaoObservacaoComponent>);
 
   @Input() deteccao: DeteccaoQueryResponse;
 
@@ -71,5 +73,9 @@ export class EventoContentModalComponent implements AfterViewInit {
 
   abrirModalRejeicao() {
     this._modalServiceRejeicaoDeteccao.component(ModalRejeicaoDeteccaoComponent).open(this.deteccao);
+  }
+
+  abrirModalCreateObservacao(): void {
+    this._modalServiceAdicaoObservacao.component(ModalAdicaoObservacaoComponent).open(this.deteccao);
   }
 }

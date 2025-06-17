@@ -12,9 +12,9 @@ import { Component, inject, OnDestroy } from '@angular/core';
 import { BadgeComponent } from '@tivic-team/tivic-ui';
 import { ModalDeteccaoDetalhesComponent } from '../modal-deteccao-detalhes/modal-deteccao-detalhes.component';
 import { ModalService } from '@/infrastructure/services/modal/modal.service';
-import { Observer } from '@/domain/observer/observer';
+import { MediatorObserver } from '@/domain/observer/mediator-observer';
 import { Mediator } from '@/domain/mediator/mediator';
-import { EventosMediator } from '@/domain/enums/evento-mediator';
+import { MediatorEvento } from '@/domain/enums/mediator-evento';
 
 @Component({
   selector: 'app-table-deteccoes',
@@ -24,21 +24,25 @@ import { EventosMediator } from '@/domain/enums/evento-mediator';
   styleUrl: './table-deteccoes.component.scss'
 })
 
-export class TableDeteccoesComponent extends TablePageBase implements Observer, OnDestroy {
+export class TableDeteccoesComponent extends TablePageBase implements OnDestroy, MediatorObserver {
   public deteccoes!: ResponsePaginacao<DeteccaoQueryResponse>;
   public dataLength!: number;
   protected override pageSize: number = 5;
-  public displayedColumns: string[] = ['imgOriginal', 'nrPlaca', 'idEquipamento', 'dtDeteccao'];
+  public displayedColumns: string[] = ['imgOriginal', 'nrPlaca', 'idEquipamento', 'dtDeteccao', 'dtDelecao'];
 
   private _modalService = inject(ModalService<ModalDeteccaoDetalhesComponent>);
 
   constructor(private buscarDeteccoesUseCase: BuscarDeteccoesUseCase, private _mediator: Mediator){
-    super()
-    this._mediator.registrarEvento(EventosMediator.BUSCAR_DETECCOES_APOS_REJEITAR_DETECCAO, this);
+    super();
+    this._mediator.registrarEvento(MediatorEvento.DETECCAO_REJEITADA, this);
   }
 
   ngOnInit(): void {
     this.load();
+  }
+
+  ngOnDestroy(): void {
+    this._mediator.removerRegistroDoEvento(MediatorEvento.DETECCAO_REJEITADA, this);
   }
 
   public load(filters?: DeteccaoProps) {
@@ -57,13 +61,13 @@ export class TableDeteccoesComponent extends TablePageBase implements Observer, 
       nmPiv: this.currentFilters?.nmPiv,
       nrPlaca: this.currentFilters?.nrPlaca,
       vlConfidencePivInferior: this.currentFilters?.vlConfidencePivInferior,
-      vlConfidencePivSuperior: this.currentFilters?.vlConfidencePivSuperior,
-      lgAtivo: 1
+      vlConfidencePivSuperior: this.currentFilters?.vlConfidencePivSuperior
     };
     const filterProps = new DeteccaoFilter(paginationProps);
     this.buscarDeteccoesUseCase.execute(filterProps).subscribe((response) => {
       this.deteccoes = response.data
       this.dataLength = response.data.totalItens
+      this._mediator.emitirEvento(MediatorEvento.DETECCOES_RECARREGADAS, response.data)
     })
   }
 
@@ -77,16 +81,11 @@ export class TableDeteccoesComponent extends TablePageBase implements Observer, 
     return SetColorByNivel.setColor(nivel);
   }
 
-  onEvent(data: any): void {
+  onEvent(eventoMediator: MediatorEvento, data: any): void {
     this.load();
   }
 
   getObserverId(): string {
     return TableDeteccoesComponent.name;
   }
-
-  ngOnDestroy(): void {
-    this._mediator.removerRegistroDoEvento(EventosMediator.BUSCAR_DETECCOES_APOS_REJEITAR_DETECCAO, this)
-  }
 }
-

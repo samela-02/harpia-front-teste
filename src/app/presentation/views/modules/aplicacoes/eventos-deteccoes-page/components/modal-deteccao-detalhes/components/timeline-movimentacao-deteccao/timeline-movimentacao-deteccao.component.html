@@ -1,0 +1,9 @@
+<div class="w-full h-full max-h-[500px] p-4">
+    @if (timelineList && timelineList.length > 0) {
+        <app-timeline [timelineList]="timelineList"></app-timeline>
+    } @else {
+        <div class="p-4 flex items-center justify-center w-full h-full">
+            <h3 class="font-semibold">Não há movimentações nessa detecção</h3>
+        </div>
+    }
+</div>

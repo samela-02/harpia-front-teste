@@ -19,7 +19,10 @@
             <mat-tab label="Mais detalhes" class="h-full">
               <app-mais-detalhes-content-modal class="h-full" [deteccao]="deteccao"/>
             </mat-tab>
+            <mat-tab label="Observações">
+              <app-timeline-movimentacao-deteccao [cdDeteccao]="this.deteccao.cdDeteccao"></app-timeline-movimentacao-deteccao>
+            </mat-tab>
           </mat-tab-group>
     </div>
-  </div>-
+  </div>
 </div>
