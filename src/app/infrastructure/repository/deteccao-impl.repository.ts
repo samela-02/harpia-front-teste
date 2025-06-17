@@ -5,6 +5,7 @@ import { DeteccaoFilter } from "@/domain/filters/deteccao/deteccao.filter";
 import { DeteccaoRejeitada } from "@/domain/models/command/deteccao/deteccao-rejeitada";
 import { ObservacaoDeteccao } from "@/domain/models/command/deteccao/observacao-deteccao";
 import { DeteccaoQueryResponse } from "@/domain/models/query/deteccao-query-response";
+import { MovimentacaoDeteccaoQueryResponse } from "@/domain/models/query/movimentacao-deteccao-query-response";
 import { inject } from "@angular/core";
 import { Client } from "@tivic-team/tivic-ui";
 import { Observable } from "rxjs";
@@ -23,5 +24,9 @@ export class DeteccaoImplRepository implements DeteccaoRepository{
 
   adicionarObservacao(observacaoDeteccao: ObservacaoDeteccao): Observable<void> {
     return this._client.post(`${this._api}/observacao`, observacaoDeteccao)
+  }
+
+  buscarMovimentacoesDeteccao(cdDeteccao: number): Observable<MovimentacaoDeteccaoQueryResponse[]> {
+    return this._client.get(`${this._api}/movimentacoes/${cdDeteccao}`) as Observable<MovimentacaoDeteccaoQueryResponse[]>;
   }
 }
