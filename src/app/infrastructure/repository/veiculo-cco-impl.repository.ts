@@ -9,7 +9,6 @@ import { Client } from "@tivic-team/tivic-ui";
 import { Observable } from "rxjs";
 
 export class VeiculoCCORepositoryIml implements VeiculoCCORepository {
-
   private _client = inject(Client);
   private readonly _api = "veiculos";
 
@@ -29,4 +28,7 @@ export class VeiculoCCORepositoryIml implements VeiculoCCORepository {
     return this._client.patch(`${this._api}/${cdVeiculo}`, null)
   }
 
+  buscarVeiculoCCOPorIdEquipamento(idEquipamento: string): Observable<ResponseData<VeiculoCCOQueryResponse>> {
+    return this._client.get(`${this._api}/alocacao?idEquipamento=${idEquipamento}`) as Observable<ResponseData<VeiculoCCOQueryResponse>>
+  }
 }

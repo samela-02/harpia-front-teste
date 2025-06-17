@@ -8,7 +8,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-eventos-deteccoes-page',
   standalone: true,
-  imports: [FiltersInputsComponent, TableDeteccoesComponent, InputSearchComponent, CommonModule],
+  imports: [FiltersInputsComponent, TableDeteccoesComponent, CommonModule],
   templateUrl: './eventos-deteccoes-page.component.html',
   styleUrl: './eventos-deteccoes-page.component.scss'
 })

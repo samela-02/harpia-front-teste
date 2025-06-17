@@ -1,8 +1,9 @@
+import { MODAL_DATA, ModalService } from '@/infrastructure/services/modal/modal.service';
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, inject, ViewChild } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MODAL_DATA, ModalService } from '@tivic-team/tivic-ui';
 import * as htmlToImage from 'html-to-image';
 
 @Component({
@@ -23,13 +24,11 @@ export class ModalContentComponent {
 
   public downloadImage() {
     const element = this.imageContainer.nativeElement;
-
     const filter = (node: Node): boolean => {
       if (!(node instanceof Element)) return true;
       if (node.tagName === 'BUTTON') return false;
       if (node.classList && node.classList.contains('bg-slate-50')) return false;
       if (node.classList && node.classList.contains('action-buttons')) return false;
-
       return true;
     };
 
@@ -42,7 +41,6 @@ export class ModalContentComponent {
       .then(dataUrl => {
         const timestamp = new Date().toISOString().replace(/[:.-]/g, '');
         const fileName = `deteccao_com_boundbox_${timestamp}.png`;
-
         const link = document.createElement('a');
         link.href = dataUrl;
         link.download = fileName;

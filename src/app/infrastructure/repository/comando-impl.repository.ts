@@ -42,4 +42,12 @@ export class ComandoRepositoryImpl implements ComandoRepository {
   buscarUltimoSnapshot(idEquipamento: String): Observable<ResponseData<UltimoSnapshotQueryResponse>> {
     return this._client.environment(null).get(`${this.api}/comandos/ultimo-snapshot?idEquipamento=${idEquipamento}`) as Observable<ResponseData<UltimoSnapshotQueryResponse>>
   }
+
+  solicitarSnapshot(comando: ComandoDTo): Observable<void> {
+    return this._client.environment(null).post(`${this.api}/comandos/snapshot`, comando)
+  }
+
+  solicitarWebRtc(comando: ComandoDTo): Observable<void> {
+    return this._client.environment(null).post(`${this.api}/comandos/webrtc`, comando)
+  }
 }

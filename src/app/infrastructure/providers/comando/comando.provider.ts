@@ -1,12 +1,19 @@
 import { ComandoRepository } from "@/application/repositories/comando.repository"
 import { BuscarComandoUseCase } from "@/application/usecase/comando/buscar-comando.usecase"
 import { BuscarUltimoSnapshotUseCase } from "@/application/usecase/comando/buscar-ultimo-snapshot.usecase"
-import { EnviarComandoUseCase } from "@/application/usecase/comando/enviar-comando.usecase"
+import { SolicitarSnapshotUseCase } from "@/application/usecase/comando/solicitar-snapshot.usecase"
+import { SolicitarWebRtcUseCase } from "@/application/usecase/comando/solicitar-webrtc.usecase"
 import { ComandoRepositoryImpl } from "@/infrastructure/repository/comando-impl.repository"
 
-export const enviarComandoProvider = {
-  provide: EnviarComandoUseCase,
-  useFactory: (comandoRepository: ComandoRepository) => new EnviarComandoUseCase(comandoRepository),
+export const enviarWebRtcProvider = {
+  provide: SolicitarWebRtcUseCase,
+  useFactory: (comandoRepository: ComandoRepository) => new SolicitarSnapshotUseCase(comandoRepository),
+  deps: [ComandoRepository]
+}
+
+export const enviarSnapshotProvider = {
+  provide: SolicitarSnapshotUseCase,
+  useFactory: (comandoRepository: ComandoRepository) => new SolicitarSnapshotUseCase(comandoRepository),
   deps: [ComandoRepository]
 }
 
@@ -22,9 +29,9 @@ export const buscarUltimoSnapshot = {
   deps: [ComandoRepository]
 }
 
-
 export const comandoProviders = [
-  enviarComandoProvider,
+  enviarSnapshotProvider,
+  enviarWebRtcProvider,
   buscarComandoProvider,
   buscarUltimoSnapshot,
   {

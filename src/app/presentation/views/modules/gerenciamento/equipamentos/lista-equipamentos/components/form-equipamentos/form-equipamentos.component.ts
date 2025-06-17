@@ -13,6 +13,7 @@ import { TipoEquipamentosFilter, TipoEquipamentosProps } from '@/domain/filters/
 import { VeiculoCCOFilter, VeiculoCCOProps } from '@/domain/filters/veiculoCCO/veiculoCCO.filter';
 import { Equipamento } from '@/domain/models/command/equipamento';
 import { HasRoleDirective } from '@/infrastructure/directives/has-role.directive';
+import { AuthServiceImpl } from '@/infrastructure/services/auth.service-impl';
 import { BuscarEquipamentosAction } from '@/infrastructure/store/actions/equipamento.actions';
 import { BuscarInstituicoesAction } from '@/infrastructure/store/actions/instituicao.actions';
 import { BuscarTiposEquipamentosAction } from '@/infrastructure/store/actions/tipo-equipamento.actions';
@@ -53,15 +54,16 @@ export class FormEquipamentoComponent {
   public formGroupAlocacao!: FormGroup;
   private _customDialog = inject(CustomDialogService);
   private _store = inject(Store);
+  private usuarioRole = this.authService.getRole();
 
   public icon = 'la la-save'
   public iconClose = 'la la-times-circle'
   public isEditable = false;
+  public roles = UsuarioRole;
 
   public instituicoes = () => this._store.select(InstituicaoSelectors.instituicaoSelect)
   public tiposEquipamento = () => this._store.select(TipoEquipamentoSelectors.tiposEquipamentosSelect)
   public veiculosCCO = () => this._store.select(VeiculoCCOSelectors.veiculosCCOSelect)
-  public UsuarioRole = UsuarioRole;
 
   @Output() cadastroSucesso = new EventEmitter<void>();
   @Input() equipamentos: any = null;
@@ -69,6 +71,7 @@ export class FormEquipamentoComponent {
   constructor(
       private criarEquipamentoUseCase: CriarEquipamentoUseCase,
       private alocarEquipamentoUseCase: AlocarEquipamentoUseCase,
+      private authService: AuthServiceImpl,
       private desalocarEquipamentoUseCase: DesalocarEquipamentoUseCase,
       private editarEquipamentoUseCase: EditarEquipamentoUseCase,
       private desativarEquipamentoUseCase: DesativarEquipamentoUseCase,
@@ -89,9 +92,8 @@ export class FormEquipamentoComponent {
   }
 
   ngOnInit(): void {
-    this.loadInstituicoes()
-    this.loadVeiculos()
-    this.loadTipoEquipamento();
+    this.aplicarRegraPorTipoDeUsuario();
+
     this.updateForm();
     this.updateFormState();
   }
@@ -105,6 +107,14 @@ export class FormEquipamentoComponent {
       if (!this.equipamentos?.alocacao) {
         this.formGroupAlocacao.enable()
       }
+    }
+  }
+
+  private aplicarRegraPorTipoDeUsuario() {
+    if (this.usuarioRole == this.roles.ADMINISTRADOR) {
+      this.loadInstituicoes();
+      this.loadVeiculos()
+      this.loadTipoEquipamento();
     }
   }
 

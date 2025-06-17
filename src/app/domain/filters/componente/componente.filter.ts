@@ -8,6 +8,7 @@ export interface ComponentesProps extends PropsFilter {
   cdTipoComponente?: number;
   idComponente?: string;
   cdEquipamento?: number;
+  idEquipamento?: string;
   nmComponente?: string;
   lgAtivo?: boolean;
   dtDelecaoInferior?: Date;
@@ -28,6 +29,7 @@ export class ComponentesFilter {
     filterManager.addFilter(new ComponenteType.cdTipoComponente(this.props.cdTipoComponente));
     filterManager.addFilter(new ComponenteType.idComponente(this.props.idComponente));
     filterManager.addFilter(new ComponenteType.cdEquipamento(this.props.cdEquipamento));
+    filterManager.addFilter(new ComponenteType.idEquipamento(this.props.idEquipamento));
     filterManager.addFilter(new ComponenteType.nmComponente(this.props.nmComponente));
     filterManager.addFilter(new ComponenteType.lgAtivo(this.props.lgAtivo));
     filterManager.addFilter(new ComponenteType.dtDelecaoInferior(this.props.dtDelecaoInferior));
