@@ -6,6 +6,7 @@ import { Mediator } from '@/domain/mediator/mediator';
 import { MediatorEvento } from '@/domain/enums/mediator-evento';
 import { BuscarMovimentacoesDeteccaoUseCase } from '@/application/usecase/deteccao/buscar-movimentacoes-deteccao.usecase';
 import { MovimentacaoDeteccaoQueryResponse } from '@/domain/models/query/movimentacao-deteccao-query-response';
+import { Icon } from '@/domain/static-instances/icon.static-instances';
 
 @Component({
   selector: 'app-timeline-movimentacao-deteccao',
@@ -41,7 +42,8 @@ export class TimelineMovimentacaoDeteccaoComponent implements OnInit, OnDestroy,
         return new TimelineDto(movimentacao.tpMovimentacaoDeteccao,
           new Date(movimentacao.dtMovimentacaoDeteccao),
           movimentacao.dsMovimentacaoDeteccao,
-          movimentacao.nmEmailUsuario);
+          movimentacao.nmEmailUsuario,
+          Icon.findByKey(movimentacao.tpMovimentacaoDeteccao));
       });
   }
 
