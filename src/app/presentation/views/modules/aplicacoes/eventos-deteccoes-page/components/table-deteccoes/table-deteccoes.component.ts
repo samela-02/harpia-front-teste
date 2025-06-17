@@ -81,7 +81,7 @@ export class TableDeteccoesComponent extends TablePageBase implements OnDestroy,
     return SetColorByNivel.setColor(nivel);
   }
 
-  onEvent(data: any): void {
+  onEvent(eventoMediator: EventoMediator, data: any): void {
     this.load();
   }
 

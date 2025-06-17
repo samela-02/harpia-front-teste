@@ -49,7 +49,7 @@ export class TimelineMovimentacaoDeteccaoComponent implements OnInit, OnDestroy,
     this._mediator.removerRegistroDoEvento(EventoMediator.OBSERVACAO_ADICIONADA, this);
   }
 
-  onEvent(data: any): void {
+  onEvent(eventoMediator: EventoMediator, data: any): void {
     this.buscarMovimentacoes();
   }
 

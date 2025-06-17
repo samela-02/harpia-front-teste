@@ -36,7 +36,7 @@ export class ModalDeteccaoDetalhesComponent implements OnDestroy, Observer {
     this._mediator.removerRegistroDoEvento(EventoMediator.DETECCOES_RECARREGADAS, this);
   }
 
-  onEvent(data: any): void {
+  onEvent(eventoMediator: EventoMediator, data: any): void {
     const deteccoes: DeteccaoQueryResponse[] = data.dados as DeteccaoQueryResponse[];
     if (this.deteccao && deteccoes.length > 0) {
       this.deteccao = deteccoes

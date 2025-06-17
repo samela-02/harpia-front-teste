@@ -11,7 +11,7 @@ export class Mediator {
 
     public emitirEvento(eventoMediator: EventoMediator, data?: any): void {
         const observers: Observer[] = this.getObserversDoEvento(eventoMediator);
-        observers.forEach(observer => observer.onEvent(data));
+        observers.forEach(observer => observer.onEvent(eventoMediator, data));
     }
 
     public removerRegistroDoEvento(eventoMediator: EventoMediator, observer: Observer): void {
