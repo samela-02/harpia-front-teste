@@ -8,6 +8,7 @@ import { Observable } from "rxjs";
 import { AuthServiceImpl } from "../services/auth.service-impl";
 import { ResponseData } from "@/application/dtos/response-data.dto";
 import { UltimoSnapshotQueryResponse } from "@/domain/models/query/ultimo-snapshot-query-response";
+import { EosResponseDto } from "@/application/dtos/eos/eos-response.dto";
 
 export class ComandoRepositoryImpl implements ComandoRepository {
   private api = `${environment.protocol}://${environment.host}:${environment.port}/${environment.context}/${environment.apiroot}`;
@@ -47,7 +48,7 @@ export class ComandoRepositoryImpl implements ComandoRepository {
     return this._client.environment(null).post(`${this.api}/comandos/snapshot`, comando)
   }
 
-  solicitarWebRtc(comando: ComandoDTo): Observable<void> {
-    return this._client.environment(null).post(`${this.api}/comandos/webrtc`, comando)
+  solicitarStream(comando: ComandoDTo): Observable<ResponseData<EosResponseDto>>{
+    return this._client.environment(null).post(`${this.api}/comandos/streaming`, comando)
   }
 }

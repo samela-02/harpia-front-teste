@@ -1,6 +1,8 @@
+import { colorStatus } from "../enums/color-status.enum";
+
 export interface EquipmentStatus {
   idEquipamento: string;
   dtUltimaComunicacao: Date;
-  statusColor: 'green' | 'yellow' | 'red' | 'gray';
+  statusColor: colorStatus
   nome?: string;
 }

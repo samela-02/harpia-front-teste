@@ -1,5 +1,4 @@
 import { BuscarComandoUseCase } from '@/application/usecase/comando/buscar-comando.usecase';
-import { SolicitarWebRtcUseCase } from '@/application/usecase/comando/solicitar-webrtc.usecase';
 import { BuscarComponentesUseCase } from '@/application/usecase/componente/buscar-componentes.usecase';
 import { BuscarVeiculoCCOIdEquipamentoUseCase } from '@/application/usecase/veiculo-cco/buscar-veiculo-cco-por-idEquipamento.usecase';
 import { ComandoDTo } from '@/domain/dtos/comando.dto';
@@ -16,6 +15,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { ButtonComponent } from '@tivic-team/tivic-ui';
 import { v4 as uuidv4 } from 'uuid';
 import { ModalContentComponent } from '../modal-content/modal-content.component';
+import { SolicitarSnapshotUseCase } from '@/application/usecase/comando/solicitar-snapshot.usecase';
+import { SolicitarStreamUseCase } from '@/application/usecase/comando/solicitar-stream.usecase';
+import { ModalLivekitComponent } from '../modal-livekit/modal-livekit.component';
 
 @Component({
   selector: 'app-modal-detalhes-equipamento',
@@ -28,17 +30,20 @@ export class ModalDetalhesEquipamentoComponent {
   private _modalService = inject(ModalService<ModalDetalhesEquipamentoComponent>);
   private _modalContentService = inject(ModalService<ModalContentComponent>);
   protected idEquipamento: string = inject(MODAL_DATA) as string;
+  private _modalLiveKitService = inject(ModalService<ModalLivekitComponent>)
 
   public cameraSelecionada: string = ''
   public veiculo: VeiculoCCOQueryResponse;
   public componentes: Componente[];
   public aguardandoSnapshot: boolean = false
+  public aguardandoStream: boolean = false
 
   constructor(
     private buscarVeiculoCCOPorIdEquipamento: BuscarVeiculoCCOIdEquipamentoUseCase,
     private buscarComponentesUseCase: BuscarComponentesUseCase,
-    private solicitaComandoSnapshot: SolicitarWebRtcUseCase,
-    private buscarRetornoComandoUseCase: BuscarComandoUseCase
+    private solicitaComandoSnapshot: SolicitarSnapshotUseCase,
+    private buscarRetornoComandoUseCase: BuscarComandoUseCase,
+    private solicitarStreamUseCase: SolicitarStreamUseCase
   ){
     this.buscarVeiculo(this.idEquipamento);
     this.buscarComponentes();
@@ -76,6 +81,25 @@ export class ModalDetalhesEquipamentoComponent {
     }
     this.solicitaComandoSnapshot.execute(comando).subscribe(resp => {
       this.buscarRetornoComando(idComando);
+    });
+  }
+
+  solicitarStream() {
+    const idComando = uuidv4()
+    const comando: ComandoDTo = {
+      idComando: idComando,
+      idComponente: this.cameraSelecionada,
+      idEquipamento: this.idEquipamento,
+      tpVariacao: VariacaoEnum.ORI
+    }
+    this.aguardandoStream = true
+    this.solicitarStreamUseCase.execute(comando).subscribe({
+      next: (resp) => {
+        this.aguardandoStream = false
+        this._modalLiveKitService.component(ModalLivekitComponent).open(resp.data)
+      }, error() {
+        this.aguardandoStream = false
+      }
     });
   }
 

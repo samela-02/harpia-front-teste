@@ -14,6 +14,7 @@ import * as L from 'leaflet';
 import { Subscription, interval } from 'rxjs';
 import { ModalDetalhesEquipamentoComponent } from './components/modal-detalhes-equipamento/modal-detalhes-equipamento.component';
 import { contentMarker } from './helpers/content-marker';
+import { DefineColorStatus } from '@/presentation/shared/helpers/calculate-status-color.helper';
 
 @Component({
   selector: 'app-mapa-veiculos-page',
@@ -103,7 +104,7 @@ export class MapaVeiculosPageComponent implements OnInit {
         return {
           idEquipamento: equipamento.idEquipamento,
           dtUltimaComunicacao: equipamento.dtUltimaComunicacao,
-          statusColor: this.calculateStatusColor(equipamento.dtUltimaComunicacao)
+          statusColor: DefineColorStatus.defineColorByTime(equipamento.dtUltimaComunicacao)
         }
       });
   }
@@ -125,7 +126,7 @@ export class MapaVeiculosPageComponent implements OnInit {
   private atualizarStatusEquipamento(): void {
     let changed = false;
     this.equipmentStatusMap.forEach((status, id) => {
-      const newColor = this.calculateStatusColor(status.dtUltimaComunicacao);
+      const newColor = DefineColorStatus.defineColorByTime(status.dtUltimaComunicacao);
       if (status.statusColor !== newColor) {
         status.statusColor = newColor;
         this.equipmentStatusMap.set(id, status);
@@ -135,23 +136,6 @@ export class MapaVeiculosPageComponent implements OnInit {
     if (changed) {
       this.changeDetectorRef.detectChanges();
     }
-  }
-
-  private calculateStatusColor(lastCommunicationTime: Date): 'green' | 'yellow' | 'red' | 'gray' {
-    const now = new Date();
-    lastCommunicationTime = new Date(lastCommunicationTime)
-    const diffMinutes = (now.getTime() - lastCommunicationTime.getTime()) / (1000 * 60);
-
-    if (diffMinutes < 10) {
-      return 'green';
-    }
-    if (diffMinutes < 60) {
-      return 'yellow';
-    }
-    if(diffMinutes < 1440) {
-      return 'red';
-    }
-    return 'gray'
   }
 
   getEquipmentStatusList(): EquipmentStatus[] {

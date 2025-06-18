@@ -2,12 +2,12 @@ import { ComandoRepository } from "@/application/repositories/comando.repository
 import { BuscarComandoUseCase } from "@/application/usecase/comando/buscar-comando.usecase"
 import { BuscarUltimoSnapshotUseCase } from "@/application/usecase/comando/buscar-ultimo-snapshot.usecase"
 import { SolicitarSnapshotUseCase } from "@/application/usecase/comando/solicitar-snapshot.usecase"
-import { SolicitarWebRtcUseCase } from "@/application/usecase/comando/solicitar-webrtc.usecase"
+import { SolicitarStreamUseCase } from "@/application/usecase/comando/solicitar-stream.usecase"
 import { ComandoRepositoryImpl } from "@/infrastructure/repository/comando-impl.repository"
 
 export const enviarWebRtcProvider = {
-  provide: SolicitarWebRtcUseCase,
-  useFactory: (comandoRepository: ComandoRepository) => new SolicitarSnapshotUseCase(comandoRepository),
+  provide: SolicitarStreamUseCase,
+  useFactory: (comandoRepository: ComandoRepository) => new SolicitarStreamUseCase(comandoRepository),
   deps: [ComandoRepository]
 }
 
