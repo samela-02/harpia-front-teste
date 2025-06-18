@@ -1,6 +1,6 @@
 export interface EquipmentStatus {
   idEquipamento: string;
   dtUltimaComunicacao: Date;
-  statusColor: 'green' | 'yellow' | 'red';
+  statusColor: 'green' | 'yellow' | 'red' | 'gray';
   nome?: string;
 }

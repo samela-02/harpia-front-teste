@@ -57,7 +57,7 @@ export class MapaVeiculosPageComponent implements OnInit {
     this.atualizarStatusEquipamentoAsync();
   }
 
-  private abrirModalDetalhesEquipamento(idEquipamento: string) {
+  public abrirModalDetalhesEquipamento(idEquipamento: string) {
     this._modalService.component(ModalDetalhesEquipamentoComponent).open(idEquipamento)
   }
 
@@ -137,7 +137,7 @@ export class MapaVeiculosPageComponent implements OnInit {
     }
   }
 
-  private calculateStatusColor(lastCommunicationTime: Date): 'green' | 'yellow' | 'red' {
+  private calculateStatusColor(lastCommunicationTime: Date): 'green' | 'yellow' | 'red' | 'gray' {
     const now = new Date();
     lastCommunicationTime = new Date(lastCommunicationTime)
     const diffMinutes = (now.getTime() - lastCommunicationTime.getTime()) / (1000 * 60);
@@ -148,7 +148,10 @@ export class MapaVeiculosPageComponent implements OnInit {
     if (diffMinutes < 60) {
       return 'yellow';
     }
-    return 'red';
+    if(diffMinutes < 1440) {
+      return 'red';
+    }
+    return 'gray'
   }
 
   getEquipmentStatusList(): EquipmentStatus[] {
