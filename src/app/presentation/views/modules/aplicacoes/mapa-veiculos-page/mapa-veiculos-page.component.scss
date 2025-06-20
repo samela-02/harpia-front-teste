@@ -30,7 +30,7 @@
 }
 
 .card-info {
-  @apply w-full grid grid-cols-12 gap-4 p-3 col-span-2 bg-white dark:bg-dark-container rounded-lg shadow-md items-center;
+  @apply cursor-pointer w-full grid grid-cols-12 gap-4 p-3 col-span-2 bg-white dark:bg-dark-container rounded-lg shadow-md items-center;
 }
 
 .card-status {
@@ -46,6 +46,9 @@
 
   &.red {
     background-color: #ef4444;
+  }
+  &.gray {
+    background-color: #6b7280;
   }
 }
 

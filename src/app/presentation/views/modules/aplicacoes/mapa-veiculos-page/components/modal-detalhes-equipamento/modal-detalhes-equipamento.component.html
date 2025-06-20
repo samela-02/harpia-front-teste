@@ -54,8 +54,12 @@
               Solicitar Snapshot
             </span>
           </button>
-          <button mat-flat-button class="bg-amber-700/10 text-amber-500 disabled:cursor-not-allowed flex-center">
-            <i [class]="'la la-video'" class="text-lg"></i>
+          <button (click)="solicitarStream()" mat-flat-button class="bg-amber-700/10 text-amber-500 disabled:cursor-not-allowed flex-center">
+            @if (aguardandoSnapshot == true) {
+              <i [class]="'la la-spinner'" class="text-lg animate-spin"></i>
+            } @else {
+              <i [class]="'la la-video'" class="text-lg"></i>
+            }
             <span>
               Abrir Stream
             </span>

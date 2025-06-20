@@ -1,0 +1,20 @@
+<div class="p-2">
+  <div class="modal">
+    <div #videoContainer class="video-container">
+    </div>
+    <div class="flex flex-row gap-3 absolute top-3 px-3 py-2 right-3 bg-slate-50 rounded-3xl">
+      <button mat-mini-fab class="button-download bg-transparent shadow-none" (click)="downloadImage()"
+        #tooltip="matTooltip" matTooltip="Baixar Imagem">
+        <i [class]="'la la-save'" class="text-primary"></i>
+      </button>
+      <button mat-mini-fab class="button-close bg-transparent shadow-none" (click)="fecharModal()" #tooltip="matTooltip"
+        matTooltip="Fechar modal">
+        <i [class]="'la la-times'" class="text-primary"></i>
+      </button>
+    </div>
+    <div class="flex-center gap-2 flex-row absolute top-0 px-3 py-2 font-semibold text-sm">
+      <i [class]="'las la-camera'"></i>
+      <span>{{content?.connectionMetadata?.roomName}}</span>
+    </div>
+  </div>
+</div>
