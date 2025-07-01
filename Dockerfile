@@ -45,6 +45,7 @@ RUN mkdir -p /usr/share/nginx/html/assets
 COPY --from=build /app/dist/angular-base/browser /usr/share/nginx/html
 # Copia o arquivo de configuração customizado do Nginx para o local correto
 COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY env.template.js /usr/share/nginx/html/assets
 
 # Copia os arquivos da build do Angular do estágio anterior para o diretório do Nginx
 #COPY --from=build /app/dist/angular-base/browser /usr/share/nginx/html
