@@ -1,0 +1,16 @@
+version: "3.4"
+
+services:
+  harpia-angular:
+    build: .
+    image: harpia-angular
+    container_name: harpia-angular
+    ports:
+      - 81:80
+    environment:
+      - NPM_AUTH_TOKEN=${NPM_AUTH_TOKEN}
+    networks:
+      - network
+networks:
+  network:
+    driver: bridge
