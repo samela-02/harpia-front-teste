@@ -8,6 +8,13 @@ services:
         NPM_AUTH_TOKEN: ${NPM_AUTH_TOKEN}
     image: harpia-angular
     container_name: harpia-angular
+    environment:
+      protocol: ${PROTOCOL}
+      apiroot: ${APIROOT}
+      host: ${HOST}
+      port: ${PORT}
+      context: ${CONTEXT}
+    restart: always
     ports:
       - 81:80
     networks:
