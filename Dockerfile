@@ -48,6 +48,7 @@ COPY --from=build /app/dist/angular-base/browser /usr/share/nginx/html
 
 # Copia os arquivos de ambiente, se necessário
 COPY env.js /usr/share/nginx/html/assets/env.js
+COPY env.js /usr/share/nginx/html/public/env/env.js
 
 # Expõe a porta 80, que é a porta padrão do Nginx
 EXPOSE 80
