@@ -1,20 +1,27 @@
+# --- Estágio 1: Build do Angular ---
+# Usando node:18-alpine, uma versão LTS estável para maior compatibilidade
 FROM node:18-alpine AS build
 
-# Define o diretório de trabalho dentro do container
+# Define o diretório de trabalho dentro do contêiner
 WORKDIR /app
 
 # Declara um "build argument" para o token do NPM.
+# Este valor deve ser configurado como um Build Argument no painel do Dokploy.
 ARG NPM_AUTH_TOKEN
+
+# Debug
+RUN echo "NPM_AUTH_TOKEN: ${NPM_AUTH_TOKEN}"
 
 # Copia apenas os arquivos de definição de pacotes
 COPY package*.json ./
 
 # Cria o arquivo .npmrc dinamicamente usando o token passado como argumento.
 # A sintaxe ${NPM_AUTH_TOKEN} garante que o valor do ARG seja usado.
-RUN echo "@teste-team:registry=https://npm.pkg.github.com/" > .npmrc
+RUN echo "@tivic-team:registry=https://npm.pkg.github.com/" > .npmrc
 RUN echo "//npm.pkg.github.com/:_authToken=${NPM_AUTH_TOKEN}" >> .npmrc
 
 # Limpa o cache do npm e instala as dependências
+# O RUN a seguir falhará se NPM_AUTH_TOKEN não for passado durante o build, o que é bom.
 RUN npm install
 
 # Remove o arquivo .npmrc para não deixar o token na imagem final
@@ -27,6 +34,7 @@ COPY . .
 RUN npm run build
 
 # --- Estágio 2: Servidor de Produção (Nginx) ---
+# Inicia um novo estágio com uma imagem leve do Nginx
 FROM nginx:alpine
 
 # Remove o arquivo de configuração padrão do Nginx
