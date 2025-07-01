@@ -39,6 +39,7 @@ FROM nginx:alpine
 
 # Criar o diretório necessário
 RUN mkdir -p /usr/share/nginx/html/assets
+RUN mkdir -p /usr/share/nginx/html/public/env
 
 
 #RUN rm /etc/nginx/conf.d/default.conf
