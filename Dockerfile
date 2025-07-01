@@ -41,8 +41,8 @@ FROM nginx:alpine
 #RUN rm /etc/nginx/conf.d/default.conf
 COPY --from=build /app/dist/angular-base/browser /usr/share/nginx/html
 # Copia o arquivo de configuração customizado do Nginx para o local correto
-#COPY nginx.conf /etc/nginx/conf.d/default.conf
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
 # Copia os arquivos da build do Angular do estágio anterior para o diretório do Nginx
 #COPY --from=build /app/dist/angular-base/browser /usr/share/nginx/html
 
