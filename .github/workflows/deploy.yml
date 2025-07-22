@@ -1,0 +1,34 @@
+name: Deploy Front-end Angular com Docker
+
+on:
+  push:
+    branches:
+      - deploy
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v3
+
+      - name: Configurar chave SSH local
+        run: |
+          mkdir -p ~/.ssh
+          cp /home/tivic/.ssh/github_runner_key ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H 192.168.1.159 >> ~/.ssh/known_hosts
+
+      - name: Copiar projeto para servidor remoto
+        run: |
+          ssh -i ~/.ssh/id_rsa tivic@192.168.1.159 'rm -rf /home/tivic/front-app && mkdir -p /home/tivic/front-app'
+          scp -i ~/.ssh/id_rsa -r . tivic@192.168.1.159:/home/tivic/front-app
+
+      - name: Subir aplicação via Docker Compose
+        run: |
+          ssh -i ~/.ssh/id_rsa tivic@192.168.1.159 << 'EOF'
+            cd /home/tivic/front-app
+            docker-compose down || true
+            docker-compose up -d --build
+          EOF
