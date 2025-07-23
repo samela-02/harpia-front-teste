@@ -24,7 +24,7 @@ jobs:
       - name: Copiar projeto para servidor remoto
         run: |
           ssh -i ~/.ssh/github_runner_key tivic@192.168.1.159 'rm -rf /home/tivic/front-app && mkdir -p /home/tivic/front-app'
-          scp -i ~/.ssh/github_runner_key -r . tivic@192.168.1.159:/home/tivic/front-app
+          scp -i ~/.ssh/github_runner_key -r $GITHUB_WORKSPACE/* tivic@192.168.1.159:/home/tivic/front-app
 
       - name: Subir aplicação via Docker Compose
         run: |
