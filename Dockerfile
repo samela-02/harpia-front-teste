@@ -6,7 +6,6 @@ WORKDIR /app
 
 COPY . .
 
-COPY environment.development.ts ./src/environments/
 COPY .npmrc .npmrc
 
 RUN npm install
@@ -15,8 +14,8 @@ RUN npm run build
 FROM nginx:alpine
 
 COPY --from=build /app/dist/angular-base/browser /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/nginx.conf
-COPY env.js /usr/share/nginx/html/assets/env.js
-COPY env.js /usr/share/nginx/html/public/env/env.js
 
-EXPOSE 80
+COPY nginx.conf /etc/nginx/nginx.conf
+COPY env.template.js /usr/share/nginx/html/assets/env.template.js
+
+CMD ["/bin/sh", "-c", "envsubst < /usr/share/nginx/html/assets/env.template.js > /usr/share/nginx/html/assets/env.js && exec nginx -g 'daemon off;'"]
