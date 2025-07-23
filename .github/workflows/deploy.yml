@@ -27,9 +27,13 @@ jobs:
           scp -i ~/.ssh/github_runner_key -r $GITHUB_WORKSPACE/* tivic@192.168.1.159:/home/tivic/front-app
 
       - name: Subir aplicação via Docker Compose
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
         run: |
-          ssh -i ~/.ssh/github_runner_key tivic@192.168.1.159 << 'EOF'
+          ssh -i ~/.ssh/github_runner_key tivic@192.168.1.159 << EOF
+            export NPM_AUTH_TOKEN=$NPM_AUTH_TOKEN
             cd /home/tivic/front-app
-            docker-compose down || true
-            docker-compose up -d --build
+            docker-compose build --build-arg NPM_AUTH_TOKEN=$NPM_AUTH_TOKEN
+            docker-compose up -d
           EOF
+
