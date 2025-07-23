@@ -2,7 +2,6 @@ FROM node:22-alpine AS build
 
 WORKDIR /app
 
-# Token injetado como build-arg, gravado com segurança no .npmrc temporário
 ARG NPM_AUTH_TOKEN
 RUN echo "//npm.pkg.github.com/:_authToken=${NPM_AUTH_TOKEN}" > ~/.npmrc
 
