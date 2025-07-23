@@ -5,7 +5,7 @@ export const environment: Environment = {
   production: true,
   protocol: "http",
   apiroot: "v1",
-  host: "192.168.1.130",
+  host: "192.168.1.159",
   port: 8091,
   context: "api",
   version: packageInfo.version,
