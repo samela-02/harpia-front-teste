@@ -16,9 +16,10 @@ jobs:
       - name: Configurar chave SSH local
         run: |
           mkdir -p ~/.ssh
-          cp /home/tivic/.ssh/github_runner_key ~/.ssh/github_runner_key
-          chmod 600 ~/.ssh/github_runner_key
+          chmod 600 /home/tivic/.ssh/github_runner_key
+          ln -sf /home/tivic/.ssh/github_runner_key ~/.ssh/id_rsa
           ssh-keyscan -H 192.168.1.159 >> ~/.ssh/known_hosts
+
 
       - name: Copiar projeto para servidor remoto
         run: |
