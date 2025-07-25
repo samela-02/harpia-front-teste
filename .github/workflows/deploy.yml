@@ -1,6 +1,10 @@
 name: Deploy Front-end Angular com Docker
 
 on:
+
+  push:
+    branches:
+      - deploy
   workflow_dispatch:
     inputs:
       servidor:
