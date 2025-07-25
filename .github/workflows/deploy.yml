@@ -1,9 +1,16 @@
 name: Deploy Front-end Angular com Docker
 
 on:
-  push:
-    branches:
-      - deploy
+  workflow_dispatch:
+    inputs:
+      servidor:
+        description: 'Escolha o servidor para deploy'
+        required: true
+        default: '192.168.1.159'
+        type: choice
+        options:
+          - 192.168.1.159
+          - 192.168.1.163
 
 jobs:
   deploy:
@@ -13,28 +20,25 @@ jobs:
       - name: Checkout do código
         uses: actions/checkout@v3
 
-      - name: Configurar chave SSH local
+      - name: Configurar chave SSH
         run: |
           mkdir -p ~/.ssh
           chmod 600 /home/tivic/.ssh/github_runner_key
           ln -sf /home/tivic/.ssh/github_runner_key ~/.ssh/id_rsa
-          ssh-keyscan -H 192.168.1.159 >> ~/.ssh/known_hosts
-
+          ssh-keyscan -H ${{ github.event.inputs.servidor }} >> ~/.ssh/known_hosts
 
       - name: Copiar projeto para servidor remoto
         run: |
-          ssh -i ~/.ssh/github_runner_key tivic@192.168.1.159 'rm -rf /home/tivic/front-app && mkdir -p /home/tivic/front-app'
-          scp -i ~/.ssh/github_runner_key -r $GITHUB_WORKSPACE/* tivic@192.168.1.159:/home/tivic/front-app
+          ssh -i ~/.ssh/github_runner_key tivic@${{ github.event.inputs.servidor }} 'rm -rf /home/tivic/front-app && mkdir -p /home/tivic/front-app'
+          scp -i ~/.ssh/github_runner_key -r $GITHUB_WORKSPACE/* tivic@${{ github.event.inputs.servidor }}:/home/tivic/front-app
 
       - name: Subir aplicação via Docker Compose
         env:
           NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
         run: |
-          ssh -i ~/.ssh/github_runner_key tivic@192.168.1.159 << EOF
+          ssh -i ~/.ssh/github_runner_key tivic@${{ github.event.inputs.servidor }} << EOF
             export NPM_AUTH_TOKEN=$NPM_AUTH_TOKEN
             cd /home/tivic/front-app
             docker-compose build --build-arg NPM_AUTH_TOKEN=\$NPM_AUTH_TOKEN
             docker-compose up -d
           EOF
-
-
