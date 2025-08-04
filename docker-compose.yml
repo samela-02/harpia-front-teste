@@ -1,0 +1,14 @@
+version: "3.4"
+
+services:
+  harpia-angular:
+    image: ${DOCKER_IMAGE_NAME} 
+    container_name: harpia-angular
+    ports:
+      - "81:80" 
+    networks:
+      - network
+
+networks:
+  network:
+    driver: bridge
