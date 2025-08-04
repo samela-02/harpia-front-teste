@@ -1,45 +1,46 @@
 # --- Estágio 1: Build do Angular ---
 FROM node:18-alpine AS build
 
-# Diretório de trabalho
+# Define o diretório de trabalho
 WORKDIR /app
 
-# Build arg para token do NPM
+# Argumento para o token, que será passado pelo Jenkins
 ARG NPM_AUTH_TOKEN
 
-# Criar arquivo .npmrc com token
-RUN echo "@tivic-team:registry=https://npm.pkg.github.com/" > .npmrc && \
-    echo "//npm.pkg.github.com/:_authToken=${NPM_AUTH_TOKEN}" >> .npmrc
+# O Jenkins irá criar este arquivo .npmrc ANTES de rodar o 'docker build'
+# Ou você pode criá-lo aqui de forma segura:
+COPY .npmrc .npmrc
+RUN echo "//npm.pkg.github.com/:_authToken=${NPM_AUTH_TOKEN}" >> .npmrc
 
-# Copia arquivos de definição
+# Copia os arquivos de dependência PRIMEIRO para otimizar o cache
 COPY package*.json ./
 RUN npm install
 
-# Remove o .npmrc por segurança
+# Remove o .npmrc antes de copiar o resto do código
 RUN rm .npmrc
 
-# Copia todo o projeto (inclusive o environment gerado via Jenkins)
+# Copia TODO o código da aplicação (que o Jenkins já baixou)
 COPY . .
 
-# Build de produção
+# O Jenkins já terá gerado o arquivo environment.development.ts
+# então o COPY acima já o inclui.
+
+# Executa o build de produção
 RUN npm run build
 
 # --- Estágio 2: Servidor de Produção (Nginx) ---
 FROM nginx:alpine
 
-# Remove conf padrão e adiciona personalizada
-RUN rm /etc/nginx/conf.d/default.conf
+# Remove a configuração padrão e copia a sua
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Copia a build Angular para o Nginx
+# Copia apenas os artefatos de build do estágio anterior
 COPY --from=build /app/dist/angular-base/browser /usr/share/nginx/html
 
-# Copia arquivo de ambiente dinâmico JS, se houver
+# O env.js será gerado pelo Jenkins e copiado para a pasta correta
+# antes do build, então este COPY funciona.
 COPY env.js /usr/share/nginx/html/assets/env.js
 COPY env.js /usr/share/nginx/html/public/env/env.js
 
-# Porta padrão
 EXPOSE 80
-
-# Comando padrão do Nginx
 CMD ["nginx", "-g", "daemon off;"]
