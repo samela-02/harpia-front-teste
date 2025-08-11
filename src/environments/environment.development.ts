@@ -6,7 +6,7 @@ export const environment: Environment = {
   protocol: "http",
   apiroot: "v1",
   host: "localhost",
-  port: 8091,
+  port: 8080,
   context: "api",
   version: packageInfo.version,
 };
