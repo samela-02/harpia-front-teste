@@ -28,6 +28,7 @@ COPY . .
 # Executa o build de produção
 RUN npm run build
 
+# --- Estágio 2: Servidor de Produção (Nginx) ---
 FROM nginx:alpine
 
 # Remove a configuração padrão e copia a sua
@@ -39,7 +40,6 @@ COPY --from=build /app/dist/angular-base/browser /usr/share/nginx/html
 # O env.js será gerado pelo Jenkins e copiado para a pasta correta
 # antes do build, então este COPY funciona.
 COPY env.js /usr/share/nginx/html/assets/env.js
-COPY env.js /usr/share/nginx/html/public/env/env.js
 COPY env.js /usr/share/nginx/html/public/env/env.js
 
 EXPOSE 80
