@@ -1,0 +1,65 @@
+# Nome do Workflow
+name: CI - Build do Frontend (Angular)
+
+# Gatilhos: Roda em push ou pull request (merge) para a branch 'develop'
+on:
+  push:
+    branches: [ develop ]
+  pull_request:
+    branches: [ develop ]
+
+jobs:
+  # Nome do Job
+  build-frontend:
+    # Ponto chave: especifica que este job deve rodar no seu runner auto-hospedado
+    # Se você usou uma label específica ao configurar o runner, use-a aqui (ex: self-hosted, linux)
+    runs-on: self-hosted
+
+    steps:
+      # 1. Clona o código do repositório para o runner
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      # 2. Configura o ambiente Node.js (versão 18)
+      - name: Configurar Node.js v18
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          # Aponta para o registro de pacotes do GitHub
+          registry-url: 'https://npm.pkg.github.com'
+
+      # 3. Instala as dependências do projeto
+      # O token é passado como uma variável de ambiente que o 'setup-node' usa automaticamente
+      - name: Instalar dependências
+        run: npm install
+        env:
+          # Usa o secret configurado no repositório
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+
+      # 4. Executa o comando de build do Angular
+      - name: Executar Build
+        run: npm run build
+
+      # 5. Notificação de SUCESSO no Discord
+      # Este passo só roda se todos os anteriores tiverem sucesso (if: success())
+      - name: ✔️ Notificar Sucesso no Discord
+        if: success()
+        uses: sarisia/actions-status-discord@v1
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          status: 'success'
+          title: "Build do Frontend concluído com Sucesso!"
+          description: "O build na branch `develop` foi finalizado e o 'dist' foi gerado."
+          color: 0x00FF00 # Verde
+
+      # 6. Notificação de FALHA no Discord
+      # Este passo só roda se algum dos passos anteriores falhar (if: failure())
+      - name: ❌ Notificar Falha no Discord
+        if: failure()
+        uses: sarisia/actions-status-discord@v1
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          status: 'failure'
+          title: "Falha no Build do Frontend!"
+          description: "Ocorreu um erro durante o build na branch `develop`. Verifique os logs da Action para mais detalhes."
+          color: 0xFF0000 # Vermelho
