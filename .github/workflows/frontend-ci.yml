@@ -11,8 +11,7 @@ on:
 jobs:
   # Nome do Job
   build-frontend:
-    # Roda em um runner que tenha AMBAS as etiquetas 'self-hosted' e 'karol'.
-    # Isso está correto se você configurou seu runner com essas duas etiquetas.
+    # Roda em um runner que tenha as etiquetas 'self-hosted' e 'karol'.
     runs-on: [self-hosted, karol]
 
     steps:
@@ -28,15 +27,13 @@ jobs:
           # Aponta para o registro de pacotes do GitHub
           registry-url: 'https://npm.pkg.github.com'
 
-      # 3. (ADIÇÃO) Passo de Debug para verificar a configuração do .npmrc
-      # Este passo irá imprimir o conteúdo do arquivo .npmrc que a action 'setup-node' cria.
-      # Ajuda a confirmar que o token está sendo preparado para o npm.
+      # 3. (CORRIGIDO) Passo de Debug para verificar o .npmrc
+      # Usa a variável de ambiente para encontrar o caminho correto do arquivo
       - name: Debug - Verificar .npmrc
-        run: cat ~/.npmrc
+        run: cat $NPM_CONFIG_USERCONFIG
         shell: bash
 
       # 4. Instala as dependências do projeto
-      # O token é passado como uma variável de ambiente que o 'setup-node' usa automaticamente
       - name: Instalar dependências
         run: npm install
         env:
@@ -48,7 +45,6 @@ jobs:
         run: npm run build
 
       # 6. Notificação de SUCESSO no Discord
-      # Este passo só roda se todos os anteriores tiverem sucesso (if: success())
       - name: ✔️ Notificar Sucesso no Discord
         if: success()
         uses: sarisia/actions-status-discord@v1
@@ -60,7 +56,6 @@ jobs:
           color: 0x00FF00 # Verde
 
       # 7. Notificação de FALHA no Discord
-      # Este passo só roda se algum dos passos anteriores falhar (if: failure())
       - name: ❌ Notificar Falha no Discord
         if: failure()
         uses: sarisia/actions-status-discord@v1
