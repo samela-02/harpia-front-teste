@@ -13,7 +13,7 @@ jobs:
   build-frontend:
     # Ponto chave: especifica que este job deve rodar no seu runner auto-hospedado
     # Se você usou uma label específica ao configurar o runner, use-a aqui (ex: self-hosted, linux)
-    runs-on: self-hosted, karol
+    runs-on: [self-hosted, karol]
 
     steps:
       # 1. Clona o código do repositório para o runner
